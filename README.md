@@ -1,4 +1,4 @@
-# js-suite-sdk [ ![Codeship Status for emartech/js-suite-sdk](https://www.codeship.io/projects/4916fa40-a024-0132-279d-161c16488463/status?branch=master)](https://www.codeship.io/projects/65359)
+# js-suite-sdk [ ![Codeship Status for emartech/suite-js-sdk](https://codeship.com/projects/754d4680-a546-0132-cbce-72e52541da30/status?branch=master)](https://codeship.com/projects/66642)
 
 Simple Javascript wrapper for the Emarsys API.
 
