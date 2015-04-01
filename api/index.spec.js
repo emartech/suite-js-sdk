@@ -5,7 +5,9 @@ var ContactAPI = require('./endpoints/contact/index');
 var LanguageAPI = require('./endpoints/language/index');
 var ExternalEventAPI = require('./endpoints/externalevent/index');
 var SettingsAPI = require('./endpoints/settings/index');
-var Request = require('./../lib/request/index');
+var FlipperAPI = require('./endpoints/flipper/index');
+var Request = require('./../lib/internal-api-request/index');
+var ServiceRequest = require('./../lib/service-api-request/index');
 var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
 
@@ -18,7 +20,8 @@ describe('SuiteApi', function() {
     beforeEach(function() {
       stubRequestCreation = (function() {
         this.sandbox.stub(SuiteRequest, 'create');
-        this.sandbox.stub(SuiteRequestOptions, 'getSecureFor').returns('SuiteRequestOptionsStub');
+        this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
+        this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
     });
 
@@ -34,7 +37,9 @@ describe('SuiteApi', function() {
       stubRequestCreation();
       SuiteAPI.create({ environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true });
       expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteRequestOptionsStub');
-      expect(SuiteRequestOptions.getSecureFor).to.have.been.calledWith('environment', true);
+      expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteServiceRequestOptionsStub');
+      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environment', true);
+      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environment', true);
     });
 
 
@@ -49,7 +54,9 @@ describe('SuiteApi', function() {
       SuiteAPI.create();
 
       expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-      expect(SuiteRequestOptions.getSecureFor).to.have.been.calledWith('environmentFromEnv', false);
+      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
+      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environmentFromEnv', false);
+      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environmentFromEnv', false);
     });
 
 
@@ -62,7 +69,9 @@ describe('SuiteApi', function() {
       SuiteAPI.create();
 
       expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-      expect(SuiteRequestOptions.getSecureFor).to.have.been.calledWith('api.emarsys.net', true);
+      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
+      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('api.emarsys.net', true);
+      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('api.emarsys.net', true);
     });
 
 
@@ -73,6 +82,7 @@ describe('SuiteApi', function() {
   describe('endpoints', function() {
 
     var fakeRequest;
+    var fakeServiceRequest;
     var sdk;
     var apiKey;
     var apiSecret;
@@ -88,10 +98,15 @@ describe('SuiteApi', function() {
       this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
-      this.sandbox.stub(SuiteRequestOptions, 'getSecureFor').withArgs(environment).returns('SuiteRequestOptionsStub');
-      this.sandbox.stub(SuiteRequest, 'create').withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
+      this.sandbox.stub(FlipperAPI, 'create').returns('FromFlipperEndpointStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(environment).returns('SuiteRequestOptionsStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(environment).returns('SuiteServiceRequestOptionsStub');
+      var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
+      suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
+      suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom'};
       this.sandbox.stub(Request, 'create').withArgs('SuiteRequestStub').returns(fakeRequest);
+      this.sandbox.stub(ServiceRequest, 'create').withArgs('SuiteServiceRequestStub').returns(fakeServiceRequest);
       sdk = SuiteAPI.create({ environment: environment, apiKey: apiKey, apiSecret: apiSecret });
     });
 
@@ -123,6 +138,12 @@ describe('SuiteApi', function() {
     it('should have an SDK object with Settings endpoint', function() {
       expect(sdk.settings).to.eql('FromSettingsEndpointStub');
       expect(SettingsAPI.create).to.have.been.calledWith(fakeRequest);
+    });
+
+
+    it('should have an SDK object with Flipper endpoint', function() {
+      expect(sdk.flipper).to.eql('FromFlipperEndpointStub');
+      expect(FlipperAPI.create).to.have.been.calledWith(fakeServiceRequest);
     });
   });
 
