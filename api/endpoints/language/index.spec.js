@@ -1,6 +1,6 @@
 'use strict';
 
-var LanguageAPI = require('./index');
+var LanguageAPI = require('./');
 var apiTest = require('../../../test-helper');
 
 describe('Suite Language', function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-var ExternalEventAPI = require('./index');
+var ExternalEventAPI = require('./');
 var apiTest = require('../../../test-helper');
 
 describe('Suite External Event', function() {

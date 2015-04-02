@@ -1,6 +1,6 @@
 'use strict';
 
-var FlipperAPI = require('./index');
+var FlipperAPI = require('./');
 var sinon = require('sinon');
 var expect = require('chai').expect;
 

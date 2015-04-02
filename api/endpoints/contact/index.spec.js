@@ -1,6 +1,6 @@
 'use strict';
 
-var ContactAPI = require('./index');
+var ContactAPI = require('./');
 var apiTest = require('../../../test-helper');
 
 describe('Suite Contact', function() {

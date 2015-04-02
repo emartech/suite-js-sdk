@@ -2,27 +2,29 @@
 
 var SuiteRequest = require('escher-suiteapi-js');
 var SuiteRequestOptions = SuiteRequest.Options;
-var Request = require('./../lib/internal-api-request');
-var ServiceRequest = require('./../lib/service-api-request/index');
-var AdministratorAPI = require('./endpoints/administrator/index');
-var ContactAPI = require('./endpoints/contact/index');
-var LanguageAPI = require('./endpoints/language/index');
-var ExternalEventAPI = require('./endpoints/externalevent/index');
-var SettingsAPI = require('./endpoints/settings/index');
-var FlipperAPI = require('./endpoints/flipper/index');
+var ApiRequest = require('./../lib/api-request');
+var InternalApiRequest = require('./../lib/internal-api-request');
+var AdministratorAPI = require('./endpoints/administrator');
+var ContactAPI = require('./endpoints/contact');
+var LanguageAPI = require('./endpoints/language');
+var ExternalEventAPI = require('./endpoints/externalevent');
+var SettingsAPI = require('./endpoints/settings');
+var FlipperAPI = require('./endpoints/flipper');
 var _ = require('lodash');
 
 
 var SuiteAPI = function(options) {
   options = this._mergeWithDefaultOptions(options);
-  this._request = this._createInternalRequest(options);
-  this._serviceRequest = this._createServiceRequest(options);
-  this.administrator = AdministratorAPI.create(this._request);
-  this.contact = ContactAPI.create(this._request);
-  this.language = LanguageAPI.create(this._request);
-  this.externalEvent = ExternalEventAPI.create(this._request);
-  this.settings = SettingsAPI.create(this._request);
-  this.flipper = FlipperAPI.create(this._serviceRequest);
+  this._internalApirequest = this._createInternalApiRequest(options);
+  this._serviceApiRequest = this._createServiceApiRequest(options);
+
+  this.administrator = AdministratorAPI.create(this._internalApirequest);
+  this.contact = ContactAPI.create(this._internalApirequest);
+  this.language = LanguageAPI.create(this._internalApirequest);
+  this.externalEvent = ExternalEventAPI.create(this._internalApirequest);
+  this.settings = SettingsAPI.create(this._internalApirequest);
+  this.flipper = FlipperAPI.create(this._serviceApiRequest);
+
   this.environment = options.environment;
 };
 
@@ -30,7 +32,7 @@ var SuiteAPI = function(options) {
 SuiteAPI.prototype = {
 
   setCache: function(cacheId) {
-    this._request.setCache(cacheId);
+    this._internalApirequest.setCache(cacheId);
   },
 
 
@@ -44,17 +46,17 @@ SuiteAPI.prototype = {
   },
 
 
-  _createInternalRequest: function(options) {
+  _createInternalApiRequest: function(options) {
     var requestOptions = SuiteRequestOptions.createForInternalApi(options.environment, options.rejectUnauthorized);
     var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return Request.create(suiteRequest);
+    return InternalApiRequest.create(suiteRequest);
   },
 
 
-  _createServiceRequest: function(options) {
+  _createServiceApiRequest: function(options) {
     var requestOptions = SuiteRequestOptions.createForServiceApi(options.environment, options.rejectUnauthorized);
     var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return ServiceRequest.create(suiteRequest);
+    return ApiRequest.create(suiteRequest);
   }
 
 };

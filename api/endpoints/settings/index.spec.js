@@ -1,6 +1,6 @@
 'use strict';
 
-var SettingsAPI = require('./index');
+var SettingsAPI = require('./');
 var apiTest = require('../../../test-helper');
 
 describe('Suite Settings', function () {
