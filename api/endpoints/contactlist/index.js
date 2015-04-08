@@ -1,5 +1,6 @@
 'use strict';
 
+var util = require('util');
 var logger = require('logentries-logformat')('suite-sdk');
 
 var ContactList = function (request) {
@@ -13,6 +14,12 @@ ContactList.prototype.create = function (customerId, name, contactIds) {
     name: name,
     external_ids: contactIds
   });
+};
+
+ContactList.prototype.list = function (customerId, contactListId) {
+  var url = util.format('/contactlist/%s', contactListId);
+  logger.log('contactlist_list');
+  return this._request.get(customerId, url);
 };
 
 ContactList.create = function (request) {
