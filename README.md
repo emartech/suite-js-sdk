@@ -87,12 +87,12 @@ Set your environment variables
 After in your Codebase
 
     var SuiteAPI = require('js-suite-sdk').api;
-    var suiteAPI = SuiteApi.create();
+    var suiteAPI = SuiteAPI.create();
 
 With cache
 
     var SuiteAPI = require('js-suite-sdk').api;
-    var suiteAPI = SuiteApi.createWithCache(cacheId);
+    var suiteAPI = SuiteAPI.createWithCache(cacheId);
     
 CacheId can be anything. If you want to cache / request you can use 'koa-request-id' 
 
@@ -160,6 +160,16 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 
     suiteAPI.contact.create(customerId, payload);
 
+### Contact List
+
+#### Create
+
+    suiteAPI.contactList.create(customerId, name, contactIds);
+
+#### List
+
+    suiteAPI.contactList.list(customerId, contactListId);
+
 ### ExternalEvent
 
 #### Trigger
@@ -185,3 +195,19 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 #### Set Corporate Domains
 
     suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray);
+
+### Email
+
+#### Copy
+
+    suiteAPI.email.copy(customerId, emailId, payload);
+
+#### Launch
+
+    suiteAPI.email.launch(customerId, emailId, schedule, timezone);
+
+### Segment
+
+#### List contacts
+
+    suiteAPI.segment.listContacts(customerId, segmentId, offset, limit);
