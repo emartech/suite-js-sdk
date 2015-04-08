@@ -166,6 +166,10 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 
     suiteAPI.contactList.create(customerId, name, contactIds);
 
+#### List
+
+    suiteAPI.contactList.list(customerId, contactListId);
+
 ### ExternalEvent
 
 #### Trigger
@@ -192,10 +196,18 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 
     suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray);
 
-#### Email
+### Email
+
+#### Copy
 
     suiteAPI.email.copy(customerId, emailId, payload);
 
-#### Segment
+#### Launch
+
+    suiteAPI.email.launch(customerId, emailId, schedule, timezone);
+
+### Segment
+
+#### List contacts
 
     suiteAPI.segment.listContacts(customerId, segmentId, offset, limit);

@@ -12,6 +12,14 @@ Email.prototype.copy = function (customerId, emailId, payload) {
   return this._request.post(customerId, util.format('/email/%s/copy', emailId), payload);
 };
 
+Email.prototype.launch = function (customerId, emailId, schedule, timezone) {
+  logger.log('email_launch');
+  return this._request.post(customerId, util.format('/email/%s/launch', emailId), {
+    schedule: schedule,
+    timezone: timezone
+  });
+};
+
 Email.create = function (request) {
   return new Email(request);
 };

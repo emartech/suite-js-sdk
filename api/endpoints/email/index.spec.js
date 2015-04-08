@@ -22,4 +22,21 @@ describe('Suite Email', function() {
 
   });
 
+  it('launches an existing email', function () {
+
+    var time = Date.now();
+
+    var api = EmailAPI.create({
+      post: function (customerId, url, payload) {
+        expect(url).to.equal('/email/32/launch');
+        expect(payload).to.eql({
+          schedule: time,
+          timezone: 'Pacific/Midway'
+        });
+      }
+    });
+
+    api.launch(0, 32, time, 'Pacific/Midway');
+  });
+
 });
