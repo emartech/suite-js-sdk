@@ -160,6 +160,12 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 
     suiteAPI.contact.create(customerId, payload);
 
+### Contact List
+
+#### Create
+
+    suiteAPI.contactList.create(customerId, name, contactIds);
+
 ### ExternalEvent
 
 #### Trigger
