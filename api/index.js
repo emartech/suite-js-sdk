@@ -11,6 +11,7 @@ var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
 var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
+var SegmentAPI = require('./endpoints/segment');
 var _ = require('lodash');
 
 
@@ -22,6 +23,7 @@ var SuiteAPI = function(options) {
   this.administrator = AdministratorAPI.create(this._internalApirequest);
   this.contact = ContactAPI.create(this._internalApirequest);
   this.email = EmailAPI.create(this._internalApirequest);
+  this.segment = SegmentAPI.create(this._internalApirequest);
   this.language = LanguageAPI.create(this._internalApirequest);
   this.externalEvent = ExternalEventAPI.create(this._internalApirequest);
   this.settings = SettingsAPI.create(this._internalApirequest);
@@ -88,4 +90,5 @@ module.exports.ExternalEvent = ExternalEventAPI;
 module.exports.Settings = SettingsAPI;
 module.exports.Flipper = FlipperAPI;
 module.exports.Email = EmailAPI;
+module.exports.Segment = SegmentAPI;
 module.exports.SuiteRequestError = SuiteRequest.Error;

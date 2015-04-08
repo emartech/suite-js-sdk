@@ -3,6 +3,7 @@ var SuiteAPI = require('./');
 var AdministratorAPI = require('./endpoints/administrator');
 var ContactAPI = require('./endpoints/contact');
 var EmailAPI = require('./endpoints/email');
+var SegmentAPI = require('./endpoints/segment');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
@@ -97,6 +98,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
       this.sandbox.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
+      this.sandbox.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
       this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
@@ -125,9 +127,9 @@ describe('SuiteApi', function() {
     });
 
 
-    it('should have an SDK object with Email endpoint', function() {
-      expect(sdk.email).to.eql('FromEmailEndpointStub');
-      expect(EmailAPI.create).to.have.been.calledWith(fakeRequest);
+    it('should have an SDK object with Segment endpoint', function() {
+      expect(sdk.segment).to.eql('FromSegmentEndpointStub');
+      expect(SegmentAPI.create).to.have.been.calledWith(fakeRequest);
     });
 
 

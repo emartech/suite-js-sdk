@@ -189,3 +189,7 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 #### Email
 
     suiteAPI.email.copy(customerId, emailId, payload);
+
+#### Segment
+
+    suiteAPI.segment.listContacts(customerId, segmentId, offset, limit);
