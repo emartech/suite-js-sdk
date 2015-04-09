@@ -4,7 +4,7 @@ Simple Javascript wrapper for the Emarsys API.
 
 ## Installation
 
-    npm install --save js-suite-sdk
+    npm install --save suite-js-sdk
 
 ## Develop
 
@@ -38,7 +38,7 @@ Set your environment variables
 
 ### Usage
 
-    var middleware = require('js-suite-sdk').authentication.koaMiddleware.getMiddleware();
+    var middleware = require('suite-js-sdk').authentication.koaMiddleware.getMiddleware();
     
 If the authentication fails it throws an error with 401 code.
 If the authentication success it decorates the request with a validatedData property. It contains the signed parameters.
@@ -47,7 +47,7 @@ If the authentication success it decorates the request with a validatedData prop
 
 ### Configuration
     
-    var middleware = require('js-suite-sdk').translations.koaMiddleware.decorateRenderWithTranslations();
+    var middleware = require('suite-js-sdk').translations.koaMiddleware.decorateRenderWithTranslations();
 
 The middleware use 'validatedData' from the request. 'validatedData' must contains an 'environment' property. 
 If you want to load an admins language then 'validatedData' must contains a 'customer_id' and an 'admin_id' properties.
@@ -86,12 +86,12 @@ Set your environment variables
 
 After in your Codebase
 
-    var SuiteAPI = require('js-suite-sdk').api;
+    var SuiteAPI = require('suite-js-sdk').api;
     var suiteAPI = SuiteAPI.create();
 
 With cache
 
-    var SuiteAPI = require('js-suite-sdk').api;
+    var SuiteAPI = require('suite-js-sdk').api;
     var suiteAPI = SuiteAPI.createWithCache(cacheId);
     
 CacheId can be anything. If you want to cache / request you can use 'koa-request-id' 
