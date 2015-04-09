@@ -11,6 +11,7 @@ describe('Suite Contact List', function() {
       post: function (customerId, url, payload) {
         expect(url).to.equal('/contactlist');
         expect(payload).to.eql({
+          key_id: 'id',
           name: 'new fancy list',
           external_ids: [1, 2]
         })
