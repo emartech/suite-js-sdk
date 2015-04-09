@@ -202,6 +202,10 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 
     suiteAPI.email.copy(customerId, emailId, payload);
 
+#### Update source
+
+    suiteAPI.email.updateSource(customerId, emailId, payload);
+
 #### Launch
 
     suiteAPI.email.launch(customerId, emailId, schedule, timezone);
