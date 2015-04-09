@@ -11,6 +11,7 @@ ContactList.prototype.create = function (customerId, name, contactIds) {
   var url = '/contactlist';
   logger.log('contactlist_create');
   return this._request.post(customerId, url, {
+    key_id: 'id',
     name: name,
     external_ids: contactIds
   });
