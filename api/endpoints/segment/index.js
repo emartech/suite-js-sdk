@@ -18,6 +18,12 @@ Segment.prototype.listContacts = function (customerId, segmentId, offset, limit)
   return this._request.get(customerId, url);
 };
 
+Segment.prototype.listSegments = function (customerId) {
+  var url = '/filter';
+  logger.log('segment_list');
+  return this._request.get(customerId, url);
+};
+
 Segment.create = function (request) {
   return new Segment(request);
 };

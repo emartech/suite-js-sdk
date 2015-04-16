@@ -1,9 +1,19 @@
 'use strict';
 
 var expect = require('chai').expect;
+var apiTest = require('../../../test-helper');
 var SegmentAPI = require('./');
 
-describe('Suite Segment', function() {
+describe.only('Suite Segment', function() {
+
+  var sdkMethods = {
+    listSegments: {
+      method: 'get',
+      expectedUrl: '/filter'
+    }
+  };
+
+  apiTest.testSDKMethodResponse(SegmentAPI, sdkMethods);
 
   it('list contacts in a segment', function () {
 

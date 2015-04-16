@@ -215,3 +215,7 @@ CacheId can be anything. If you want to cache / request you can use 'koa-request
 #### List contacts
 
     suiteAPI.segment.listContacts(customerId, segmentId, offset, limit);
+
+#### List contacts
+
+    suiteAPI.segment.listSegments(customerId);
