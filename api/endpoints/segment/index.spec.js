@@ -16,4 +16,15 @@ describe('Suite Segment', function() {
     api.listContacts(0, 10, 0, 100);
   });
 
+  it('list segments', function () {
+
+    var api = SegmentAPI.create({
+      get: function (customerId, url) {
+        expect(url).to.equal('/filter');
+      }
+    });
+
+    api.listSegments(1);
+  });
+
 });
