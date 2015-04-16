@@ -1,9 +1,19 @@
 'use strict';
 
 var expect = require('chai').expect;
+var apiTest = require('../../../test-helper');
 var SegmentAPI = require('./');
 
-describe('Suite Segment', function() {
+describe.only('Suite Segment', function() {
+
+  var sdkMethods = {
+    listSegments: {
+      method: 'get',
+      expectedUrl: '/filter'
+    }
+  };
+
+  apiTest.testSDKMethodResponse(SegmentAPI, sdkMethods);
 
   it('list contacts in a segment', function () {
 
@@ -14,20 +24,6 @@ describe('Suite Segment', function() {
     });
 
     api.listContacts(0, 10, 0, 100);
-  });
-
-  it('list segments', function () {
-
-    var cId = 1;
-
-    var api = SegmentAPI.create({
-      get: function (customerId, url) {
-        expect(customerId).to.equal(cId);
-        expect(url).to.equal('/filter');
-      }
-    });
-
-    api.listSegments(cId);
   });
 
 });
