@@ -18,13 +18,16 @@ describe('Suite Segment', function() {
 
   it('list segments', function () {
 
+    var cId = 1;
+
     var api = SegmentAPI.create({
       get: function (customerId, url) {
+        expect(customerId).to.equal(cId);
         expect(url).to.equal('/filter');
       }
     });
 
-    api.listSegments(1);
+    api.listSegments(cId);
   });
 
 });
