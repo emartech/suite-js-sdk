@@ -2,8 +2,18 @@
 
 var expect = require('chai').expect;
 var EmailAPI = require('./');
+var apiTest = require('../../../test-helper');
 
 describe('Suite Email', function() {
+
+  var sdkMethods = {
+    list: {
+      method: 'get',
+      expectedUrl: '/email'
+    }
+  };
+
+  apiTest.testSDKMethodResponse(EmailAPI, sdkMethods);
 
   it('copies an existing email', function () {
 
