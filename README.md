@@ -96,126 +96,144 @@ With cache
     
 CacheId can be anything. If you want to cache / request you can use 'koa-request-id' 
 
+### Options
+
+Each SDK methods accepts an additional options object as the last argument.
+
+```
+{
+    rawResponse: true
+}
+```
+
+Supported option properties:
+
+* `rawResponse`: the SDK method returns not just the data from the response, but all the status codes as well
+
 ### Administrators
 
 #### List
 
-    suiteAPI.administrator.getAdministrators(customerId);
+    suiteAPI.administrator.getAdministrators(customerId, options);
 
 #### Get
 
-    suiteAPI.administrator.getAdministrator(customerId, adminId);
+    suiteAPI.administrator.getAdministrator(customerId, adminId, options);
 
 #### Get By Name
 
-    suiteAPI.administrator.getAdministratorByName(customerId, adminName);
+    suiteAPI.administrator.getAdministratorByName(customerId, adminName, options);
 
 #### Patch
 
-    suiteAPI.administrator.patchAdministrator(customerId, adminId, payload);
+    suiteAPI.administrator.patchAdministrator(customerId, adminId, payload, options);
 
 #### Create
 
-    suiteAPI.administrator.createAdministrator(customerId, payload);
+    suiteAPI.administrator.createAdministrator(customerId, payload, options);
 
 #### Delete
 
-    suiteAPI.administrator.deleteAdministrator(customerId, adminId, successorId);
+    suiteAPI.administrator.deleteAdministrator(customerId, adminId, successorId, options);
     
 #### Disable
 
-    suiteAPI.administrator.disableAdministrator(customerId, adminId);
+    suiteAPI.administrator.disableAdministrator(customerId, adminId, options);
     
 #### Enable
 
-    suiteAPI.administrator.enableAdministrator(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.enableAdministrator(customerId, adminId, additionalDataToModify, options);
     
 #### Get Interface Languages
 
-    suiteAPI.administrator.getInterfaceLanguages(customerId);
+    suiteAPI.administrator.getInterfaceLanguages(customerId, options);
     
 #### Get Access Levels
 
-    suiteAPI.administrator.getAccessLevels(customerId);
+    suiteAPI.administrator.getAccessLevels(customerId, options);
     
 #### Promote to Superadmin
 
-    suiteAPI.administrator.promoteToSuperadmin(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.promoteToSuperadmin(customerId, adminId, additionalDataToModify, options);
 
 #### Create Administrator
 
-    suiteAPI.administrator.createAdministrator(customerId, additionalDataToModify);
+    suiteAPI.administrator.createAdministrator(customerId, additionalDataToModify, options);
 
 #### Create Superadmin
 
-    suiteAPI.administrator.createSuperadmin(customerId, additionalDataToModify);
+    suiteAPI.administrator.createSuperadmin(customerId, additionalDataToModify, options);
     
 #### Invite Existing Administrator
 
-    suiteAPI.administrator.inviteExistingAdministrator(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.inviteExistingAdministrator(customerId, adminId, additionalDataToModify, options);
     
 ### Contact
 
 #### Create
 
-    suiteAPI.contact.create(customerId, payload);
+    suiteAPI.contact.create(customerId, payload, options);
 
 ### Contact List
 
 #### Create
 
-    suiteAPI.contactList.create(customerId, name, contactIds);
+    suiteAPI.contactList.create(customerId, name, contactIds, options);
 
 #### List
 
-    suiteAPI.contactList.list(customerId, contactListId);
+    suiteAPI.contactList.list(customerId, contactListId, options);
 
 ### ExternalEvent
 
 #### Trigger
 
-    suiteAPI.externalEvent.trigger(customerId, eventId, payload);
+    suiteAPI.externalEvent.trigger(customerId, eventId, payload, options);
 
 ### Language
 
 #### Translate
 
-    suiteAPI.language.translate(customerId, languageId);
+    suiteAPI.language.translate(customerId, languageId, options);
 
 ### Settings
 
 #### Get
 
-    suiteAPI.settings.getSettings(customerId);
+    suiteAPI.settings.getSettings(customerId, options);
 
 #### Get Corporate Domains
 
-    suiteAPI.settings.getCorporateDomains(customerId);
+    suiteAPI.settings.getCorporateDomains(customerId, options);
 
 #### Set Corporate Domains
 
-    suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray);
+    suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray, options);
 
 ### Email
 
 #### Copy
 
-    suiteAPI.email.copy(customerId, emailId, payload);
+    suiteAPI.email.copy(customerId, emailId, payload, options);
 
 #### Update source
 
-    suiteAPI.email.updateSource(customerId, emailId, payload);
+    suiteAPI.email.updateSource(customerId, emailId, payload, options);
 
 #### Launch
 
-    suiteAPI.email.launch(customerId, emailId, schedule, timezone);
+    suiteAPI.email.launch(customerId, emailId, schedule, timezone, options);
+
+#### List
+
+    suiteAPI.email.list(customerId, options);
 
 ### Segment
 
 #### List contacts
 
-    suiteAPI.segment.listContacts(customerId, segmentId, offset, limit);
+    suiteAPI.segment.listContacts(customerId, segmentId, offset, limit, options);
 
 #### List contacts
 
-    suiteAPI.segment.listSegments(customerId);
+    suiteAPI.segment.listSegments(customerId, options);
