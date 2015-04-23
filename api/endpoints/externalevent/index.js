@@ -8,9 +8,9 @@ var ExternalEvent = function(request) {
 
 ExternalEvent.prototype = {
 
-  trigger: function(customerId, eventId, payload) {
+  trigger: function(customerId, eventId, payload, options) {
     logger.log('externalevent_trigger');
-    return this._request.post(customerId, '/event/' + eventId + '/trigger', payload);
+    return this._request.post(customerId, '/event/' + eventId + '/trigger', payload, options);
   }
 
 };
