@@ -9,21 +9,21 @@ var Settings = function (request) {
 
 Settings.prototype = {
 
-  getSettings: function(customerId) {
+  getSettings: function(customerId, options) {
     logger.log('settings_getSettings');
-    return this._request.get(customerId, '/settings');
+    return this._request.get(customerId, '/settings', options);
   },
 
 
-  getCorporateDomains: function (customerId) {
+  getCorporateDomains: function (customerId, options) {
     logger.log('settings_get-corporate-domains');
-    return this._request.get(customerId, '/settings/corporatedomain');
+    return this._request.get(customerId, '/settings/corporatedomain', options);
   },
 
 
-  setCorporateDomains: function (customerId, domains) {
+  setCorporateDomains: function (customerId, domains, options) {
     logger.log('settings_set-corporate-domains');
-    return this._request.put(customerId, '/settings/corporatedomain', { domains: domains });
+    return this._request.put(customerId, '/settings/corporatedomain', { domains: domains }, options);
   }
 
 };
