@@ -10,18 +10,18 @@ var Segment = function (request) {
   this._request = request;
 };
 
-Segment.prototype.listContacts = function (customerId, segmentId, offset, limit) {
+Segment.prototype.listContacts = function (customerId, segmentId, offset, limit, options) {
   offset = offset || OFFSET;
   limit = limit || LIMIT;
   var url = util.format('/filter/%s/contacts/limit=%s&offset=%s', segmentId, limit, offset);
   logger.log('segment_list_contacts');
-  return this._request.get(customerId, url);
+  return this._request.get(customerId, url, options);
 };
 
-Segment.prototype.listSegments = function (customerId) {
+Segment.prototype.listSegments = function (customerId, options) {
   var url = '/filter';
   logger.log('segment_list');
-  return this._request.get(customerId, url);
+  return this._request.get(customerId, url, options);
 };
 
 Segment.create = function (request) {

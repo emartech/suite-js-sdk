@@ -7,20 +7,20 @@ var ContactList = function (request) {
   this._request = request;
 };
 
-ContactList.prototype.create = function (customerId, name, contactIds) {
+ContactList.prototype.create = function (customerId, name, contactIds, options) {
   var url = '/contactlist';
   logger.log('contactlist_create');
   return this._request.post(customerId, url, {
     key_id: 'id',
     name: name,
     external_ids: contactIds
-  });
+  }, options);
 };
 
-ContactList.prototype.list = function (customerId, contactListId) {
+ContactList.prototype.list = function (customerId, contactListId, options) {
   var url = util.format('/contactlist/%s', contactListId);
   logger.log('contactlist_list');
-  return this._request.get(customerId, url);
+  return this._request.get(customerId, url, options);
 };
 
 ContactList.create = function (request) {

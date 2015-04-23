@@ -8,10 +8,10 @@ var Language = function(request) {
 
 Language.prototype = {
 
-  translate: function(customerId, language) {
+  translate: function(customerId, language, options) {
     logger.log('language_translate');
     var languagePostfix = language ? '/' + language : '';
-    return this._request.get(customerId, '/language/translate' + languagePostfix);
+    return this._request.get(customerId, '/language/translate' + languagePostfix, options);
   }
 
 };
