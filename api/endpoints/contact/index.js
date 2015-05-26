@@ -8,9 +8,9 @@ var Contact = function(request) {
 
 Contact.prototype = {
 
-  create: function(customerId, payload) {
+  create: function(customerId, payload, options) {
     logger.log('contact_create');
-    return this._request.post(customerId, '/contact', payload);
+    return this._request.post(customerId, '/contact', payload, options);
   }
 
 };

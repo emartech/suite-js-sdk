@@ -15,15 +15,15 @@ var Administrator = function(request) {
 
 Administrator.prototype = {
 
-  getAdministrators: function(customerId) {
+  getAdministrators: function(customerId, options) {
     logger.log('administrator_getAdministrators');
-    return this._request.get(customerId, '/administrator');
+    return this._request.get(customerId, '/administrator', options);
   },
 
 
-  getSuperadmin: function(customerId) {
+  getSuperadmin: function(customerId, options) {
     logger.log('administrator_getSuperadmin');
-    return this.getAdministrators(customerId).then(function(response) {
+    return this.getAdministrators(customerId, options).then(function(response) {
       var firstSuperadmin = new AdminList(response).getFirstSuperadministrator();
       if (firstSuperadmin) return firstSuperadmin;
 
@@ -32,9 +32,9 @@ Administrator.prototype = {
   },
 
 
-  getAdministrator: function(customerId, adminId) {
+  getAdministrator: function(customerId, adminId, options) {
     logger.log('administrator_getAdministrator');
-    return this.getAdministrators(customerId).then(function(response) {
+    return this.getAdministrators(customerId, options).then(function(response) {
       var firstAdmin = new AdminList(response).getFirstById(adminId);
       if (firstAdmin) return firstAdmin;
 
@@ -43,9 +43,9 @@ Administrator.prototype = {
   },
 
 
-  getAdministratorByName: function(customerId, adminName) {
+  getAdministratorByName: function(customerId, adminName, options) {
     logger.log('administrator_getAdministrator');
-    return this.getAdministrators(customerId).then(function(response) {
+    return this.getAdministrators(customerId, options).then(function(response) {
       var firstAdmin = new AdminList(response).getFirstByName(adminName);
       if (firstAdmin) return firstAdmin;
 
@@ -54,32 +54,32 @@ Administrator.prototype = {
   },
 
 
-  getInterfaceLanguages: function(customerId) {
+  getInterfaceLanguages: function(customerId, options) {
     logger.log('administrator_getInterfaceLanguages');
-    return this._request.get(customerId, '/administrator/getinterfacelanguages');
+    return this._request.get(customerId, '/administrator/getinterfacelanguages', options);
   },
 
 
-  getLanguages: function(customerId, language) {
+  getLanguages: function(customerId, language, options) {
     logger.log('administrator_getLanguages');
     if (!language) language = 'en';
-    return this._request.get(customerId, '/language/translate/' + language);
+    return this._request.get(customerId, '/language/translate/' + language, options);
   },
 
 
-  getAccessLevels: function(customerId) {
+  getAccessLevels: function(customerId, options) {
     logger.log('administrator_getAccess');
-    return this._request.get(customerId, '/administrator/getaccesslevels');
+    return this._request.get(customerId, '/administrator/getaccesslevels', options);
   },
 
 
-  patchAdministrator: function(customerId, adminId, payload) {
+  patchAdministrator: function(customerId, adminId, payload, options) {
     logger.log('administrator_patchAdministrator');
-    return this._request.post(customerId, '/administrator/' + adminId + '/patch', payload);
+    return this._request.post(customerId, '/administrator/' + adminId + '/patch', payload, options);
   },
 
 
-  createAdministrator: function(customerId, additionalDataToModify) {
+  createAdministrator: function(customerId, additionalDataToModify, options) {
     logger.log('admin_createAdmin');
     if (!additionalDataToModify) additionalDataToModify = {};
 
@@ -95,11 +95,11 @@ Administrator.prototype = {
       disabled: 1
     });
 
-    return this._request.post(customerId, '/administrator/', dataToSend);
+    return this._request.post(customerId, '/administrator/', dataToSend, options);
   },
 
 
-  inviteExistingAdministrator: function(customerId, adminId, additionalDataToModify) {
+  inviteExistingAdministrator: function(customerId, adminId, additionalDataToModify, options) {
     logger.log('admin_inviteExistingAdministrator');
     if (!additionalDataToModify) additionalDataToModify = {};
 
@@ -109,26 +109,26 @@ Administrator.prototype = {
       password: this._generatePassword()
     });
 
-    return this.patchAdministrator(customerId, adminId, dataToSend);
+    return this.patchAdministrator(customerId, adminId, dataToSend, options);
   },
 
 
-  createSuperadmin: function(customerId, additionalDataToModify) {
+  createSuperadmin: function(customerId, additionalDataToModify, options) {
     var data = _.extend({}, additionalDataToModify, { superadmin: 1 });
-    return this.createAdministrator(customerId, data);
+    return this.createAdministrator(customerId, data, options);
   },
 
 
-  promoteToSuperadmin: function(customerId, adminId, additionalDataToModify) {
+  promoteToSuperadmin: function(customerId, adminId, additionalDataToModify, options) {
     var data = _.extend({}, additionalDataToModify, {
       superadmin: 1,
       access_level: 0
     });
-    return this.inviteExistingAdministrator(customerId, adminId, data);
+    return this.inviteExistingAdministrator(customerId, adminId, data, options);
   },
 
 
-  enable: function(customerId, adminId, additionalDataToModify) {
+  enable: function(customerId, adminId, additionalDataToModify, options) {
     logger.log('admin_enable');
     if (!additionalDataToModify) additionalDataToModify = {};
     var dataToSend = _.extend({}, additionalDataToModify, {
@@ -136,28 +136,28 @@ Administrator.prototype = {
       last_verification_action_date: dateHelper.getCurrentDate()
     });
 
-    return this.patchAdministrator(customerId, adminId, dataToSend);
+    return this.patchAdministrator(customerId, adminId, dataToSend, options);
   },
 
 
-  disableAdministrator: function(customerId, adminId) {
+  disableAdministrator: function(customerId, adminId, options) {
     logger.log('admin_disable');
 
     return this.patchAdministrator(customerId, adminId, {
       disabled: 1,
       last_verification_action_date: dateHelper.getCurrentDate()
-    });
+    }, options);
   },
 
 
-  deleteAdministrator: function(customerId, adminId, successorId) {
+  deleteAdministrator: function(customerId, adminId, successorId, options) {
     logger.log('admin_delete');
     var payload = {
       administratorId: adminId,
       successor_administrator_id: successorId
     };
 
-    return this._request.post(customerId, '/administrator/' + adminId + '/delete', payload);
+    return this._request.post(customerId, '/administrator/' + adminId + '/delete', payload, options);
   },
 
 
