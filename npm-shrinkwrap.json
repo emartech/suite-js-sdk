@@ -1,6 +1,6 @@
 {
   "name": "suite-js-sdk",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "dependencies": {
     "bluebird": {
       "version": "2.9.13",
