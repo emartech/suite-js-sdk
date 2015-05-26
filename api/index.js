@@ -13,7 +13,7 @@ var SettingsAPI = require('./endpoints/settings');
 var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
 var SegmentAPI = require('./endpoints/segment');
-var KeyPool = require('../lib/key-pool');
+var KeyPool = require('escher-keypool');
 var _ = require('lodash');
 
 
