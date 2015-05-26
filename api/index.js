@@ -13,6 +13,7 @@ var SettingsAPI = require('./endpoints/settings');
 var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
 var SegmentAPI = require('./endpoints/segment');
+var KeyPool = require('../lib/key-pool');
 var _ = require('lodash');
 
 
@@ -43,10 +44,8 @@ SuiteAPI.prototype = {
 
 
   _mergeWithDefaultOptions: function(options) {
-    return _.extend({}, {
+    return _.extend({}, this._apiKeySecret(), {
       environment: process.env.SUITE_API_ENVIRONMENT || SuiteAPI.API_PROXY_URL,
-      apiKey: process.env.SUITE_API_KEY,
-      apiSecret: process.env.SUITE_API_SECRET,
       rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED !== 'false'
     }, options);
   },
@@ -63,7 +62,29 @@ SuiteAPI.prototype = {
     var requestOptions = SuiteRequestOptions.createForServiceApi(options.environment, options.rejectUnauthorized);
     var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
     return ApiRequest.create(suiteRequest);
+  },
+
+
+  _apiKeySecret: function() {
+    var apiKey = process.env.SUITE_API_KEY;
+    var apiSecret = process.env.SUITE_API_SECRET;
+
+    if (apiSecret && apiKey) return { apiKey: apiKey, apiSecret: apiSecret };
+    if (process.env.KEY_POOL) return this._apiKeySecretFromKeyPool();
+
+    return { apiKey: undefined, apiSecret: undefined };
+  },
+
+
+  _apiKeySecretFromKeyPool: function() {
+    var fromKeyPool = new KeyPool(process.env.KEY_POOL).getActiveKey(process.env.SUITE_API_CREDENTIAL_SCOPE);
+
+    return {
+      apiKey: fromKeyPool.keyId,
+      apiSecret: fromKeyPool.secret
+    };
   }
+
 
 };
 

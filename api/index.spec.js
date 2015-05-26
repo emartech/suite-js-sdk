@@ -32,6 +32,8 @@ describe('SuiteApi', function() {
       delete process.env.SUITE_API_KEY;
       delete process.env.SUITE_API_SECRET;
       delete process.env.SUITE_API_REJECT_UNAUTHORIZED;
+      delete process.env.KEY_POOL;
+      delete process.env.SUITE_API_CREDENTIAL_SCOPE;
     });
 
 
@@ -45,37 +47,79 @@ describe('SuiteApi', function() {
     });
 
 
-    it('should return a new instance with configuration from env variables if environment and key data is not provided', function() {
-      process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-      process.env.SUITE_API_KEY = 'apiKeyFromEnv';
-      process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
-      process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+    describe('environment and key data is not provided', function() {
 
-      stubRequestCreation();
+      describe('keypool provided but api key and api secret not', function() {
 
-      SuiteAPI.create();
+        it('should return a new instance with configuration from key pool', function() {
+          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
+          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+          process.env.KEY_POOL = JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]);
 
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environmentFromEnv', false);
-      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environmentFromEnv', false);
+          stubRequestCreation();
+
+          SuiteAPI.create();
+
+          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteRequestOptionsStub');
+          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+        });
+
+
+        it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
+          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
+          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+          process.env.SUITE_API_CREDENTIAL_SCOPE = 'suite_noc';
+          process.env.KEY_POOL = JSON.stringify([
+            { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
+            { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
+          ]);
+
+          stubRequestCreation();
+
+          SuiteAPI.create();
+
+          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteRequestOptionsStub');
+          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+        });
+
+      });
+
+
+      it('should return a new instance with configuration from env variables', function() {
+        process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
+        process.env.SUITE_API_KEY = 'apiKeyFromEnv';
+        process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
+        process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+
+        stubRequestCreation();
+
+        SuiteAPI.create();
+
+        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
+        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
+        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environmentFromEnv', false);
+        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environmentFromEnv', false);
+      });
+
     });
 
+    describe('environment is not provided from any source', function() {
 
-    it('should return a new instance with API proxy if environment is not provided from any source', function() {
-      process.env.SUITE_API_KEY = 'apiKeyFromEnv';
-      process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
+      it('should return a new instance with API proxy', function() {
+        process.env.SUITE_API_KEY = 'apiKeyFromEnv';
+        process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
 
-      stubRequestCreation();
+        stubRequestCreation();
 
-      SuiteAPI.create();
+        SuiteAPI.create();
 
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('api.emarsys.net', true);
-      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('api.emarsys.net', true);
+        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
+        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
+        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('api.emarsys.net', true);
+        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('api.emarsys.net', true);
+      });
+
     });
-
 
   });
 
