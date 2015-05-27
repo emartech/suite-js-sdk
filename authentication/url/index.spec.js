@@ -152,6 +152,38 @@ describe('Suite API authentication', function() {
 
     });
 
+
+    describe('with escher secret and keypool environment variable', function() {
+
+      beforeEach(function() {
+        process.env.SUITE_ESCHER_SECRET = 'testEscherSecretFromEnv';
+        process.env.KEY_POOL = '[{"keyId":"suite_user-management_v1","secret":"MMQLFS9JpUj3MoGdDn9I0WsjLImPIkR9","acceptOnly":0}]';
+      });
+
+      afterEach(function() {
+        delete process.env.SUITE_ESCHER_SECRET;
+        delete process.env.KEY_POOL;
+      });
+
+      it('should use secret from escher secret environment variable', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+        expect(fakeEscher.authenticate.lastCall.args[1]()).to.eql('testEscherSecretFromEnv');
+      });
+
+    });
+
+
+    describe('without escher secret and keypool environment variable', function() {
+
+      it('should use an undefined secret', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+        expect(fakeEscher.authenticate.lastCall.args[1]()).to.be.undefined;
+      });
+
+    });
+
   });
 
 });

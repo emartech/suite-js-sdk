@@ -24,8 +24,7 @@ SuiteSignedUrlAuthenticator.prototype = {
 
   authenticate: function(url, host) {
     try {
-      var getSecretFn = this.escherSecret ? this._getSecret.bind(this) : this._getSecretFromKeypool();
-      this.escher.authenticate(this._getAuthParams(url, host), getSecretFn);
+      this.escher.authenticate(this._getAuthParams(url, host), this._getKeyDb());
     } catch (ex) {
       throw new Error('Escher authentication');
     }
@@ -43,13 +42,15 @@ SuiteSignedUrlAuthenticator.prototype = {
   },
 
 
-  _getSecret: function() {
-    return this.escherSecret;
+  _getKeyDb: function() {
+    if (this.escherSecret) return this._getSecret.bind(this);
+    if (process.env.KEY_POOL) return new KeyPool(process.env.KEY_POOL).getKeyDb();
+    return function() {};
   },
 
 
-  _getSecretFromKeypool: function() {
-    return new KeyPool(process.env.KEY_POOL).getKeyDb();
+  _getSecret: function() {
+    return this.escherSecret;
   }
 
 };
