@@ -77,7 +77,7 @@ SuiteAPI.prototype = {
 
 
   _apiKeySecretFromKeyPool: function() {
-    var fromKeyPool = new KeyPool(process.env.KEY_POOL).getActiveKey(process.env.SUITE_API_CREDENTIAL_SCOPE);
+    var fromKeyPool = new KeyPool(process.env.KEY_POOL).getActiveKey(process.env.SUITE_API_KEY_ID);
 
     return {
       apiKey: fromKeyPool.keyId,

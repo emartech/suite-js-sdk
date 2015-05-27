@@ -33,7 +33,7 @@ describe('SuiteApi', function() {
       delete process.env.SUITE_API_SECRET;
       delete process.env.SUITE_API_REJECT_UNAUTHORIZED;
       delete process.env.KEY_POOL;
-      delete process.env.SUITE_API_CREDENTIAL_SCOPE;
+      delete process.env.SUITE_API_KEY_ID;
     });
 
 
@@ -68,7 +68,7 @@ describe('SuiteApi', function() {
         it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
           process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
           process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
-          process.env.SUITE_API_CREDENTIAL_SCOPE = 'suite_noc';
+          process.env.SUITE_API_KEY_ID = 'suite_noc';
           process.env.KEY_POOL = JSON.stringify([
             { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
             { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
