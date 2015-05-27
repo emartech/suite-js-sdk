@@ -2,6 +2,7 @@
 
 var Escher = require('escher-auth');
 var _ = require('lodash');
+var KeyPool = require('escher-keypool');
 
 
 var SuiteSignedUrlAuthenticator = function(options) {
@@ -23,7 +24,8 @@ SuiteSignedUrlAuthenticator.prototype = {
 
   authenticate: function(url, host) {
     try {
-      this.escher.authenticate(this._getAuthParams(url, host), this._getSecret.bind(this));
+      var getSecretFn = this.escherSecret ? this._getSecret.bind(this) : this._getSecretFromKeypool();
+      this.escher.authenticate(this._getAuthParams(url, host), getSecretFn);
     } catch (ex) {
       throw new Error('Escher authentication');
     }
@@ -43,6 +45,11 @@ SuiteSignedUrlAuthenticator.prototype = {
 
   _getSecret: function() {
     return this.escherSecret;
+  },
+
+
+  _getSecretFromKeypool: function() {
+    return new KeyPool(process.env.KEY_POOL).getKeyDb();
   }
 
 };

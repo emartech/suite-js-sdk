@@ -5,6 +5,7 @@ var _ = require('lodash');
 var sinon = require('sinon');
 var Escher = require('escher-auth');
 var SuiteSignedUrlAuthenticator = require('./');
+var KeyPool = require('escher-keypool');
 
 
 describe('Suite API authentication', function() {
@@ -73,35 +74,82 @@ describe('Suite API authentication', function() {
   describe('without options', function() {
 
     beforeEach(function() {
-      process.env.SUITE_ESCHER_SECRET = 'testEscherSecretFromEnv';
       process.env.SUITE_ESCHER_CREDENTIAL_SCOPE = 'testEscherCredentialScoperFromEnv';
     });
 
     afterEach(function() {
-      delete process.env.SUITE_ESCHER_SECRET;
       delete process.env.SUITE_ESCHER_CREDENTIAL_SCOPE;
     });
 
 
-    it('should use credential scope from environment variable', function() {
-      var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+    describe('with key pool environment variable', function() {
 
-      suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+      var keyId;
 
-      expect(Escher.create).to.have.been.calledWith({
-        credentialScope: 'testEscherCredentialScoperFromEnv',
-        vendorKey: 'EMS',
-        algoPrefix: 'EMS'
+      beforeEach(function() {
+        keyId = 'suite_user-management_v1';
+        process.env.KEY_POOL = '[{"keyId":"' + keyId +'","secret":"MMQLFS9JpUj3MoGdDn9I0WsjLImPIkR9","acceptOnly":0}]';
       });
+
+      afterEach(function() {
+        delete process.env.KEY_POOL;
+      });
+
+      it('should use secret from key pool', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+
+        var keydbFromKeypool = new KeyPool(process.env.KEY_POOL).getKeyDb();
+        expect(fakeEscher.authenticate.lastCall.args[1](keyId)).to.eql(keydbFromKeypool(keyId));
+      });
+
+
+      it('should use credential scope from environment variable', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+
+        expect(Escher.create).to.have.been.calledWith({
+          credentialScope: 'testEscherCredentialScoperFromEnv',
+          vendorKey: 'EMS',
+          algoPrefix: 'EMS'
+        });
+      });
+
     });
 
 
-    it('should use secret from environment variable', function() {
-      var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+    describe('with suite escher secret environment variable', function() {
 
-      suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+      beforeEach(function() {
+        process.env.SUITE_ESCHER_SECRET = 'testEscherSecretFromEnv';
+      });
 
-      expect(fakeEscher.authenticate.lastCall.args[1]()).to.eql('testEscherSecretFromEnv');
+      afterEach(function() {
+        delete process.env.SUITE_ESCHER_SECRET;
+      });
+
+      it('should use secret from environment variable', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+
+        expect(fakeEscher.authenticate.lastCall.args[1]()).to.eql('testEscherSecretFromEnv');
+      });
+
+
+      it('should use credential scope from environment variable', function() {
+        var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
+
+        suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+
+        expect(Escher.create).to.have.been.calledWith({
+          credentialScope: 'testEscherCredentialScoperFromEnv',
+          vendorKey: 'EMS',
+          algoPrefix: 'EMS'
+        });
+      });
+
     });
 
   });
