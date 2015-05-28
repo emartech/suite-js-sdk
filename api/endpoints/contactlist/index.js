@@ -3,11 +3,11 @@
 var util = require('util');
 var logger = require('logentries-logformat')('suite-sdk');
 
-var ContactList = function (request) {
+var ContactList = function(request) {
   this._request = request;
 };
 
-ContactList.prototype.create = function (customerId, name, contactIds, options) {
+ContactList.prototype.create = function(customerId, name, contactIds, options) {
   var url = '/contactlist';
   logger.log('contactlist_create');
   return this._request.post(customerId, url, {
@@ -17,13 +17,13 @@ ContactList.prototype.create = function (customerId, name, contactIds, options) 
   }, options);
 };
 
-ContactList.prototype.list = function (customerId, contactListId, options) {
+ContactList.prototype.list = function(customerId, contactListId, options) {
   var url = util.format('/contactlist/%s', contactListId);
   logger.log('contactlist_list');
   return this._request.get(customerId, url, options);
 };
 
-ContactList.create = function (request) {
+ContactList.create = function(request) {
   return new ContactList(request);
 };
 

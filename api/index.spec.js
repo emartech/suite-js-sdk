@@ -152,7 +152,7 @@ describe('SuiteApi', function() {
       var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
-      fakeRequest = { id: 'fakeRequestFrom'};
+      fakeRequest = { id: 'fakeRequestFrom' };
       this.sandbox.stub(Request, 'create').withArgs('SuiteRequestStub').returns(fakeRequest);
       this.sandbox.stub(ServiceRequest, 'create').withArgs('SuiteServiceRequestStub').returns(fakeServiceRequest);
       sdk = SuiteAPI.create({ environment: environment, apiKey: apiKey, apiSecret: apiSecret });

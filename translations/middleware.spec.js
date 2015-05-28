@@ -10,10 +10,14 @@ var Translator = require('./translator');
 describe('Suite API translation middleware', function() {
 
   describe('#decorateRenderWithTranslations', function() {
-    var context, next, fakeApi, fakeResponseForTranslations, validValidatedData;
+    var context;
+    var next;
+    var fakeApi;
+    var fakeResponseForTranslations;
+    var validValidatedData;
 
     beforeEach(function() {
-      next = function*() { next.called = true };
+      next = function*() { next.called = true; };
       next.called = false;
 
       context = FakeContext.create();
@@ -106,7 +110,7 @@ describe('Suite API translation middleware', function() {
 
 
     it('should add translation method with admin\'s dictionary', function* () {
-      var fakeTranslator = {translate: this.sandbox.spy()};
+      var fakeTranslator = { translate: this.sandbox.spy() };
       this.sandbox.stub(Translator, 'create').returns(fakeTranslator);
 
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
@@ -198,10 +202,10 @@ describe('Suite API translation middleware', function() {
   });
 
 
-  function httpBackendRespondWith(errorCode, language, data) {
+  var httpBackendRespondWith = function(errorCode, language, data) {
     nock('http://testEnvironment')
       .get('/js/translate/translate_um.js.php?lang=' + language)
       .times(1)
       .reply(errorCode, data);
-  }
+  };
 });

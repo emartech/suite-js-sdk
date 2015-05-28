@@ -62,7 +62,7 @@ describe('Suite API authentication', function() {
       escherSecret: 'testEscherSecret'
     });
 
-    try{
+    try {
       suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
     } catch (ex) {
       expect(ex).to.eql(new Error('Escher authentication'));
@@ -88,7 +88,7 @@ describe('Suite API authentication', function() {
 
       beforeEach(function() {
         keyId = 'suite_user-management_v1';
-        process.env.KEY_POOL = '[{"keyId":"' + keyId +'","secret":"MMQLFS9JpUj3MoGdDn9I0WsjLImPIkR9","acceptOnly":0}]';
+        process.env.KEY_POOL = '[{"keyId":"' + keyId + '","secret":"MMQLFS9JpUj3MoGdDn9I0WsjLImPIkR9","acceptOnly":0}]';
       });
 
       afterEach(function() {

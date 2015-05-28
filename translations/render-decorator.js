@@ -52,10 +52,10 @@ RenderDecorator.prototype = {
     });
 
     yield this._originalRender.call(this._context, path, data);
-  }};
+  } };
 
 
-RenderDecorator.create = function(context) { return new RenderDecorator(context) };
+RenderDecorator.create = function(context) { return new RenderDecorator(context); };
 
 
 module.exports = RenderDecorator;

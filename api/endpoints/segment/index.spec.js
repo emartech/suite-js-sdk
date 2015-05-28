@@ -15,10 +15,10 @@ describe('Suite Segment', function() {
 
   apiTest.testSDKMethodResponse(SegmentAPI, sdkMethods);
 
-  it('list contacts in a segment', function () {
+  it('list contacts in a segment', function() {
 
     var api = SegmentAPI.create({
-      get: function (customerId, url) {
+      get: function(customerId, url) {
         expect(url).to.equal('/filter/10/contacts/limit=100&offset=0');
       }
     });

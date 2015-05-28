@@ -17,5 +17,5 @@ module.exports.getMiddleware = function(options) {
     }
 
     if (next) yield next;
-  }
+  };
 };

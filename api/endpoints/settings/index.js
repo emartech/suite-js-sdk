@@ -3,7 +3,7 @@
 var logger = require('logentries-logformat')('suite-sdk');
 
 
-var Settings = function (request) {
+var Settings = function(request) {
   this._request = request;
 };
 
@@ -15,13 +15,13 @@ Settings.prototype = {
   },
 
 
-  getCorporateDomains: function (customerId, options) {
+  getCorporateDomains: function(customerId, options) {
     logger.log('settings_get-corporate-domains');
     return this._request.get(customerId, '/settings/corporatedomain', options);
   },
 
 
-  setCorporateDomains: function (customerId, domains, options) {
+  setCorporateDomains: function(customerId, domains, options) {
     logger.log('settings_set-corporate-domains');
     return this._request.put(customerId, '/settings/corporatedomain', { domains: domains }, options);
   }

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")"
+    "test": "NODE_ENV=test mocha --harmony --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
+    "code-style": "jscs $(find . -name \"*.js\" -not -path \"./node_modules/*\")"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
+  "pre-commit": [
+    "code-style"
+  ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "bluebird": "2.9.13",
@@ -35,8 +39,10 @@
     "chai-as-promised": "4.2.0",
     "chai-subset": "0.3.0",
     "co-mocha": "1.1.0",
+    "jscs": "1.13.1",
     "mocha": "2.1.0",
     "nock": "1.0.0",
+    "pre-commit": "1.0.7",
     "sinon": "1.12.2",
     "sinon-chai": "2.7.0"
   }

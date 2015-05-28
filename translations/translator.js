@@ -3,7 +3,6 @@
 var flatten = require('flat');
 var vsprintf = require('sprintf-js').vsprintf;
 
-
 var Translator = function(dictionary) {
   this._dictionary = flatten(dictionary);
   this.translate = this.translate.bind(this);

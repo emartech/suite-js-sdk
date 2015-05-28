@@ -15,10 +15,10 @@ describe('Suite Email', function() {
 
   apiTest.testSDKMethodResponse(EmailAPI, sdkMethods);
 
-  it('copies an existing email', function () {
+  it('copies an existing email', function() {
 
     var api = EmailAPI.create({
-      post: function (customerId, url, payload) {
+      post: function(customerId, url, payload) {
         expect(url).to.equal('/email/32/copy');
         expect(payload).to.eql({
           name: '3'
@@ -32,10 +32,10 @@ describe('Suite Email', function() {
 
   });
 
-  it('updates the source of an email', function () {
+  it('updates the source of an email', function() {
 
     var api = EmailAPI.create({
-      post: function (customerId, url, payload) {
+      post: function(customerId, url, payload) {
         expect(url).to.equal('/email/32/updatesource');
         expect(payload).to.eql({
           contactlistId: '3'
@@ -49,12 +49,12 @@ describe('Suite Email', function() {
 
   });
 
-  it('launches an existing email', function () {
+  it('launches an existing email', function() {
 
     var time = Date.now();
 
     var api = EmailAPI.create({
-      post: function (customerId, url, payload) {
+      post: function(customerId, url, payload) {
         expect(url).to.equal('/email/32/launch');
         expect(payload).to.eql({
           schedule: time,

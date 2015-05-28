@@ -6,11 +6,11 @@ var logger = require('logentries-logformat')('suite-sdk');
 var OFFSET = 0;
 var LIMIT = 1000000;
 
-var Segment = function (request) {
+var Segment = function(request) {
   this._request = request;
 };
 
-Segment.prototype.listContacts = function (customerId, segmentId, offset, limit, options) {
+Segment.prototype.listContacts = function(customerId, segmentId, offset, limit, options) {
   offset = offset || OFFSET;
   limit = limit || LIMIT;
   var url = util.format('/filter/%s/contacts/limit=%s&offset=%s', segmentId, limit, offset);
@@ -18,13 +18,13 @@ Segment.prototype.listContacts = function (customerId, segmentId, offset, limit,
   return this._request.get(customerId, url, options);
 };
 
-Segment.prototype.listSegments = function (customerId, options) {
+Segment.prototype.listSegments = function(customerId, options) {
   var url = '/filter';
   logger.log('segment_list');
   return this._request.get(customerId, url, options);
 };
 
-Segment.create = function (request) {
+Segment.create = function(request) {
   return new Segment(request);
 };
 

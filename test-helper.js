@@ -6,8 +6,8 @@ var _ = require('lodash');
 
 
 var SDKMethodTest = function(API, sdkMethods) {
-   this.API = API;
-   this.sdkMethods = sdkMethods;
+  this.API = API;
+  this.sdkMethods = sdkMethods;
 };
 
 SDKMethodTest.prototype = {
@@ -31,7 +31,7 @@ SDKMethodTest.prototype = {
   },
 
 
-  _createCollectionFrom: function (testCases) {
+  _createCollectionFrom: function(testCases) {
     return _.isArray(testCases) ? testCases : [testCases];
   }
 
@@ -54,7 +54,7 @@ var SDKMethodTestCase = function(API, methodName, testCase) {
 SDKMethodTestCase.prototype = {
 
   run: function() {
-    it('should send an api call and return with the expected response', function () {
+    it('should send an api call and return with the expected response', function() {
       this._arrange();
       var returnValue = this._act();
       this._assert(returnValue);

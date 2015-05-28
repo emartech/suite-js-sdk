@@ -9,10 +9,11 @@ var _ = require('lodash');
 
 describe('Suite API authentication middleware', function() {
 
-  var context, next;
+  var context;
+  var next;
 
   beforeEach(function() {
-    next = function*() { next.called = true };
+    next = function*() { next.called = true; };
     next.called = false;
 
     context = FakeContext.create();

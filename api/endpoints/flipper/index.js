@@ -3,16 +3,16 @@
 var logger = require('logentries-logformat')('suite-sdk');
 
 
-var Flipper = function (request) {
+var Flipper = function(request) {
   this._request = request;
 };
 
 Flipper.prototype = {
 
-  isOn: function (customerId, flipperId) {
+  isOn: function(customerId, flipperId) {
     logger.log('flipper_isOn');
     return this._request.get('/customers/' + customerId + '/flippers/' + flipperId)
-      .then(function (response) {
+      .then(function(response) {
         return response.flipper.is_on;
       }.bind(this))
       .catch(function(error) {
@@ -23,7 +23,7 @@ Flipper.prototype = {
 
 };
 
-Flipper.create = function (request) {
+Flipper.create = function(request) {
   return new Flipper(request);
 };
 

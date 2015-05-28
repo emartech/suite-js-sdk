@@ -96,11 +96,7 @@ describe('Suite Customer', function() {
         it('should return with ' + testCase.name, function(done) {
           requestPromiseRespondWith(testCase.promiseRespondWith);
 
-          customer[sdkMethod].apply(customer, testCase.arguments)
-            .then(expectationHandler)
-            .catch(expectationHandler);
-
-          function expectationHandler(data) {
+          var expectationHandler = function(data) {
             if (testCase.expectedErrorCode) {
               expect(data.code).to.be.eql(testCase.expectedErrorCode);
             } else {
@@ -108,7 +104,11 @@ describe('Suite Customer', function() {
             }
             expect(request.get).to.have.been.calledWith(testCase.arguments[0], testCase.expectedUrl);
             done();
-          }
+          };
+
+          customer[sdkMethod].apply(customer, testCase.arguments)
+            .then(expectationHandler)
+            .catch(expectationHandler);
         });
 
       });
@@ -252,7 +252,7 @@ describe('Suite Customer', function() {
     });
 
 
-    describe('#promoteToSuperadmin', function () {
+    describe('#promoteToSuperadmin', function() {
 
       it('should promote an admin to superadmin and inactivate it by a Suite api call', function* () {
         requestPromiseRespondWith('returnedFromPost');
@@ -307,7 +307,7 @@ describe('Suite Customer', function() {
     });
 
 
-    describe('#inviteExistingAdministrator', function () {
+    describe('#inviteExistingAdministrator', function() {
 
       it('should invite an admin and inactivate it by a Suite api call', function* () {
         requestPromiseRespondWith('returnedFromPost');
@@ -363,7 +363,7 @@ describe('Suite Customer', function() {
 
 
 
-  function requestPromiseRespondWith(respObj) {
+  var requestPromiseRespondWith = function(respObj) {
     var respPromise = new Promise(function(resolve) {
       resolve(respObj);
     });
@@ -373,6 +373,6 @@ describe('Suite Customer', function() {
       post: sinon.stub().returns(respPromise)
     };
     customer = new AdministratorAPI(request);
-  }
+  };
 
 });
