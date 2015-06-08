@@ -25,11 +25,11 @@ describe('Suite Contact List', function() {
 
     var api = ContactListApi.create({
       get: function(customerId, url) {
-        expect(url).to.equal('/contactlist/2');
+        expect(url).to.equal('/contactlist/2?offset=0&limit=10');
       }
     });
 
-    api.list(0, 2);
+    api.list(0, 2, 0, 10);
   });
 
 });
