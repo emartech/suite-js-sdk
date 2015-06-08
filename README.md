@@ -237,3 +237,9 @@ Supported option properties:
 #### List contacts
 
     suiteAPI.segment.listSegments(customerId, options);
+
+### Smart Insight
+
+#### Get purchases
+
+    suiteAPI.si.getPurchases(customerId, startDate, endDate, offset, limit, options);
