@@ -13,6 +13,7 @@ var SettingsAPI = require('./endpoints/settings');
 var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
 var SegmentAPI = require('./endpoints/segment');
+var PurchaseAPI = require('./endpoints/purchase');
 var KeyPool = require('escher-keypool');
 var _ = require('lodash');
 
@@ -30,6 +31,7 @@ var SuiteAPI = function(options) {
   this.language = LanguageAPI.create(this._internalApirequest);
   this.externalEvent = ExternalEventAPI.create(this._internalApirequest);
   this.settings = SettingsAPI.create(this._internalApirequest);
+  this.purchase = PurchaseAPI.create(this._internalApirequest);
   this.flipper = FlipperAPI.create(this._serviceApiRequest);
 
   this.environment = options.environment;
@@ -112,6 +114,7 @@ module.exports.ContactList = ContactListAPI;
 module.exports.Language = LanguageAPI;
 module.exports.ExternalEvent = ExternalEventAPI;
 module.exports.Settings = SettingsAPI;
+module.exports.Purchase = PurchaseAPI;
 module.exports.Flipper = FlipperAPI;
 module.exports.Email = EmailAPI;
 module.exports.Segment = SegmentAPI;

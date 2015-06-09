@@ -237,3 +237,9 @@ Supported option properties:
 #### List contacts
 
     suiteAPI.segment.listSegments(customerId, options);
+
+### Purchases
+
+#### List
+
+    suiteAPI.purchase.list(customerId, startDate, endDate, offset, limit, options);
