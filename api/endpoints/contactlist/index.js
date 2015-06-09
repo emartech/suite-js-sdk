@@ -17,8 +17,8 @@ ContactList.prototype.create = function(customerId, name, contactIds, options) {
   }, options);
 };
 
-ContactList.prototype.list = function(customerId, contactListId, options) {
-  var url = util.format('/contactlist/%s', contactListId);
+ContactList.prototype.list = function(customerId, contactListId, offset, limit, options) {
+  var url = util.format('/contactlist/%s?offset=%s&limit=%s', contactListId, offset, limit);
   logger.log('contactlist_list');
   return this._request.get(customerId, url, options);
 };

@@ -182,7 +182,7 @@ Supported option properties:
 
 #### List
 
-    suiteAPI.contactList.list(customerId, contactListId, options);
+    suiteAPI.contactList.list(customerId, contactListId, offset, limit, options);
 
 ### ExternalEvent
 
