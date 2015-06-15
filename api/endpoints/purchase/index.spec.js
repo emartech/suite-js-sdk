@@ -10,7 +10,7 @@ describe('Suite Smart Insight', function() {
     var api = PurchaseAPI.create({
       get: function(customerId, url) {
         expect(customerId).to.equal(0);
-        expect(url).to.equal('/purchases?start_date=2015-02-03T09:18:13Z&end_date=2015-03-03T09:18:13Z&offset=0&limit=10');
+        expect(url).to.equal('/purchases/?start_date=2015-02-03T09:18:13Z&end_date=2015-03-03T09:18:13Z&offset=0&limit=10');
       }
     });
 

@@ -10,7 +10,7 @@ var Purchase = function(request) {
 Purchase.prototype = {
 
   list: function(customerId, startDate, endDate, offset, limit, options) {
-    var url = util.format('/purchases?start_date=%s&end_date=%s&offset=%s&limit=%s', startDate, endDate, offset, limit);
+    var url = util.format('/purchases/?start_date=%s&end_date=%s&offset=%s&limit=%s', startDate, endDate, offset, limit);
     logger.log('smart_insight_get_purchases');
     return this._request.get(customerId, url, options);
   }
