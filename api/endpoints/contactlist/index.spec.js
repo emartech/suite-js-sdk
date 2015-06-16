@@ -25,7 +25,7 @@ describe('Suite Contact List', function() {
 
     var api = ContactListApi.create({
       get: function(customerId, url) {
-        expect(url).to.equal('/contactlist/2?offset=0&limit=10');
+        expect(url).to.equal('/contactlist/2/contacts?offset=0&limit=10');
       }
     });
 
