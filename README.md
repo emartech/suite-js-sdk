@@ -14,6 +14,9 @@ Simple Javascript wrapper for the Emarsys API.
 
 This wrapper tries to implement all available methods of the Emarsys API in a
 node fashion, exposing a **Promise-only interface**.
+
+
+
 However, the Emarsys API lacks a decent amount of methods that you expect an API to provide.
 Thus, if methods are missing or a certain implementation
 style was choosen it is most likely due to the inconsistency of the API itself.
@@ -30,7 +33,7 @@ If you want to debug. Set your environment variables
 ## Authentication middleware
 
 ### Configuration
-    
+
 Set your environment variables
 
     SUITE_ESCHER_SECRET=yourEscherSecret
@@ -39,24 +42,24 @@ Set your environment variables
 ### Usage
 
     var middleware = require('suite-js-sdk').authentication.koaMiddleware.getMiddleware();
-    
+
 If the authentication fails it throws an error with 401 code.
 If the authentication success it decorates the request with a validatedData property. It contains the signed parameters.
 
 ## Translation middleware
 
 ### Configuration
-    
+
     var middleware = require('suite-js-sdk').translations.koaMiddleware.decorateRenderWithTranslations();
 
-The middleware use 'validatedData' from the request. 'validatedData' must contains an 'environment' property. 
+The middleware use 'validatedData' from the request. 'validatedData' must contains an 'environment' property.
 If you want to load an admins language then 'validatedData' must contains a 'customer_id' and an 'admin_id' properties.
 If you want to load a specific language then 'validatedData' must contains a 'language' property.
 
 ### Usage
 
 Middleware decorates the render method. It will add 'translations' object as render data. It also adds a '_' method as render data. So you can use it for transations.
-    
+
     translations = {
         dialogs: {
             invitation: {
@@ -66,12 +69,12 @@ Middleware decorates the render method. It will add 'translations' object as ren
             }
         }
     }
-    
-    
-in your jade file     
+
+
+in your jade file
 
     p.message= _('dialogs.invitation.confirmation.message', [ 'firstParameter', 'second parameter'])
-    
+
 ## Interacting with the API
 
 ### Authentication
@@ -87,159 +90,171 @@ Set your environment variables
 After in your Codebase
 
     var SuiteAPI = require('suite-js-sdk').api;
-    var suiteAPI = SuiteAPI.create();
+    var suiteAPI = SuiteAPI.create(options);
 
-With cache
+#### Options
+
+* `{String} customerId`: the id of the customer
+* `{String} cacheId`: cacheId can be anything. If you want to cache / request you can use 'koa-request-id'
+* `{Object} escherOptions`: if not provided will be read from environment variables
+
+
+### SDK methods
+
+Each of the following methods take a last `options` parameter as a last argument. With
+this options set you can override the `customerId`, `escherOptions`, etc. that you had defined when created an
+instance from the API client, like:
+
 
     var SuiteAPI = require('suite-js-sdk').api;
-    var suiteAPI = SuiteAPI.createWithCache(cacheId);
-    
-CacheId can be anything. If you want to cache / request you can use 'koa-request-id' 
+    var suiteAPI = SuiteAPI.create({
+       customerId: 1083232
+    });
 
-### Options
+    suiteAPI.administrator.getAdministrators({
+        customerId: 20234245
+    });
 
-Each SDK methods accepts an additional options object as the last argument.
+In the example above, the API will be called with `customerId = 20234245`.
 
-```
-{
-    rawResponse: true
-}
-```
+#### Administrators
 
-Supported option properties:
+##### List
 
-* `rawResponse`: the SDK method returns not just the data from the response, but all the status codes as well
+    suiteAPI.administrator.getAdministrators(customerId);
 
-### Administrators
+##### Get
 
-#### List
+    suiteAPI.administrator.getAdministrator(customerId, adminId);
 
-    suiteAPI.administrator.getAdministrators(customerId, options);
+##### Get By Name
 
-#### Get
+    suiteAPI.administrator.getAdministratorByName(customerId, adminName);
 
-    suiteAPI.administrator.getAdministrator(customerId, adminId, options);
+##### Patch
 
-#### Get By Name
+    suiteAPI.administrator.patchAdministrator(customerId, adminId, payload);
 
-    suiteAPI.administrator.getAdministratorByName(customerId, adminName, options);
+##### Create
 
-#### Patch
+    suiteAPI.administrator.createAdministrator(customerId, payload);
 
-    suiteAPI.administrator.patchAdministrator(customerId, adminId, payload, options);
+##### Delete
 
-#### Create
+    suiteAPI.administrator.deleteAdministrator(customerId, adminId, successorId);
 
-    suiteAPI.administrator.createAdministrator(customerId, payload, options);
+##### Disable
 
-#### Delete
+    suiteAPI.administrator.disableAdministrator(customerId, adminId);
 
-    suiteAPI.administrator.deleteAdministrator(customerId, adminId, successorId, options);
-    
-#### Disable
+##### Enable
 
-    suiteAPI.administrator.disableAdministrator(customerId, adminId, options);
-    
-#### Enable
+    suiteAPI.administrator.enableAdministrator(customerId, adminId, additionalDataToModify);
 
-    suiteAPI.administrator.enableAdministrator(customerId, adminId, additionalDataToModify, options);
-    
-#### Get Interface Languages
+##### Get Interface Languages
 
-    suiteAPI.administrator.getInterfaceLanguages(customerId, options);
-    
-#### Get Access Levels
+    suiteAPI.administrator.getInterfaceLanguages(customerId);
 
-    suiteAPI.administrator.getAccessLevels(customerId, options);
-    
-#### Promote to Superadmin
+##### Get Access Levels
 
-    suiteAPI.administrator.promoteToSuperadmin(customerId, adminId, additionalDataToModify, options);
+    suiteAPI.administrator.getAccessLevels(customerId);
 
-#### Create Administrator
+##### Promote to Superadmin
 
-    suiteAPI.administrator.createAdministrator(customerId, additionalDataToModify, options);
+    suiteAPI.administrator.promoteToSuperadmin(customerId, adminId, additionalDataToModify);
 
-#### Create Superadmin
+##### Create Administrator
 
-    suiteAPI.administrator.createSuperadmin(customerId, additionalDataToModify, options);
-    
-#### Invite Existing Administrator
+    suiteAPI.administrator.createAdministrator(customerId, additionalDataToModify);
 
-    suiteAPI.administrator.inviteExistingAdministrator(customerId, adminId, additionalDataToModify, options);
-    
-### Contact
+##### Create Superadmin
 
-#### Create
+    suiteAPI.administrator.createSuperadmin(customerId, additionalDataToModify);
 
-    suiteAPI.contact.create(customerId, payload, options);
+##### Invite Existing Administrator
 
-### Contact List
+    suiteAPI.administrator.inviteExistingAdministrator(customerId, adminId, additionalDataToModify);
 
-#### Create
+#### Contact
 
-    suiteAPI.contactList.create(customerId, name, contactIds, options);
+##### Create
 
-#### List
+    suiteAPI.contact.create(customerId, payload);
 
-    suiteAPI.contactList.list(customerId, contactListId, offset, limit, options);
+#### Contact List
 
-### ExternalEvent
+##### Create
 
-#### Trigger
+    suiteAPI.contactList.create(customerId, name, contactId);
 
-    suiteAPI.externalEvent.trigger(customerId, eventId, payload, options);
+##### List
 
-### Language
+    suiteAPI.contactList.list(customerId, contactListId, offset, limit);
 
-#### Translate
+#### ExternalEvent
 
-    suiteAPI.language.translate(customerId, languageId, options);
+##### Trigger
 
-### Settings
+    suiteAPI.externalEvent.trigger(customerId, eventId, payload);
 
-#### Get
+#### Language
 
-    suiteAPI.settings.getSettings(customerId, options);
+##### Translate
 
-#### Get Corporate Domains
+    suiteAPI.language.translate(customerId, languageId);
 
-    suiteAPI.settings.getCorporateDomains(customerId, options);
+#### Settings
 
-#### Set Corporate Domains
+##### Get
 
-    suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray, options);
+    suiteAPI.settings.getSettings(customerId);
 
-### Email
+##### Get Corporate Domains
 
-#### Copy
+    suiteAPI.settings.getCorporateDomains(customerId);
 
-    suiteAPI.email.copy(customerId, emailId, payload, options);
+##### Set Corporate Domains
 
-#### Update source
+    suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray);
 
-    suiteAPI.email.updateSource(customerId, emailId, payload, options);
+#### Email
 
-#### Launch
+##### Copy
 
-    suiteAPI.email.launch(customerId, emailId, schedule, timezone, options);
+    suiteAPI.email.copy(customerId, emailId, payload);
 
-#### List
+##### Update source
 
-    suiteAPI.email.list(customerId, options);
+    suiteAPI.email.updateSource(customerId, emailId, payload);
 
-### Segment
+##### Launch
 
-#### List contacts
+    suiteAPI.email.launch(customerId, emailId, schedule, timezone);
 
-    suiteAPI.segment.listContacts(customerId, segmentId, offset, limit, options);
+##### List
 
-#### List contacts
+    suiteAPI.email.list(customerId);
 
-    suiteAPI.segment.listSegments(customerId, options);
+#### Segment
 
-### Purchases
+##### List contacts
 
-#### List
+    suiteAPI.segment.listContacts(customerId, segmentId);
 
-    suiteAPI.purchase.list(customerId, startDate, endDate, offset, limit, options);
+
+    suiteAPI.segment.listContacts(customerId, segmentId, {
+        segment_id: 11,
+        limit: 20,
+        skip: 20
+
+    });
+
+##### List contacts
+
+    suiteAPI.segment.listSegments(customerId);
+
+#### Purchases
+
+##### List
+
+    suiteAPI.purchase.list(customerId, startDate, endDate, offset, limit);
