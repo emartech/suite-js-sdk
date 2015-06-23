@@ -13,8 +13,8 @@ Simple Javascript wrapper for the Emarsys API.
 ## Emarsys API Hint
 
 This wrapper tries to implement all available methods of the Emarsys API in a
-node fashion. However, the Emarsys API lacks a decent amount of methods that
-you expect an API to provide.
+node fashion, exposing a **Promise-only interface**.
+However, the Emarsys API lacks a decent amount of methods that you expect an API to provide.
 Thus, if methods are missing or a certain implementation
 style was choosen it is most likely due to the inconsistency of the API itself.
 Feel free to get in touch or submit a pull request if you encounter any problems.
