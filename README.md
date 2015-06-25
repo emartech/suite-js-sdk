@@ -95,9 +95,9 @@ After in your Codebase
 #### Options
 
 * `{String} customerId`: the id of the customer
-* `{String} cacheId`: cacheId can be anything. If you want to cache / request you can use 'koa-request-id'
-* `{Object} escherOptions`: if not provided will be read from environment variables
-
+* `{String} apiKey`: API key
+* `{String} apiSecret`: API secret
+* `{String} environment`: API environment
 
 ### SDK methods
 
@@ -121,140 +121,132 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### List
 
-    suiteAPI.administrator.getAdministrators(customerId);
+    suiteAPI.administrator.getAdministrators();
 
 ##### Get
 
-    suiteAPI.administrator.getAdministrator(customerId, adminId);
+    suiteAPI.administrator.getAdministrator(adminId);
 
 ##### Get By Name
 
-    suiteAPI.administrator.getAdministratorByName(customerId, adminName);
+    suiteAPI.administrator.getAdministratorByName(adminName);
 
 ##### Patch
 
-    suiteAPI.administrator.patchAdministrator(customerId, adminId, payload);
+    suiteAPI.administrator.patchAdministrator(adminId, payload);
 
 ##### Create
 
-    suiteAPI.administrator.createAdministrator(customerId, payload);
+    suiteAPI.administrator.createAdministrator(payload);
 
 ##### Delete
 
-    suiteAPI.administrator.deleteAdministrator(customerId, adminId, successorId);
+    suiteAPI.administrator.deleteAdministrator(adminId, successorId);
 
 ##### Disable
 
-    suiteAPI.administrator.disableAdministrator(customerId, adminId);
+    suiteAPI.administrator.disableAdministrator(adminId);
 
 ##### Enable
 
-    suiteAPI.administrator.enableAdministrator(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.enableAdministrator(adminId, additionalDataToModify);
 
 ##### Get Interface Languages
 
-    suiteAPI.administrator.getInterfaceLanguages(customerId);
+    suiteAPI.administrator.getInterfaceLanguages();
 
 ##### Get Access Levels
 
-    suiteAPI.administrator.getAccessLevels(customerId);
+    suiteAPI.administrator.getAccessLevels();
 
 ##### Promote to Superadmin
 
-    suiteAPI.administrator.promoteToSuperadmin(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.promoteToSuperadmin(adminId, additionalDataToModify);
 
 ##### Create Administrator
 
-    suiteAPI.administrator.createAdministrator(customerId, additionalDataToModify);
+    suiteAPI.administrator.createAdministrator(additionalDataToModify);
 
 ##### Create Superadmin
 
-    suiteAPI.administrator.createSuperadmin(customerId, additionalDataToModify);
+    suiteAPI.administrator.createSuperadmin(additionalDataToModify);
 
 ##### Invite Existing Administrator
 
-    suiteAPI.administrator.inviteExistingAdministrator(customerId, adminId, additionalDataToModify);
+    suiteAPI.administrator.inviteExistingAdministrator(adminId, additionalDataToModify);
 
 #### Contact
 
 ##### Create
 
-    suiteAPI.contact.create(customerId, payload);
+    suiteAPI.contact.create(payload);
 
 #### Contact List
 
 ##### Create
 
-    suiteAPI.contactList.create(customerId, name, contactId);
+    suiteAPI.contactList.create(name, contactId);
 
 ##### List
 
-    suiteAPI.contactList.list(customerId, contactListId, offset, limit);
+    suiteAPI.contactList.list(contactListId, offset, limit);
 
 #### ExternalEvent
 
 ##### Trigger
 
-    suiteAPI.externalEvent.trigger(customerId, eventId, payload);
+    suiteAPI.externalEvent.trigger(eventId, payload);
 
 #### Language
 
 ##### Translate
 
-    suiteAPI.language.translate(customerId, languageId);
+    suiteAPI.language.translate(languageId);
 
 #### Settings
 
 ##### Get
 
-    suiteAPI.settings.getSettings(customerId);
+    suiteAPI.settings.getSettings();
 
 ##### Get Corporate Domains
 
-    suiteAPI.settings.getCorporateDomains(customerId);
+    suiteAPI.settings.getCorporateDomains();
 
 ##### Set Corporate Domains
 
-    suiteAPI.settings.setCorporateDomains(customerId, corporateDomainsArray);
+    suiteAPI.settings.setCorporateDomains(corporateDomainsArray);
 
 #### Email
 
 ##### Copy
 
-    suiteAPI.email.copy(customerId, emailId, payload);
+    suiteAPI.email.copy(emailId, payload);
 
 ##### Update source
 
-    suiteAPI.email.updateSource(customerId, emailId, payload);
+    suiteAPI.email.updateSource(emailId, payload);
 
 ##### Launch
 
-    suiteAPI.email.launch(customerId, emailId, schedule, timezone);
+    suiteAPI.email.launch(emailId, schedule, timezone);
 
 ##### List
 
-    suiteAPI.email.list(customerId);
+    suiteAPI.email.list();
 
 #### Segment
 
 ##### List contacts
 
-    suiteAPI.segment.listContacts(customerId, segmentId);
-
-
-    suiteAPI.segment.listContacts(customerId, segmentId, {
-        segment_id: 11,
-        limit: 20,
-        skip: 20
-
-    });
+    suiteAPI.segment.listContacts(segmentId);
 
 ##### List contacts
 
-    suiteAPI.segment.listSegments(customerId);
+    suiteAPI.segment.listSegments();
 
 #### Purchases
 
 ##### List
 
-    suiteAPI.purchase.list(customerId, startDate, endDate, offset, limit);
+    suiteAPI.purchase.list(startDate, endDate, offset, limit);
