@@ -138,7 +138,7 @@ describe('SuiteApi', function() {
 
 
 
-  describe.only('endpoints', function() {
+  describe('endpoints', function() {
 
     var fakeRequest;
     var fakeServiceRequest;

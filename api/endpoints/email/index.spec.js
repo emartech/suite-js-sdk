@@ -4,16 +4,18 @@ var expect = require('chai').expect;
 var EmailAPI = require('./');
 var apiTest = require('../../../test-helper');
 
-describe('Suite Email', function() {
+describe.only('Suite Email', function() {
 
-  var sdkMethods = {
-    list: {
-      method: 'get',
-      expectedUrl: '/email'
-    }
-  };
+  it('lists emails', function() {
 
-  apiTest.testSDKMethodResponse(EmailAPI, sdkMethods);
+    var api = EmailAPI.create({
+      get: function(customerId, url) {
+        expect(url).to.equal('/email');
+      }
+    });
+
+    api.list();
+  });
 
   it('copies an existing email', function() {
 
@@ -26,7 +28,8 @@ describe('Suite Email', function() {
       }
     });
 
-    api.copy(0, 32, {
+    api.copy({
+      emailId: 32,
       name: '3'
     });
 
@@ -43,8 +46,9 @@ describe('Suite Email', function() {
       }
     });
 
-    api.updateSource(0, 32, {
-      contactlistId: '3'
+    api.updateSource({
+      contactlistId: '3',
+      emailId: 32
     });
 
   });
@@ -63,7 +67,11 @@ describe('Suite Email', function() {
       }
     });
 
-    api.launch(0, 32, time, 'Pacific/Midway');
+    api.launch({
+      emailId: 32,
+      schedule: time,
+      timezone: 'Pacific/Midway'
+    });
   });
 
 });
