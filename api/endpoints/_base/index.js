@@ -6,33 +6,35 @@ var Base = function(options) {
   this.customerId = options.customerId;
 };
 
-Base.prototype._getCustomerId = function(options) {
-  options = options || {};
-  return options.customerId || this.customerId;
-};
+_.extend(Base.prototype, {
+  _getCustomerId: function(options) {
+    options = options || {};
+    return options.customerId || this.customerId;
+  },
 
-Base.prototype._cleanPayload = function(payload, blackList) {
-  if (!blackList) {
-    return payload;
-  }
-
-  return _.transform(payload, function(result, n, key) {
-    if (blackList.indexOf(key) === -1) {
-      result[key] = n;
+  _cleanPayload: function(payload, blackList) {
+    if (!blackList) {
+      return payload;
     }
-  });
-};
 
-Base.prototype._buildUrl = function(base, payload, blackList) {
-  payload = this._cleanPayload(payload, blackList);
+    return _.transform(payload, function(result, n, key) {
+      if (blackList.indexOf(key) === -1) {
+        result[key] = n;
+      }
+    });
+  },
 
-  var qs = querystring.stringify(payload);
+  _buildUrl: function(base, payload, blackList) {
+    payload = this._cleanPayload(payload, blackList);
 
-  if (qs.length) {
-    return base + '/?' + querystring.stringify(payload);
+    var qs = querystring.stringify(payload);
+
+    if (qs.length) {
+      return base + '/?' + querystring.stringify(payload);
+    }
+
+    return base;
   }
-
-  return base;
-};
+});
 
 module.exports = Base;
