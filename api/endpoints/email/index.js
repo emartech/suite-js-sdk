@@ -38,7 +38,10 @@ Email.prototype.updateSource = function(payload, options) {
 
 Email.prototype.list = function(options) {
   logger.log('email_list');
-  return this._request.get(this._getCustomerId(options), '/email');
+  return this._request.get(
+    this._getCustomerId(options),
+    this._buildUrl('/email', options, ['customerId'])
+  );
 };
 
 Email.prototype.launch = function(payload, options) {

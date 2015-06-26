@@ -41,4 +41,22 @@ describe('Suite Base Api', function() {
     });
   });
 
+  describe('build a query string', function() {
+    it('from an empty object', function() {
+      var base = new BaseApi();
+
+      var url = base._buildUrl('/a', {});
+
+      expect(url).to.be.eql('/a');
+    });
+
+    it('from a non-empty object', function() {
+      var base = new BaseApi();
+
+      var url = base._buildUrl('/a', { b: 1 });
+
+      expect(url).to.be.eql('/a/?b=1');
+    });
+  });
+
 });

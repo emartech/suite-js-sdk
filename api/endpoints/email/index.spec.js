@@ -2,9 +2,8 @@
 
 var expect = require('chai').expect;
 var EmailAPI = require('./');
-var apiTest = require('../../../test-helper');
 
-describe.only('Suite Email', function() {
+describe('Suite Email', function() {
 
   it('lists emails', function() {
 
