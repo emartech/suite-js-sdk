@@ -160,10 +160,6 @@ Administrator.prototype = {
     return this._request.post(customerId, '/administrator/' + adminId + '/delete', payload, options);
   },
 
-  _getCustomerId: function(options) {
-    options = options || {};
-    return options.customerId || this.customerId;
-  },
 
   _generatePassword: function() {
     return passwordGenerator.generate();

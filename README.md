@@ -121,19 +121,19 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### List
 
-    suiteAPI.administrator.getAdministrators();
+    suiteAPI.administrator.getAdministrators(payload);
 
 ##### Get
 
-    suiteAPI.administrator.getAdministrator(adminId);
+    suiteAPI.administrator.getAdministrator(payload);
 
 ##### Get By Name
 
-    suiteAPI.administrator.getAdministratorByName(adminName);
+    suiteAPI.administrator.getAdministratorByName(payload);
 
 ##### Patch
 
-    suiteAPI.administrator.patchAdministrator(adminId, payload);
+    suiteAPI.administrator.patchAdministrator(payload);
 
 ##### Create
 
@@ -141,39 +141,39 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### Delete
 
-    suiteAPI.administrator.deleteAdministrator(adminId, successorId);
+    suiteAPI.administrator.deleteAdministrator(payload);
 
 ##### Disable
 
-    suiteAPI.administrator.disableAdministrator(adminId);
+    suiteAPI.administrator.disableAdministrator(payload);
 
 ##### Enable
 
-    suiteAPI.administrator.enableAdministrator(adminId, additionalDataToModify);
+    suiteAPI.administrator.enableAdministrator(payload);
 
 ##### Get Interface Languages
 
-    suiteAPI.administrator.getInterfaceLanguages();
+    suiteAPI.administrator.getInterfaceLanguages(payload);
 
 ##### Get Access Levels
 
-    suiteAPI.administrator.getAccessLevels();
+    suiteAPI.administrator.getAccessLevels(payload);
 
 ##### Promote to Superadmin
 
-    suiteAPI.administrator.promoteToSuperadmin(adminId, additionalDataToModify);
+    suiteAPI.administrator.promoteToSuperadmin(payload);
 
 ##### Create Administrator
 
-    suiteAPI.administrator.createAdministrator(additionalDataToModify);
+    suiteAPI.administrator.createAdministrator(payload);
 
 ##### Create Superadmin
 
-    suiteAPI.administrator.createSuperadmin(additionalDataToModify);
+    suiteAPI.administrator.createSuperadmin(payload);
 
 ##### Invite Existing Administrator
 
-    suiteAPI.administrator.inviteExistingAdministrator(adminId, additionalDataToModify);
+    suiteAPI.administrator.inviteExistingAdministrator(payload);
 
 #### Contact
 
@@ -185,68 +185,68 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### Create
 
-    suiteAPI.contactList.create(name, contactId);
+    suiteAPI.contactList.create(payload);
 
 ##### List
 
-    suiteAPI.contactList.list(contactListId, offset, limit);
+    suiteAPI.contactList.list(payload);
 
 #### ExternalEvent
 
 ##### Trigger
 
-    suiteAPI.externalEvent.trigger(eventId, payload);
+    suiteAPI.externalEvent.trigger(payload);
 
 #### Language
 
 ##### Translate
 
-    suiteAPI.language.translate(languageId);
+    suiteAPI.language.translate(payload);
 
 #### Settings
 
 ##### Get
 
-    suiteAPI.settings.getSettings();
+    suiteAPI.settings.getSettings(payload);
 
 ##### Get Corporate Domains
 
-    suiteAPI.settings.getCorporateDomains();
+    suiteAPI.settings.getCorporateDomains(payload);
 
 ##### Set Corporate Domains
 
-    suiteAPI.settings.setCorporateDomains(corporateDomainsArray);
+    suiteAPI.settings.setCorporateDomains(payload);
 
 #### Email
 
 ##### Copy
 
-    suiteAPI.email.copy(emailId, payload);
+    suiteAPI.email.copy(payload);
 
 ##### Update source
 
-    suiteAPI.email.updateSource(emailId, payload);
+    suiteAPI.email.updateSource(payload);
 
 ##### Launch
 
-    suiteAPI.email.launch(emailId, schedule, timezone);
+    suiteAPI.email.launch(payload);
 
 ##### List
 
-    suiteAPI.email.list();
+    suiteAPI.email.list(payload);
 
 #### Segment
 
 ##### List contacts
 
-    suiteAPI.segment.listContacts(segmentId);
+    suiteAPI.segment.listContacts(payload);
 
 ##### List contacts
 
-    suiteAPI.segment.listSegments();
+    suiteAPI.segment.listSegments(payload);
 
 #### Purchases
 
 ##### List
 
-    suiteAPI.purchase.list(startDate, endDate, offset, limit);
+    suiteAPI.purchase.list(payload);
