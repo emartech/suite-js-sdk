@@ -1,6 +1,7 @@
 'use strict';
 
 var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
 var Base = require('../_base');
@@ -12,49 +13,52 @@ var Email = function(request, options) {
 
 util.inherits(Email, Base);
 
-Email.prototype.copy = function(payload, options) {
-  logger.log('email_copy');
+_.extend(Email.prototype, {
 
-  var emailId = payload.emailId;
+  copy: function(payload, options) {
+    logger.log('email_copy');
 
-  return this._request.post(
-    this._getCustomerId(options),
-    util.format('/email/%s/copy', emailId),
-    this._cleanPayload(payload, ['emailId'])
-  );
-};
+    var emailId = payload.emailId;
 
-Email.prototype.updateSource = function(payload, options) {
-  logger.log('email_update_source');
+    return this._request.post(
+      this._getCustomerId(options),
+      util.format('/email/%s/copy', emailId),
+      this._cleanPayload(payload, ['emailId'])
+    );
+  },
 
-  var emailId = payload.emailId;
+  updateSource: function(payload, options) {
+    logger.log('email_update_source');
 
-  return this._request.post(
-    this._getCustomerId(options),
-    util.format('/email/%s/updatesource', emailId),
-    this._cleanPayload(payload, ['emailId'])
-  );
-};
+    var emailId = payload.emailId;
 
-Email.prototype.list = function(options) {
-  logger.log('email_list');
-  return this._request.get(
-    this._getCustomerId(options),
-    this._buildUrl('/email', options, ['customerId'])
-  );
-};
+    return this._request.post(
+      this._getCustomerId(options),
+      util.format('/email/%s/updatesource', emailId),
+      this._cleanPayload(payload, ['emailId'])
+    );
+  },
 
-Email.prototype.launch = function(payload, options) {
-  logger.log('email_launch');
+  list: function(options) {
+    logger.log('email_list');
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/email', options, ['customerId'])
+    );
+  },
 
-  var emailId = payload.emailId;
+  launch: function(payload, options) {
+    logger.log('email_launch');
 
-  return this._request.post(
-    this._getCustomerId(options),
-    util.format('/email/%s/launch', emailId),
-    this._cleanPayload(payload, ['emailId'])
-  );
-};
+    var emailId = payload.emailId;
+
+    return this._request.post(
+      this._getCustomerId(options),
+      util.format('/email/%s/launch', emailId),
+      this._cleanPayload(payload, ['emailId'])
+    );
+  }
+});
 
 Email.create = function(request, options) {
   return new Email(request, options);
