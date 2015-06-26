@@ -22,6 +22,7 @@ describe('SuiteApi', function() {
     beforeEach(function() {
       stubRequestCreation = (function() {
         this.sandbox.stub(SuiteRequest, 'create');
+        this.sandbox.stub(Request, 'create');
         this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
         this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
@@ -39,11 +40,9 @@ describe('SuiteApi', function() {
 
     it('should return a new instance of an API with the given environment and key data', function() {
       stubRequestCreation();
-      SuiteAPI.create({ environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true });
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteRequestOptionsStub');
-      expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteServiceRequestOptionsStub');
-      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environment', true);
-      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environment', true);
+      var options = { environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true };
+      SuiteAPI.create(options);
+      expect(Request.create).to.have.been.calledWith(options);
     });
 
 
@@ -60,8 +59,12 @@ describe('SuiteApi', function() {
 
           SuiteAPI.create();
 
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteRequestOptionsStub');
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+          expect(Request.create).to.have.been.calledWith({
+            apiKey: 'suite_ums_v1',
+            apiSecret: '<Y>',
+            environment: 'environmentFromEnv',
+            rejectUnauthorized: false
+          });
         });
 
 
@@ -78,8 +81,12 @@ describe('SuiteApi', function() {
 
           SuiteAPI.create();
 
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteRequestOptionsStub');
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+          expect(Request.create).to.have.been.calledWith({
+            apiKey: 'suite_noc_v1',
+            apiSecret: '<Y>',
+            environment: 'environmentFromEnv',
+            rejectUnauthorized: false
+          });
         });
 
       });
@@ -93,12 +100,16 @@ describe('SuiteApi', function() {
 
         stubRequestCreation();
 
-        SuiteAPI.create();
+        var api = SuiteAPI.create();
 
-        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environmentFromEnv', false);
-        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environmentFromEnv', false);
+        expect(Request.create).to.have.been.calledWith({
+          apiKey: 'apiKeyFromEnv',
+          apiSecret: 'apiSecretFromEnv',
+          environment: 'environmentFromEnv',
+          rejectUnauthorized: false
+        });
+
+        expect(api).to.be.ok;
       });
 
     });
@@ -113,10 +124,12 @@ describe('SuiteApi', function() {
 
         SuiteAPI.create();
 
-        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
-        expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('api.emarsys.net', true);
-        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('api.emarsys.net', true);
+        expect(Request.create).to.have.been.calledWith({
+          apiKey: 'apiKeyFromEnv',
+          apiSecret: 'apiSecretFromEnv',
+          environment: 'api.emarsys.net',
+          rejectUnauthorized: true
+        });
       });
 
     });
@@ -125,7 +138,7 @@ describe('SuiteApi', function() {
 
 
 
-  describe('endpoints', function() {
+  describe.only('endpoints', function() {
 
     var fakeRequest;
     var fakeServiceRequest;
@@ -133,11 +146,19 @@ describe('SuiteApi', function() {
     var apiKey;
     var apiSecret;
     var environment;
+    var options;
 
     beforeEach(function() {
       apiKey = 'apikey';
       apiSecret = 'apiSecret';
       environment = 'environment';
+
+      options = {
+        apiKey: apiKey,
+        apiSecret: apiSecret,
+        environment: environment,
+        rejectUnauthorized: false
+      };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
@@ -153,15 +174,15 @@ describe('SuiteApi', function() {
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom' };
-      this.sandbox.stub(Request, 'create').withArgs('SuiteRequestStub').returns(fakeRequest);
-      this.sandbox.stub(ServiceRequest, 'create').withArgs('SuiteServiceRequestStub').returns(fakeServiceRequest);
-      sdk = SuiteAPI.create({ environment: environment, apiKey: apiKey, apiSecret: apiSecret });
+      this.sandbox.stub(Request, 'create').withArgs(options).returns(fakeRequest);
+      this.sandbox.stub(ServiceRequest, 'create').withArgs(options).returns(fakeServiceRequest);
+      sdk = SuiteAPI.create(options);
     });
 
 
     it('should have an SDK object with Administrator endpoint', function() {
       expect(sdk.administrator).to.eql('FromAdministratorEndpointStub');
-      expect(AdministratorAPI.create).to.have.been.calledWith(fakeRequest);
+      expect(AdministratorAPI.create).to.have.been.calledWith(fakeRequest, options);
     });
 
 

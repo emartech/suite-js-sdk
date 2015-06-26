@@ -23,16 +23,16 @@ var SuiteAPI = function(options) {
   this._internalApirequest = this._createInternalApiRequest(options);
   this._serviceApiRequest = this._createServiceApiRequest(options);
 
-  this.administrator = AdministratorAPI.create(this._internalApirequest);
-  this.contact = ContactAPI.create(this._internalApirequest);
-  this.contactList = ContactListAPI.create(this._internalApirequest);
-  this.email = EmailAPI.create(this._internalApirequest);
-  this.segment = SegmentAPI.create(this._internalApirequest);
-  this.language = LanguageAPI.create(this._internalApirequest);
-  this.externalEvent = ExternalEventAPI.create(this._internalApirequest);
-  this.settings = SettingsAPI.create(this._internalApirequest);
-  this.purchase = PurchaseAPI.create(this._internalApirequest);
-  this.flipper = FlipperAPI.create(this._serviceApiRequest);
+  this.administrator = AdministratorAPI.create(this._internalApirequest, options);
+  this.contact = ContactAPI.create(this._internalApirequest, options);
+  this.contactList = ContactListAPI.create(this._internalApirequest, options);
+  this.email = EmailAPI.create(this._internalApirequest, options);
+  this.segment = SegmentAPI.create(this._internalApirequest, options);
+  this.language = LanguageAPI.create(this._internalApirequest, options);
+  this.externalEvent = ExternalEventAPI.create(this._internalApirequest, options);
+  this.settings = SettingsAPI.create(this._internalApirequest, options);
+  this.purchase = PurchaseAPI.create(this._internalApirequest, options);
+  this.flipper = FlipperAPI.create(this._serviceApiRequest, options);
 
   this.environment = options.environment;
 };
