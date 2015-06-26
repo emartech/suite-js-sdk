@@ -39,11 +39,11 @@ _.extend(Email.prototype, {
     );
   },
 
-  list: function(options) {
+  list: function(payload, options) {
     logger.log('email_list');
     return this._request.get(
       this._getCustomerId(options),
-      this._buildUrl('/email', options, ['customerId'])
+      this._buildUrl('/email', payload, ['customerId'])
     );
   },
 
