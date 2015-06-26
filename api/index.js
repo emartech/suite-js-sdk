@@ -54,16 +54,14 @@ SuiteAPI.prototype = {
 
 
   _createInternalApiRequest: function(options) {
-    var requestOptions = SuiteRequestOptions.createForInternalApi(options.environment, options.rejectUnauthorized);
-    var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return InternalApiRequest.create(suiteRequest);
+    return InternalApiRequest.create(options);
   },
 
 
   _createServiceApiRequest: function(options) {
     var requestOptions = SuiteRequestOptions.createForServiceApi(options.environment, options.rejectUnauthorized);
     var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return ApiRequest.create(suiteRequest);
+    return ApiRequest.create(options);
   },
 
 

@@ -9,15 +9,16 @@ var _ = require('lodash');
 
 
 
-var Administrator = function(request) {
+var Administrator = function(request, options) {
   this._request = request;
+  this.customerId = options.customerId;
 };
 
 Administrator.prototype = {
 
-  getAdministrators: function(customerId, options) {
+  getAdministrators: function(options) {
     logger.log('administrator_getAdministrators');
-    return this._request.get(customerId, '/administrator', options);
+    return this._request.get(this._getCustomerId(options), '/administrator', options);
   },
 
 
@@ -160,6 +161,10 @@ Administrator.prototype = {
     return this._request.post(customerId, '/administrator/' + adminId + '/delete', payload, options);
   },
 
+  _getCustomerId: function (options) {
+    options = options || {};
+    return options.customerId || this.customerId;
+  },
 
   _generatePassword: function() {
     return passwordGenerator.generate();
@@ -167,8 +172,9 @@ Administrator.prototype = {
 
 };
 
-Administrator.create = function(request) {
-  return new Administrator(request);
+Administrator.create = function(request, options) {
+  options = options || {};
+  return new Administrator(request, options);
 };
 
 module.exports = Administrator;
