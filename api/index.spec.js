@@ -8,7 +8,6 @@ var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
 var Request = require('./../lib/internal-api-request');
-var ServiceRequest = require('./../lib/api-request');
 var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
 
@@ -173,7 +172,6 @@ describe('SuiteApi', function() {
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom' };
       this.sandbox.stub(Request, 'create').withArgs(options).returns(fakeRequest);
-      this.sandbox.stub(ServiceRequest, 'create').withArgs(options).returns(fakeServiceRequest);
       sdk = SuiteAPI.create(options);
     });
 
@@ -212,7 +210,7 @@ describe('SuiteApi', function() {
       expect(sdk.settings).to.eql('FromSettingsEndpointStub');
       expect(SettingsAPI.create).to.have.been.calledWith(fakeRequest);
     });
-    
+
   });
 
 
