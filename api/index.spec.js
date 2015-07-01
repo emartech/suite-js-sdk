@@ -7,7 +7,6 @@ var SegmentAPI = require('./endpoints/segment');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
-var FlipperAPI = require('./endpoints/flipper');
 var Request = require('./../lib/internal-api-request');
 var ServiceRequest = require('./../lib/api-request');
 var expect = require('chai').expect;
@@ -167,7 +166,6 @@ describe('SuiteApi', function() {
       this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
-      this.sandbox.stub(FlipperAPI, 'create').returns('FromFlipperEndpointStub');
       this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(environment).returns('SuiteRequestOptionsStub');
       this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(environment).returns('SuiteServiceRequestOptionsStub');
       var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
@@ -214,12 +212,7 @@ describe('SuiteApi', function() {
       expect(sdk.settings).to.eql('FromSettingsEndpointStub');
       expect(SettingsAPI.create).to.have.been.calledWith(fakeRequest);
     });
-
-
-    it('should have an SDK object with Flipper endpoint', function() {
-      expect(sdk.flipper).to.eql('FromFlipperEndpointStub');
-      expect(FlipperAPI.create).to.have.been.calledWith(fakeServiceRequest);
-    });
+    
   });
 
 

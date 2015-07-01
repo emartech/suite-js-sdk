@@ -10,7 +10,6 @@ var ContactListAPI = require('./endpoints/contactlist');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
-var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
 var SegmentAPI = require('./endpoints/segment');
 var PurchaseAPI = require('./endpoints/purchase');
@@ -21,7 +20,6 @@ var _ = require('lodash');
 var SuiteAPI = function(options) {
   options = this._mergeWithDefaultOptions(options);
   this._internalApirequest = this._createInternalApiRequest(options);
-  this._serviceApiRequest = this._createServiceApiRequest(options);
 
   this.administrator = AdministratorAPI.create(this._internalApirequest, options);
   this.contact = ContactAPI.create(this._internalApirequest, options);
@@ -32,7 +30,6 @@ var SuiteAPI = function(options) {
   this.externalEvent = ExternalEventAPI.create(this._internalApirequest, options);
   this.settings = SettingsAPI.create(this._internalApirequest, options);
   this.purchase = PurchaseAPI.create(this._internalApirequest, options);
-  this.flipper = FlipperAPI.create(this._serviceApiRequest, options);
 
   this.environment = options.environment;
 };
@@ -113,7 +110,6 @@ module.exports.Language = LanguageAPI;
 module.exports.ExternalEvent = ExternalEventAPI;
 module.exports.Settings = SettingsAPI;
 module.exports.Purchase = PurchaseAPI;
-module.exports.Flipper = FlipperAPI;
 module.exports.Email = EmailAPI;
 module.exports.Segment = SegmentAPI;
 module.exports.SuiteRequestError = SuiteRequest.Error;
