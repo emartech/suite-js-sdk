@@ -15,7 +15,7 @@ util.inherits(Segment, Base);
 
 _.extend(Segment.prototype, {
 
-  listContacts: function (payload, options) {
+  listContacts: function(payload, options) {
     var url = util.format('/filter/%s/contacts', payload.segmentId);
     logger.log('segment_list_contacts');
     return this._request.get(
@@ -25,7 +25,7 @@ _.extend(Segment.prototype, {
     );
   },
 
-  listSegments: function (payload, options) {
+  listSegments: function(payload, options) {
     logger.log('segment_list');
     return this._request.get(
       this._getCustomerId(options),

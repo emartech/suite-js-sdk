@@ -33,7 +33,7 @@ describe('Suite Segment', function() {
     api.listContacts({
       segmentId: 10,
       limit: 100,
-      offset:0
+      offset: 0
     }, {
       customerId: 1
     });
