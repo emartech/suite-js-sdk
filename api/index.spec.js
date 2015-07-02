@@ -7,7 +7,7 @@ var SegmentAPI = require('./endpoints/segment');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
-var Request = require('./../lib/internal-api-request');
+var Request = require('./../lib/api-request');
 var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
 

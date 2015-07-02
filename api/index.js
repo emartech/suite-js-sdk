@@ -1,7 +1,7 @@
 'use strict';
 
 var SuiteRequest = require('escher-suiteapi-js');
-var InternalApiRequest = require('./../lib/internal-api-request');
+var ApiRequest = require('./../lib/api-request');
 var AdministratorAPI = require('./endpoints/administrator');
 var ContactAPI = require('./endpoints/contact');
 var ContactListAPI = require('./endpoints/contactlist');
@@ -49,7 +49,7 @@ SuiteAPI.prototype = {
 
 
   _createInternalApiRequest: function(options) {
-    return InternalApiRequest.create(options);
+    return ApiRequest.create(options);
   },
 
   _apiKeySecret: function() {
