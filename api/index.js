@@ -14,6 +14,7 @@ var PurchaseAPI = require('./endpoints/purchase');
 var KeyPool = require('escher-keypool');
 var _ = require('lodash');
 
+var config = require('../config');
 
 var SuiteAPI = function(options) {
   options = this._mergeWithDefaultOptions(options);
@@ -42,8 +43,8 @@ SuiteAPI.prototype = {
 
   _mergeWithDefaultOptions: function(options) {
     return _.extend({}, this._apiKeySecret(), {
-      environment: process.env.SUITE_API_ENVIRONMENT || SuiteAPI.API_PROXY_URL,
-      rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED !== 'false'
+      environment: config.suiteApi.environment || SuiteAPI.API_PROXY_URL,
+      rejectUnauthorized: config.suiteApi.rejectUnauthorized !== 'false'
     }, options);
   },
 
@@ -53,18 +54,18 @@ SuiteAPI.prototype = {
   },
 
   _apiKeySecret: function() {
-    var apiKey = process.env.SUITE_API_KEY;
-    var apiSecret = process.env.SUITE_API_SECRET;
+    var apiKey = config.suiteApi.apiKey;
+    var apiSecret = config.suiteApi.apiSecret;
 
     if (apiSecret && apiKey) return { apiKey: apiKey, apiSecret: apiSecret };
-    if (process.env.KEY_POOL) return this._apiKeySecretFromKeyPool();
+    if (config.suiteApi.keyPool) return this._apiKeySecretFromKeyPool();
 
     return { apiKey: undefined, apiSecret: undefined };
   },
 
 
   _apiKeySecretFromKeyPool: function() {
-    var fromKeyPool = new KeyPool(process.env.KEY_POOL).getActiveKey(process.env.SUITE_API_KEY_ID);
+    var fromKeyPool = new KeyPool(config.suiteApi.keyPool).getActiveKey(config.suiteApi.keyId);
 
     return {
       apiKey: fromKeyPool.keyId,

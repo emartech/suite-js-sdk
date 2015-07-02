@@ -11,6 +11,8 @@ var Request = require('./../lib/api-request');
 var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
 
+var config = require('../config');
+
 describe('SuiteApi', function() {
 
 
@@ -24,15 +26,6 @@ describe('SuiteApi', function() {
         this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
         this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
-    });
-
-    afterEach(function() {
-      delete process.env.SUITE_API_ENVIRONMENT;
-      delete process.env.SUITE_API_KEY;
-      delete process.env.SUITE_API_SECRET;
-      delete process.env.SUITE_API_REJECT_UNAUTHORIZED;
-      delete process.env.KEY_POOL;
-      delete process.env.SUITE_API_KEY_ID;
     });
 
 
@@ -49,9 +42,9 @@ describe('SuiteApi', function() {
       describe('keypool provided but api key and api secret not', function() {
 
         it('should return a new instance with configuration from key pool', function() {
-          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
-          process.env.KEY_POOL = JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]);
+          this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]));
 
           stubRequestCreation();
 
@@ -67,13 +60,13 @@ describe('SuiteApi', function() {
 
 
         it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
-          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
-          process.env.SUITE_API_KEY_ID = 'suite_noc';
-          process.env.KEY_POOL = JSON.stringify([
+          this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([
             { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
             { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
-          ]);
+          ]));
+          this.sandbox.stub(config.suiteApi, 'keyId', 'suite_noc');
 
           stubRequestCreation();
 
@@ -91,10 +84,10 @@ describe('SuiteApi', function() {
 
 
       it('should return a new instance with configuration from env variables', function() {
-        process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-        process.env.SUITE_API_KEY = 'apiKeyFromEnv';
-        process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
-        process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+        this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+        this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+        this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
+        this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
 
         stubRequestCreation();
 
@@ -115,8 +108,8 @@ describe('SuiteApi', function() {
     describe('environment is not provided from any source', function() {
 
       it('should return a new instance with API proxy', function() {
-        process.env.SUITE_API_KEY = 'apiKeyFromEnv';
-        process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
+        this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
+        this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
 
         stubRequestCreation();
 
