@@ -2,23 +2,33 @@
 
 var logger = require('logentries-logformat')('suite-sdk');
 var util = require('util');
+var _ = require('lodash');
 
-var Purchase = function(request) {
+var Base = require('../_base');
+
+var Purchase = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Purchase.prototype = {
+util.inherits(Purchase, Base);
 
-  list: function(customerId, startDate, endDate, offset, limit, options) {
-    var url = util.format('/purchases/?start_date=%s&end_date=%s&offset=%s&limit=%s', startDate, endDate, offset, limit);
+_.extend(Purchase.prototype, {
+
+  list: function(payload, options) {
     logger.log('smart_insight_get_purchases');
-    return this._request.get(customerId, url, options);
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/purchases', payload, ['customerId']),
+      options
+    );
   }
 
-};
+});
 
-Purchase.create = function(request) {
-  return new Purchase(request);
+Purchase.create = function(request, options) {
+  return new Purchase(request, options);
 };
 
 module.exports = Purchase;
