@@ -75,9 +75,12 @@ SDKMethodTestCase.prototype = {
 
 
   _act: function() {
-    var args = [this.customerId];
+    var args = [];
     if (this.testCase.arguments) args = args.concat(this.testCase.arguments);
     if (this.testCase.payload) args.push(this.testCase.payload);
+    args.push({
+      customerId: this.customerId
+    });
     return this._callSDKMethodWith(args);
   },
 

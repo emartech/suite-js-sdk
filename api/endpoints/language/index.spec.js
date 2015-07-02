@@ -3,7 +3,7 @@
 var LanguageAPI = require('./');
 var apiTest = require('../../../test-helper');
 
-describe('Suite Language', function() {
+describe.skip('Suite Language', function() {
 
   apiTest.testSDKMethodResponse(LanguageAPI, {
     translate: [

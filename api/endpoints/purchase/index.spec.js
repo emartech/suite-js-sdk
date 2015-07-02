@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var PurchaseAPI = require('./');
 
-describe('Suite Smart Insight', function() {
+describe.skip('Suite Smart Insight', function() {
 
   it('gets purchases', function() {
 

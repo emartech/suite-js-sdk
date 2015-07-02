@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 var apiTest = require('../../../test-helper');
 var SegmentAPI = require('./');
 
-describe('Suite Segment', function() {
+describe.skip('Suite Segment', function() {
 
   var sdkMethods = {
     listSegments: {

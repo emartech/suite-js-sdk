@@ -9,7 +9,7 @@ var PasswordGenerator = require('../../../lib/password-generator');
 var DateHelper = require('../../../lib/date-helper');
 
 
-describe('Suite Customer', function() {
+describe.skip('Suite Customer', function() {
   var customer;
   var request;
 

@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var ContactListApi = require('./');
 
-describe('Suite Contact List', function() {
+describe.skip('Suite Contact List', function() {
 
   it('creates a contact list', function() {
 
