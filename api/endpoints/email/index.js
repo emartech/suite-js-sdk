@@ -27,6 +27,11 @@ Email.prototype.get = function(customerId, emailId, options) {
   return this._request.get(customerId, util.format('/email/%s', emailId), options);
 };
 
+Email.prototype.patch = function(customerId, emailId, payload, options) {
+  logger.log('email_get');
+  return this._request.post(customerId, util.format('/email/%s/patch', emailId), payload, options);
+};
+
 Email.prototype.launch = function(customerId, emailId, schedule, timezone, options) {
   logger.log('email_launch');
   return this._request.post(customerId, util.format('/email/%s/launch', emailId), {
