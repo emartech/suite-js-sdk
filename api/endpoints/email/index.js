@@ -23,7 +23,8 @@ _.extend(Email.prototype, {
     return this._request.post(
       this._getCustomerId(options),
       util.format('/email/%s/copy', emailId),
-      this._cleanPayload(payload, ['emailId'])
+      this._cleanPayload(payload, ['emailId']),
+      options
     );
   },
 
@@ -35,7 +36,8 @@ _.extend(Email.prototype, {
     return this._request.post(
       this._getCustomerId(options),
       util.format('/email/%s/updatesource', emailId),
-      this._cleanPayload(payload, ['emailId'])
+      this._cleanPayload(payload, ['emailId']),
+      options
     );
   },
 
@@ -43,7 +45,8 @@ _.extend(Email.prototype, {
     logger.log('email_list');
     return this._request.get(
       this._getCustomerId(options),
-      this._buildUrl('/email', payload, ['customerId'])
+      this._buildUrl('/email', payload, ['customerId']),
+      options
     );
   },
 
@@ -55,7 +58,8 @@ _.extend(Email.prototype, {
     return this._request.post(
       this._getCustomerId(options),
       util.format('/email/%s/launch', emailId),
-      this._cleanPayload(payload, ['emailId'])
+      this._cleanPayload(payload, ['emailId']),
+      options
     );
   }
 });
