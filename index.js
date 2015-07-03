@@ -16,7 +16,7 @@ module.exports = {
   lib: {
     dateHelper: require('./lib/date-helper'),
     passwordGenerator: require('./lib/password-generator'),
-    request: require('./lib/internal-api-request'),
+    request: require('./lib/api-request'),
     superadminChecker: require('./lib/superadmin-checker')
   }
 
