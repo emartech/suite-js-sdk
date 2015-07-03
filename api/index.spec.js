@@ -38,12 +38,17 @@ describe('SuiteApi', function() {
 
 
     it('should return a new instance of an API with the given environment and key data', function() {
+      var expectedArguments = {
+        environment: 'environment',
+        rejectUnauthorized: true
+      };
+
       stubRequestCreation();
       SuiteAPI.create({ environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true });
       expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteRequestOptionsStub');
       expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteServiceRequestOptionsStub');
-      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environment', true);
-      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environment', true);
+      expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
+      expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
     });
 
 
@@ -86,6 +91,11 @@ describe('SuiteApi', function() {
 
 
       it('should return a new instance with configuration from env variables', function() {
+        var expectedArguments = {
+          environment: 'environmentFromEnv',
+          rejectUnauthorized: false
+        };
+
         process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
         process.env.SUITE_API_KEY = 'apiKeyFromEnv';
         process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
@@ -97,8 +107,8 @@ describe('SuiteApi', function() {
 
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('environmentFromEnv', false);
-        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('environmentFromEnv', false);
+        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
+        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
       });
 
     });
@@ -106,6 +116,11 @@ describe('SuiteApi', function() {
     describe('environment is not provided from any source', function() {
 
       it('should return a new instance with API proxy', function() {
+        var expectedArguments = {
+          environment: 'api.emarsys.net',
+          rejectUnauthorized: true
+        };
+
         process.env.SUITE_API_KEY = 'apiKeyFromEnv';
         process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
 
@@ -115,8 +130,8 @@ describe('SuiteApi', function() {
 
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
-        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWith('api.emarsys.net', true);
-        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWith('api.emarsys.net', true);
+        expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
+        expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
       });
 
     });
@@ -133,11 +148,19 @@ describe('SuiteApi', function() {
     var apiKey;
     var apiSecret;
     var environment;
+    var suiteRequestOptionCreatorOptions;
 
     beforeEach(function() {
       apiKey = 'apikey';
       apiSecret = 'apiSecret';
       environment = 'environment';
+
+      suiteRequestOptionCreatorOptions = {
+        apiKey: 'apikey',
+        apiSecret: 'apiSecret',
+        environment: 'environment',
+        rejectUnauthorized: true
+      };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
@@ -147,8 +170,8 @@ describe('SuiteApi', function() {
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
       this.sandbox.stub(FlipperAPI, 'create').returns('FromFlipperEndpointStub');
-      this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(environment).returns('SuiteRequestOptionsStub');
-      this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(environment).returns('SuiteServiceRequestOptionsStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(suiteRequestOptionCreatorOptions).returns('SuiteRequestOptionsStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(suiteRequestOptionCreatorOptions).returns('SuiteServiceRequestOptionsStub');
       var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
