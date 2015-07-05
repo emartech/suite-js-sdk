@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var BaseApi = require('./');
 
-describe('Suite Base Api', function() {
+describe('Suite Base Api Endpoint', function() {
 
   describe('returns the customerId', function() {
 
@@ -41,7 +41,7 @@ describe('Suite Base Api', function() {
     });
   });
 
-  describe('build a query string', function() {
+  describe('builds a query string', function() {
     it('from an empty object', function() {
       var base = new BaseApi();
 
