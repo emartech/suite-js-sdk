@@ -18,17 +18,17 @@ var config = require('../config');
 
 var SuiteAPI = function(options) {
   options = this._mergeWithDefaultOptions(options);
-  this._internalApirequest = this._createInternalApiRequest(options);
+  this._apiRequest = ApiRequest.create(options);
 
-  this.administrator = AdministratorAPI.create(this._internalApirequest, options);
-  this.contact = ContactAPI.create(this._internalApirequest, options);
-  this.contactList = ContactListAPI.create(this._internalApirequest, options);
-  this.email = EmailAPI.create(this._internalApirequest, options);
-  this.segment = SegmentAPI.create(this._internalApirequest, options);
-  this.language = LanguageAPI.create(this._internalApirequest, options);
-  this.externalEvent = ExternalEventAPI.create(this._internalApirequest, options);
-  this.settings = SettingsAPI.create(this._internalApirequest, options);
-  this.purchase = PurchaseAPI.create(this._internalApirequest, options);
+  this.administrator = AdministratorAPI.create(this._apiRequest, options);
+  this.contact = ContactAPI.create(this._apiRequest, options);
+  this.contactList = ContactListAPI.create(this._apiRequest, options);
+  this.email = EmailAPI.create(this._apiRequest, options);
+  this.segment = SegmentAPI.create(this._apiRequest, options);
+  this.language = LanguageAPI.create(this._apiRequest, options);
+  this.externalEvent = ExternalEventAPI.create(this._apiRequest, options);
+  this.settings = SettingsAPI.create(this._apiRequest, options);
+  this.purchase = PurchaseAPI.create(this._apiRequest, options);
 
   this.environment = options.environment;
 };
@@ -37,7 +37,7 @@ var SuiteAPI = function(options) {
 SuiteAPI.prototype = {
 
   setCache: function(cacheId) {
-    this._internalApirequest.setCache(cacheId);
+    this._apiRequest.setCache(cacheId);
   },
 
 
@@ -48,10 +48,6 @@ SuiteAPI.prototype = {
     }, options);
   },
 
-
-  _createInternalApiRequest: function(options) {
-    return ApiRequest.create(options);
-  },
 
   _apiKeySecret: function() {
     var apiKey = config.suiteApi.apiKey;
