@@ -22,7 +22,7 @@ _.extend(Base.prototype, {
     var qs = querystring.stringify(payload);
 
     if (qs.length) {
-      return base + '/?' + querystring.stringify(payload);
+      return base + '/?' + qs;
     }
 
     return base;
