@@ -43,7 +43,7 @@ SuiteAPI.prototype = {
 
   _mergeWithDefaultOptions: function(options) {
     return _.extend({}, this._apiKeySecret(), {
-      environment: config.suiteApi.environment || SuiteAPI.API_PROXY_URL,
+      environment: config.suiteApi.environment || config.API_PROXY_URL,
       rejectUnauthorized: config.suiteApi.rejectUnauthorized !== 'false'
     }, options);
   },
@@ -75,9 +75,6 @@ SuiteAPI.prototype = {
 
 
 };
-
-
-SuiteAPI.API_PROXY_URL = 'api.emarsys.net';
 
 
 SuiteAPI.create = function(options) {
