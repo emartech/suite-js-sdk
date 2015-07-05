@@ -13,15 +13,7 @@ _.extend(Base.prototype, {
   },
 
   _cleanPayload: function(payload, blackList) {
-    if (!blackList) {
-      return payload;
-    }
-
-    return _.transform(payload, function(result, n, key) {
-      if (blackList.indexOf(key) === -1) {
-        result[key] = n;
-      }
-    });
+    return _.omit(payload, blackList);
   },
 
   _buildUrl: function(base, payload, blackList) {
