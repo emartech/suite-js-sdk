@@ -1,42 +1,27 @@
 'use strict';
 
-var expect = require('chai').expect;
-var apiTest = require('../../../test-helper');
 var SegmentAPI = require('./');
+var testApiMethod = require('../../../test-api-method');
 
-describe('Suite Segment', function() {
+describe('SuiteAPI Segment', function() {
 
-  it('list segments', function() {
-
-    var api = SegmentAPI.create({
-      get: function(customerId, url, options) {
-        expect(url).to.equal('/filter');
-        expect(options.customerId).to.equal(1);
-      }
-    });
-
-    api.listSegments({
-
-    }, {
-      customerId: 1
-    });
+  describe('#listSegments', function() {
+    testApiMethod(SegmentAPI, 'listSegments').withArgs({}).shouldGetResultFromEndpoint('/filter');
   });
 
-  it('list contacts in a segment', function() {
 
-    var api = SegmentAPI.create({
-      get: function(customerId, url) {
-        expect(url).to.equal('/filter/10/contacts/?limit=100&offset=0');
-      }
-    });
+  describe('#listContacts', function() {
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({
+      segmentId: 10
+    }).shouldGetResultFromEndpoint('/filter/10/contacts');
 
-    api.listContacts({
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({
       segmentId: 10,
       limit: 100,
       offset: 0
-    }, {
-      customerId: 1
-    });
+    }).shouldGetResultFromEndpoint('/filter/10/contacts/?limit=100&offset=0');
+
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({}).shouldThrowMissingParameterError('segmentId');
   });
 
 });

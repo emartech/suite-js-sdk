@@ -16,6 +16,8 @@ util.inherits(Email, Base);
 _.extend(Email.prototype, {
 
   copy: function(payload, options) {
+    this._requireParameters(payload, ['emailId']);
+
     logger.log('email_copy');
 
     var emailId = payload.emailId;
@@ -29,6 +31,8 @@ _.extend(Email.prototype, {
   },
 
   updateSource: function(payload, options) {
+    this._requireParameters(payload, ['emailId']);
+
     logger.log('email_update_source');
 
     var emailId = payload.emailId;
@@ -51,6 +55,8 @@ _.extend(Email.prototype, {
   },
 
   launch: function(payload, options) {
+    this._requireParameters(payload, ['emailId']);
+
     logger.log('email_launch');
 
     var emailId = payload.emailId;

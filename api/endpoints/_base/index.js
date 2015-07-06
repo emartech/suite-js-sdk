@@ -1,20 +1,30 @@
 var _ = require('lodash');
 var querystring = require('querystring');
+var APIRequiredParameterMissingError = require('./error');
 
 var Base = function(options) {
-  options = options || {};
-  this.customerId = options.customerId;
+  this.options = options || {};
 };
 
 _.extend(Base.prototype, {
   _getCustomerId: function(options) {
     options = options || {};
-    return options.customerId || this.customerId;
+    return options.customerId || this.options.customerId;
   },
+
+
+  _requireParameters: function(payload, requiredParameters) {
+    requiredParameters.forEach(function(requiredParameter) {
+      if (_.has(payload, requiredParameter)) return;
+      throw new APIRequiredParameterMissingError(requiredParameter);
+    });
+  },
+
 
   _cleanPayload: function(payload, blackList) {
     return _.omit(payload, blackList);
   },
+
 
   _buildUrl: function(base, payload, blackList) {
     payload = this._cleanPayload(payload, blackList);

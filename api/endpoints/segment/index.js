@@ -16,6 +16,8 @@ util.inherits(Segment, Base);
 _.extend(Segment.prototype, {
 
   listContacts: function(payload, options) {
+    this._requireParameters(payload, ['segmentId']);
+
     var url = util.format('/filter/%s/contacts', payload.segmentId);
     logger.log('segment_list_contacts');
     return this._request.get(

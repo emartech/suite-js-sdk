@@ -20,9 +20,9 @@ describe('Suite Base Api Endpoint', function() {
         customerId: 4
       });
 
-      base.customerId = 3;
+      var resultCustomerId = base._getCustomerId({ customerId: 3 });
 
-      expect(base._getCustomerId()).to.be.eql(3);
+      expect(resultCustomerId).to.be.eql(3);
     });
 
   });

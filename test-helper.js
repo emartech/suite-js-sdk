@@ -57,8 +57,14 @@ SDKMethodTestCase.prototype = {
   run: function() {
     it('should send an api call and return with the expected response', function() {
       this._arrange();
-      var returnValue = this._act();
-      this._assert(returnValue);
+      this._act();
+      this._assert();
+    }.bind(this));
+
+    it('should return with the expected response', function() {
+      this._arrange();
+      var result = this._act();
+      expect(result).to.equal(this.expectedReturnValue);
     }.bind(this));
   },
 
@@ -87,14 +93,12 @@ SDKMethodTestCase.prototype = {
   },
 
 
-  _assert: function(returnValue) {
+  _assert: function() {
     if (this.testCase.payload) {
       expect(this._method()).to.have.been.calledWith(this.customerId, this.testCase.expectedUrl, this.testCase.expectedPayload, this.options);
     } else {
       expect(this._method()).to.have.been.calledWith(this.customerId, this.testCase.expectedUrl, this.options);
     }
-
-    expect(returnValue).to.equal(this.expectedReturnValue);
   },
 
 

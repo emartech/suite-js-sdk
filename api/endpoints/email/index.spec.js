@@ -2,75 +2,52 @@
 
 var expect = require('chai').expect;
 var EmailAPI = require('./');
+var testApiMethod = require('../../../test-api-method');
 
-describe('Suite Email', function() {
+describe('SuiteAPI Email', function() {
 
-  it('lists emails', function() {
-
-    var api = EmailAPI.create({
-      get: function(customerId, url) {
-        expect(url).to.equal('/email');
-      }
-    });
-
-    api.list();
+  describe('#list', function() {
+    testApiMethod(EmailAPI, 'list').shouldGetResultFromEndpoint('/email');
   });
 
-  it('copies an existing email', function() {
 
-    var api = EmailAPI.create({
-      post: function(customerId, url, payload) {
-        expect(url).to.equal('/email/32/copy');
-        expect(payload).to.eql({
-          name: '3'
-        });
-      }
-    });
-
-    api.copy({
+  describe('#copy', function() {
+    testApiMethod(EmailAPI, 'copy').withArgs({
       emailId: 32,
+      name: '3'
+    }).shouldPostToEndpoint('/email/32/copy', {
       name: '3'
     });
 
+    testApiMethod(EmailAPI, 'copy').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
-  it('updates the source of an email', function() {
 
-    var api = EmailAPI.create({
-      post: function(customerId, url, payload) {
-        expect(url).to.equal('/email/32/updatesource');
-        expect(payload).to.eql({
-          contactlistId: '3'
-        });
-      }
-    });
-
-    api.updateSource({
+  describe('#updateSource', function() {
+    testApiMethod(EmailAPI, 'updateSource').withArgs({
       contactlistId: '3',
       emailId: 32
+    }).shouldPostToEndpoint('/email/32/updatesource', {
+      contactlistId: '3'
     });
 
+    testApiMethod(EmailAPI, 'updateSource').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
-  it('launches an existing email', function() {
 
+  describe('#launch', function() {
     var time = Date.now();
 
-    var api = EmailAPI.create({
-      post: function(customerId, url, payload) {
-        expect(url).to.equal('/email/32/launch');
-        expect(payload).to.eql({
-          schedule: time,
-          timezone: 'Pacific/Midway'
-        });
-      }
-    });
-
-    api.launch({
+    testApiMethod(EmailAPI, 'launch').withArgs({
       emailId: 32,
       schedule: time,
       timezone: 'Pacific/Midway'
+    }).shouldPostToEndpoint('/email/32/launch', {
+      schedule: time,
+      timezone: 'Pacific/Midway'
     });
+
+    testApiMethod(EmailAPI, 'launch').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
 });
