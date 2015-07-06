@@ -3,7 +3,14 @@ module.exports = {
   api: require('./api/'),
 
   authentication: {
-    koaMiddleware: require('./authentication/url/koa')
+    koaMiddleware: require('./authentication/url/koa'),
+
+    url: {
+      getKoaMiddleware: require('./authentication/url/koa').getMiddleware
+    },
+    request: {
+      getKoaMiddleware: require('./authentication/request/koa').getMiddleware
+    }
   },
 
   translations: {
