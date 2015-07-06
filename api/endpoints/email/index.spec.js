@@ -10,6 +10,13 @@ describe('Suite Email', function() {
     list: {
       method: 'get',
       expectedUrl: '/email'
+    },
+    get: {
+      method: 'get',
+      expectedUrl: '/email/32',
+      arguments: [
+        32
+      ]
     }
   };
 
@@ -45,6 +52,35 @@ describe('Suite Email', function() {
 
     api.updateSource(0, 32, {
       contactlistId: '3'
+    });
+
+  });
+
+  it('loads an existing email', function() {
+
+    var api = EmailAPI.create({
+      get: function(customerId, url, options) {
+        expect(url).to.equal('/email/32');
+      }
+    });
+
+    api.get(0, 32);
+
+  });
+
+  it('updates data of an existing email', function() {
+
+    var api = EmailAPI.create({
+      post: function(customerId, url, payload) {
+        expect(url).to.equal('/email/32/patch');
+        expect(payload).to.eql({
+          subject: 'lorem ipsum'
+        });
+      }
+    });
+
+    api.patch(0, 32, {
+      subject: 'lorem ipsum'
     });
 
   });
