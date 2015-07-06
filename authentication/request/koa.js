@@ -11,4 +11,4 @@ module.exports.getMiddleware = function(escherConfig) {
       this.throw(401, ex.message);
     }
   };
-}
+};
