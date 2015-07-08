@@ -20,7 +20,7 @@ _.extend(Purchase.prototype, {
 
     return this._request.get(
       this._getCustomerId(options),
-      this._buildUrl('/purchases', payload, ['customerId']),
+      this._buildUrl('/purchases', payload),
       options
     );
   }

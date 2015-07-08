@@ -1,28 +1,22 @@
 'use strict';
 
-var expect = require('chai').expect;
 var PurchaseAPI = require('./');
+var testApiMethod = require('../../../test-api-method');
 
 describe('SuiteAPI Smart Insight endpoint', function() {
 
-  it('gets purchases', function() {
 
-    var api = PurchaseAPI.create({
-      get: function(customerId, url) {
-        expect(customerId).to.equal(1);
-        expect(url).to.equal('/purchases/?start_date=2015-02-03&end_date=2015-03-04&offset=0&limit=10');
-      }
-    });
+  describe('#list', function() {
 
-    api.list({
+    testApiMethod(PurchaseAPI, 'list').withArgs({
       start_date: '2015-02-03',
       end_date: '2015-03-04',
       offset: '0',
       limit: 10
-    }, {
-      customerId: 1
-    });
+    }).shouldGetResultFromEndpoint('/purchases/?start_date=2015-02-03&end_date=2015-03-04&offset=0&limit=10');
 
   });
+
+
 
 });
