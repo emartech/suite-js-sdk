@@ -16,37 +16,38 @@ util.inherits(Email, Base);
 _.extend(Email.prototype, {
 
   copy: function(payload, options) {
-    this._requireParameters(payload, ['emailId']);
+    return this._requireParameters(payload, ['emailId'])
+      .then(function() {
+        logger.log('email_copy');
 
-    logger.log('email_copy');
-
-    var emailId = payload.emailId;
-
-    return this._request.post(
-      this._getCustomerId(options),
-      util.format('/email/%s/copy', emailId),
-      this._cleanPayload(payload, ['emailId']),
-      options
-    );
+        return this._request.post(
+          this._getCustomerId(options),
+          util.format('/email/%s/copy', payload.emailId),
+          this._cleanPayload(payload, ['emailId']),
+          options
+        );
+      }.bind(this));
   },
+
 
   updateSource: function(payload, options) {
-    this._requireParameters(payload, ['emailId']);
+    return this._requireParameters(payload, ['emailId'])
+      .then(function() {
+        logger.log('email_update_source');
 
-    logger.log('email_update_source');
-
-    var emailId = payload.emailId;
-
-    return this._request.post(
-      this._getCustomerId(options),
-      util.format('/email/%s/updatesource', emailId),
-      this._cleanPayload(payload, ['emailId']),
-      options
-    );
+        return this._request.post(
+          this._getCustomerId(options),
+          util.format('/email/%s/updatesource', payload.emailId),
+          this._cleanPayload(payload, ['emailId']),
+          options
+        );
+      }.bind(this));
   },
+
 
   list: function(payload, options) {
     logger.log('email_list');
+
     return this._request.get(
       this._getCustomerId(options),
       this._buildUrl('/email', payload, ['customerId']),
@@ -54,19 +55,18 @@ _.extend(Email.prototype, {
     );
   },
 
+
   launch: function(payload, options) {
-    this._requireParameters(payload, ['emailId']);
+    return this._requireParameters(payload, ['emailId']).then(function() {
+      logger.log('email_launch');
 
-    logger.log('email_launch');
-
-    var emailId = payload.emailId;
-
-    return this._request.post(
-      this._getCustomerId(options),
-      util.format('/email/%s/launch', emailId),
-      this._cleanPayload(payload, ['emailId']),
-      options
-    );
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/launch', payload.emailId),
+        this._cleanPayload(payload, ['emailId']),
+        options
+      );
+    }.bind(this));
   }
 });
 

@@ -16,15 +16,16 @@ util.inherits(Segment, Base);
 _.extend(Segment.prototype, {
 
   listContacts: function(payload, options) {
-    this._requireParameters(payload, ['segmentId']);
+    return this._requireParameters(payload, ['segmentId']).then(function() {
+      var url = util.format('/filter/%s/contacts', payload.segmentId);
+      logger.log('segment_list_contacts');
 
-    var url = util.format('/filter/%s/contacts', payload.segmentId);
-    logger.log('segment_list_contacts');
-    return this._request.get(
-      this._getCustomerId(options),
-      this._buildUrl(url, payload, ['segmentId']),
-      options
-    );
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['segmentId']),
+        options
+      );
+    }.bind(this));
   },
 
   listSegments: function(payload, options) {

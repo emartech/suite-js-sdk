@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var querystring = require('querystring');
 var APIRequiredParameterMissingError = require('./error');
+var Promise = require('bluebird');
 
 var Base = function(options) {
   this.options = options || {};
@@ -14,10 +15,16 @@ _.extend(Base.prototype, {
 
 
   _requireParameters: function(payload, requiredParameters) {
-    requiredParameters.forEach(function(requiredParameter) {
-      if (_.has(payload, requiredParameter)) return;
-      throw new APIRequiredParameterMissingError(requiredParameter);
-    });
+    try {
+      requiredParameters.forEach(function(requiredParameter) {
+        if (_.has(payload, requiredParameter)) return;
+        throw new APIRequiredParameterMissingError(requiredParameter);
+      });
+    } catch(ex) {
+      return Promise.reject(ex);
+    }
+
+    return Promise.resolve();
   },
 
 
