@@ -16,12 +16,11 @@ util.inherits(ContactList, Base);
 _.extend(ContactList.prototype, {
 
   create: function(payload, options) {
-    var url = '/contactlist';
     logger.log('contactlist_create');
 
     return this._request.post(
       this._getCustomerId(options),
-      url,
+      '/contactlist',
       payload,
       options
     );
@@ -29,13 +28,13 @@ _.extend(ContactList.prototype, {
 
 
   list: function(payload, options) {
-    return this._requireParameters(payload, ['contactListId']).then(function() {
-      var url = util.format('/contactlist/%s/contacts', payload.contactListId);
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      var url = util.format('/contactlist/%s/contacts', payload.contact_list_id);
       logger.log('contactlist_list');
 
       return this._request.get(
         this._getCustomerId(options),
-        this._buildUrl(url, payload, ['contactListId']),
+        this._buildUrl(url, payload, ['contact_list_id']),
         options
       );
     }.bind(this));

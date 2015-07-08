@@ -16,13 +16,13 @@ util.inherits(Email, Base);
 _.extend(Email.prototype, {
 
   copy: function(payload, options) {
-    return this._requireParameters(payload, ['emailId']).then(function() {
+    return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_copy');
 
       return this._request.post(
         this._getCustomerId(options),
-        util.format('/email/%s/copy', payload.emailId),
-        this._cleanPayload(payload, ['emailId']),
+        util.format('/email/%s/copy', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
         options
       );
     }.bind(this));
@@ -30,13 +30,13 @@ _.extend(Email.prototype, {
 
 
   updateSource: function(payload, options) {
-    return this._requireParameters(payload, ['emailId']).then(function() {
+    return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_update_source');
 
       return this._request.post(
         this._getCustomerId(options),
-        util.format('/email/%s/updatesource', payload.emailId),
-        this._cleanPayload(payload, ['emailId']),
+        util.format('/email/%s/updatesource', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
         options
       );
     }.bind(this));
@@ -55,13 +55,13 @@ _.extend(Email.prototype, {
 
 
   launch: function(payload, options) {
-    return this._requireParameters(payload, ['emailId']).then(function() {
+    return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_launch');
 
       return this._request.post(
         this._getCustomerId(options),
-        util.format('/email/%s/launch', payload.emailId),
-        this._cleanPayload(payload, ['emailId']),
+        util.format('/email/%s/launch', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
         options
       );
     }.bind(this));

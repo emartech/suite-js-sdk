@@ -13,25 +13,25 @@ describe('SuiteAPI Email endpoint', function() {
 
   describe('#copy', function() {
     testApiMethod(EmailAPI, 'copy').withArgs({
-      emailId: 32,
+      email_id: 32,
       name: '3'
     }).shouldPostToEndpoint('/email/32/copy', {
       name: '3'
     });
 
-    testApiMethod(EmailAPI, 'copy').withArgs({}).shouldThrowMissingParameterError('emailId');
+    testApiMethod(EmailAPI, 'copy').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
 
   describe('#updateSource', function() {
     testApiMethod(EmailAPI, 'updateSource').withArgs({
       contactlistId: '3',
-      emailId: 32
+      email_id: 32
     }).shouldPostToEndpoint('/email/32/updatesource', {
       contactlistId: '3'
     });
 
-    testApiMethod(EmailAPI, 'updateSource').withArgs({}).shouldThrowMissingParameterError('emailId');
+    testApiMethod(EmailAPI, 'updateSource').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
 
@@ -39,7 +39,7 @@ describe('SuiteAPI Email endpoint', function() {
     var time = Date.now();
 
     testApiMethod(EmailAPI, 'launch').withArgs({
-      emailId: 32,
+      email_id: 32,
       schedule: time,
       timezone: 'Pacific/Midway'
     }).shouldPostToEndpoint('/email/32/launch', {
@@ -47,7 +47,7 @@ describe('SuiteAPI Email endpoint', function() {
       timezone: 'Pacific/Midway'
     });
 
-    testApiMethod(EmailAPI, 'launch').withArgs({}).shouldThrowMissingParameterError('emailId');
+    testApiMethod(EmailAPI, 'launch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
 });

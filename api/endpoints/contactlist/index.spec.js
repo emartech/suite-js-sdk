@@ -23,7 +23,7 @@ describe('SuiteAPI Contact List endpoint', function() {
   describe('#list', function() {
 
     testApiMethod(ContactListApi, 'list').withArgs({
-      contactListId: 2
+      contact_list_id: 2
     }).shouldGetResultFromEndpoint('/contactlist/2/contacts');
 
   });
