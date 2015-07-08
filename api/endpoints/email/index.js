@@ -16,32 +16,30 @@ util.inherits(Email, Base);
 _.extend(Email.prototype, {
 
   copy: function(payload, options) {
-    return this._requireParameters(payload, ['emailId'])
-      .then(function() {
-        logger.log('email_copy');
+    return this._requireParameters(payload, ['emailId']).then(function() {
+      logger.log('email_copy');
 
-        return this._request.post(
-          this._getCustomerId(options),
-          util.format('/email/%s/copy', payload.emailId),
-          this._cleanPayload(payload, ['emailId']),
-          options
-        );
-      }.bind(this));
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/copy', payload.emailId),
+        this._cleanPayload(payload, ['emailId']),
+        options
+      );
+    }.bind(this));
   },
 
 
   updateSource: function(payload, options) {
-    return this._requireParameters(payload, ['emailId'])
-      .then(function() {
-        logger.log('email_update_source');
+    return this._requireParameters(payload, ['emailId']).then(function() {
+      logger.log('email_update_source');
 
-        return this._request.post(
-          this._getCustomerId(options),
-          util.format('/email/%s/updatesource', payload.emailId),
-          this._cleanPayload(payload, ['emailId']),
-          options
-        );
-      }.bind(this));
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/updatesource', payload.emailId),
+        this._cleanPayload(payload, ['emailId']),
+        options
+      );
+    }.bind(this));
   },
 
 

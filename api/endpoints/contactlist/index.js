@@ -14,6 +14,7 @@ var ContactList = function(request, options) {
 util.inherits(ContactList, Base);
 
 _.extend(ContactList.prototype, {
+
   create: function(payload, options) {
     var url = '/contactlist';
     logger.log('contactlist_create');
@@ -26,6 +27,7 @@ _.extend(ContactList.prototype, {
     );
   },
 
+
   list: function(payload, options) {
     var url = util.format('/contactlist/%s/contacts', payload.contactListId);
     logger.log('contactlist_list');
@@ -36,6 +38,7 @@ _.extend(ContactList.prototype, {
       options
     );
   }
+
 });
 
 ContactList.create = function(request, options) {
