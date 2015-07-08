@@ -1,41 +1,31 @@
 'use strict';
 
-var expect = require('chai').expect;
 var ContactListApi = require('./');
+var testApiMethod = require('../../../test-api-method');
 
-describe.skip('Suite Contact List', function() {
+describe('SuiteAPI Contact List', function() {
 
-  it('creates a contact list', function() {
+  describe('#create', function() {
 
-    var api = ContactListApi.create({
-      post: function(customerId, url, payload) {
-        expect(url).to.equal('/contactlist');
-        expect(payload).to.eql({
-          key_id: 'id',
-          name: 'new fancy list',
-          external_ids: [1, 2]
-        });
-      }
-    });
-
-    api.create({
+    testApiMethod(ContactListApi, 'create').withArgs({
+      key_id: 'id',
+      name: 'new fancy list',
+      external_ids: [1, 2]
+    }).shouldPostToEndpoint('/contactlist', {
       key_id: 'id',
       name: 'new fancy list',
       external_ids: [1, 2]
     });
+
   });
 
-  it('list a contact list members', function() {
 
-    var api = ContactListApi.create({
-      get: function(customerId, url) {
-        expect(url).to.equal('/contactlist/2/contacts');
-      }
-    });
+  describe('#list', function() {
 
-    api.list({
+    testApiMethod(ContactListApi, 'list').withArgs({
       contactListId: 2
-    });
+    }).shouldGetResultFromEndpoint('/contactlist/2/contacts');
+
   });
 
 });

@@ -29,14 +29,16 @@ _.extend(ContactList.prototype, {
 
 
   list: function(payload, options) {
-    var url = util.format('/contactlist/%s/contacts', payload.contactListId);
-    logger.log('contactlist_list');
+    return this._requireParameters(payload, ['contactListId']).then(function() {
+      var url = util.format('/contactlist/%s/contacts', payload.contactListId);
+      logger.log('contactlist_list');
 
-    return this._request.get(
-      this._getCustomerId(options),
-      this._buildUrl(url, payload, ['contactListId']),
-      options
-    );
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['contactListId']),
+        options
+      );
+    }.bind(this));
   }
 
 });
