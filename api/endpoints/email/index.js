@@ -48,7 +48,7 @@ _.extend(Email.prototype, {
 
     return this._request.get(
       this._getCustomerId(options),
-      this._buildUrl('/email', payload, ['customerId']),
+      this._buildUrl('/email', payload),
       options
     );
   },
