@@ -16,7 +16,7 @@ util.inherits(Purchase, Base);
 _.extend(Purchase.prototype, {
 
   list: function(payload, options) {
-    logger.log('smart_insight_get_purchases');
+    logger.log('purchase_list');
 
     return this._request.get(
       this._getCustomerId(options),

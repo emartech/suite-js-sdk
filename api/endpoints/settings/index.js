@@ -1,35 +1,57 @@
 'use strict';
 
+var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
+var Base = require('../_base');
 
-var Settings = function(request) {
+var Settings = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Settings.prototype = {
+util.inherits(Settings, Base);
 
-  getSettings: function(customerId, options) {
-    logger.log('settings_getSettings');
-    return this._request.get(customerId, '/settings', options);
+_.extend(Settings.prototype, {
+
+  getSettings: function(payload, options) {
+    logger.log('settings_get_settings');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings', payload),
+      options
+    );
   },
 
 
-  getCorporateDomains: function(customerId, options) {
-    logger.log('settings_get-corporate-domains');
-    return this._request.get(customerId, '/settings/corporatedomain', options);
+  getCorporateDomains: function(payload, options) {
+    logger.log('settings_get_corporate_domains');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/corporatedomain', payload),
+      options
+    );
   },
 
 
-  setCorporateDomains: function(customerId, domains, options) {
-    logger.log('settings_set-corporate-domains');
-    return this._request.put(customerId, '/settings/corporatedomain', { domains: domains }, options);
+  setCorporateDomains: function(payload, options) {
+    logger.log('settings_set_corporate_domains');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/settings/corporatedomain',
+      payload,
+      options
+    );
   }
 
-};
+});
 
-Settings.create = function(request) {
-  return new Settings(request);
+Settings.create = function(request, options) {
+  return new Settings(request, options);
 };
 
 module.exports = Settings;
