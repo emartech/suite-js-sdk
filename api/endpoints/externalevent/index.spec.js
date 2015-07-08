@@ -1,18 +1,19 @@
 'use strict';
 
 var ExternalEventAPI = require('./');
-var apiTest = require('../../../test-helper');
+var testApiMethod = require('../../../test-api-method');
 
 describe('SuiteAPI External Event endpoint', function() {
 
-  apiTest.testSDKMethodResponse(ExternalEventAPI, {
-    trigger: {
-      method: 'post',
-      expectedUrl: '/event/543/trigger',
-      arguments: [543],
-      payload: { someData: 1 },
-      expectedPayload: { someData: 1 }
-    }
+  describe('#create', function() {
+
+    testApiMethod(ExternalEventAPI, 'trigger').withArgs({
+      event_id: 543,
+      data: 'someData'
+    }).shouldPostToEndpoint('/event/543/trigger', {
+      data: 'someData'
+    });
+
   });
 
 });
