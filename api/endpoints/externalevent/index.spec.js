@@ -1,7 +1,7 @@
 'use strict';
 
 var ExternalEventAPI = require('./');
-var testApiMethod = require('../../../test-api-method');
+var testApiMethod = require('../_test');
 
 describe('SuiteAPI External Event endpoint', function() {
 

@@ -2,7 +2,7 @@
 
 var expect = require('chai').expect;
 var EmailAPI = require('./');
-var testApiMethod = require('../../../test-api-method');
+var testApiMethod = require('../_test');
 
 describe('SuiteAPI Email endpoint', function() {
 

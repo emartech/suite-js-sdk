@@ -1,7 +1,7 @@
 'use strict';
 
 var LanguageAPI = require('./');
-var testApiMethod = require('../../../test-api-method');
+var testApiMethod = require('../_test');
 
 describe('SuiteAPI Language endpoint', function() {
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var PurchaseAPI = require('./');
-var testApiMethod = require('../../../test-api-method');
+var testApiMethod = require('../_test');
 
 describe('SuiteAPI Smart Insight endpoint', function() {
 

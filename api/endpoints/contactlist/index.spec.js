@@ -1,7 +1,7 @@
 'use strict';
 
 var ContactListApi = require('./');
-var testApiMethod = require('../../../test-api-method');
+var testApiMethod = require('../_test');
 
 describe('SuiteAPI Contact List endpoint', function() {
 
