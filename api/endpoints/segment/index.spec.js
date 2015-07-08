@@ -3,7 +3,7 @@
 var SegmentAPI = require('./');
 var testApiMethod = require('../../../test-api-method');
 
-describe('SuiteAPI Segment', function() {
+describe('SuiteAPI Segment endpoint', function() {
 
   describe('#listSegments', function() {
     testApiMethod(SegmentAPI, 'listSegments').withArgs({}).shouldGetResultFromEndpoint('/filter');

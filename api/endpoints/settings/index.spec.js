@@ -3,7 +3,7 @@
 var SettingsAPI = require('./');
 var apiTest = require('../../../test-helper');
 
-describe.skip('Suite Settings', function() {
+describe.skip('SuiteAPI Settings endpoint', function() {
 
   apiTest.testSDKMethodResponse(SettingsAPI, {
     getCorporateDomains: {

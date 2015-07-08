@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var PurchaseAPI = require('./');
 
-describe('Suite Smart Insight', function() {
+describe('SuiteAPI Smart Insight endpoint', function() {
 
   it('gets purchases', function() {
 

@@ -3,7 +3,7 @@
 var ContactAPI = require('./');
 var testApiMethod = require('../../../test-api-method');
 
-describe('SuiteAPI Contact', function() {
+describe('SuiteAPI Contact endpoint', function() {
 
   describe('#create', function() {
 

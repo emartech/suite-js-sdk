@@ -3,7 +3,7 @@
 var ExternalEventAPI = require('./');
 var apiTest = require('../../../test-helper');
 
-describe.skip('Suite External Event', function() {
+describe('SuiteAPI External Event endpoint', function() {
 
   apiTest.testSDKMethodResponse(ExternalEventAPI, {
     trigger: {

@@ -4,7 +4,7 @@ var expect = require('chai').expect;
 var EmailAPI = require('./');
 var testApiMethod = require('../../../test-api-method');
 
-describe('SuiteAPI Email', function() {
+describe('SuiteAPI Email endpoint', function() {
 
   describe('#list', function() {
     testApiMethod(EmailAPI, 'list').shouldGetResultFromEndpoint('/email');
