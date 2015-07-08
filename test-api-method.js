@@ -34,7 +34,7 @@ ApiMethodTest.prototype = {
     describe('towards ' + expectedUrl + ' endpoint', function() {
       beforeEach(function() {
         request = this._getRequestStub();
-        apiEndpoint = new this.ApiEndpoint(request, { customerId: 123 });
+        apiEndpoint = this.ApiEndpoint.create(request, { customerId: 123 });
       }.bind(this));
 
       it('should properly call a GET request', function* () {
@@ -76,7 +76,7 @@ ApiMethodTest.prototype = {
     describe('towards ' + expectedUrl + ' endpoint', function() {
       beforeEach(function() {
         request = this._getRequestStub();
-        apiEndpoint = new this.ApiEndpoint(request, { customerId: 123 });
+        apiEndpoint = this.ApiEndpoint.create(request, { customerId: 123 });
       }.bind(this));
 
       it('should properly call a POST request', function* () {
@@ -116,7 +116,7 @@ ApiMethodTest.prototype = {
 
     describe('without ' + missingParameters.join() + ' parameter' + (missingParameters.length > 1 ? 's' : ''), function() {
       it('should throw a MissingParameterError', function* () {
-        var apiEndpoint = new _this.ApiEndpoint(_this._getRequestStub(), { customerId: 123 });
+        var apiEndpoint = _this.ApiEndpoint.create(_this._getRequestStub(), { customerId: 123 });
 
         try {
           yield apiEndpoint[_this.method](_this.payload, _this.options);
