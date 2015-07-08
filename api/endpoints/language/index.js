@@ -1,24 +1,36 @@
 'use strict';
 
+var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
-var Language = function(request) {
+var Base = require('../_base');
+
+var Language = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Language.prototype = {
+util.inherits(Language, Base);
 
-  translate: function(customerId, language, options) {
+_.extend(Language.prototype, {
+
+  translate: function(payload, options) {
     logger.log('language_translate');
-    var languagePostfix = language ? '/' + language : '';
-    return this._request.get(customerId, '/language/translate' + languagePostfix, options);
+
+    var languagePostfix = payload.language ? '/' + payload.language : '';
+
+    return this._request.get(
+      this._getCustomerId(options),
+      util.format('/language/translate%s', languagePostfix),
+      options
+    );
   }
 
-};
+});
 
-
-Language.create = function(request) {
-  return new Language(request);
+Language.create = function(request, options) {
+  return new Language(request, options);
 };
 
 module.exports = Language;
