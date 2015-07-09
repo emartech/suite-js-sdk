@@ -7,7 +7,7 @@ var SuiteAPI = require('../api');
 var nock = require('nock');
 var Translator = require('./translator');
 
-describe('Suite API translation middleware', function() {
+describe('Suite translation middleware', function() {
 
   describe('#decorateRenderWithTranslations', function() {
     var context;

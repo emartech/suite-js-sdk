@@ -1,30 +1,49 @@
 'use strict';
 
 var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
-var ContactList = function(request) {
+var Base = require('../_base');
+
+var ContactList = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-ContactList.prototype.create = function(customerId, name, contactIds, options) {
-  var url = '/contactlist';
-  logger.log('contactlist_create');
-  return this._request.post(customerId, url, {
-    key_id: 'id',
-    name: name,
-    external_ids: contactIds
-  }, options);
-};
+util.inherits(ContactList, Base);
 
-ContactList.prototype.list = function(customerId, contactListId, offset, limit, options) {
-  var url = util.format('/contactlist/%s/contacts/?offset=%s&limit=%s', contactListId, offset, limit);
-  logger.log('contactlist_list');
-  return this._request.get(customerId, url, options);
-};
+_.extend(ContactList.prototype, {
 
-ContactList.create = function(request) {
-  return new ContactList(request);
+  create: function(payload, options) {
+    logger.log('contactlist_create');
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/contactlist',
+      payload,
+      options
+    );
+  },
+
+
+  list: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      var url = util.format('/contactlist/%s/contacts', payload.contact_list_id);
+      logger.log('contactlist_list');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['contact_list_id']),
+        options
+      );
+    }.bind(this));
+  }
+
+});
+
+ContactList.create = function(request, options) {
+  return new ContactList(request, options);
 };
 
 module.exports = ContactList;

@@ -1,26 +1,72 @@
 'use strict';
 
 var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
-var Email = function(request) {
+var Base = require('../_base');
+
+var Email = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Email.prototype.copy = function(customerId, emailId, payload, options) {
-  logger.log('email_copy');
-  return this._request.post(customerId, util.format('/email/%s/copy', emailId), payload, options);
-};
+util.inherits(Email, Base);
 
-Email.prototype.updateSource = function(customerId, emailId, payload, options) {
-  logger.log('email_update_source');
-  return this._request.post(customerId, util.format('/email/%s/updatesource', emailId), payload, options);
-};
+_.extend(Email.prototype, {
 
-Email.prototype.list = function(customerId, options) {
-  logger.log('email_list');
-  return this._request.get(customerId, '/email', options);
-};
+  copy: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_copy');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/copy', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+
+  updateSource: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_update_source');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/updatesource', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+
+  list: function(payload, options) {
+    logger.log('email_list');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/email', payload),
+      options
+    );
+  },
+
+
+  launch: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_launch');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/launch', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  }
+});
 
 Email.prototype.get = function(customerId, emailId, options) {
   logger.log('email_get');
@@ -32,16 +78,8 @@ Email.prototype.patch = function(customerId, emailId, payload, options) {
   return this._request.post(customerId, util.format('/email/%s/patch', emailId), payload, options);
 };
 
-Email.prototype.launch = function(customerId, emailId, schedule, timezone, options) {
-  logger.log('email_launch');
-  return this._request.post(customerId, util.format('/email/%s/launch', emailId), {
-    schedule: schedule,
-    timezone: timezone
-  }, options);
-};
-
-Email.create = function(request) {
-  return new Email(request);
+Email.create = function(request, options) {
+  return new Email(request, options);
 };
 
 module.exports = Email;

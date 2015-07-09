@@ -1,27 +1,26 @@
 'use strict';
 
 var SettingsAPI = require('./');
-var apiTest = require('../../../test-helper');
+var testApiMethod = require('../_test');
 
-describe('Suite Settings', function() {
+describe('SuiteAPI Settings endpoint', function() {
 
-  apiTest.testSDKMethodResponse(SettingsAPI, {
-    getCorporateDomains: {
-      method: 'get',
-      expectedUrl: '/settings/corporatedomain'
-    },
+  describe('#getSettings', function() {
+    testApiMethod(SettingsAPI, 'getSettings').shouldGetResultFromEndpoint('/settings');
+  });
 
-    getSettings: {
-      method: 'get',
-      expectedUrl: '/settings'
-    },
 
-    setCorporateDomains: {
-      method: 'put',
-      expectedUrl: '/settings/corporatedomain',
-      payload: ['domain1.com', 'domain2.com'],
-      expectedPayload: { domains: ['domain1.com', 'domain2.com'] }
-    }
+  describe('#getCorporateDomains', function() {
+    testApiMethod(SettingsAPI, 'getCorporateDomains').shouldGetResultFromEndpoint('/settings/corporatedomain');
+  });
+
+
+  describe('#setCorporateDomains', function() {
+    testApiMethod(SettingsAPI, 'setCorporateDomains').withArgs({
+      domains: ['domain1.com', 'domain2.com']
+    }).shouldPutToEndpoint('/settings/corporatedomain', {
+      domains: ['domain1.com', 'domain2.com']
+    });
   });
 
 });

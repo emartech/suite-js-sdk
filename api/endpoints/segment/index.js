@@ -2,30 +2,46 @@
 
 var util = require('util');
 var logger = require('logentries-logformat')('suite-sdk');
+var _ = require('lodash');
 
-var OFFSET = 0;
-var LIMIT = 1000000;
+var Base = require('../_base');
 
-var Segment = function(request) {
+var Segment = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Segment.prototype.listContacts = function(customerId, segmentId, offset, limit, options) {
-  offset = offset || OFFSET;
-  limit = limit || LIMIT;
-  var url = util.format('/filter/%s/contacts/limit=%s&offset=%s', segmentId, limit, offset);
-  logger.log('segment_list_contacts');
-  return this._request.get(customerId, url, options);
-};
+util.inherits(Segment, Base);
 
-Segment.prototype.listSegments = function(customerId, options) {
-  var url = '/filter';
-  logger.log('segment_list');
-  return this._request.get(customerId, url, options);
-};
+_.extend(Segment.prototype, {
 
-Segment.create = function(request) {
-  return new Segment(request);
+  listContacts: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      var url = util.format('/filter/%s/contacts', payload.segment_id);
+      logger.log('segment_list_contacts');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['segment_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+  listSegments: function(payload, options) {
+    logger.log('segment_list');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/filter', payload),
+      options
+    );
+  }
+
+});
+
+Segment.create = function(request, options) {
+  return new Segment(request, options);
 };
 
 module.exports = Segment;

@@ -1,22 +1,18 @@
 'use strict';
 
 var LanguageAPI = require('./');
-var apiTest = require('../../../test-helper');
+var testApiMethod = require('../_test');
 
-describe('Suite Language', function() {
+describe('SuiteAPI Language endpoint', function() {
 
-  apiTest.testSDKMethodResponse(LanguageAPI, {
-    translate: [
-      {
-        method: 'get',
-        expectedUrl: '/language/translate'
-      },
-      {
-        method: 'get',
-        arguments: ['en'],
-        expectedUrl: '/language/translate/en'
-      }
-    ]
+  describe('#translate', function() {
+
+    testApiMethod(LanguageAPI, 'translate').shouldGetResultFromEndpoint('/language/translate');
+
+    testApiMethod(LanguageAPI, 'translate').withArgs({
+      language: 'en'
+    }).shouldGetResultFromEndpoint('/language/translate/en');
+
   });
 
 });

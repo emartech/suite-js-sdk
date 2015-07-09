@@ -1,22 +1,35 @@
 'use strict';
 
+var util = require('util');
+var _ = require('lodash');
 var logger = require('logentries-logformat')('suite-sdk');
 
-var Contact = function(request) {
+var Base = require('../_base');
+
+var Contact = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Contact.prototype = {
+util.inherits(Contact, Base);
 
-  create: function(customerId, payload, options) {
+_.extend(Contact.prototype, {
+
+  create: function(payload, options) {
     logger.log('contact_create');
-    return this._request.post(customerId, '/contact', payload, options);
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/contact',
+      payload,
+      options
+    );
   }
 
-};
+});
 
-Contact.create = function(request) {
-  return new Contact(request);
+Contact.create = function(request, options) {
+  return new Contact(request, options);
 };
 
 module.exports = Contact;

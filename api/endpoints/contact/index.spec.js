@@ -1,17 +1,18 @@
 'use strict';
 
 var ContactAPI = require('./');
-var apiTest = require('../../../test-helper');
+var testApiMethod = require('../_test');
 
-describe('Suite Contact', function() {
+describe('SuiteAPI Contact endpoint', function() {
 
-  apiTest.testSDKMethodResponse(ContactAPI, {
-    create: {
-      method: 'post',
-      expectedUrl: '/contact',
-      payload: { someData: 1 },
-      expectedPayload: { someData: 1 }
-    }
+  describe('#create', function() {
+
+    testApiMethod(ContactAPI, 'create').withArgs({
+      name: 'contactName'
+    }).shouldPostToEndpoint('/contact', {
+      name: 'contactName'
+    });
+
   });
 
 });

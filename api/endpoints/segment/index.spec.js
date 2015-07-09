@@ -1,29 +1,27 @@
 'use strict';
 
-var expect = require('chai').expect;
-var apiTest = require('../../../test-helper');
 var SegmentAPI = require('./');
+var testApiMethod = require('../_test');
 
-describe('Suite Segment', function() {
+describe('SuiteAPI Segment endpoint', function() {
 
-  var sdkMethods = {
-    listSegments: {
-      method: 'get',
-      expectedUrl: '/filter'
-    }
-  };
+  describe('#listSegments', function() {
+    testApiMethod(SegmentAPI, 'listSegments').withArgs({}).shouldGetResultFromEndpoint('/filter');
+  });
 
-  apiTest.testSDKMethodResponse(SegmentAPI, sdkMethods);
 
-  it('list contacts in a segment', function() {
+  describe('#listContacts', function() {
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({
+      segment_id: 10
+    }).shouldGetResultFromEndpoint('/filter/10/contacts');
 
-    var api = SegmentAPI.create({
-      get: function(customerId, url) {
-        expect(url).to.equal('/filter/10/contacts/limit=100&offset=0');
-      }
-    });
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({
+      segment_id: 10,
+      limit: 100,
+      offset: 0
+    }).shouldGetResultFromEndpoint('/filter/10/contacts/?limit=100&offset=0');
 
-    api.listContacts(0, 10, 0, 100);
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({}).shouldThrowMissingParameterError('segment_id');
   });
 
 });

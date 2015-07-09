@@ -1,38 +1,34 @@
 'use strict';
 
 var SuiteRequest = require('escher-suiteapi-js');
-var SuiteRequestOptions = SuiteRequest.Options;
 var ApiRequest = require('./../lib/api-request');
-var InternalApiRequest = require('./../lib/internal-api-request');
 var AdministratorAPI = require('./endpoints/administrator');
 var ContactAPI = require('./endpoints/contact');
 var ContactListAPI = require('./endpoints/contactlist');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
-var FlipperAPI = require('./endpoints/flipper');
 var EmailAPI = require('./endpoints/email');
 var SegmentAPI = require('./endpoints/segment');
 var PurchaseAPI = require('./endpoints/purchase');
 var KeyPool = require('escher-keypool');
 var _ = require('lodash');
 
+var config = require('../config');
 
 var SuiteAPI = function(options) {
   options = this._mergeWithDefaultOptions(options);
-  this._internalApirequest = this._createInternalApiRequest(options);
-  this._serviceApiRequest = this._createServiceApiRequest(options);
+  this._apiRequest = ApiRequest.create(options);
 
-  this.administrator = AdministratorAPI.create(this._internalApirequest);
-  this.contact = ContactAPI.create(this._internalApirequest);
-  this.contactList = ContactListAPI.create(this._internalApirequest);
-  this.email = EmailAPI.create(this._internalApirequest);
-  this.segment = SegmentAPI.create(this._internalApirequest);
-  this.language = LanguageAPI.create(this._internalApirequest);
-  this.externalEvent = ExternalEventAPI.create(this._internalApirequest);
-  this.settings = SettingsAPI.create(this._internalApirequest);
-  this.purchase = PurchaseAPI.create(this._internalApirequest);
-  this.flipper = FlipperAPI.create(this._serviceApiRequest);
+  this.administrator = AdministratorAPI.create(this._apiRequest, options);
+  this.contact = ContactAPI.create(this._apiRequest, options);
+  this.contactList = ContactListAPI.create(this._apiRequest, options);
+  this.email = EmailAPI.create(this._apiRequest, options);
+  this.segment = SegmentAPI.create(this._apiRequest, options);
+  this.language = LanguageAPI.create(this._apiRequest, options);
+  this.externalEvent = ExternalEventAPI.create(this._apiRequest, options);
+  this.settings = SettingsAPI.create(this._apiRequest, options);
+  this.purchase = PurchaseAPI.create(this._apiRequest, options);
 
   this.environment = options.environment;
 };
@@ -41,45 +37,31 @@ var SuiteAPI = function(options) {
 SuiteAPI.prototype = {
 
   setCache: function(cacheId) {
-    this._internalApirequest.setCache(cacheId);
+    this._apiRequest.setCache(cacheId);
   },
 
 
   _mergeWithDefaultOptions: function(options) {
     return _.extend({}, this._apiKeySecret(), {
-      environment: process.env.SUITE_API_ENVIRONMENT || SuiteAPI.API_PROXY_URL,
-      rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED !== 'false'
+      environment: config.suiteApi.environment || config.API_PROXY_URL,
+      rejectUnauthorized: config.suiteApi.rejectUnauthorized !== 'false'
     }, options);
   },
 
 
-  _createInternalApiRequest: function(options) {
-    var requestOptions = SuiteRequestOptions.createForInternalApi(options);
-    var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return InternalApiRequest.create(suiteRequest);
-  },
-
-
-  _createServiceApiRequest: function(options) {
-    var requestOptions = SuiteRequestOptions.createForServiceApi(options);
-    var suiteRequest = SuiteRequest.create(options.apiKey, options.apiSecret, requestOptions);
-    return ApiRequest.create(suiteRequest);
-  },
-
-
   _apiKeySecret: function() {
-    var apiKey = process.env.SUITE_API_KEY;
-    var apiSecret = process.env.SUITE_API_SECRET;
+    var apiKey = config.suiteApi.apiKey;
+    var apiSecret = config.suiteApi.apiSecret;
 
     if (apiSecret && apiKey) return { apiKey: apiKey, apiSecret: apiSecret };
-    if (process.env.KEY_POOL) return this._apiKeySecretFromKeyPool();
+    if (config.suiteApi.keyPool) return this._apiKeySecretFromKeyPool();
 
     return { apiKey: undefined, apiSecret: undefined };
   },
 
 
   _apiKeySecretFromKeyPool: function() {
-    var fromKeyPool = new KeyPool(process.env.KEY_POOL).getActiveKey(process.env.SUITE_API_KEY_ID);
+    var fromKeyPool = new KeyPool(config.suiteApi.keyPool).getActiveKey(config.suiteApi.keyId);
 
     return {
       apiKey: fromKeyPool.keyId,
@@ -89,9 +71,6 @@ SuiteAPI.prototype = {
 
 
 };
-
-
-SuiteAPI.API_PROXY_URL = 'api.emarsys.net';
 
 
 SuiteAPI.create = function(options) {
@@ -115,7 +94,6 @@ module.exports.Language = LanguageAPI;
 module.exports.ExternalEvent = ExternalEventAPI;
 module.exports.Settings = SettingsAPI;
 module.exports.Purchase = PurchaseAPI;
-module.exports.Flipper = FlipperAPI;
 module.exports.Email = EmailAPI;
 module.exports.Segment = SegmentAPI;
 module.exports.SuiteRequestError = SuiteRequest.Error;

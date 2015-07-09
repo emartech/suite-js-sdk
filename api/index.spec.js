@@ -7,11 +7,11 @@ var SegmentAPI = require('./endpoints/segment');
 var LanguageAPI = require('./endpoints/language');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var SettingsAPI = require('./endpoints/settings');
-var FlipperAPI = require('./endpoints/flipper');
-var Request = require('./../lib/internal-api-request');
-var ServiceRequest = require('./../lib/api-request');
+var Request = require('./../lib/api-request');
 var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
+
+var config = require('../config');
 
 describe('SuiteApi', function() {
 
@@ -22,18 +22,10 @@ describe('SuiteApi', function() {
     beforeEach(function() {
       stubRequestCreation = (function() {
         this.sandbox.stub(SuiteRequest, 'create');
+        this.sandbox.stub(Request, 'create');
         this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
         this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
-    });
-
-    afterEach(function() {
-      delete process.env.SUITE_API_ENVIRONMENT;
-      delete process.env.SUITE_API_KEY;
-      delete process.env.SUITE_API_SECRET;
-      delete process.env.SUITE_API_REJECT_UNAUTHORIZED;
-      delete process.env.KEY_POOL;
-      delete process.env.SUITE_API_KEY_ID;
     });
 
 
@@ -49,6 +41,9 @@ describe('SuiteApi', function() {
       expect(SuiteRequest.create).to.have.been.calledWith('apiKey', 'apiSecret', 'SuiteServiceRequestOptionsStub');
       expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
       expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
+      var options = { environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true };
+      SuiteAPI.create(options);
+      expect(Request.create).to.have.been.calledWith(options);
     });
 
 
@@ -57,34 +52,42 @@ describe('SuiteApi', function() {
       describe('keypool provided but api key and api secret not', function() {
 
         it('should return a new instance with configuration from key pool', function() {
-          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
-          process.env.KEY_POOL = JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]);
+          this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]));
 
           stubRequestCreation();
 
           SuiteAPI.create();
 
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteRequestOptionsStub');
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_ums_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+          expect(Request.create).to.have.been.calledWith({
+            apiKey: 'suite_ums_v1',
+            apiSecret: '<Y>',
+            environment: 'environmentFromEnv',
+            rejectUnauthorized: false
+          });
         });
 
 
         it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
-          process.env.SUITE_API_ENVIRONMENT = 'environmentFromEnv';
-          process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
-          process.env.SUITE_API_KEY_ID = 'suite_noc';
-          process.env.KEY_POOL = JSON.stringify([
+          this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([
             { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
             { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
-          ]);
+          ]));
+          this.sandbox.stub(config.suiteApi, 'keyId', 'suite_noc');
 
           stubRequestCreation();
 
           SuiteAPI.create();
 
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteRequestOptionsStub');
-          expect(SuiteRequest.create).to.have.been.calledWith('suite_noc_v1', '<Y>', 'SuiteServiceRequestOptionsStub');
+          expect(Request.create).to.have.been.calledWith({
+            apiKey: 'suite_noc_v1',
+            apiSecret: '<Y>',
+            environment: 'environmentFromEnv',
+            rejectUnauthorized: false
+          });
         });
 
       });
@@ -100,15 +103,27 @@ describe('SuiteApi', function() {
         process.env.SUITE_API_KEY = 'apiKeyFromEnv';
         process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
         process.env.SUITE_API_REJECT_UNAUTHORIZED = 'false';
+        this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
+        this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+        this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
+        this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
 
         stubRequestCreation();
 
-        SuiteAPI.create();
+        var api = SuiteAPI.create();
 
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteRequestOptionsStub');
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
         expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
         expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
+        expect(Request.create).to.have.been.calledWith({
+          apiKey: 'apiKeyFromEnv',
+          apiSecret: 'apiSecretFromEnv',
+          environment: 'environmentFromEnv',
+          rejectUnauthorized: false
+        });
+
+        expect(api).to.be.ok;
       });
 
     });
@@ -123,6 +138,8 @@ describe('SuiteApi', function() {
 
         process.env.SUITE_API_KEY = 'apiKeyFromEnv';
         process.env.SUITE_API_SECRET = 'apiSecretFromEnv';
+        this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
+        this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
 
         stubRequestCreation();
 
@@ -132,6 +149,12 @@ describe('SuiteApi', function() {
         expect(SuiteRequest.create).to.have.been.calledWith('apiKeyFromEnv', 'apiSecretFromEnv', 'SuiteServiceRequestOptionsStub');
         expect(SuiteRequestOptions.createForInternalApi).to.have.been.calledWithMatch(expectedArguments);
         expect(SuiteRequestOptions.createForServiceApi).to.have.been.calledWithMatch(expectedArguments);
+        expect(Request.create).to.have.been.calledWith({
+          apiKey: 'apiKeyFromEnv',
+          apiSecret: 'apiSecretFromEnv',
+          environment: 'api.emarsys.net',
+          rejectUnauthorized: true
+        });
       });
 
     });
@@ -149,6 +172,7 @@ describe('SuiteApi', function() {
     var apiSecret;
     var environment;
     var suiteRequestOptionCreatorOptions;
+    var options;
 
     beforeEach(function() {
       apiKey = 'apikey';
@@ -162,6 +186,13 @@ describe('SuiteApi', function() {
         rejectUnauthorized: true
       };
 
+      options = {
+        apiKey: apiKey,
+        apiSecret: apiSecret,
+        environment: environment,
+        rejectUnauthorized: false
+      };
+
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
       this.sandbox.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
@@ -172,19 +203,20 @@ describe('SuiteApi', function() {
       this.sandbox.stub(FlipperAPI, 'create').returns('FromFlipperEndpointStub');
       this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(suiteRequestOptionCreatorOptions).returns('SuiteRequestOptionsStub');
       this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(suiteRequestOptionCreatorOptions).returns('SuiteServiceRequestOptionsStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').withArgs(environment).returns('SuiteRequestOptionsStub');
+      this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').withArgs(environment).returns('SuiteServiceRequestOptionsStub');
       var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom' };
-      this.sandbox.stub(Request, 'create').withArgs('SuiteRequestStub').returns(fakeRequest);
-      this.sandbox.stub(ServiceRequest, 'create').withArgs('SuiteServiceRequestStub').returns(fakeServiceRequest);
-      sdk = SuiteAPI.create({ environment: environment, apiKey: apiKey, apiSecret: apiSecret });
+      this.sandbox.stub(Request, 'create').withArgs(options).returns(fakeRequest);
+      sdk = SuiteAPI.create(options);
     });
 
 
     it('should have an SDK object with Administrator endpoint', function() {
       expect(sdk.administrator).to.eql('FromAdministratorEndpointStub');
-      expect(AdministratorAPI.create).to.have.been.calledWith(fakeRequest);
+      expect(AdministratorAPI.create).to.have.been.calledWith(fakeRequest, options);
     });
 
 
@@ -217,11 +249,6 @@ describe('SuiteApi', function() {
       expect(SettingsAPI.create).to.have.been.calledWith(fakeRequest);
     });
 
-
-    it('should have an SDK object with Flipper endpoint', function() {
-      expect(sdk.flipper).to.eql('FromFlipperEndpointStub');
-      expect(FlipperAPI.create).to.have.been.calledWith(fakeServiceRequest);
-    });
   });
 
 

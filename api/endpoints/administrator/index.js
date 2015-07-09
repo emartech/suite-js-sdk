@@ -1,62 +1,100 @@
 'use strict';
 
-var AdminList = require('./index.admin-list.js');
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+var util = require('util');
 var logger = require('logentries-logformat')('suite-sdk');
-var passwordGenerator = require('../../../lib/password-generator');
-var dateHelper = require('../../../lib/date-helper');
 var _ = require('lodash');
 
+var AdminList = require('./index.admin-list.js');
+var SuiteRequestError = require('escher-suiteapi-js').Error;
+var passwordGenerator = require('../../../lib/password-generator');
+var dateHelper = require('../../../lib/date-helper');
+var Promise = require('bluebird');
 
+var Base = require('../_base');
 
-var Administrator = function(request) {
+var Administrator = function(request, options) {
+  Base.call(this, options);
   this._request = request;
 };
 
-Administrator.prototype = {
+util.inherits(Administrator, Base);
 
-  getAdministrators: function(customerId, options) {
-    logger.log('administrator_getAdministrators');
-    return this._request.get(customerId, '/administrator', options);
+_.extend(Administrator.prototype, {
+
+  getAdministrators: function(payload, options) {
+    logger.log('administrator_get_administrators');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/administrator', payload),
+      options
+    );
   },
 
 
-  getSuperadmin: function(customerId, options) {
-    logger.log('administrator_getSuperadmin');
-    return this.getAdministrators(customerId, options).then(function(response) {
-      var firstSuperadmin = new AdminList(response).getFirstSuperadministrator();
-      if (firstSuperadmin) return firstSuperadmin;
+  getSuperadmin: function(payload, options) {
+    logger.log('administrator_get_superadmin');
 
-      throw new SuiteRequestError('There is no superadmin for this customer', 400);
+    return this.getAdministrators(payload, options).then(function(response) {
+      var firstAdmin = new AdminList(response.body).getFirstSuperadministrator();
+
+      if (firstAdmin) return Promise.resolve({
+        body: firstAdmin
+      });
+
+      return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
     }.bind(this));
   },
 
 
-  getAdministrator: function(customerId, adminId, options) {
-    logger.log('administrator_getAdministrator');
-    return this.getAdministrators(customerId, options).then(function(response) {
-      var firstAdmin = new AdminList(response).getFirstById(adminId);
-      if (firstAdmin) return firstAdmin;
+  getAdministrator: function(payload, options) {
+    return this._requireParameters(payload, ['administrator_id']).then(function() {
+      logger.log('administrator_get_administrator');
 
-      throw new SuiteRequestError('There is no admin for this customer', 400);
+      var administrator_id = payload.administrator_id;
+      payload = this._cleanPayload(payload, ['administrator_id']);
+
+      return this.getAdministrators(payload, options).then(function(response) {
+        var firstAdmin = new AdminList(response.body).getFirstById(administrator_id);
+
+        if (firstAdmin) return Promise.resolve({
+          body: firstAdmin
+        });
+
+        return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
+      }.bind(this));
     }.bind(this));
   },
 
 
-  getAdministratorByName: function(customerId, adminName, options) {
-    logger.log('administrator_getAdministrator');
-    return this.getAdministrators(customerId, options).then(function(response) {
-      var firstAdmin = new AdminList(response).getFirstByName(adminName);
-      if (firstAdmin) return firstAdmin;
+  getAdministratorByName: function(payload, options) {
+    return this._requireParameters(payload, ['admin_name']).then(function() {
+      logger.log('administrator_get_administrator_by_name');
 
-      throw new SuiteRequestError('There is no admin for this customer', 400);
+      var admin_name = payload.admin_name;
+      payload = this._cleanPayload(payload, ['admin_name']);
+
+      return this.getAdministrators(payload, options).then(function(response) {
+        var firstAdmin = new AdminList(response.body).getFirstByName(admin_name);
+
+        if (firstAdmin) return Promise.resolve({
+          body: firstAdmin
+        });
+
+        return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
+      }.bind(this));
     }.bind(this));
   },
 
 
-  getInterfaceLanguages: function(customerId, options) {
-    logger.log('administrator_getInterfaceLanguages');
-    return this._request.get(customerId, '/administrator/getinterfacelanguages', options);
+  getInterfaceLanguages: function(payload, options) {
+    logger.log('administrator_get_interface_languages');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/administrator/getinterfacelanguages', payload),
+      options
+    );
   },
 
 
@@ -67,108 +105,136 @@ Administrator.prototype = {
   },
 
 
-  getAccessLevels: function(customerId, options) {
-    logger.log('administrator_getAccess');
-    return this._request.get(customerId, '/administrator/getaccesslevels', options);
+  getAccessLevels: function(payload, options) {
+    logger.log('administrator_get_access_levels');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/administrator/getaccesslevels', payload),
+      options
+    );
   },
 
 
-  patchAdministrator: function(customerId, adminId, payload, options) {
-    logger.log('administrator_patchAdministrator');
-    return this._request.post(customerId, '/administrator/' + adminId + '/patch', payload, options);
+  patchAdministrator: function(payload, options) {
+    return this._requireParameters(payload, ['administrator_id']).then(function() {
+      logger.log('administrator_patch_administrator');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/administrator/%s/patch', payload.administrator_id),
+        this._cleanPayload(payload, ['administrator_id']),
+        options
+      );
+    }.bind(this));
   },
 
 
-  createAdministrator: function(customerId, additionalDataToModify, options) {
-    logger.log('admin_createAdmin');
-    if (!additionalDataToModify) additionalDataToModify = {};
+
+  createAdministrator: function(payload, options) {
+    logger.log('admin_create_administrator');
+    if (!payload) payload = {};
 
     var defaultValues = {
-      password: this._generatePassword(),
+      password: passwordGenerator.generate(),
       interface_language: 'en',
       access_level: 0,
       superadmin: 0,
       last_verification_action_date: dateHelper.getCurrentDate()
     };
 
-    var dataToSend = _.extend({}, defaultValues, additionalDataToModify, {
+    payload = _.extend({}, defaultValues, payload, {
       disabled: 1
     });
 
-    return this._request.post(customerId, '/administrator/', dataToSend, options);
+    return this._request.post(
+      this._getCustomerId(options),
+      '/administrator',
+      payload,
+      options
+    );
   },
 
 
-  inviteExistingAdministrator: function(customerId, adminId, additionalDataToModify, options) {
-    logger.log('admin_inviteExistingAdministrator');
-    if (!additionalDataToModify) additionalDataToModify = {};
+  inviteExistingAdministrator: function(payload, options) {
+    logger.log('admin_invite_existing_administrator');
 
-    var dataToSend = _.extend({}, additionalDataToModify, {
+    payload = _.extend({}, payload, {
       disabled: 1,
       last_verification_action_date: dateHelper.getCurrentDate(),
-      password: this._generatePassword()
+      password: passwordGenerator.generate()
     });
 
-    return this.patchAdministrator(customerId, adminId, dataToSend, options);
+    return this.patchAdministrator(payload, options);
   },
 
 
-  createSuperadmin: function(customerId, additionalDataToModify, options) {
-    var data = _.extend({}, additionalDataToModify, { superadmin: 1 });
-    return this.createAdministrator(customerId, data, options);
+  createSuperadmin: function(payload, options) {
+    logger.log('admin_create_superadmin');
+
+    return this.createAdministrator(
+      _.extend({}, payload, { superadmin: 1 }),
+      options
+    );
   },
 
 
-  promoteToSuperadmin: function(customerId, adminId, additionalDataToModify, options) {
-    var data = _.extend({}, additionalDataToModify, {
+  promoteToSuperadmin: function(payload, options) {
+    logger.log('admin_promote_superadmin');
+
+    payload = _.extend({}, payload, {
       superadmin: 1,
       access_level: 0
     });
-    return this.inviteExistingAdministrator(customerId, adminId, data, options);
+
+    return this.inviteExistingAdministrator(payload, options);
   },
 
 
-  enable: function(customerId, adminId, additionalDataToModify, options) {
+  enableAdministrator: function(payload, options) {
     logger.log('admin_enable');
-    if (!additionalDataToModify) additionalDataToModify = {};
-    var dataToSend = _.extend({}, additionalDataToModify, {
+
+    if (!payload) payload = {};
+
+    payload = _.extend({}, payload, {
       disabled: 0,
       last_verification_action_date: dateHelper.getCurrentDate()
     });
 
-    return this.patchAdministrator(customerId, adminId, dataToSend, options);
+    return this.patchAdministrator(payload, options);
   },
 
 
-  disableAdministrator: function(customerId, adminId, options) {
+  disableAdministrator: function(payload, options) {
     logger.log('admin_disable');
 
-    return this.patchAdministrator(customerId, adminId, {
+    if (!payload) payload = {};
+
+    payload = _.extend({}, payload, {
       disabled: 1,
       last_verification_action_date: dateHelper.getCurrentDate()
-    }, options);
+    });
+
+    return this.patchAdministrator(payload, options);
   },
 
 
-  deleteAdministrator: function(customerId, adminId, successorId, options) {
-    logger.log('admin_delete');
-    var payload = {
-      administratorId: adminId,
-      successor_administrator_id: successorId
-    };
+  deleteAdministrator: function(payload, options) {
+    return this._requireParameters(payload, ['administrator_id', 'successor_administrator_id']).then(function() {
+      logger.log('admin_delete');
 
-    return this._request.post(customerId, '/administrator/' + adminId + '/delete', payload, options);
-  },
-
-
-  _generatePassword: function() {
-    return passwordGenerator.generate();
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/administrator/%s/delete', payload.administrator_id),
+        this._cleanPayload(payload, ['administrator_id']),
+        options);
+    }.bind(this));
   }
 
-};
+});
 
-Administrator.create = function(request) {
-  return new Administrator(request);
+Administrator.create = function(request, options) {
+  return new Administrator(request, options);
 };
 
 module.exports = Administrator;
