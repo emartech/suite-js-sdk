@@ -45,7 +45,7 @@ var SDKMethodTestCase = function(API, methodName, testCase) {
   this.testCase = testCase;
 
   this.customerId = null;
-  this.expectedReturnValue = null;
+  this._requestRespondWith = null;
   this.request = null;
   this.api = null;
   this.options = {};
@@ -64,7 +64,7 @@ SDKMethodTestCase.prototype = {
     it('should return with the expected response', function() {
       this._arrange();
       var result = this._act();
-      expect(result).to.equal(this.expectedReturnValue);
+      expect(result).to.equal(this._requestRespondWith);
     }.bind(this));
   },
 
@@ -72,11 +72,11 @@ SDKMethodTestCase.prototype = {
   _arrange: function() {
     this.customerId = 12;
     this.options.customerId = this.customerId;
-    this.expectedReturnValue = { dataFromSuite: 'data' };
+    this._requestRespondWith = { dataFromSuite: 'data' };
     this.request = {
-      get: sinon.stub().returns(this.expectedReturnValue),
-      post: sinon.stub().returns(this.expectedReturnValue),
-      put: sinon.stub().returns(this.expectedReturnValue)
+      get: sinon.stub().returns(this._requestRespondWith),
+      post: sinon.stub().returns(this._requestRespondWith),
+      put: sinon.stub().returns(this._requestRespondWith)
     };
     this.api = new this.API(this.request);
   },

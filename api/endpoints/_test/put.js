@@ -24,7 +24,7 @@ module.exports = {
       it('should return the result', function* () {
         var result = yield apiEndpoint[_this.method](_this.payload, _this.options);
         expect(request.put).to.have.been.callCount(1);
-        expect(result).to.eql(_this.expectedReturnValue);
+        expect(result).to.eql(_this._requestRespondWith);
       });
 
 

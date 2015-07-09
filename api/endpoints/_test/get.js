@@ -3,10 +3,12 @@ var sinon = require('sinon');
 var _ = require('lodash');
 
 module.exports = {
-  shouldGetResultFromEndpoint: function(expectedUrl) {
+  shouldGetResultFromEndpoint: function(expectedUrl, expectedData) {
     var _this = this;
     var apiEndpoint;
     var request;
+
+    expectedData = expectedData || this._requestRespondWith;
 
     describe('towards ' + expectedUrl + ' endpoint', function() {
       beforeEach(function() {
@@ -24,7 +26,7 @@ module.exports = {
       it('should return the result', function* () {
         var result = yield apiEndpoint[_this.method](_this.payload, _this.options);
         expect(request.get).to.have.been.callCount(1);
-        expect(result).to.eql(_this.expectedReturnValue);
+        expect(result).to.eql(expectedData);
       });
 
 
