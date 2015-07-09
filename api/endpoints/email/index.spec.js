@@ -50,33 +50,24 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'launch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
-  it('loads an existing email', function() {
 
-    var api = EmailAPI.create({
-      get: function(customerId, url, options) {
-        expect(url).to.equal('/email/32');
-      }
-    });
+  describe('#get', function() {
+    testApiMethod(EmailAPI, 'get').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12');
 
-    api.get(0, 32);
-
+    testApiMethod(EmailAPI, 'get').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
-  it('updates data of an existing email', function() {
 
-    var api = EmailAPI.create({
-      post: function(customerId, url, payload) {
-        expect(url).to.equal('/email/32/patch');
-        expect(payload).to.eql({
-          subject: 'lorem ipsum'
-        });
-      }
+  describe('#patch', function() {
+    testApiMethod(EmailAPI, 'patch').withArgs({
+      email_id: 12,
+      additional_data: 'someData'
+    }).shouldPostToEndpoint('/email/12/patch', {
+      additional_data: 'someData'
     });
 
-    api.patch(0, 32, {
-      subject: 'lorem ipsum'
-    });
+    testApiMethod(EmailAPI, 'patch').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
 
-  });  
   
 });

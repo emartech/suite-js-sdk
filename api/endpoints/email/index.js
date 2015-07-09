@@ -54,6 +54,34 @@ _.extend(Email.prototype, {
   },
 
 
+  get: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      var url = util.format('/email/%s', payload.email_id);
+      logger.log('email_get');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+
+  patch: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_patch');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/patch', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+
   launch: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_launch');
@@ -68,15 +96,6 @@ _.extend(Email.prototype, {
   }
 });
 
-Email.prototype.get = function(customerId, emailId, options) {
-  logger.log('email_get');
-  return this._request.get(customerId, util.format('/email/%s', emailId), options);
-};
-
-Email.prototype.patch = function(customerId, emailId, payload, options) {
-  logger.log('email_get');
-  return this._request.post(customerId, util.format('/email/%s/patch', emailId), payload, options);
-};
 
 Email.create = function(request, options) {
   return new Email(request, options);
