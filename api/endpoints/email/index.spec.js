@@ -69,5 +69,4 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
-  
 });

@@ -20,7 +20,7 @@ _.extend(Base.prototype, {
         if (_.has(payload, requiredParameter)) return;
         throw new APIRequiredParameterMissingError(requiredParameter);
       });
-    } catch(ex) {
+    } catch (ex) {
       return Promise.reject(ex);
     }
 
