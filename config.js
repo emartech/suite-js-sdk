@@ -5,7 +5,7 @@ var config = {
 
   suiteApi: {
     environment: process.env.SUITE_API_ENVIRONMENT,
-    rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED,
+    rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED !== 'false',
     apiKey: process.env.SUITE_API_KEY,
     apiSecret: process.env.SUITE_API_SECRET,
     keyPool: process.env.KEY_POOL,

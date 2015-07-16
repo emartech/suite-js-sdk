@@ -51,7 +51,7 @@ describe('SuiteApi', function() {
 
         it('should return a new instance with configuration from key pool', function() {
           this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
-          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', false);
           this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]));
 
           stubRequestCreation();
@@ -70,7 +70,7 @@ describe('SuiteApi', function() {
 
         it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
           this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
-          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', false);
           this.sandbox.stub(config.suiteApi, 'keyPool', JSON.stringify([
             { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
             { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
@@ -95,7 +95,7 @@ describe('SuiteApi', function() {
 
       it('should return a new instance with configuration from env variables', function() {
         this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
-        this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
+        this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', false);
         this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
         this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
         this.sandbox.stub(config.suiteApi, 'secure', false);
