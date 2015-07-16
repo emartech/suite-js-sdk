@@ -235,6 +235,14 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.email.list(payload);
 
+##### Get
+
+    suiteAPI.email.get(payload);
+
+##### Patch
+
+    suiteAPI.email.patch(payload);
+
 #### Segment
 
 ##### List contacts
