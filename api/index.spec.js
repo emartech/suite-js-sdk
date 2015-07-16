@@ -33,7 +33,13 @@ describe('SuiteApi', function() {
 
     it('should return a new instance of an API with the given environment and key data', function() {
       stubRequestCreation();
-      var options = { environment: 'environment', apiKey: 'apiKey', apiSecret: 'apiSecret', rejectUnauthorized: true };
+      var options = {
+        environment: 'environment',
+        apiKey: 'apiKey',
+        apiSecret: 'apiSecret',
+        rejectUnauthorized: true,
+        secure: true
+      };
       SuiteAPI.create(options);
       expect(Request.create).to.have.been.calledWith(options);
     });
@@ -56,7 +62,8 @@ describe('SuiteApi', function() {
             apiKey: 'suite_ums_v1',
             apiSecret: '<Y>',
             environment: 'environmentFromEnv',
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            secure: true
           });
         });
 
@@ -78,7 +85,8 @@ describe('SuiteApi', function() {
             apiKey: 'suite_noc_v1',
             apiSecret: '<Y>',
             environment: 'environmentFromEnv',
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            secure: true
           });
         });
 
@@ -90,6 +98,7 @@ describe('SuiteApi', function() {
         this.sandbox.stub(config.suiteApi, 'rejectUnauthorized', 'false');
         this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
         this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
+        this.sandbox.stub(config.suiteApi, 'secure', false);
 
         stubRequestCreation();
 
@@ -99,7 +108,8 @@ describe('SuiteApi', function() {
           apiKey: 'apiKeyFromEnv',
           apiSecret: 'apiSecretFromEnv',
           environment: 'environmentFromEnv',
-          rejectUnauthorized: false
+          rejectUnauthorized: false,
+          secure: false
         });
 
         expect(api).to.be.ok;
@@ -121,7 +131,8 @@ describe('SuiteApi', function() {
           apiKey: 'apiKeyFromEnv',
           apiSecret: 'apiSecretFromEnv',
           environment: 'api.emarsys.net',
-          rejectUnauthorized: true
+          rejectUnauthorized: true,
+          secure: true
         });
       });
 
@@ -149,7 +160,8 @@ describe('SuiteApi', function() {
         apiKey: apiKey,
         apiSecret: apiSecret,
         environment: environment,
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        secure: true
       };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');

@@ -44,7 +44,8 @@ SuiteAPI.prototype = {
   _mergeWithDefaultOptions: function(options) {
     return _.extend({}, this._apiKeySecret(), {
       environment: config.suiteApi.environment || config.API_PROXY_URL,
-      rejectUnauthorized: config.suiteApi.rejectUnauthorized !== 'false'
+      rejectUnauthorized: config.suiteApi.rejectUnauthorized !== 'false',
+      secure: config.suiteApi.secure
     }, options);
   },
 
