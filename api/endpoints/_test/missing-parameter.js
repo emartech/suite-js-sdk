@@ -8,18 +8,21 @@ module.exports = {
   shouldThrowMissingParameterError: function(missingParameters) {
     missingParameters = _.isArray(missingParameters) ? missingParameters : [missingParameters];
     describe('without ' + missingParameters.join() + ' parameter' + (missingParameters.length > 1 ? 's' : ''), function() {
+
+      var self = this;
+
       it('should throw a MissingParameterError', function* () {
-        var apiEndpoint = this.ApiEndpoint.create(this._getRequestStub(), { customerId: 123 });
+        var apiEndpoint = self.ApiEndpoint.create(self._getRequestStub(), { customerId: 123 });
 
         try {
-          yield apiEndpoint[this.method](this.payload, this.options);
+          yield apiEndpoint[self.method](self.payload, self.options);
         } catch (ex) {
           expect(ex).to.be.an.instanceof(APIRequiredParameterMissingError);
           return;
         }
 
         throw new Error('Error not thrown!');
-      }.bind(this));
+      });
     }.bind(this));
   }
 };
