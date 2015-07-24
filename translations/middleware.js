@@ -5,10 +5,10 @@ var TranslateRenderDecorator = require('./render-decorator');
 
 module.exports = {
 
-  decorateRenderWithTranslations: function(apiOptions) {
+  decorateRenderWithTranslations: function(translationId, apiOptions) {
 
     return function* DecorateRenderWithTranslationsMiddleware(next) {
-      yield TranslateRenderDecorator.create(this, apiOptions).decorate();
+      yield TranslateRenderDecorator.create(this, translationId, apiOptions).decorate();
       yield next;
     };
 
