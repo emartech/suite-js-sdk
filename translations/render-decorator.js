@@ -4,11 +4,12 @@ var _ = require('lodash');
 var CollectTranslations = require('./collect');
 var Translator = require('./translator');
 
-var RenderDecorator = function(context) {
+var RenderDecorator = function(context, options) {
   this._context = context;
   this._validatedData = context.request.validatedData || context.validatedData;
   this._translations = null;
   this._originalRender = this._context.render;
+  this._apiOptions = options;
 };
 
 
@@ -34,7 +35,7 @@ RenderDecorator.prototype = {
 
 
   _loadTranslations: function* () {
-    var collectTranslations = CollectTranslations.getFor(this._validatedData.environment, this._context.id);
+    var collectTranslations = CollectTranslations.getFor(this._validatedData.environment, this._context.id, this._apiOptions);
 
     if (this._validatedData.customer_id && this._validatedData.admin_id) {
       this._translations = yield collectTranslations.execute(this._validatedData.customer_id, this._validatedData.admin_id);
@@ -55,7 +56,7 @@ RenderDecorator.prototype = {
   } };
 
 
-RenderDecorator.create = function(context) { return new RenderDecorator(context); };
+RenderDecorator.create = function(context, apiOptions) { return new RenderDecorator(context, apiOptions); };
 
 
 module.exports = RenderDecorator;

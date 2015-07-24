@@ -36,7 +36,7 @@ _.extend(Administrator.prototype, {
     logger.log('administrator_get_superadmin');
 
     return this.getAdministrators(payload, options).then(function(response) {
-      var firstAdmin = new AdminList(response.body).getFirstSuperadministrator();
+      var firstAdmin = new AdminList(response.body.data).getFirstSuperadministrator();
 
       if (firstAdmin) return Promise.resolve({
         body: firstAdmin
@@ -55,7 +55,7 @@ _.extend(Administrator.prototype, {
       payload = this._cleanPayload(payload, ['administrator_id']);
 
       return this.getAdministrators(payload, options).then(function(response) {
-        var firstAdmin = new AdminList(response.body).getFirstById(administrator_id);
+        var firstAdmin = new AdminList(response.body.data).getFirstById(administrator_id);
 
         if (firstAdmin) return Promise.resolve({
           body: firstAdmin
@@ -75,7 +75,7 @@ _.extend(Administrator.prototype, {
       payload = this._cleanPayload(payload, ['admin_name']);
 
       return this.getAdministrators(payload, options).then(function(response) {
-        var firstAdmin = new AdminList(response.body).getFirstByName(admin_name);
+        var firstAdmin = new AdminList(response.body.data).getFirstByName(admin_name);
 
         if (firstAdmin) return Promise.resolve({
           body: firstAdmin

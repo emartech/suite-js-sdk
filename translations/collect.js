@@ -7,8 +7,8 @@ var logger = require('logentries-logformat')('collect-translations');
 var translationCache = {};
 
 
-var CollectTranslations = function(environment, cacheId) {
-  this._api = SuiteAPI.createWithCache(cacheId);
+var CollectTranslations = function(environment, cacheId, options) {
+  this._api = SuiteAPI.createWithCache(cacheId, options);
   this._environment = environment;
 };
 
@@ -16,7 +16,7 @@ var CollectTranslations = function(environment, cacheId) {
 CollectTranslations.prototype = {
 
   execute: function* (customerId, adminId) {
-    var administrator = yield this._api.administrator.getAdministrator(customerId, adminId);
+    var administrator = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, { customerId: customerId });
     return yield this.getSuiteTranslations(administrator.interface_language);
   },
 
@@ -46,8 +46,8 @@ CollectTranslations.clearCache = function() {
 };
 
 
-CollectTranslations.getFor = function(environment, cacheId) {
-  return new CollectTranslations(environment, cacheId);
+CollectTranslations.getFor = function(environment, cacheId, options) {
+  return new CollectTranslations(environment, cacheId, options);
 };
 
 

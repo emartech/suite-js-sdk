@@ -52,3 +52,5 @@ FakeContext.create = function() {
 };
 
 module.exports.FakeContext = FakeContext;
+
+module.exports.FakeTranslationRenderDecorator = { decorate: function* () {} };

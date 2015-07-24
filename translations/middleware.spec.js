@@ -2,10 +2,12 @@
 
 var expect = require('chai').expect;
 var FakeContext = require('../test-mocks').FakeContext;
+var FakeDecorator = require('../test-mocks').FakeTranslationRenderDecorator;
 var translationsDecoratorMiddleware = require('./middleware');
 var SuiteAPI = require('../api');
 var nock = require('nock');
 var Translator = require('./translator');
+var TranslateRenderDecorator = require('./render-decorator');
 
 describe('Suite translation middleware', function() {
 
@@ -40,7 +42,7 @@ describe('Suite translation middleware', function() {
       this.sandbox.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
 
       fakeApi.administrator.getAdministrator
-        .withArgs(validValidatedData.customer_id, validValidatedData.admin_id)
+        .withArgs({ administrator_id: validValidatedData.admin_id }, { customerId: validValidatedData.customer_id })
         .returnsWithResolve({ interface_language: 'mx' });
     });
 
@@ -62,6 +64,14 @@ describe('Suite translation middleware', function() {
         someData: 1
       });
       expect(next.called).to.be.true;
+    });
+
+    it('should pass api options', function* () {
+      var testApiOptions = { host: 'tempuri.org' };
+      this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
+
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testApiOptions).call(context, next);
+      expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testApiOptions);
     });
 
 
