@@ -39,7 +39,7 @@ _.extend(Administrator.prototype, {
       var firstAdmin = new AdminList(response.body.data).getFirstSuperadministrator();
 
       if (firstAdmin) return Promise.resolve({
-        body: firstAdmin
+        body: { data: firstAdmin }
       });
 
       return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
@@ -58,7 +58,7 @@ _.extend(Administrator.prototype, {
         var firstAdmin = new AdminList(response.body.data).getFirstById(administrator_id);
 
         if (firstAdmin) return Promise.resolve({
-          body: firstAdmin
+          body: { data: firstAdmin }
         });
 
         return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
@@ -78,7 +78,7 @@ _.extend(Administrator.prototype, {
         var firstAdmin = new AdminList(response.body.data).getFirstByName(admin_name);
 
         if (firstAdmin) return Promise.resolve({
-          body: firstAdmin
+          body: { data: firstAdmin }
         });
 
         return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));

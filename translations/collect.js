@@ -16,8 +16,10 @@ var CollectTranslations = function(environment, cacheId, options) {
 CollectTranslations.prototype = {
 
   execute: function* (customerId, adminId) {
-    var administrator = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, { customerId: customerId });
-    return yield this.getSuiteTranslations(administrator.interface_language);
+    var response = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, { customerId: customerId });
+    var admin = response.body.data;
+
+    return yield this.getSuiteTranslations(admin.interface_language);
   },
 
 

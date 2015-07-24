@@ -43,7 +43,7 @@ describe('Suite translation middleware', function() {
 
       fakeApi.administrator.getAdministrator
         .withArgs({ administrator_id: validValidatedData.admin_id }, { customerId: validValidatedData.customer_id })
-        .returnsWithResolve({ interface_language: 'mx' });
+        .returnsWithResolve({ body: { data: { interface_language: 'mx' } } });
     });
 
     afterEach(function() {
