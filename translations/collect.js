@@ -9,13 +9,13 @@ var translationCache = {};
 
 
 
-var CollectTranslations = function(environment, translationId, cacheId, apiOptions) {
+var CollectTranslations = function(environment, translationId, cacheId) {
 
   if (!translationId) {
     throw new APIRequiredParameterMissingError('translationId');
   }
 
-  this._api = SuiteAPI.createWithCache(cacheId, apiOptions);
+  this._api = SuiteAPI.createWithCache(cacheId);
   this._environment = environment;
   this._translationId = translationId;
 };
@@ -23,10 +23,11 @@ var CollectTranslations = function(environment, translationId, cacheId, apiOptio
 
 CollectTranslations.prototype = {
 
-  execute: function* (customerId, adminId) {
-    var response = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, { customerId: customerId });
+  execute: function* (adminId, options) {
+    var response = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, options);
     var admin = response.body.data;
 
+    logger.log('admin fetched', adminId);
     return yield this.getSuiteTranslations(admin.interface_language);
   },
 
@@ -56,8 +57,8 @@ CollectTranslations.clearCache = function() {
 };
 
 
-CollectTranslations.getFor = function(environment, cacheId, options) {
-  return new CollectTranslations(environment, cacheId, options);
+CollectTranslations.getFor = function(environment, translationId, cacheId) {
+  return new CollectTranslations(environment, translationId, cacheId);
 };
 
 

@@ -39,14 +39,14 @@ RenderDecorator.prototype = {
     var collectTranslations = CollectTranslations.getFor(
       this._validatedData.environment,
       this._translationId,
-      this._context.id,
-      this._apiOptions
+      this._context.id
     );
 
-    if (this._validatedData.customer_id && this._validatedData.admin_id) {
-      this._translations = yield collectTranslations.execute(this._validatedData.customer_id, this._validatedData.admin_id);
+    if (this._validatedData.admin_id) {
+      let options = _.extend({ customerId: this._validatedData.customer_id }, this._apiOptions);
+      this._translations = yield collectTranslations.execute(this._validatedData.admin_id, options);
     } else {
-      var language = (this._validatedData.language) ? this._validatedData.language : 'en';
+      let language = (this._validatedData.language) ? this._validatedData.language : 'en';
       this._translations = yield collectTranslations.getSuiteTranslations(language);
     }
   },

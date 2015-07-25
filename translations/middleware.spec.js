@@ -45,10 +45,7 @@ describe('Suite translation middleware', function() {
       this.sandbox.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
 
       fakeApi.administrator.getAdministrator
-        .withArgs(
-            { administrator_id: validValidatedData.admin_id },
-            { customerId: validValidatedData.customer_id }
-        )
+        .withArgs({ administrator_id: validValidatedData.admin_id })
         .returnsWithResolve({ body: { data: { interface_language: 'mx' } } });
     });
 
@@ -86,11 +83,17 @@ describe('Suite translation middleware', function() {
     });
 
     it('should pass api options', function* () {
-      var testApiOptions = { host: 'tempuri.org' };
-      this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
+      httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
+
+      var testApiOptions = { customerId: 5, host: 'tempuri.org' };
+      context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
-      expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslation, testApiOptions);
+
+      expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
+          { administrator_id: '21' },
+          testApiOptions
+        );
     });
 
     it('should pass the correct translation file name', function* () {
