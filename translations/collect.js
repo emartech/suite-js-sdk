@@ -3,21 +3,32 @@
 var SuiteAPI = require('../api');
 var request = require('co-request');
 var logger = require('logentries-logformat')('collect-translations');
+var APIRequiredParameterMissingError = require('../api/endpoints/_base/error');
 
 var translationCache = {};
 
 
-var CollectTranslations = function(environment, cacheId) {
+
+var CollectTranslations = function(environment, translationId, cacheId) {
+
+  if (!translationId) {
+    throw new APIRequiredParameterMissingError('translationId');
+  }
+
   this._api = SuiteAPI.createWithCache(cacheId);
   this._environment = environment;
+  this._translationId = translationId;
 };
 
 
 CollectTranslations.prototype = {
 
-  execute: function* (customerId, adminId) {
-    var administrator = yield this._api.administrator.getAdministrator(customerId, adminId);
-    return yield this.getSuiteTranslations(administrator.interface_language);
+  execute: function* (adminId, options) {
+    var response = yield this._api.administrator.getAdministrator({ administrator_id: adminId }, options);
+    var admin = response.body.data;
+
+    logger.log('admin fetched', adminId);
+    return yield this.getSuiteTranslations(admin.interface_language);
   },
 
 
@@ -31,7 +42,7 @@ CollectTranslations.prototype = {
 
 
   _collectTranslationFromSuite: function* (language) {
-    var data = yield request('http://' + this._environment + '/js/translate/translate_um.js.php?lang=' + language);
+    var data = yield request('http://' + this._environment + '/js/translate/translate_' + this._translationId + '.js.php?lang=' + language);
     data = (data && data.body) ? JSON.parse(data.body) : {};
 
     translationCache[language] = data;
@@ -46,8 +57,8 @@ CollectTranslations.clearCache = function() {
 };
 
 
-CollectTranslations.getFor = function(environment, cacheId) {
-  return new CollectTranslations(environment, cacheId);
+CollectTranslations.getFor = function(environment, translationId, cacheId) {
+  return new CollectTranslations(environment, translationId, cacheId);
 };
 
 

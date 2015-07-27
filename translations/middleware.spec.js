@@ -2,12 +2,17 @@
 
 var expect = require('chai').expect;
 var FakeContext = require('../test-mocks').FakeContext;
+var FakeDecorator = require('../test-mocks').FakeTranslationRenderDecorator;
 var translationsDecoratorMiddleware = require('./middleware');
 var SuiteAPI = require('../api');
 var nock = require('nock');
 var Translator = require('./translator');
+var TranslateRenderDecorator = require('./render-decorator');
+var APIRequiredParameterMissingError = require('../api/endpoints/_base/error');
 
 describe('Suite translation middleware', function() {
+
+  var testTranslation = 'test';
 
   describe('#decorateRenderWithTranslations', function() {
     var context;
@@ -40,14 +45,27 @@ describe('Suite translation middleware', function() {
       this.sandbox.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
 
       fakeApi.administrator.getAdministrator
-        .withArgs(validValidatedData.customer_id, validValidatedData.admin_id)
-        .returnsWithResolve({ interface_language: 'mx' });
+        .withArgs({ administrator_id: validValidatedData.admin_id })
+        .returnsWithResolve({ body: { data: { interface_language: 'mx' } } });
     });
 
     afterEach(function() {
       nock.cleanAll();
     });
 
+    it('should throw error if it does not get testTranslation', function* () {
+      context.setValidatedData(validValidatedData);
+
+      try {
+        yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      }
+      catch (ex) {
+        expect(next.called).to.be.false;
+        return expect(ex).to.be.an.instanceOf(APIRequiredParameterMissingError);
+      }
+
+      throw new Error('Missed exception');
+    });
 
     it('should keep the original render data', function* () {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
@@ -55,7 +73,7 @@ describe('Suite translation middleware', function() {
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -64,6 +82,27 @@ describe('Suite translation middleware', function() {
       expect(next.called).to.be.true;
     });
 
+    it('should pass api options', function* () {
+      httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
+
+      var testApiOptions = { customerId: 5, host: 'tempuri.org' };
+      context.setValidatedData(validValidatedData);
+
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
+
+      expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
+          { administrator_id: '21' },
+          testApiOptions
+        );
+    });
+
+    it('should pass the correct translation file name', function* () {
+      var testTranslationId = 'anotherTest';
+      this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
+
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslationId).call(context, next);
+      expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslationId);
+    });
 
     it('should add admin\'s language translations to the render data', function* () {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
@@ -71,7 +110,7 @@ describe('Suite translation middleware', function() {
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', renderData);
 
       expect(SuiteAPI.createWithCache).to.have.been.calledWith(context.id);
@@ -86,7 +125,7 @@ describe('Suite translation middleware', function() {
 
       context.setValidatedData({ environment: validValidatedData.environment, language: 'mx' });
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -100,7 +139,7 @@ describe('Suite translation middleware', function() {
 
       context.setValidatedData({ environment: validValidatedData.environment });
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -118,7 +157,7 @@ describe('Suite translation middleware', function() {
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -134,7 +173,7 @@ describe('Suite translation middleware', function() {
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -148,11 +187,11 @@ describe('Suite translation middleware', function() {
 
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', { anotherData: 2 });
 
       var renderData = { someData: 1 };
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       yield context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -165,7 +204,7 @@ describe('Suite translation middleware', function() {
       try {
         context.setValidatedData(null);
         context.validatedData = null;
-        yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+        yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       } catch (ex) {
         expect(next.called).to.be.false;
         expect(ex).to.be.an.instanceOf(Error);
@@ -198,13 +237,12 @@ describe('Suite translation middleware', function() {
         throw new Error('Missed exception');
       });
     });
-
   });
 
 
   var httpBackendRespondWith = function(errorCode, language, data) {
     nock('http://testEnvironment')
-      .get('/js/translate/translate_um.js.php?lang=' + language)
+      .get('/js/translate/translate_' + testTranslation + '.js.php?lang=' + language)
       .times(1)
       .reply(errorCode, data);
   };

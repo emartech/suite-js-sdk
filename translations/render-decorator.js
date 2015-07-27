@@ -4,11 +4,13 @@ var _ = require('lodash');
 var CollectTranslations = require('./collect');
 var Translator = require('./translator');
 
-var RenderDecorator = function(context) {
+var RenderDecorator = function(context, translationId, apiOptions) {
   this._context = context;
   this._validatedData = context.request.validatedData || context.validatedData;
   this._translations = null;
   this._originalRender = this._context.render;
+  this._apiOptions = apiOptions;
+  this._translationId = translationId;
 };
 
 
@@ -34,12 +36,17 @@ RenderDecorator.prototype = {
 
 
   _loadTranslations: function* () {
-    var collectTranslations = CollectTranslations.getFor(this._validatedData.environment, this._context.id);
+    var collectTranslations = CollectTranslations.getFor(
+      this._validatedData.environment,
+      this._translationId,
+      this._context.id
+    );
 
-    if (this._validatedData.customer_id && this._validatedData.admin_id) {
-      this._translations = yield collectTranslations.execute(this._validatedData.customer_id, this._validatedData.admin_id);
+    if (this._validatedData.admin_id) {
+      let options = _.extend({ customerId: this._validatedData.customer_id }, this._apiOptions);
+      this._translations = yield collectTranslations.execute(this._validatedData.admin_id, options);
     } else {
-      var language = (this._validatedData.language) ? this._validatedData.language : 'en';
+      let language = (this._validatedData.language) ? this._validatedData.language : 'en';
       this._translations = yield collectTranslations.getSuiteTranslations(language);
     }
   },
@@ -55,7 +62,9 @@ RenderDecorator.prototype = {
   } };
 
 
-RenderDecorator.create = function(context) { return new RenderDecorator(context); };
+RenderDecorator.create = function(context, translationId, apiOptions) {
+  return new RenderDecorator(context, translationId, apiOptions);
+};
 
 
 module.exports = RenderDecorator;
