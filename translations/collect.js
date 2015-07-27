@@ -3,16 +3,14 @@
 var SuiteAPI = require('../api');
 var request = require('co-request');
 var logger = require('logentries-logformat')('collect-translations');
-var APIRequiredParameterMissingError = require('../api/endpoints/_base/error');
+var TranslationRequiredParameterMissingError = require('./required-parameter-missing-error');
 
 var translationCache = {};
 
 
-
 var CollectTranslations = function(environment, translationId, cacheId) {
-
   if (!translationId) {
-    throw new APIRequiredParameterMissingError('translationId');
+    throw new TranslationRequiredParameterMissingError('translationId');
   }
 
   this._api = SuiteAPI.createWithCache(cacheId);
@@ -42,11 +40,20 @@ CollectTranslations.prototype = {
 
 
   _collectTranslationFromSuite: function* (language) {
-    var data = yield request('http://' + this._environment + '/js/translate/translate_' + this._translationId + '.js.php?lang=' + language);
+    var data = yield request(this._getTranslationUrl(language));
     data = (data && data.body) ? JSON.parse(data.body) : {};
 
     translationCache[language] = data;
     logger.log('collected', language);
+  },
+
+
+  _getTranslationUrl: function(language) {
+    var filename = this._translationId === CollectTranslations.COMMON_TRANSLATIONS_ID
+      ? 'translation.js.php'
+      : 'translate_' + this._translationId + '.js.php';
+
+    return 'http://' + this._environment + '/js/translate/' + filename + '?lang=' + language;
   }
 
 };
@@ -61,5 +68,6 @@ CollectTranslations.getFor = function(environment, translationId, cacheId) {
   return new CollectTranslations(environment, translationId, cacheId);
 };
 
+CollectTranslations.COMMON_TRANSLATIONS_ID = 'load_common_translations';
 
 module.exports = CollectTranslations;

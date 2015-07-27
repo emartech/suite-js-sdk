@@ -8,7 +8,7 @@ var SuiteAPI = require('../api');
 var nock = require('nock');
 var Translator = require('./translator');
 var TranslateRenderDecorator = require('./render-decorator');
-var APIRequiredParameterMissingError = require('../api/endpoints/_base/error');
+var TranslationRequiredParameterMissingError = require('./required-parameter-missing-error');
 
 describe('Suite translation middleware', function() {
 
@@ -61,7 +61,7 @@ describe('Suite translation middleware', function() {
       }
       catch (ex) {
         expect(next.called).to.be.false;
-        return expect(ex).to.be.an.instanceOf(APIRequiredParameterMissingError);
+        return expect(ex).to.be.an.instanceOf(TranslationRequiredParameterMissingError);
       }
 
       throw new Error('Missed exception');
