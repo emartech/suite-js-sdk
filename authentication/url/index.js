@@ -23,10 +23,14 @@ var SuiteSignedUrlAuthenticator = function(options) {
 SuiteSignedUrlAuthenticator.prototype = {
 
   authenticate: function(url, host) {
+    var err;
+
     try {
       this.escher.authenticate(this._getAuthParams(url, host), this._getKeyDb());
     } catch (ex) {
-      throw new Error('Escher authentication');
+      err = new Error('Escher authentication');
+      err.reason = ex.message;
+      throw err;
     }
   },
 

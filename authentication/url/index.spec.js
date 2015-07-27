@@ -55,17 +55,20 @@ describe('Suite API authentication', function() {
 
 
   it('should thrown an error if escher auth fails', function(done) {
-    fakeEscher.authenticate.throws();
+    fakeEscher.authenticate.throws(new Error('The credential scope is invalid'));
 
     var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator({
       credentialScope: 'testCredentialScope',
       escherSecret: 'testEscherSecret'
     });
 
+    var err = new Error('Escher authentication');
+    err.reason = 'The credential scope is invalid';
+
     try {
       suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
     } catch (ex) {
-      expect(ex).to.eql(new Error('Escher authentication'));
+      expect(ex).to.eql(err);
       done();
     }
   });
