@@ -69,4 +69,16 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+
+  describe('#sendTestMail', function() {
+    testApiMethod(EmailAPI, 'sendTestMail').withArgs({
+      email_id: 12,
+      recipientlist: 'foo@bar.com'
+    }).shouldPostToEndpoint('/email/12/sendtestmail', {
+      recipientlist: 'foo@bar.com'
+    });
+
+    testApiMethod(EmailAPI, 'sendTestMail').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
 });
