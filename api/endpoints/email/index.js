@@ -82,6 +82,20 @@ _.extend(Email.prototype, {
   },
 
 
+  sendTestMail: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_send_test_mail');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/sendtestmail', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+
   launch: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_launch');
