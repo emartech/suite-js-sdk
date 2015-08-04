@@ -23,4 +23,9 @@ describe('SuiteAPI Settings endpoint', function() {
     });
   });
 
+
+  describe('#getDeliverability', function() {
+    testApiMethod(SettingsAPI, 'getDeliverability').shouldGetResultFromEndpoint('/settings/deliverability');
+  });
+
 });

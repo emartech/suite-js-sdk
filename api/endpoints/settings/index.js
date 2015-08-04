@@ -46,6 +46,17 @@ _.extend(Settings.prototype, {
       payload,
       options
     );
+  },
+
+
+  getDeliverability: function(payload, options) {
+    logger.log('settings_get_deliverability');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/deliverability', payload),
+      options
+    );
   }
 
 });
