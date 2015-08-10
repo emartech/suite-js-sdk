@@ -191,6 +191,10 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.contactList.list(payload);
 
+##### Add
+
+    suiteAPI.contactList.add(payload);
+
 #### ExternalEvent
 
 ##### Trigger
