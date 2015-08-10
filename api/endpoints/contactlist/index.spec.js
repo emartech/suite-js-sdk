@@ -28,4 +28,19 @@ describe('SuiteAPI Contact List endpoint', function() {
 
   });
 
+  describe('#add', function() {
+
+    testApiMethod(ContactListApi, 'add').withArgs({
+      contact_list_id: 1,
+      key_id: 'id',
+      name: 'new fancy list',
+      external_ids: [1, 2]
+    }).shouldPostToEndpoint('/contactlist/1/add', {
+      key_id: 'id',
+      name: 'new fancy list',
+      external_ids: [1, 2]
+    });
+
+  });
+
 });

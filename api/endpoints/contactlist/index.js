@@ -38,6 +38,29 @@ _.extend(ContactList.prototype, {
         options
       );
     }.bind(this));
+  },
+
+
+  add: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      var url = util.format('/contactlist/%s/add', payload.contact_list_id);
+      logger.log('contactlist_add');
+
+      // filter out url params from payload
+      payload.contact_list_id = undefined;
+      payload = _.transform(payload, function(payload, value, key) {
+        if (value !== undefined) {
+          payload[key] = value;
+        }
+      });
+
+      return this._request.post(
+        this._getCustomerId(options),
+        url,
+        payload,
+        options
+      );
+    }.bind(this));
   }
 
 });
