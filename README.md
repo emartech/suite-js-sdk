@@ -250,6 +250,10 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.email.patch(payload);
 
+##### Sending a Test Email
+
+    suiteAPI.email.sendTestMail(payload);
+
 #### Segment
 
 ##### List contacts
@@ -265,3 +269,9 @@ In the example above, the API will be called with `customerId = 20234245`.
 ##### List
 
     suiteAPI.purchase.list(payload);
+
+#### Contact Fields
+
+##### Listing Available Fields
+
+    suiteAPI.field.get(payload);
