@@ -21,29 +21,29 @@
   ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
-    "bluebird": "2.9.13",
-    "co-request": "0.2.0",
+    "bluebird": "2.9.34",
+    "co-request": "1.0.0",
     "escher-auth": "0.2.4",
     "escher-keypool": "1.2.0",
-    "escher-suiteapi-js": "2.0.2",
-    "flat": "1.5.0",
-    "lodash": "3.3.1",
-    "logentries-logformat": "0.0.2",
-    "moment": "2.9.0",
+    "escher-suiteapi-js": "2.0.3",
+    "flat": "1.6.0",
+    "lodash": "3.10.1",
+    "logentries-logformat": "0.0.3",
+    "moment": "2.10.6",
     "node-cache": "1.1.0",
-    "password-generator": "0.2.3",
-    "sprintf-js": "1.0.2"
+    "password-generator": "1.0.0",
+    "sprintf-js": "1.0.3"
   },
   "devDependencies": {
-    "chai": "2.1.0",
-    "chai-as-promised": "4.2.0",
-    "chai-subset": "0.3.0",
-    "co-mocha": "1.1.0",
-    "jscs": "1.13.1",
-    "mocha": "2.1.0",
-    "nock": "1.0.0",
-    "pre-commit": "1.0.7",
-    "sinon": "1.12.2",
-    "sinon-chai": "2.7.0"
+    "chai": "3.2.0",
+    "chai-as-promised": "5.1.0",
+    "chai-subset": "1.0.1",
+    "co-mocha": "1.1.2",
+    "jscs": "2.0.0",
+    "mocha": "2.2.5",
+    "nock": "2.10.0",
+    "pre-commit": "1.1.1",
+    "sinon": "1.15.4",
+    "sinon-chai": "2.8.0"
   }
 }
