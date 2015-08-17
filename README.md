@@ -254,6 +254,14 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.email.sendTestMail(payload);
 
+##### Querying Email Personalizations
+
+    suiteAPI.email.getPersonalizations(payload);
+
+##### Updating Email Personalizations
+
+    suiteAPI.email.setPersonalizations(payload);
+
 #### Segment
 
 ##### List contacts
