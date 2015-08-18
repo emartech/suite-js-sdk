@@ -107,6 +107,33 @@ _.extend(Email.prototype, {
         options
       );
     }.bind(this));
+  },
+
+
+  getPersonalizations: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_get_personalizations');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/email/%s/personalization', payload.email_id),
+        options
+      );
+    }.bind(this));
+  },
+
+
+  setPersonalizations: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_post_personalizations');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/personalization', payload.email_id),
+        payload.data,
+        options
+      );
+    }.bind(this));
   }
 });
 

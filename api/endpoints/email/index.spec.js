@@ -81,4 +81,39 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'sendTestMail').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#getPersonalizations', function() {
+    testApiMethod(EmailAPI, 'getPersonalizations').withArgs({
+      email_id: 12
+    }).shouldGetResultFromEndpoint('/email/12/personalization');
+
+    testApiMethod(EmailAPI, 'getPersonalizations').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
+  describe('#setPersonalizations', function() {
+    testApiMethod(EmailAPI, 'setPersonalizations').withArgs({
+      email_id: 12,
+      data: [
+        {
+          element: 0,
+          defaultValue: 'foo'
+        },
+        {
+          element: 1,
+          defaultValue: 'bar'
+        }
+      ]
+    }).shouldPostToEndpoint('/email/12/personalization', [
+        {
+          element: 0,
+          defaultValue: 'foo'
+        },
+        {
+          element: 1,
+          defaultValue: 'bar'
+        }
+      ]);
+
+    testApiMethod(EmailAPI, 'setPersonalizations').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
 });
