@@ -11,6 +11,19 @@ var Email = function(request, options) {
   this._request = request;
 };
 
+var fetchFactory = function(payload, options, urlPattern) {
+  return function() {
+    var url = util.format(urlPattern, payload.email_id);
+    logger.log('email_get');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl(url, payload, ['email_id']),
+      options
+    );
+  };
+};
+
 util.inherits(Email, Base);
 
 _.extend(Email.prototype, {
@@ -55,16 +68,16 @@ _.extend(Email.prototype, {
 
 
   get: function(payload, options) {
-    return this._requireParameters(payload, ['email_id']).then(function() {
-      var url = util.format('/email/%s', payload.email_id);
-      logger.log('email_get');
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s').bind(this)
+    );
+  },
 
-      return this._request.get(
-        this._getCustomerId(options),
-        this._buildUrl(url, payload, ['email_id']),
-        options
-      );
-    }.bind(this));
+
+  getRaw: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s/raw').bind(this)
+    );
   },
 
 
