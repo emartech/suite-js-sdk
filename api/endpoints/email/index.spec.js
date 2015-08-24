@@ -121,4 +121,14 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'setPersonalizations').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#deleteTrackedLinks', function() {
+    testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({ email_id: 12, link_id: 14 })
+      .shouldPostToEndpoint('/email/12/deletetrackedlinks/14', {});
+
+    testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({ email_id: 12 })
+      .shouldPostToEndpoint('/email/12/deletetrackedlinks', {});
+
+    testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
 });

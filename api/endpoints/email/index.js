@@ -147,6 +147,23 @@ _.extend(Email.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  deleteTrackedLinks: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_post_deleteTrackedLinks');
+
+      var url = payload.link_id ?
+        util.format('/email/%s/deletetrackedlinks/%s', payload.email_id, payload.link_id) :
+        util.format('/email/%s/deletetrackedlinks', payload.email_id);
+
+      return this._request.post(
+        this._getCustomerId(options),
+        url,
+        this._cleanPayload(payload, ['email_id', 'link_id']),
+        options
+      );
+    }.bind(this));
   }
 });
 
