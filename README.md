@@ -18,8 +18,6 @@ Simple Javascript wrapper for the Emarsys API.
 This wrapper tries to implement all available methods of the Emarsys API in a
 node fashion, exposing a **Promise-only interface**.
 
-
-
 However, the Emarsys API lacks a decent amount of methods that you expect an API to provide.
 Thus, if methods are missing or a certain implementation
 style was choosen it is most likely due to the inconsistency of the API itself.
@@ -34,6 +32,20 @@ If you want to debug. Set your environment variables
     DEBUG=suite-sdk,suiterequest
 
 ## Authentication middleware
+
+### Prerequisites
+
+The koa bodyparser module should be installed and in use **before** the use of
+the koaMiddleware.
+
+    npm install koa-bodyparser -S
+
+In application configuration:
+
+    var bodyParser = require('koa-bodyparser');
+
+    var app = koa();
+    app.use(bodyParser());
 
 ### Configuration
 
