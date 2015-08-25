@@ -28,4 +28,9 @@ describe('SuiteAPI Settings endpoint', function() {
     testApiMethod(SettingsAPI, 'getDeliverability').shouldGetResultFromEndpoint('/settings/deliverability');
   });
 
+
+  describe('#getLinkCategories', function() {
+    testApiMethod(SettingsAPI, 'getLinkCategories').shouldGetResultFromEndpoint('/settings/linkcategories');
+  });
+
 });

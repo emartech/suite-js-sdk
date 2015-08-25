@@ -57,6 +57,17 @@ _.extend(Settings.prototype, {
       this._buildUrl('/settings/deliverability', payload),
       options
     );
+  },
+
+
+  getLinkCategories: function(payload, options) {
+    logger.log('settings_get_linkcategories');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/linkcategories', payload),
+      options
+    );
   }
 
 });
