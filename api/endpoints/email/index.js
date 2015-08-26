@@ -74,13 +74,6 @@ _.extend(Email.prototype, {
   },
 
 
-  getRaw: function(payload, options) {
-    return this._requireParameters(payload, ['email_id']).then(
-      fetchFactory(payload, options, '/email/%s/raw').bind(this)
-    );
-  },
-
-
   patch: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_patch');

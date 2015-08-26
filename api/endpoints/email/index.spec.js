@@ -57,12 +57,6 @@ describe('SuiteAPI Email endpoint', function() {
   });
 
 
-  describe('#getRaw', function() {
-    testApiMethod(EmailAPI, 'getRaw').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12/raw');
-    testApiMethod(EmailAPI, 'getRaw').withArgs({}).shouldThrowMissingParameterError('email_id');
-  });
-
-
   describe('#patch', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({
       email_id: 12,
