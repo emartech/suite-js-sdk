@@ -23,7 +23,6 @@ describe('SuiteAPI Settings endpoint', function() {
     });
   });
 
-
   describe('#getDeliverability', function() {
     testApiMethod(SettingsAPI, 'getDeliverability').shouldGetResultFromEndpoint('/settings/deliverability');
   });
@@ -31,6 +30,21 @@ describe('SuiteAPI Settings endpoint', function() {
 
   describe('#getLinkCategories', function() {
     testApiMethod(SettingsAPI, 'getLinkCategories').shouldGetResultFromEndpoint('/settings/linkcategories');
+  });
+
+
+  describe('#getIpRestrictions', function() {
+    testApiMethod(SettingsAPI, 'getIpRestrictions').shouldGetResultFromEndpoint('/settings/iprestrictions');
+  });
+
+  describe('#setIpRestrictions', function() {
+    testApiMethod(SettingsAPI, 'setIpRestrictions').withArgs([
+      { range_start: '10.0.0.1', range_end: '10.0.0.255' },
+      { range_start: '192.168.0.1', range_end: '192.168.0.10' }
+    ]).shouldPostToEndpoint('/settings/iprestrictions', [
+      { range_start: '10.0.0.1', range_end: '10.0.0.255' },
+      { range_start: '192.168.0.1', range_end: '192.168.0.10' }
+    ]);
   });
 
 });
