@@ -22,6 +22,32 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'copy').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#createVersion', function() {
+    testApiMethod(EmailAPI, 'createVersion').withArgs({
+      email_id: 32,
+      version_name: 'testversion',
+      copy_parameters: true
+    }).shouldPostToEndpoint('/email/32/versions', {
+      version_name: 'testversion',
+      copy_parameters: true
+    });
+
+    testApiMethod(EmailAPI, 'createVersion').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
+  describe('#renameVersion', function() {
+    testApiMethod(EmailAPI, 'renameVersion').withArgs({
+      email_id: 32,
+      version_id: 5,
+      version_name: 'testversion'
+    }).shouldPostToEndpoint('/email/32/versions/5', {
+      version_name: 'testversion'
+    });
+
+    testApiMethod(EmailAPI, 'renameVersion').withArgs({}).shouldThrowMissingParameterError(
+      ['email_id', 'version_id']
+    );
+  });
 
   describe('#updateSource', function() {
     testApiMethod(EmailAPI, 'updateSource').withArgs({
@@ -56,6 +82,10 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'get').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#listVersions', function() {
+    testApiMethod(EmailAPI, 'listVersions').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12/versions');
+    testApiMethod(EmailAPI, 'listVersions').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
 
   describe('#patch', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({
