@@ -11,14 +11,28 @@ var Email = function(request, options) {
   this._request = request;
 };
 
-var fetchFactory = function(payload, options, urlPattern) {
+var fetchFactory = function(payload, options, urlPattern, operationName) {
   return function() {
     var url = util.format(urlPattern, payload.email_id);
-    logger.log('email_get');
+    logger.log(operationName);
 
     return this._request.get(
       this._getCustomerId(options),
       this._buildUrl(url, payload, ['email_id']),
+      options
+    );
+  };
+};
+
+var createFactory = function(payload, options, urlPattern, operationName) {
+  return function() {
+    var url = util.format(urlPattern, payload.email_id);
+    logger.log(operationName);
+
+    return this._request.post(
+      this._getCustomerId(options),
+      url,
+      this._cleanPayload(payload, ['email_id']),
       options
     );
   };
@@ -29,18 +43,29 @@ util.inherits(Email, Base);
 _.extend(Email.prototype, {
 
   copy: function(payload, options) {
-    return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_copy');
+    return this._requireParameters(payload, ['email_id']).then(
+      createFactory(payload, options, '/email/%s/copy', 'email_copy').bind(this)
+    );
+  },
+
+  createVersion: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      createFactory(payload, options, '/email/%s/versions', 'email_versions').bind(this)
+    );
+  },
+
+  renameVersion: function(payload, options) {
+    return this._requireParameters(payload, ['email_id', 'version_id']).then(function() {
+      logger.log('rename_email_version');
 
       return this._request.post(
         this._getCustomerId(options),
-        util.format('/email/%s/copy', payload.email_id),
-        this._cleanPayload(payload, ['email_id']),
+        util.format('/email/%s/versions/%s', payload.email_id, payload.version_id),
+        this._cleanPayload(payload, ['email_id', 'version_id']),
         options
       );
     }.bind(this));
   },
-
 
   updateSource: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
@@ -66,10 +91,15 @@ _.extend(Email.prototype, {
     );
   },
 
+  listVersions: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s/versions', 'email_list_versions').bind(this)
+    );
+  },
 
   get: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
-      fetchFactory(payload, options, '/email/%s').bind(this)
+      fetchFactory(payload, options, '/email/%s', 'email_get').bind(this)
     );
   },
 
