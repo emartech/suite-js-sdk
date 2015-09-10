@@ -71,7 +71,7 @@ _.extend(Settings.prototype, {
   setIpRestrictions: function(payload, options) {
     logger.log('settings_set-ip-restrictions');
 
-    return this._request.post(
+    return this._request.put(
       this._getCustomerId(options),
       '/settings/iprestrictions',
       payload,

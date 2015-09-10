@@ -41,7 +41,7 @@ describe('SuiteAPI Settings endpoint', function() {
     testApiMethod(SettingsAPI, 'setIpRestrictions').withArgs([
       { range_start: '10.0.0.1', range_end: '10.0.0.255' },
       { range_start: '192.168.0.1', range_end: '192.168.0.10' }
-    ]).shouldPostToEndpoint('/settings/iprestrictions', [
+    ]).shouldPutToEndpoint('/settings/iprestrictions', [
       { range_start: '10.0.0.1', range_end: '10.0.0.255' },
       { range_start: '192.168.0.1', range_end: '192.168.0.10' }
     ]);
