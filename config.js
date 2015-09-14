@@ -10,7 +10,10 @@ var config = {
     apiSecret: process.env.SUITE_API_SECRET,
     keyPool: process.env.KEY_POOL,
     keyId: process.env.SUITE_API_KEY_ID,
-    secure: process.env.SUITE_API_SECURE !== 'false'
+    secure: process.env.SUITE_API_SECURE !== 'false',
+    port: typeof process.env.SUITE_API_PORT !== 'undefined' ?
+      process.env.SUITE_API_PORT :
+      (process.env.SUITE_API_SECURE === 'false' ? 80 : 443)
   }
 
 };

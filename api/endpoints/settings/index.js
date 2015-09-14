@@ -48,7 +48,6 @@ _.extend(Settings.prototype, {
     );
   },
 
-
   getDeliverability: function(payload, options) {
     logger.log('settings_get_deliverability');
 
@@ -59,6 +58,26 @@ _.extend(Settings.prototype, {
     );
   },
 
+  getIpRestrictions: function(payload, options) {
+    logger.log('settings_get-ip-restrictions');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/iprestrictions', payload),
+      options
+    );
+  },
+
+  setIpRestrictions: function(payload, options) {
+    logger.log('settings_set-ip-restrictions');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/settings/iprestrictions',
+      payload,
+      options
+    );
+  },
 
   getLinkCategories: function(payload, options) {
     logger.log('settings_get_linkcategories');

@@ -1,3 +1,7 @@
+/* jshint node: true */
+/* jshint mocha: true */
+/* jshint expr: true */
+
 'use strict';
 
 var SuiteRequest = require('escher-suiteapi-js');
@@ -43,7 +47,8 @@ describe('SuiteApi', function() {
         apiKey: 'apiKey',
         apiSecret: 'apiSecret',
         rejectUnauthorized: true,
-        secure: true
+        secure: true,
+        port: 443
       };
       SuiteAPI.create(options);
       expect(Request.create).to.have.been.calledWith(options);
@@ -68,7 +73,8 @@ describe('SuiteApi', function() {
             apiSecret: '<Y>',
             environment: 'environmentFromEnv',
             rejectUnauthorized: false,
-            secure: true
+            secure: true,
+            port: 443
           });
         });
 
@@ -91,7 +97,8 @@ describe('SuiteApi', function() {
             apiSecret: '<Y>',
             environment: 'environmentFromEnv',
             rejectUnauthorized: false,
-            secure: true
+            secure: true,
+            port: 443
           });
         });
 
@@ -114,7 +121,8 @@ describe('SuiteApi', function() {
           apiSecret: 'apiSecretFromEnv',
           environment: 'environmentFromEnv',
           rejectUnauthorized: false,
-          secure: false
+          secure: false,
+          port: 443
         });
 
         expect(api).to.be.ok;
@@ -137,7 +145,8 @@ describe('SuiteApi', function() {
           apiSecret: 'apiSecretFromEnv',
           environment: 'api.emarsys.net',
           rejectUnauthorized: true,
-          secure: true
+          secure: true,
+          port: 443
         });
       });
 
@@ -166,7 +175,8 @@ describe('SuiteApi', function() {
         apiSecret: apiSecret,
         environment: environment,
         rejectUnauthorized: false,
-        secure: true
+        secure: true,
+        port: 443
       };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
