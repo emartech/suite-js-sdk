@@ -49,7 +49,8 @@ SuiteAPI.prototype = {
     return _.extend({}, this._apiKeySecret(), {
       environment: config.suiteApi.environment || config.API_PROXY_URL,
       rejectUnauthorized: config.suiteApi.rejectUnauthorized,
-      secure: config.suiteApi.secure
+      secure: config.suiteApi.secure,
+      port: config.suiteApi.port
     }, options);
   },
 

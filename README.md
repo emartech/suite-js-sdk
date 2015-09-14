@@ -236,6 +236,14 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.settings.setCorporateDomains(payload);
 
+##### Get IP Restrictions
+
+    suiteAPI.settings.getIpRestrictions(payload);
+
+##### Set IP Restrictions
+
+    suiteAPI.settings.setIpRestrictions(payload);
+
 #### Email
 
 ##### Copy
