@@ -48,6 +48,19 @@ _.extend(Email.prototype, {
     );
   },
 
+  delete: function(payload, options) {
+    return this._requireParameters(payload, ['emailId']).then(function() {
+      logger.log('email_delete');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/email/delete',
+        payload,
+        options
+      );
+    }.bind(this));
+  },
+
   createVersion: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
       createFactory(payload, options, '/email/%s/versions', 'email_versions').bind(this)
