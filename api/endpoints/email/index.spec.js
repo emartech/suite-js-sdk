@@ -22,6 +22,16 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'copy').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#delete', function() {
+    testApiMethod(EmailAPI, 'delete').withArgs({
+      emailId: 32
+    }).shouldPostToEndpoint('/email/delete', {
+      emailId: 32
+    });
+
+    testApiMethod(EmailAPI, 'delete').withArgs({}).shouldThrowMissingParameterError('emailId');
+  });
+
   describe('#createVersion', function() {
     testApiMethod(EmailAPI, 'createVersion').withArgs({
       email_id: 32,
