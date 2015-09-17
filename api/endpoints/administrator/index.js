@@ -140,7 +140,7 @@ _.extend(Administrator.prototype, {
       interface_language: 'en',
       access_level: 0,
       superadmin: 0,
-      last_verification_action_date: dateHelper.getCurrentDate()
+      last_invitation_action_date: dateHelper.getCurrentDate()
     };
 
     payload = _.extend({}, defaultValues, payload, {
@@ -161,7 +161,7 @@ _.extend(Administrator.prototype, {
 
     payload = _.extend({}, payload, {
       disabled: 1,
-      last_verification_action_date: dateHelper.getCurrentDate(),
+      last_invitation_action_date: dateHelper.getCurrentDate(),
       password: passwordGenerator.generate()
     });
 
@@ -211,8 +211,7 @@ _.extend(Administrator.prototype, {
     if (!payload) payload = {};
 
     payload = _.extend({}, payload, {
-      disabled: 1,
-      last_verification_action_date: dateHelper.getCurrentDate()
+      disabled: 1
     });
 
     return this.patchAdministrator(payload, options);
