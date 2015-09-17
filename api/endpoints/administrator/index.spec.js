@@ -170,7 +170,7 @@ describe('SuiteAPI Administrator endpoint', function() {
           superadmin: 0,
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01'
+          last_invitation_action_date: '1999-01-01 01:01'
         }));
     });
   });
@@ -191,7 +191,7 @@ describe('SuiteAPI Administrator endpoint', function() {
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01',
+          last_invitation_action_date: '1999-01-01 01:01',
           first_name: 'FirstName'
         }));
 
@@ -199,12 +199,12 @@ describe('SuiteAPI Administrator endpoint', function() {
         .withArgs({
           administrator_id: 21,
           password: 'otherpassword',
-          last_verification_action_date: '1979-09-09 09:09'
+          last_invitation_action_date: '1979-09-09 09:09'
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01'
+          last_invitation_action_date: '1999-01-01 01:01'
         }));
     });
 
@@ -269,7 +269,7 @@ describe('SuiteAPI Administrator endpoint', function() {
           superadmin: 1,
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01'
+          last_invitation_action_date: '1999-01-01 01:01'
         }));
     });
   });
@@ -290,7 +290,7 @@ describe('SuiteAPI Administrator endpoint', function() {
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01',
+          last_invitation_action_date: '1999-01-01 01:01',
           first_name: 'FirstName',
           superadmin: 1,
           access_level: 0
@@ -300,14 +300,14 @@ describe('SuiteAPI Administrator endpoint', function() {
         .withArgs({
           administrator_id: 21,
           password: 'otherpassword',
-          last_verification_action_date: '1979-09-09 09:09',
+          last_invitation_action_date: '1979-09-09 09:09',
           superadmin: 0,
           access_level: 1
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           disabled: 1,
           password: 'test!!!Password',
-          last_verification_action_date: '1999-01-01 01:01',
+          last_invitation_action_date: '1999-01-01 01:01',
           superadmin: 1,
           access_level: 0
         }));
@@ -392,19 +392,16 @@ describe('SuiteAPI Administrator endpoint', function() {
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           first_name: 'FirstName',
-          disabled: 1,
-          last_verification_action_date: '1999-01-01 01:01'
+          disabled: 1
         }));
 
       testApiMethod(AdministratorAPI, 'disableAdministrator')
         .withArgs({
           administrator_id: 21,
-          last_verification_action_date: '1979-09-09 09:09',
           disabled: 0
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
-          disabled: 1,
-          last_verification_action_date: '1999-01-01 01:01'
+          disabled: 1
         }));
     });
   });
