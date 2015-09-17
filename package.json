@@ -48,6 +48,7 @@
     "nock": "2.10.0",
     "pre-commit": "1.1.1",
     "sinon": "1.15.4",
-    "sinon-chai": "2.8.0"
+    "sinon-chai": "2.8.0",
+    "validate-commit-message": "^3.0.1"
   }
 }
