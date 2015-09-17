@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install": "validate-commit-msg",
     "test": "NODE_ENV=test mocha --harmony --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "code-style": "jscs $(find . -name \"*.js\" -not -path \"./node_modules/*\")",
     "release-patch": "npm version patch -m 'chore(package): update version to %s'",
