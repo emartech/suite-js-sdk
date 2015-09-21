@@ -165,4 +165,15 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+
+  describe('#launchList', function() {
+    testApiMethod(EmailAPI, 'launchList').withArgs({
+      emailid: 32
+    }).shouldPostToEndpoint('/email/getlaunchesofemail', {
+      emailid: 32
+    });
+
+    testApiMethod(EmailAPI, 'launchList').withArgs({}).shouldThrowMissingParameterError('emailid');
+  });
+
 });

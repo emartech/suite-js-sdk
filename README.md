@@ -258,6 +258,10 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.email.launch(payload);
 
+##### Launch list
+
+    suiteAPI.email.launchList(payload);
+
 ##### List
 
     suiteAPI.email.list(payload);
