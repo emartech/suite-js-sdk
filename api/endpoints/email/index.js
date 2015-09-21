@@ -93,6 +93,19 @@ _.extend(Email.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  launchList: function(payload, options) {
+    return this._requireParameters(payload, ['emailid']).then(function() {
+      logger.log('email_getlaunchesofemail');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/email/getlaunchesofemail',
+        this._cleanPayload(payload),
+        options
+      );
+    }.bind(this));
   }
 });
 
