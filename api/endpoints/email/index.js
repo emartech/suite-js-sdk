@@ -203,7 +203,7 @@ _.extend(Email.prototype, {
   },
 
   launchList: function(payload, options) {
-    return this._requireParameters(payload, ['emailid']).then(function() {
+    return this._requireParameters(payload, ['emailId']).then(function() {
       logger.log('email_getlaunchesofemail');
 
       return this._request.post(

@@ -168,12 +168,12 @@ describe('SuiteAPI Email endpoint', function() {
 
   describe('#launchList', function() {
     testApiMethod(EmailAPI, 'launchList').withArgs({
-      emailid: 32
+      emailId: 32
     }).shouldPostToEndpoint('/email/getlaunchesofemail', {
-      emailid: 32
+      emailId: 32
     });
 
-    testApiMethod(EmailAPI, 'launchList').withArgs({}).shouldThrowMissingParameterError('emailid');
+    testApiMethod(EmailAPI, 'launchList').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
 });
