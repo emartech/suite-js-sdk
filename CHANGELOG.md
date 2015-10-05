@@ -1,3 +1,21 @@
+<a name="4.1.5"></a>
+## [4.1.5](https://github.com/emartech/suite-js-sdk/compare/v4.1.5...v4.1.5) (2015-10-05)
+
+
+
+
+<a name="4.1.5"></a>
+## [4.1.5](https://github.com/emartech/suite-js-sdk/compare/v4.1.4...v4.1.5) (2015-10-05)
+
+
+
+
+<a name="4.1.4"></a>
+## [4.1.4](https://github.com/emartech/suite-js-sdk/compare/v4.1.3...v4.1.4) (2015-09-30)
+
+
+
+
 <a name="4.1.3"></a>
 ## [4.1.3](https://github.com/emartech/suite-js-sdk/compare/v4.1.3...v4.1.3) (2015-09-28)
 
