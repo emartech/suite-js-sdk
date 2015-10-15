@@ -1,6 +1,7 @@
 module.exports = {
 
   api: require('./api/'),
+  Escher: require('escher-auth'),
 
   authentication: {
     koaMiddleware: require('./authentication/url/koa'),
