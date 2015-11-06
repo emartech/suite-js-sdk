@@ -26,7 +26,7 @@ var FakeContext = function() {
 
 FakeContext.prototype = {
 
-  render: function* () {
+  render: function() {
     this._renderArgs.push(arguments);
   },
 
