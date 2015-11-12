@@ -292,7 +292,7 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.segment.listContacts(payload);
 
-##### List contacts
+##### List segments
 
     suiteAPI.segment.listSegments(payload);
 
