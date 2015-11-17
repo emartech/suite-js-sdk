@@ -12,8 +12,9 @@ describe('SuiteAPI Segment endpoint', function() {
 
   describe('#listContacts', function() {
     testApiMethod(SegmentAPI, 'listContacts').withArgs({
-      segment_id: 10
-    }).shouldGetResultFromEndpoint('/filter/10/contacts');
+      segment_id: 10,
+      limit: 100
+    }).shouldGetResultFromEndpoint('/filter/10/contacts/?limit=100');
 
     testApiMethod(SegmentAPI, 'listContacts').withArgs({
       segment_id: 10,
@@ -21,7 +22,9 @@ describe('SuiteAPI Segment endpoint', function() {
       offset: 0
     }).shouldGetResultFromEndpoint('/filter/10/contacts/?limit=100&offset=0');
 
-    testApiMethod(SegmentAPI, 'listContacts').withArgs({}).shouldThrowMissingParameterError('segment_id');
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({ limit: 100 }).shouldThrowMissingParameterError('segment_id');
+
+    testApiMethod(SegmentAPI, 'listContacts').withArgs({ segment_id: 10 }).shouldThrowMissingParameterError('limit');
   });
 
 });

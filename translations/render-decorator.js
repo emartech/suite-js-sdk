@@ -52,13 +52,13 @@ RenderDecorator.prototype = {
   },
 
 
-  _render: function* renderWithTranslations(path, data) {
+  _render: function renderWithTranslations(path, data) {
     data = _.extend({}, data, {
       translations: this._translations,
       _: Translator.getTranslationFunction(this._translations)
     });
 
-    yield this._originalRender.call(this._context, path, data);
+    this._originalRender.call(this._context, path, data);
   } };
 
 

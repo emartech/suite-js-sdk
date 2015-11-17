@@ -74,7 +74,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', renderData);
+      context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
         someData: 1
@@ -111,7 +111,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', renderData);
+      context.render('local.view.render', renderData);
 
       expect(SuiteAPI.createWithCache).to.have.been.calledWith(context.id);
       expect(context.getLastRenderData()).to.containSubset({
@@ -126,7 +126,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData({ environment: validValidatedData.environment, language: 'mx' });
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', {});
+      context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
         translations: fakeResponseForTranslations
@@ -140,7 +140,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData({ environment: validValidatedData.environment });
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', {});
+      context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
         translations: fakeResponseForTranslations
@@ -158,7 +158,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', renderData);
+      context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
         _: fakeTranslator.translate
@@ -174,7 +174,7 @@ describe('Suite translation middleware', function() {
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', renderData);
+      context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
         translations: {}
@@ -188,11 +188,11 @@ describe('Suite translation middleware', function() {
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', { anotherData: 2 });
+      context.render('local.view.render', { anotherData: 2 });
 
       var renderData = { someData: 1 };
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
-      yield context.render('local.view.render', renderData);
+      context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
         translations: fakeResponseForTranslations
