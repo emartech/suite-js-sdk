@@ -190,6 +190,16 @@ In the example above, the API will be called with `customerId = 20234245`.
 
     suiteAPI.administrator.inviteExistingAdministrator(payload);
 
+#### Condition
+
+##### List
+
+    suiteAPI.condition.list(payload);
+
+##### List with contact fields
+
+    suiteAPI.condition.listWithContactFields(payload);
+
 #### Contact
 
 ##### Create
