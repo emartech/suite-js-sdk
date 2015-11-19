@@ -9,7 +9,7 @@ Simple Javascript wrapper for the Emarsys API.
 
     npm install --save suite-js-sdk
 
-## Develop
+## Testing
 
     npm test
 
@@ -134,59 +134,64 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 #### Administrators
 
-##### List
+##### [List](http://documentation.emarsys.com/resource/developers/api/customers/list-administrators/)
 
     suiteAPI.administrator.getAdministrators(payload);
 
-##### Get
-
-    suiteAPI.administrator.getAdministrator(payload);
-
 ##### Get By Name
+
+Data of an admin can be queried by providing its name.
 
     suiteAPI.administrator.getAdministratorByName(payload);
 
-##### Patch
+##### [Patch](http://documentation.emarsys.com/resource/developers/api/customers/update-administrator/)
 
     suiteAPI.administrator.patchAdministrator(payload);
 
-##### Create
+##### [Create](http://documentation.emarsys.com/resource/developers/api/customers/create-administrator/)
 
     suiteAPI.administrator.createAdministrator(payload);
 
-##### Delete
+##### [Delete](http://documentation.emarsys.com/resource/developers/api/customers/delete-administrator/)
 
     suiteAPI.administrator.deleteAdministrator(payload);
 
 ##### Disable
 
+Changes the status of the admin to disabled so logging in will not be possible.
+
     suiteAPI.administrator.disableAdministrator(payload);
 
 ##### Enable
 
+Changes the status of the disabled admin back to enabled so logging in becomes possible.
+
     suiteAPI.administrator.enableAdministrator(payload);
 
-##### Get Interface Languages
+##### [Get Interface Languages](http://documentation.emarsys.com/resource/developers/api/customers/administrator-ui-languages/)
 
     suiteAPI.administrator.getInterfaceLanguages(payload);
 
-##### Get Access Levels
+##### [Get Access Levels](http://documentation.emarsys.com/resource/developers/api/customers/access-levels/)
 
     suiteAPI.administrator.getAccessLevels(payload);
 
 ##### Promote to Superadmin
 
+Levels up an admin to a superadmin.
+
     suiteAPI.administrator.promoteToSuperadmin(payload);
 
-##### Create Administrator
-
-    suiteAPI.administrator.createAdministrator(payload);
-
 ##### Create Superadmin
+
+Creates a superadmin.
 
     suiteAPI.administrator.createSuperadmin(payload);
 
 ##### Invite Existing Administrator
+
+Sets the status of the admin to disabled and invites the admin again. The admin can log in only after completing the
+necessary data on the invitation form.
 
     suiteAPI.administrator.inviteExistingAdministrator(payload);
 
@@ -202,27 +207,27 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 #### Contact
 
-##### Create
+##### [Create](http://documentation.emarsys.com/resource/developers/api/contacts/create-contact/)
 
     suiteAPI.contact.create(payload);
 
 #### Contact List
 
-##### Create
+##### [Create](http://documentation.emarsys.com/resource/developers/api/contacts/create-list/)
 
     suiteAPI.contactList.create(payload);
 
-##### List
+##### [List](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-data/)
 
     suiteAPI.contactList.list(payload);
 
-##### Add
+##### [Add](http://documentation.emarsys.com/resource/developers/api/contacts/add-contacts-to-list/)
 
     suiteAPI.contactList.add(payload);
 
 #### ExternalEvent
 
-##### Trigger
+##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)
 
     suiteAPI.externalEvent.trigger(payload);
 
@@ -230,79 +235,96 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### Translate
 
+Lists available languages for a customer in the customer's own language.
+
     suiteAPI.language.translate(payload);
 
 #### Settings
 
-##### Get
+##### [Get](http://documentation.emarsys.com/resource/developers/api/customers/customer-settings/)
 
     suiteAPI.settings.getSettings(payload);
 
 ##### Get Corporate Domains
 
+Lists the permitted corporate domains of the customer. If corporate domains are set, registration is possible only with
+those email addresses which meet these requirements.
+
     suiteAPI.settings.getCorporateDomains(payload);
 
 ##### Set Corporate Domains
+
+Accepted corporate domains can be defined.
 
     suiteAPI.settings.setCorporateDomains(payload);
 
 ##### Get IP Restrictions
 
+Lists the permitted IP address rules (e.g. 192.168.* allows IP addresses which start with these two numbers and can end
+in any numbers).
+
     suiteAPI.settings.getIpRestrictions(payload);
 
 ##### Set IP Restrictions
+
+Possible IP address rules can be defined.
 
     suiteAPI.settings.setIpRestrictions(payload);
 
 #### Email
 
-##### Copy
+##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)
 
     suiteAPI.email.copy(payload);
 
-##### Update source
+##### [Update source](http://documentation.emarsys.com/resource/developers/api/email/update-source/)
 
     suiteAPI.email.updateSource(payload);
 
-##### Launch
+##### [Launch](http://documentation.emarsys.com/resource/developers/api/email/launch-campaign/)
 
     suiteAPI.email.launch(payload);
 
-##### Launch list
+##### [Launch list](http://documentation.emarsys.com/resource/developers/api/email/list-launches/)
 
     suiteAPI.email.launchList(payload);
 
-##### List
+##### [List](http://documentation.emarsys.com/resource/developers/api/email/list-campaigns/)
 
     suiteAPI.email.list(payload);
 
-##### Get
+##### [Get](http://documentation.emarsys.com/resource/developers/api/email/campaign-data/)
 
     suiteAPI.email.get(payload);
 
-##### Patch
+##### [Patch](http://documentation.emarsys.com/resource/developers/api/email/update-campaign/)
 
     suiteAPI.email.patch(payload);
 
-##### Sending a Test Email
+##### [Sending a Test Email](http://documentation.emarsys.com/resource/developers/api/email/send-testmail/)
 
     suiteAPI.email.sendTestMail(payload);
 
 ##### Querying Email Personalizations
 
+Lists all possible alternate texts with their email campaigns. Alternate texts are defined for a specific field, and
+displayed in the email campaign if this field has no value.
+
     suiteAPI.email.getPersonalizations(payload);
 
 ##### Updating Email Personalizations
+
+Updates alternate texts.
 
     suiteAPI.email.setPersonalizations(payload);
 
 #### Segment
 
-##### List contacts
+##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-data/)
 
     suiteAPI.segment.listContacts(payload);
 
-##### List segments
+##### [List segments](http://documentation.emarsys.com/resource/developers/api/contacts/list-segments/)
 
     suiteAPI.segment.listSegments(payload);
 
@@ -310,10 +332,12 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### List
 
+Lists the purchases of customers per day.
+
     suiteAPI.purchase.list(payload);
 
 #### Contact Fields
 
-##### Listing Available Fields
+##### [Listing Available Fields](http://documentation.emarsys.com/resource/developers/api/contacts/list-fields/)
 
     suiteAPI.field.get(payload);
