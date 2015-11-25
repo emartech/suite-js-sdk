@@ -4,6 +4,7 @@ var SuiteRequest = require('escher-suiteapi-js');
 var ApiRequest = require('./../lib/api-request');
 
 var AdministratorAPI = require('./endpoints/administrator');
+var ConditionAPI = require('./endpoints/condition');
 var ContactAPI = require('./endpoints/contact');
 var ContactListAPI = require('./endpoints/contactlist');
 var EmailAPI = require('./endpoints/email');
@@ -24,6 +25,7 @@ var SuiteAPI = function(options) {
   this._apiRequest = ApiRequest.create(options);
 
   this.administrator = AdministratorAPI.create(this._apiRequest, options);
+  this.condition = ConditionAPI.create(this._apiRequest, options);
   this.contact = ContactAPI.create(this._apiRequest, options);
   this.contactList = ContactListAPI.create(this._apiRequest, options);
   this.email = EmailAPI.create(this._apiRequest, options);
@@ -95,6 +97,7 @@ SuiteAPI.createWithCache = function(cacheId, options) {
 module.exports = SuiteAPI;
 
 module.exports.Administrator = AdministratorAPI;
+module.exports.Condition = ConditionAPI;
 module.exports.Contact = ContactAPI;
 module.exports.ContactList = ContactListAPI;
 module.exports.Email = EmailAPI;
