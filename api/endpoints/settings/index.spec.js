@@ -47,4 +47,15 @@ describe('SuiteAPI Settings endpoint', function() {
     ]);
   });
 
+  describe('#getSecuritySettings', function() {
+    testApiMethod(SettingsAPI, 'getSecuritySettings').shouldGetResultFromEndpoint('/settings/security');
+  });
+
+  describe('#setSecuritySettings', function() {
+    testApiMethod(SettingsAPI, 'setSecuritySettings').withArgs({
+      ip_whitelist_enabled: 1
+    }).shouldPutToEndpoint('/settings/security', {
+      ip_whitelist_enabled: 1
+    });
+  });
 });

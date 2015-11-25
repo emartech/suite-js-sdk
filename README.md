@@ -271,6 +271,18 @@ Possible IP address rules can be defined.
 
     suiteAPI.settings.setIpRestrictions(payload);
 
+##### Get security settings
+
+Get security settings (IP whitelisting enabled option)
+
+    suiteAPI.settings.getSecuritySettings(payload);
+
+##### Set security settings
+
+Set security settings (IP whitelisting enabled option)
+
+    suiteAPI.settings.setSecuritySettings(payload);
+
 #### Email
 
 ##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)
