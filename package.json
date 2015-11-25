@@ -10,7 +10,8 @@
     "release-minor": "npm version minor -m 'chore(package): update version to %s'",
     "release-major": "npm version major -m 'chore(package): update version to %s'",
     "validate-commit-msg": "validate-commit-msg",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "moment": "2.10.6",
     "node-cache": "2.1.1",
     "password-generator": "2.0.2",
+    "semantic-release": "^4.3.5",
     "sprintf-js": "1.0.3"
   },
   "devDependencies": {
