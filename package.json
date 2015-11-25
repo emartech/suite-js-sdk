@@ -13,6 +13,11 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
+  "release": {
+    "verifyConditions": {
+      "path": "./node_modules/semantic-release/dist/lib/plugin-noop.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/emartech/suite-js-sdk.git"
