@@ -87,6 +87,27 @@ _.extend(Settings.prototype, {
       this._buildUrl('/settings/linkcategories', payload),
       options
     );
+  },
+
+  getSecuritySettings: function(payload, options) {
+    logger.log('settings_get_security-settings');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/security', payload),
+      options
+    );
+  },
+
+  setSecuritySettings: function(payload, options) {
+    logger.log('settings_set-security-settings');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/settings/security',
+      payload,
+      options
+    );
   }
 
 });
