@@ -1,8 +1,6 @@
-<a name="5.2.0"></a>
-# [5.2.0](https://github.com/emartech/suite-js-sdk/compare/v5.2.0...v5.2.0) (2015-11-25)
+# Changelog after 5.2.0 can be found on the [releases page](https://github.com/emartech/suite-js-sdk/releases)!
 
-
-
+## Please do not regenerate this file! From now changelogs are provided by the semantic-versioning tool! 
 
 <a name="5.2.0"></a>
 # [5.2.0](https://github.com/emartech/suite-js-sdk/compare/v5.1.0...v5.2.0) (2015-11-24)
