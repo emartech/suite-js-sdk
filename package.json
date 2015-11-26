@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:emartech/suite-js-sdk.git"
+    "url": "git+https://github.com/emartech/suite-js-sdk.git"
   },
   "author": "Viktor Somodi <viktor.somodi@emarsys.com>",
   "license": "isc",
