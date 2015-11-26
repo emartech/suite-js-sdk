@@ -11,7 +11,7 @@ AdminList.prototype = {
 
   getFirstSuperadministrator: function() {
     return _.find(this._admins, function(administrator) {
-      return administrator.superadmin === '1';
+      return parseInt(administrator.superadmin) == 1;
     });
   },
 
