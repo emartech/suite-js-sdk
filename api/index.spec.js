@@ -122,7 +122,9 @@ describe('SuiteApi', function() {
           port: 443
         });
 
+        /*eslint-disable*/
         expect(api).to.be.ok;
+        /*eslint-enable*/
       });
 
     });

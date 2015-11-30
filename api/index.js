@@ -61,8 +61,12 @@ SuiteAPI.prototype = {
     var apiKey = config.suiteApi.apiKey;
     var apiSecret = config.suiteApi.apiSecret;
 
-    if (apiSecret && apiKey) return { apiKey: apiKey, apiSecret: apiSecret };
-    if (config.suiteApi.keyPool) return this._apiKeySecretFromKeyPool();
+    if (apiSecret && apiKey) {
+      return { apiKey: apiKey, apiSecret: apiSecret };
+    }
+    if (config.suiteApi.keyPool) {
+      return this._apiKeySecretFromKeyPool();
+    }
 
     return { apiKey: undefined, apiSecret: undefined };
   },

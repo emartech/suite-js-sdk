@@ -42,7 +42,9 @@ class RequestAuthenticator {
 
 
   _getKeyDb() {
-    if (this._config.keyPool) return KeyPool.create(this._config.keyPool).getKeyDb();
+    if (this._config.keyPool) {
+      return KeyPool.create(this._config.keyPool).getKeyDb();
+    }
     return function() {};
   }
 

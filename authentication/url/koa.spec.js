@@ -13,7 +13,9 @@ describe('Suite API authentication middleware', function() {
   var next;
 
   beforeEach(function() {
+    /*eslint-disable*/
     next = function*() { next.called = true; };
+    /*eslint-enable*/
     next.called = false;
 
     context = FakeContext.create();
@@ -39,12 +41,14 @@ describe('Suite API authentication middleware', function() {
 
   it('should thrown an 401 error if the authentication fails', function* () {
     var middleware = middlewareFactory.getMiddleware({ option1: 1 });
-    this.sandbox.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate').throws(new Error('errorMessage'));;
+    this.sandbox.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate').throws(new Error('errorMessage'));
 
     yield middleware.call(context, next);
 
     expect(context.throw).to.have.been.calledWith(401, 'errorMessage');
+    /*eslint-disable*/
     expect(next.called).to.be.true;
+    /*eslint-enable*/
     expect(SuiteSignedUrlAuthenticator.prototype.authenticate).to.have.been.calledWith('testUrl', 'testHost');
     expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option1: 1 });
   });
@@ -57,7 +61,9 @@ describe('Suite API authentication middleware', function() {
 
     yield middleware.call(context, next);
 
+    /*eslint-disable*/
     expect(next.called).to.be.true;
+    /*eslint-enable*/
     expect(SuiteSignedUrlAuthenticator.prototype.authenticate).to.have.been.calledWith('testUrl', 'testHost');
     expect(context.request.validatedData).to.eql({
       'queryPar1': '1',
@@ -74,7 +80,9 @@ describe('Suite API authentication middleware', function() {
 
     yield middleware.call(context, next);
 
+    /*eslint-disable*/
     expect(next.called).to.be.true;
+    /*eslint-enable*/
     expect(SuiteSignedUrlAuthenticator.prototype.authenticate).to.have.been.calledWith('testUrl', 'testHost');
     expect(context.request.validatedData).to.eql({
       'bodyPar1': '1',

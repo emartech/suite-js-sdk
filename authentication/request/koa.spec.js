@@ -32,7 +32,9 @@ describe('Koa Escher Request Authentication Middleware', function() {
       keyPool: JSON.stringify([{ 'keyId': 'suite_cuda_v1', 'secret': 'testSecret', 'acceptOnly': 0 }])
     };
 
+    /*eslint-disable*/
     next = function* () {};
+    /*eslint-enable*/
   });
 
 
@@ -56,12 +58,8 @@ describe('Koa Escher Request Authentication Middleware', function() {
 
   });
 
-
-
-
   describe('Escher #authenticate', function() {
     var escherStub;
-
 
     beforeEach(function() {
       escherStub = {
@@ -71,14 +69,13 @@ describe('Koa Escher Request Authentication Middleware', function() {
       this.sandbox.stub(Escher, 'create').returns(escherStub);
     });
 
-
-
     it('should have been called', function* () {
       yield callMiddleware(createContextWithEmptyBody());
 
+      /*eslint-disable*/
       expect(escherStub.authenticate).to.have.been.called;
+      /*eslint-enable*/
     });
-
 
     it(`should have been called with original Node request object decorated with the stringified body from the koa's request object`, function* () {
       var context = createContext({ testData: 'testValue' });
@@ -101,7 +98,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
       expect(escherStub.authenticate).to.have.been.calledWithExactly(expectedRequest, sinon.match.any);
     });
 
-
     it(`should have been called with the proper keys using keypool from configuration`, function* () {
       this.sandbox.stub(KeyPool, 'create').returns({
         getKeyDb: this.sandbox.stub().returns('testKey')
@@ -112,7 +108,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
       expect(KeyPool.create).to.have.been.calledWith(escherConfig.keyPool);
       expect(escherStub.authenticate).to.have.been.calledWithExactly(sinon.match.any, 'testKey');
     });
-
 
     it(`should throw an unauthorized error in the context if error happened`, function* () {
       escherStub.authenticate.throws(new Error('test message'));
@@ -127,13 +122,14 @@ describe('Koa Escher Request Authentication Middleware', function() {
     it(`should yield the "next" if there were no problem on authentication`, function* () {
       var yieldCalled = false;
 
+      /*eslint-disable*/
       yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function* () {
         yieldCalled = true;
       });
 
       expect(yieldCalled).to.be.true;
+      /*eslint-enable*/
     });
-
 
   });
 

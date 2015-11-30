@@ -1,6 +1,6 @@
+'use strict';
+
 var expect = require('chai').expect;
-var sinon = require('sinon');
-var _ = require('lodash');
 
 module.exports = {
   shouldThrowError: function(error) {

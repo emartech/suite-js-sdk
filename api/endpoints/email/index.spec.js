@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var EmailAPI = require('./');
 var testApiMethod = require('../_test');
 
@@ -142,15 +141,15 @@ describe('SuiteAPI Email endpoint', function() {
         }
       ]
     }).shouldPostToEndpoint('/email/12/personalization', [
-        {
-          element: 0,
-          defaultValue: 'foo'
-        },
-        {
-          element: 1,
-          defaultValue: 'bar'
-        }
-      ]);
+      {
+        element: 0,
+        defaultValue: 'foo'
+      },
+      {
+        element: 1,
+        defaultValue: 'bar'
+      }
+    ]);
 
     testApiMethod(EmailAPI, 'setPersonalizations').withArgs({}).shouldThrowMissingParameterError('email_id');
   });

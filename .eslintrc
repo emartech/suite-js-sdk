@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "emarsys"
+  ],
+  "rules": {
+    "max-len": [2, 200, 2]
+  },
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "expect": false,
+    "sinon": false,
+    "before": false,
+    "after": false,
+    "afterEach": false,
+    "describe": false,
+    "beforeEach": false,
+    "it": false
+  }
+}

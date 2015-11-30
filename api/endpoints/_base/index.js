@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 var querystring = require('querystring');
 var APIRequiredParameterMissingError = require('./error');
@@ -17,7 +19,9 @@ _.extend(Base.prototype, {
   _requireParameters: function(payload, requiredParameters) {
     try {
       requiredParameters.forEach(function(requiredParameter) {
-        if (_.has(payload, requiredParameter)) return;
+        if (_.has(payload, requiredParameter)) {
+          return;
+        }
         throw new APIRequiredParameterMissingError(requiredParameter);
       });
     } catch (ex) {

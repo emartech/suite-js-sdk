@@ -49,9 +49,8 @@ CollectTranslations.prototype = {
 
 
   _getTranslationUrl: function(language) {
-    var filename = this._translationId === CollectTranslations.COMMON_TRANSLATIONS_ID
-      ? 'translation.js.php'
-      : 'translate_' + this._translationId + '.js.php';
+    var filename = this._translationId === CollectTranslations.COMMON_TRANSLATIONS_ID ?
+      'translation.js.php' : 'translate_' + this._translationId + '.js.php';
 
     return 'http://' + this._environment + '/js/translate/' + filename + '?lang=' + language;
   }

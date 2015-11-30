@@ -1,3 +1,5 @@
+'use strict';
+
 var config = {
 
   CACHE_TTL: 120,

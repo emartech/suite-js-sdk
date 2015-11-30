@@ -1,7 +1,6 @@
 'use strict';
 
 var expect = require('chai').expect;
-var _ = require('lodash');
 var sinon = require('sinon');
 var Escher = require('escher-auth');
 var SuiteSignedUrlAuthenticator = require('./');
@@ -182,7 +181,9 @@ describe('Suite API authentication', function() {
       it('should use an undefined secret', function() {
         var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator();
         suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
+        /*eslint-disable*/
         expect(fakeEscher.authenticate.lastCall.args[1]()).to.be.undefined;
+        /*eslint-enable*/
       });
 
     });

@@ -38,9 +38,13 @@ _.extend(Administrator.prototype, {
     return this.getAdministrators(payload, options).then(function(response) {
       var firstAdmin = new AdminList(response.body.data).getFirstSuperadministrator();
 
-      if (firstAdmin) return Promise.resolve({
-        body: { data: firstAdmin }
-      });
+      if (firstAdmin) {
+        return Promise.resolve({
+          body: {
+            data: firstAdmin
+          }
+        });
+      }
 
       return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
     }.bind(this));
@@ -51,15 +55,21 @@ _.extend(Administrator.prototype, {
     return this._requireParameters(payload, ['administrator_id']).then(function() {
       logger.log('administrator_get_administrator');
 
+      /*eslint-disable*/
       var administrator_id = payload.administrator_id;
+      /*eslint-enable*/
       payload = this._cleanPayload(payload, ['administrator_id']);
 
       return this.getAdministrators(payload, options).then(function(response) {
         var firstAdmin = new AdminList(response.body.data).getFirstById(administrator_id);
 
-        if (firstAdmin) return Promise.resolve({
-          body: { data: firstAdmin }
-        });
+        if (firstAdmin) {
+          return Promise.resolve({
+            body: {
+              data: firstAdmin
+            }
+          });
+        }
 
         return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
       }.bind(this));
@@ -71,15 +81,21 @@ _.extend(Administrator.prototype, {
     return this._requireParameters(payload, ['admin_name']).then(function() {
       logger.log('administrator_get_administrator_by_name');
 
+      /*eslint-disable*/
       var admin_name = payload.admin_name;
+      /*eslint-enable*/
       payload = this._cleanPayload(payload, ['admin_name']);
 
       return this.getAdministrators(payload, options).then(function(response) {
         var firstAdmin = new AdminList(response.body.data).getFirstByName(admin_name);
 
-        if (firstAdmin) return Promise.resolve({
-          body: { data: firstAdmin }
-        });
+        if (firstAdmin) {
+          return Promise.resolve({
+            body: {
+              data: firstAdmin
+            }
+          });
+        }
 
         return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
       }.bind(this));
@@ -100,7 +116,9 @@ _.extend(Administrator.prototype, {
 
   getLanguages: function(customerId, language, options) {
     logger.log('administrator_getLanguages');
-    if (!language) language = 'en';
+    if (!language) {
+      language = 'en';
+    }
     return this._request.get(customerId, '/language/translate/' + language, options);
   },
 
@@ -133,7 +151,9 @@ _.extend(Administrator.prototype, {
 
   createAdministrator: function(payload, options) {
     logger.log('admin_create_administrator');
-    if (!payload) payload = {};
+    if (!payload) {
+      payload = {};
+    }
 
     var defaultValues = {
       password: passwordGenerator.generate(),
@@ -173,7 +193,9 @@ _.extend(Administrator.prototype, {
     logger.log('admin_create_superadmin');
 
     return this.createAdministrator(
-      _.extend({}, payload, { superadmin: 1 }),
+      _.extend({}, payload, {
+        superadmin: 1
+      }),
       options
     );
   },
@@ -194,7 +216,9 @@ _.extend(Administrator.prototype, {
   enableAdministrator: function(payload, options) {
     logger.log('admin_enable');
 
-    if (!payload) payload = {};
+    if (!payload) {
+      payload = {};
+    }
 
     payload = _.extend({}, payload, {
       disabled: 0,
@@ -208,7 +232,9 @@ _.extend(Administrator.prototype, {
   disableAdministrator: function(payload, options) {
     logger.log('admin_disable');
 
-    if (!payload) payload = {};
+    if (!payload) {
+      payload = {};
+    }
 
     payload = _.extend({}, payload, {
       disabled: 1

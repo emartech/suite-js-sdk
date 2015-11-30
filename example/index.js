@@ -1,3 +1,5 @@
+'use strict';
+
 var SuiteAPI = require('../').api;
 
 console.log('creating suite api');

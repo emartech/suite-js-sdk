@@ -6,7 +6,9 @@ module.exports.getMiddleware = function(escherConfig) {
   return function* (next) {
     try {
       RequestAuthenticator.create(escherConfig, this).authenticate();
-      if (next) yield next;
+      if (next) {
+        yield next;
+      }
     } catch (ex) {
       this.throw(401, ex.message);
     }

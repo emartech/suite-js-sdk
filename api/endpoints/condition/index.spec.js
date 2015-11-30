@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var ConditionAPI = require('./');
 var testApiMethod = require('../_test');
 

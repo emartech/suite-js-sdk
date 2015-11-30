@@ -20,9 +20,9 @@ describe('SuiteAPI Contact endpoint', function() {
     testApiMethod(ContactAPI, 'getData').withArgs({}).shouldThrowMissingParameterError('keyValues');
 
     testApiMethod(ContactAPI, 'getData').withArgs({
-      keyValues: [123,456,789]
+      keyValues: [123, 456, 789]
     }).shouldPostToEndpoint('/contact/getdata', {
-      keyValues: [123,456,789]
+      keyValues: [123, 456, 789]
     });
 
     testApiMethod(ContactAPI, 'getData').withArgs({
@@ -34,10 +34,10 @@ describe('SuiteAPI Contact endpoint', function() {
     });
 
     testApiMethod(ContactAPI, 'getData').withArgs({
-      keyValues: [123,456,789],
+      keyValues: [123, 456, 789],
       fields: [3]
     }).shouldPostToEndpoint('/contact/getdata', {
-      keyValues: [123,456,789],
+      keyValues: [123, 456, 789],
       fields: [3]
     });
   });

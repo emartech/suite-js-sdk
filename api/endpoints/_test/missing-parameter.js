@@ -1,5 +1,6 @@
+'use strict';
+
 var expect = require('chai').expect;
-var sinon = require('sinon');
 var _ = require('lodash');
 
 var APIRequiredParameterMissingError = require('./../_base/error');

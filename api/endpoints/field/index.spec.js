@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var FieldAPI = require('./');
 var testApiMethod = require('../_test');
 

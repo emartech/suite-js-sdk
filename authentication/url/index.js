@@ -47,8 +47,12 @@ SuiteSignedUrlAuthenticator.prototype = {
 
 
   _getKeyDb: function() {
-    if (this.escherSecret) return this._getSecret.bind(this);
-    if (process.env.KEY_POOL) return new KeyPool(process.env.KEY_POOL).getKeyDb();
+    if (this.escherSecret) {
+      return this._getSecret.bind(this);
+    }
+    if (process.env.KEY_POOL) {
+      return new KeyPool(process.env.KEY_POOL).getKeyDb();
+    }
     return function() {};
   },
 

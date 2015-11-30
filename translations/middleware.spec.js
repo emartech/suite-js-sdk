@@ -1,3 +1,4 @@
+/*eslint no-unused-expressions: 0*/
 'use strict';
 
 var expect = require('chai').expect;
@@ -22,7 +23,9 @@ describe('Suite translation middleware', function() {
     var validValidatedData;
 
     beforeEach(function() {
+      /*eslint-disable*/
       next = function*() { next.called = true; };
+      /*eslint-enable*/
       next.called = false;
 
       context = FakeContext.create();
@@ -53,13 +56,12 @@ describe('Suite translation middleware', function() {
       nock.cleanAll();
     });
 
-    it('should throw error if it does not get testTranslation', function* () {
+    it('should throw error if it does not get testTranslation', function*() {
       context.setValidatedData(validValidatedData);
 
       try {
         yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
-      }
-      catch (ex) {
+      } catch (ex) {
         expect(next.called).to.be.false;
         return expect(ex).to.be.an.instanceOf(TranslationRequiredParameterMissingError);
       }
@@ -67,7 +69,7 @@ describe('Suite translation middleware', function() {
       throw new Error('Missed exception');
     });
 
-    it('should keep the original render data', function* () {
+    it('should keep the original render data', function*() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var renderData = { someData: 1 };
@@ -82,13 +84,14 @@ describe('Suite translation middleware', function() {
       expect(next.called).to.be.true;
     });
 
-    it('should pass api options', function* () {
+    it('should pass api options', function*() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var testApiOptions = { customerId: 5, host: 'tempuri.org' };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
+      yield translationsDecoratorMiddleware
+        .decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
 
       expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
           { administrator_id: '21' },
@@ -96,7 +99,7 @@ describe('Suite translation middleware', function() {
         );
     });
 
-    it('should pass the correct translation file name', function* () {
+    it('should pass the correct translation file name', function*() {
       var testTranslationId = 'anotherTest';
       this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
 
@@ -104,7 +107,7 @@ describe('Suite translation middleware', function() {
       expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslationId);
     });
 
-    it('should add admin\'s language translations to the render data', function* () {
+    it('should add admin\'s language translations to the render data', function*() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var renderData = { someData: 1 };
@@ -120,7 +123,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add language translations with the provided language\'s dictionary if the validated data has language', function* () {
+    it('should add language translations with the provided language\'s dictionary if the validated data has language', function*() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       context.setValidatedData({ environment: validValidatedData.environment, language: 'mx' });
@@ -134,7 +137,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add language translations with the default language\'s dictionary if environment and language is missing from validation data', function* () {
+    it('should add language translations with the default language\'s dictionary if environment and language is missing from validation data', function*() {
       httpBackendRespondWith(200, 'en', fakeResponseForTranslations);
 
       context.setValidatedData({ environment: validValidatedData.environment });
@@ -148,7 +151,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add translation method with admin\'s dictionary', function* () {
+    it('should add translation method with admin\'s dictionary', function*() {
       var fakeTranslator = { translate: this.sandbox.spy() };
       this.sandbox.stub(Translator, 'create').returns(fakeTranslator);
 
@@ -167,7 +170,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add empty admin\'s language translations to the render data if the request fails', function* () {
+    it('should add empty admin\'s language translations to the render data if the request fails', function*() {
       httpBackendRespondWith(200, 'mx', null);
 
       var renderData = { someData: 1 };
@@ -182,7 +185,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add admin\'s language translations from cache after the first request', function* () {
+    it('should add admin\'s language translations from cache after the first request', function*() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       context.setValidatedData(validValidatedData);
@@ -200,7 +203,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should thrown an error if the context do not have validated data', function* () {
+    it('should thrown an error if the context do not have validated data', function*() {
       try {
         context.setValidatedData(null);
         context.validatedData = null;
@@ -224,14 +227,16 @@ describe('Suite translation middleware', function() {
     }];
 
     invalidValidatedCases.forEach(function(testCase) {
-      it('should thrown an error ' + testCase.message, function* () {
+      it('should thrown an error ' + testCase.message, function*() {
         try {
           context.setValidatedData(testCase.validatedData);
           yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
         } catch (ex) {
           expect(next.called).to.be.false;
           expect(ex).to.be.an.instanceOf(Error);
-          return expect(ex.message).to.eql('decorateRenderWithTranslations middleware need environment from request\'s validatedData');
+          return expect(ex.message)
+            .to
+            .eql('decorateRenderWithTranslations middleware need environment from request\'s validatedData');
         }
 
         throw new Error('Missed exception');

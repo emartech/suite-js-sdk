@@ -16,6 +16,8 @@ module.exports.getMiddleware = function(options) {
       this.throw(401, ex.message);
     }
 
-    if (next) yield next;
+    if (next) {
+      yield next;
+    }
   };
 };
