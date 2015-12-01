@@ -55,13 +55,11 @@ _.extend(Administrator.prototype, {
     return this._requireParameters(payload, ['administrator_id']).then(function() {
       logger.log('administrator_get_administrator');
 
-      /*eslint-disable*/
-      var administrator_id = payload.administrator_id;
-      /*eslint-enable*/
+      var administratorId = payload.administrator_id;
       payload = this._cleanPayload(payload, ['administrator_id']);
 
       return this.getAdministrators(payload, options).then(function(response) {
-        var firstAdmin = new AdminList(response.body.data).getFirstById(administrator_id);
+        var firstAdmin = new AdminList(response.body.data).getFirstById(administratorId);
 
         if (firstAdmin) {
           return Promise.resolve({
@@ -81,13 +79,11 @@ _.extend(Administrator.prototype, {
     return this._requireParameters(payload, ['admin_name']).then(function() {
       logger.log('administrator_get_administrator_by_name');
 
-      /*eslint-disable*/
-      var admin_name = payload.admin_name;
-      /*eslint-enable*/
+      var adminName = payload.admin_name;
       payload = this._cleanPayload(payload, ['admin_name']);
 
       return this.getAdministrators(payload, options).then(function(response) {
-        var firstAdmin = new AdminList(response.body.data).getFirstByName(admin_name);
+        var firstAdmin = new AdminList(response.body.data).getFirstByName(adminName);
 
         if (firstAdmin) {
           return Promise.resolve({
