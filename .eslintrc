@@ -7,16 +7,7 @@
   },
   "env": {
     "es6": true,
-    "node": true
-  },
-  "globals": {
-    "expect": false,
-    "sinon": false,
-    "before": false,
-    "after": false,
-    "afterEach": false,
-    "describe": false,
-    "beforeEach": false,
-    "it": false
+    "node": true,
+    "mocha": true
   }
 }
