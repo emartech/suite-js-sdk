@@ -61,6 +61,16 @@ _.extend(ContactList.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  listContactLists: function(payload, options) {
+    logger.log('contactlist_list');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/contactlist', payload),
+      options
+    );
   }
 
 });

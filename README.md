@@ -225,6 +225,10 @@ necessary data on the invitation form.
 
     suiteAPI.contactList.add(payload);
 
+##### [ListContactLists](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-lists/)
+
+    suiteAPI.contactList.listContactLists(payload);
+
 #### ExternalEvent
 
 ##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)
