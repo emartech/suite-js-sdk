@@ -28,6 +28,7 @@ describe('SuiteAPI Contact List endpoint', function() {
 
   });
 
+
   describe('#add', function() {
 
     testApiMethod(ContactListApi, 'add').withArgs({
@@ -42,5 +43,11 @@ describe('SuiteAPI Contact List endpoint', function() {
     });
 
   });
+
+
+  describe('#listContactLists', function() {
+    testApiMethod(ContactListApi, 'listContactLists').withArgs({}).shouldGetResultFromEndpoint('/contactlist');
+  });
+
 
 });
