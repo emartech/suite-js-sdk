@@ -3,7 +3,6 @@
 var _ = require('lodash');
 var querystring = require('querystring');
 var APIRequiredParameterMissingError = require('./error');
-var Promise = require('bluebird');
 
 var Base = function(options) {
   this.options = options || {};
