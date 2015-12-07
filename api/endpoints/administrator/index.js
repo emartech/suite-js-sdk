@@ -8,7 +8,7 @@ var AdminList = require('./index.admin-list.js');
 var SuiteRequestError = require('escher-suiteapi-js').Error;
 var passwordGenerator = require('../../../lib/password-generator');
 var dateHelper = require('../../../lib/date-helper');
-var Promise = require('bluebird');
+var Promise = Promise || require('bluebird');
 
 var Base = require('../_base');
 
