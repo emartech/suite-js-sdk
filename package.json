@@ -1,6 +1,5 @@
 {
   "name": "suite-js-sdk",
-  "version": "5.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
