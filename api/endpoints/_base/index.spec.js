@@ -59,4 +59,22 @@ describe('Suite Base Api Endpoint', function() {
     });
   });
 
+  describe('builds a query string for segmentation', function() {
+    it('from an empty object', function() {
+      var base = new BaseApi();
+
+      var url = base._buildUrlForSegmentation('/a', {});
+
+      expect(url).to.be.eql('/a');
+    });
+
+    it('from a non-empty object', function() {
+      var base = new BaseApi();
+
+      var url = base._buildUrlForSegmentation('/a', { b: 1 });
+
+      expect(url).to.be.eql('/a/b=1');
+    });
+  });
+
 });

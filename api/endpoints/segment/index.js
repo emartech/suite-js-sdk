@@ -22,7 +22,7 @@ _.extend(Segment.prototype, {
 
       return this._request.get(
         this._getCustomerId(options),
-        this._buildUrl(url, payload, ['segment_id']),
+        this._buildUrlForSegmentation(url, payload, ['segment_id']),
         options
       );
     }.bind(this));
@@ -33,7 +33,7 @@ _.extend(Segment.prototype, {
 
     return this._request.get(
       this._getCustomerId(options),
-      this._buildUrl('/filter', payload),
+      this._buildUrlForSegmentation('/filter', payload),
       options
     );
   }

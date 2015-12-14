@@ -336,7 +336,7 @@ Updates alternate texts.
 
 #### Segment
 
-##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-data/)
+##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contacts-in-segment/)
 
     suiteAPI.segment.listContacts(payload);
 

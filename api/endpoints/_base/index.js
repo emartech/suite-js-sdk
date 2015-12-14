@@ -46,6 +46,18 @@ _.extend(Base.prototype, {
     }
 
     return base;
+  },
+
+  _buildUrlForSegmentation: function(base, payload, blackList) {
+    payload = this._cleanPayload(payload, blackList);
+
+    var qs = querystring.stringify(payload);
+
+    if (qs.length) {
+      return base + '/' + qs;
+    }
+
+    return base;
   }
 });
 
