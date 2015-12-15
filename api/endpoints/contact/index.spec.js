@@ -15,6 +15,16 @@ describe('SuiteAPI Contact endpoint', function() {
 
   });
 
+  describe('#update', function() {
+
+    testApiMethod(ContactAPI, 'update').withArgs({
+      name: 'contactName'
+    }).shouldPutToEndpoint('/contact', {
+      name: 'contactName'
+    });
+
+  });
+
   describe('#getData', function() {
 
     testApiMethod(ContactAPI, 'getData').withArgs({}).shouldThrowMissingParameterError('keyValues');

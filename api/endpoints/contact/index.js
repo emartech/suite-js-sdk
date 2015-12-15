@@ -26,6 +26,17 @@ _.extend(Contact.prototype, {
     );
   },
 
+  update: function(payload, options) {
+    logger.log('contact_update');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/contact',
+      payload,
+      options
+    );
+  },
+
   getData: function(payload, options) {
     return this._requireParameters(payload, ['keyValues']).then(function() {
       logger.log('contact_getdata');
