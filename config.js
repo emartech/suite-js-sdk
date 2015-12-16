@@ -10,7 +10,7 @@ var config = {
     rejectUnauthorized: process.env.SUITE_API_REJECT_UNAUTHORIZED !== 'false',
     apiKey: process.env.SUITE_API_KEY,
     apiSecret: process.env.SUITE_API_SECRET,
-    keyPool: process.env.KEY_POOL,
+    keyPool: process.env.SUITE_API_KEY_POOL || process.env.KEY_POOL,
     keyId: process.env.SUITE_API_KEY_ID,
     secure: process.env.SUITE_API_SECURE !== 'false',
     port: typeof process.env.SUITE_API_PORT !== 'undefined' ?
