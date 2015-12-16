@@ -1,5 +1,6 @@
 'use strict';
 
+var logger = require('logentries-logformat')('suite-sdk');
 var RequestAuthenticator = require('./request-authenticator');
 
 module.exports.getMiddleware = function(escherConfig) {
@@ -10,6 +11,7 @@ module.exports.getMiddleware = function(escherConfig) {
         yield next;
       }
     } catch (ex) {
+      logger.error('authentication_request_error', ex, ex.message);
       this.throw(401, ex.message);
     }
   };
