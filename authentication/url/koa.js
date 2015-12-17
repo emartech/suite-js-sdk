@@ -18,7 +18,7 @@ module.exports.getMiddleware = function(options) {
       authenticator.authenticate(request.url, request.header.host);
       request.validatedData = (request.method === 'GET') ? request.query : request.body;
     } catch (ex) {
-      logger.error('authentication_url_error', ex, ex.message);
+      logger.error('authentication_url_error', ex.message, ex);
       this.throw(401, ex.message);
     }
 

@@ -11,7 +11,7 @@ module.exports.getMiddleware = function(escherConfig) {
         yield next;
       }
     } catch (ex) {
-      logger.error('authentication_request_error', ex, ex.message);
+      logger.error('authentication_request_error', ex.message, ex);
       this.throw(401, ex.message);
     }
   };
