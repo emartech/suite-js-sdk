@@ -12,7 +12,8 @@ module.exports = {
       getKoaMiddleware: require('./authentication/url/koa').getMiddleware
     },
     request: {
-      getKoaMiddleware: require('./authentication/request/koa').getMiddleware
+      getKoaInterceptorMiddleware: require('./authentication/request/koa-interceptor').getMiddleware,
+      getKoaAuthenticatorMiddleware: require('./authentication/request/koa-authenticator').getMiddleware
     }
   },
 
