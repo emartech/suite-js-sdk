@@ -14,6 +14,7 @@ var LanguageAPI = require('./endpoints/language');
 var PurchaseAPI = require('./endpoints/purchase');
 var SegmentAPI = require('./endpoints/segment');
 var SettingsAPI = require('./endpoints/settings');
+var PredictAPI = require('./endpoints/predict');
 
 var Request = require('./../lib/api-request');
 var expect = require('chai').expect;
@@ -189,6 +190,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(PurchaseAPI, 'create').returns('FromPurchaseEndpointStub');
       this.sandbox.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
+      this.sandbox.stub(PredictAPI, 'create').returns('FromPredictEndpointStub');
 
       var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
@@ -265,6 +267,12 @@ describe('SuiteApi', function() {
         sdkKey: 'settings',
         api: SettingsAPI,
         stub: 'FromSettingsEndpointStub'
+      },
+      {
+        endpoint: 'Predict',
+        sdkKey: 'predict',
+        api: PredictAPI,
+        stub: 'FromPredictEndpointStub'
       }
     ];
 
