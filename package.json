@@ -46,7 +46,7 @@
     "chai-subset": "1.2.0",
     "co-mocha": "1.1.2",
     "eslint": "1.10.3",
-    "eslint-config-emarsys": "1.0.0",
+    "eslint-config-emarsys": "2.0.0",
     "mocha": "2.3.4",
     "nock": "3.6.0",
     "pre-commit": "1.1.2",
