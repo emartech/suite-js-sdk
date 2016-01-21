@@ -10,6 +10,7 @@ var ContactListAPI = require('./endpoints/contactlist');
 var EmailAPI = require('./endpoints/email');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var FieldAPI = require('./endpoints/field');
+var FormAPI = require('./endpoints/form');
 var LanguageAPI = require('./endpoints/language');
 var PurchaseAPI = require('./endpoints/purchase');
 var SegmentAPI = require('./endpoints/segment');
@@ -186,6 +187,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(FieldAPI, 'create').returns('FromFieldEndpointStub');
+      this.sandbox.stub(FormAPI, 'create').returns('FromFormEndpointStub');
       this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
       this.sandbox.stub(PurchaseAPI, 'create').returns('FromPurchaseEndpointStub');
       this.sandbox.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
@@ -243,6 +245,12 @@ describe('SuiteApi', function() {
         sdkKey: 'field',
         api: FieldAPI,
         stub: 'FromFieldEndpointStub'
+      },
+      {
+        endpoint: 'Form',
+        sdkKey: 'form',
+        api: FormAPI,
+        stub: 'FromFormEndpointStub'
       },
       {
         endpoint: 'Language',
