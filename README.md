@@ -35,8 +35,7 @@ If you want to debug. Set your environment variables
 
 ### Prerequisites
 
-The koa bodyparser module should be installed and in use **before** the use of
-the koaMiddleware.
+The koa bodyparser module should be installed and in use **between** the two authentication middlewares.
 
     npm install koa-bodyparser -S
 
