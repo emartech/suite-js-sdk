@@ -1,12 +1,15 @@
 'use strict';
 
 var logger = require('logentries-logformat')('suite-sdk');
-var RequestAuthenticator = require('./request-authenticator');
+var Authenticator = require('./request-authenticator');
 
-module.exports.getMiddleware = function(escherConfig) {
-  return function* (next) {
+module.exports.getMiddleware = function() {
+  return function*(next) {
     try {
-      RequestAuthenticator.create(escherConfig, this).authenticate();
+      var authenticator = new Authenticator(this);
+
+      yield authenticator.authenticate();
+
       if (next) {
         yield next;
       }

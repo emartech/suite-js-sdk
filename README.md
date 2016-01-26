@@ -35,8 +35,7 @@ If you want to debug. Set your environment variables
 
 ### Prerequisites
 
-The koa bodyparser module should be installed and in use **before** the use of
-the koaMiddleware.
+The koa bodyparser module should be installed and in use **between** the two authentication middlewares.
 
     npm install koa-bodyparser -S
 
@@ -56,7 +55,12 @@ Set your environment variables
 
 ### Usage
 
-    var middleware = require('suite-js-sdk').authentication.koaMiddleware.getMiddleware();
+You have to attach middlewares in the follow order:
+
+    var interceptorMiddleware = require('suite-js-sdk').authentication.request.getKoaInterceptorMiddleware();
+    var authenticatorMiddleware = require('suite-js-sdk').authentication.request.getKoaAuthenticatorMiddleware();
+
+It is supported to add other middlewares between them (e.g. 'bodyparser') as long as you attach 'interceptor' first and 'authenticator' last.
 
 If the authentication fails it throws an error with 401 code.
 If the authentication success it decorates the request with a validatedData property. It contains the signed parameters.

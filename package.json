@@ -38,6 +38,7 @@
     "moment": "2.10.6",
     "node-cache": "2.1.1",
     "password-generator": "2.0.2",
+    "raw-body": "2.1.5",
     "sprintf-js": "1.0.3"
   },
   "devDependencies": {
@@ -47,12 +48,14 @@
     "co-mocha": "1.1.2",
     "eslint": "1.10.3",
     "eslint-config-emarsys": "2.0.0",
+    "koa": "1.1.2",
     "mocha": "2.3.4",
     "nock": "3.6.0",
     "pre-commit": "1.1.2",
     "semantic-release": "4.3.5",
     "sinon": "1.17.2",
     "sinon-chai": "2.8.0",
+    "supertest": "1.1.0",
     "validate-commit-message": "3.0.1"
   }
 }
