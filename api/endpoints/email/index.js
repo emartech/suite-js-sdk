@@ -213,6 +213,32 @@ _.extend(Email.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  getDeliveryStatus: function(payload, options) {
+    return this._requireParameters(payload, ['emailId']).then(function() {
+      logger.log('email_getdeliverystatus');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/email/getdeliverystatus',
+        this._cleanPayload(payload),
+        options
+      );
+    }.bind(this));
+  },
+
+  responses: function(payload, options) {
+    return this._requireParameters(payload, ['type']).then(function() {
+      logger.log('email_responses');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/email/responses',
+        this._cleanPayload(payload),
+        options
+      );
+    }.bind(this));
   }
 });
 
