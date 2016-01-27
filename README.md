@@ -325,6 +325,14 @@ Set security settings (IP whitelisting enabled option)
 
     suiteAPI.email.sendTestMail(payload);
 
+##### [Delivery Status](https://documentation.emarsys.com/resource/developers/endpoints/email/delivery-status/)
+
+    suiteAPI.email.getDeliveryStatus(payload);
+
+##### [Response](https://documentation.emarsys.com/resource/developers/endpoints/email/query-responses/)
+
+    suiteAPI.email.responses(payload);
+
 ##### Querying Email Personalizations
 
 Lists all possible alternate texts with their email campaigns. Alternate texts are defined for a specific field, and

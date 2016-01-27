@@ -175,4 +175,24 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'launchList').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
+  describe('#getDeliveryStatus', function() {
+    testApiMethod(EmailAPI, 'getDeliveryStatus').withArgs({
+      emailId: 32
+    }).shouldPostToEndpoint('/email/getdeliverystatus', {
+      emailId: 32
+    });
+
+    testApiMethod(EmailAPI, 'getDeliveryStatus').withArgs({}).shouldThrowMissingParameterError('emailId');
+  });
+
+  describe('#responses', function() {
+    testApiMethod(EmailAPI, 'responses').withArgs({
+      type: 'opened'
+    }).shouldPostToEndpoint('/email/responses', {
+      type: 'opened'
+    });
+
+    testApiMethod(EmailAPI, 'responses').withArgs({}).shouldThrowMissingParameterError('emailId');
+  });
+
 });
