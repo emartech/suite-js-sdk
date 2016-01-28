@@ -19,6 +19,12 @@ describe('SuiteAPI Predict Endpoint', function() {
 
   });
 
+  describe('#getNewWidgetUrl', function() {
+
+    testApiMethod(PredictAPI, 'getNewWidgetUrl').shouldPostToEndpoint('/predict', {});
+
+  });
+
   describe('#hideWidget', function() {
 
     testApiMethod(PredictAPI, 'hideWidget').withArgs({ widget_id: 'asd123' }).shouldPostToEndpoint('/predict/asd123/hide', {});

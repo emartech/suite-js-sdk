@@ -32,6 +32,12 @@ _.extend(Predict.prototype, {
   },
 
 
+  getNewWidgetUrl: function(payload, options) {
+    logger.log('predict_new_widget_url');
+    return this._request.post(this._getCustomerId(options), '/predict', {}, options);
+  },
+
+
   hideWidget: function(payload, options) {
     return this._requireParameters(payload, ['widget_id']).then(function() {
       return this._sendToggleRequest(payload, options, 'hide');
