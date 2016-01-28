@@ -19,9 +19,17 @@ describe('SuiteAPI Predict Endpoint', function() {
 
   });
 
-  describe('#getNewWidgetUrl', function() {
+  describe('#newWidget', function() {
 
-    testApiMethod(PredictAPI, 'getNewWidgetUrl').shouldPostToEndpoint('/predict', {});
+    testApiMethod(PredictAPI, 'newWidget').shouldGetResultFromEndpoint('/predict/new');
+
+  });
+
+  describe('#cloneWidget', function() {
+
+    testApiMethod(PredictAPI, 'cloneWidget').withArgs({ widget_id: 'asd123' }).shouldGetResultFromEndpoint('/predict/new/from/asd123');
+
+    testApiMethod(PredictAPI, 'cloneWidget').withArgs({}).shouldThrowMissingParameterError('widget_id');
 
   });
 
