@@ -20,6 +20,24 @@ _.extend(Predict.prototype, {
   },
 
 
+  getWidget: function(payload, options) {
+    logger.log('predict_get_widget');
+    return this._requireParameters(payload, ['widget_id']).then(function() {
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/predict/%s', payload.widget_id),
+        options
+      );
+    }.bind(this));
+  },
+
+
+  getNewWidgetUrl: function(payload, options) {
+    logger.log('predict_new_widget_url');
+    return this._request.post(this._getCustomerId(options), '/predict', {}, options);
+  },
+
+
   hideWidget: function(payload, options) {
     return this._requireParameters(payload, ['widget_id']).then(function() {
       return this._sendToggleRequest(payload, options, 'hide');
