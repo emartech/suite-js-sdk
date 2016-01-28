@@ -20,6 +20,18 @@ _.extend(Predict.prototype, {
   },
 
 
+  getWidget: function(payload, options) {
+    logger.log('predict_get_widget');
+    return this._requireParameters(payload, ['widget_id']).then(function() {
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/predict/%s', payload.widget_id),
+        options
+      );
+    }.bind(this));
+  },
+
+
   hideWidget: function(payload, options) {
     return this._requireParameters(payload, ['widget_id']).then(function() {
       return this._sendToggleRequest(payload, options, 'hide');
