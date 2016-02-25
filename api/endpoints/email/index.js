@@ -185,6 +185,48 @@ _.extend(Email.prototype, {
     }.bind(this));
   },
 
+  createTrackedLink: function(payload, options) {
+    return this._requireParameters(payload, ['email_id', 'section_id', 'url']).then(function() {
+      logger.log('email_post_createTrackedLinks');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/trackedlinks', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+  getTrackedLinks: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_get_getTrackedLinks');
+
+      var url = payload.link_id ?
+        util.format('/email/%s/trackedlinks/%s', payload.email_id, payload.link_id) :
+        util.format('/email/%s/trackedlinks', payload.email_id);
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, payload, ['email_id', 'link_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+  updateTrackedLink: function(payload, options) {
+    return this._requireParameters(payload, ['email_id', 'link_id', 'url']).then(function() {
+      logger.log('email_post_updateTrackedLinks');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/trackedlinks/%s', payload.email_id, payload.link_id),
+        this._cleanPayload(payload, ['email_id', 'link_id']),
+        options
+      );
+    }.bind(this));
+  },
+
   deleteTrackedLinks: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
       logger.log('email_post_deleteTrackedLinks');

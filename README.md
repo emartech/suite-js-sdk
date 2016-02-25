@@ -346,6 +346,22 @@ Updates alternate texts.
 
     suiteAPI.email.setPersonalizations(payload);
 
+##### [Creating a Tracked Link](https://documentation.emarsys.com/resource/developers/endpoints/email/creating-tracked-links/)
+
+    suiteAPI.email.createTrackedLink(payload);
+
+##### [Querying Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/list-links/)
+
+    suiteAPI.email.getTrackedLinks(payload);
+
+##### [Updating a Tracked Link](https://documentation.emarsys.com/resource/developers/endpoints/email/update-link/)
+
+    suiteAPI.email.updateTrackedLink(payload);
+
+##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
+
+    suiteAPI.email.deleteTrackedLinks(payload);
+
 #### Segment
 
 ##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contacts-in-segment/)
