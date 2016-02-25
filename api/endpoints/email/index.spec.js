@@ -154,6 +154,100 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'setPersonalizations').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#createTrackedLink', function() {
+    testApiMethod(EmailAPI, 'createTrackedLink').withArgs({})
+      .shouldThrowMissingParameterError('email_id');
+
+    testApiMethod(EmailAPI, 'createTrackedLink').withArgs({
+      email_id: 12
+    }).shouldThrowMissingParameterError('section_id');
+
+    testApiMethod(EmailAPI, 'createTrackedLink').withArgs({
+      email_id: 12,
+      section_id: 1
+    }).shouldThrowMissingParameterError('url');
+
+    testApiMethod(EmailAPI, 'createTrackedLink').withArgs({
+      email_id: 12,
+      section_id: 1,
+      url: 'http://example.com'
+    }).shouldPostToEndpoint('/email/12/trackedlinks', {
+      section_id: 1,
+      url: 'http://example.com'
+    });
+
+    testApiMethod(EmailAPI, 'createTrackedLink').withArgs({
+      email_id: 12,
+      section_id: 1,
+      url: 'http://example.com',
+      title: 'title #1',
+      cat_id: 1
+    }).shouldPostToEndpoint('/email/12/trackedlinks', {
+      section_id: 1,
+      url: 'http://example.com',
+      title: 'title #1',
+      cat_id: 1
+    });
+  });
+
+  describe('#getTrackedLinks', function() {
+    testApiMethod(EmailAPI, 'getTrackedLinks').withArgs({})
+      .shouldThrowMissingParameterError('email_id');
+
+    testApiMethod(EmailAPI, 'getTrackedLinks').withArgs({
+      email_id: 12
+    }).shouldGetResultFromEndpoint('/email/12/trackedlinks');
+
+    testApiMethod(EmailAPI, 'getTrackedLinks').withArgs({
+      email_id: 12,
+      with_meta: 1
+    }).shouldGetResultFromEndpoint('/email/12/trackedlinks/?with_meta=1');
+
+    testApiMethod(EmailAPI, 'getTrackedLinks').withArgs({
+      email_id: 12,
+      link_id: 13
+    }).shouldGetResultFromEndpoint('/email/12/trackedlinks/13');
+
+    testApiMethod(EmailAPI, 'getTrackedLinks').withArgs({
+      email_id: 12,
+      link_id: 13,
+      with_meta: 1
+    }).shouldGetResultFromEndpoint('/email/12/trackedlinks/13/?with_meta=1');
+  });
+
+  describe('#updateTrackedLink', function() {
+    testApiMethod(EmailAPI, 'updateTrackedLink').withArgs({}).shouldThrowMissingParameterError('email_id');
+
+    testApiMethod(EmailAPI, 'updateTrackedLink').withArgs({
+      email_id: 12
+    }).shouldThrowMissingParameterError('link_id');
+
+    testApiMethod(EmailAPI, 'updateTrackedLink').withArgs({
+      email_id: 12,
+      link_id: 13
+    }).shouldThrowMissingParameterError('url');
+
+    testApiMethod(EmailAPI, 'updateTrackedLink').withArgs({
+      email_id: 12,
+      link_id: 13,
+      url: 'http://example.com'
+    }).shouldPostToEndpoint('/email/12/trackedlinks/13', {
+      url: 'http://example.com'
+    });
+
+    testApiMethod(EmailAPI, 'updateTrackedLink').withArgs({
+      email_id: 12,
+      link_id: 13,
+      url: 'http://example.com',
+      title: 'title #1',
+      cat_id: 1
+    }).shouldPostToEndpoint('/email/12/trackedlinks/13', {
+      url: 'http://example.com',
+      title: 'title #1',
+      cat_id: 1
+    });
+  });
+
   describe('#deleteTrackedLinks', function() {
     testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({ email_id: 12, link_id: 14 })
       .shouldPostToEndpoint('/email/12/deletetrackedlinks/14', {});
@@ -163,7 +257,6 @@ describe('SuiteAPI Email endpoint', function() {
 
     testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
-
 
   describe('#launchList', function() {
     testApiMethod(EmailAPI, 'launchList').withArgs({
