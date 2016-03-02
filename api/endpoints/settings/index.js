@@ -108,8 +108,28 @@ _.extend(Settings.prototype, {
       payload,
       options
     );
-  }
+  },
 
+  getDeliverabilitySenderDomains: function(payload, options) {
+    logger.log('settings_get-senderdomains');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/settings/deliverability/sender_domains', payload),
+      options
+    );
+  },
+
+  setDeliverabilitySenderDomain: function(payload, options) {
+    logger.log('settings_set-senderdomain');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/settings/deliverability/sender_domains',
+      payload,
+      options
+    );
+  }
 });
 
 Settings.create = function(request, options) {

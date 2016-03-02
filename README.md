@@ -291,6 +291,14 @@ Set security settings (IP whitelisting enabled option)
 
     suiteAPI.settings.setSecuritySettings(payload);
 
+##### Get sender domains
+
+    suiteAPI.settings.getDeliverabilitySenderDomains(payload);
+
+##### Set sender domain
+
+    suiteAPI.settings.setDeliverabilitySenderDomain(payload);
+
 #### Email
 
 ##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)

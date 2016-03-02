@@ -58,4 +58,16 @@ describe('SuiteAPI Settings endpoint', function() {
       ip_whitelist_enabled: 1
     });
   });
+
+  describe('#getDeliverabilitySenderDomains', function() {
+    testApiMethod(SettingsAPI, 'getDeliverabilitySenderDomains').shouldGetResultFromEndpoint('/settings/deliverability/sender_domains');
+  });
+
+  describe('#setDeliverabilitySenderDomain', function() {
+    testApiMethod(SettingsAPI, 'setDeliverabilitySenderDomain').withArgs({
+      sender_domain: 'very.domain'
+    }).shouldPutToEndpoint('/settings/deliverability/sender_domains', {
+      sender_domain: 'very.domain'
+    });
+  });
 });
