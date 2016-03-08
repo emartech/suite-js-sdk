@@ -37,7 +37,6 @@
     "logentries-logformat": "0.1.4",
     "moment": "2.10.6",
     "node-cache": "2.1.1",
-    "password-generator": "2.0.2",
     "sprintf-js": "1.0.3"
   },
   "devDependencies": {
