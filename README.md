@@ -195,6 +195,12 @@ necessary data on the invitation form.
 
     suiteAPI.administrator.inviteExistingAdministrator(payload);
 
+#### Campaign
+
+##### create
+
+    suiteAPI.campaign.create(payload);
+
 #### Condition
 
 ##### List
