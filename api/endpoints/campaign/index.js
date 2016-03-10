@@ -15,15 +15,17 @@ util.inherits(Campaign, Base);
 
 _.extend(Campaign.prototype, {
 
-  register: function(payload, options) {
-    logger.log('campaign_register');
+  create: function(payload, options) {
+    return this._requireParameters(payload, ['name', 'provider', 'campaign_type', 'channel', 'external_id']).then(function() {
+      logger.log('campaign_create');
 
-    return this._request.post(
-      this._getCustomerId(options),
-      '/campaigns',
-      payload,
-      options
-    );
+      return this._request.post(
+        this._getCustomerId(options),
+        '/campaigns',
+        payload,
+        options
+      );
+    }.bind(this));
   }
 
 });
