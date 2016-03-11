@@ -27,15 +27,13 @@ _.extend(Campaign.prototype, {
   },
 
   update: function(payload, options) {
-    return this._requireParameters(payload, ['id']).then(function() {
+    return this._requireParameters(payload, ['campaign_id']).then(function() {
       logger.log('campaign_update');
 
-      var customerId = this._getCustomerId(options);
-
       return this._request.post(
-        customerId,
-        util.format('/campaigns/%s', payload.id),
-        payload,
+        this._getCustomerId(options),
+        util.format('/campaigns/%s', payload.campaign_id),
+        this._cleanPayload(payload, ['campaign_id']),
         options
       );
     }.bind(this));
