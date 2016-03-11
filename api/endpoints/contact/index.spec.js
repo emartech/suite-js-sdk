@@ -56,13 +56,15 @@ describe('SuiteAPI Contact endpoint', function() {
 
     testApiMethod(ContactAPI, 'merge').withArgs({
       key_id: 3,
-      target_contact_id: 'test@example.com',
-      source_contact_id: 'new@example.com',
+      target_key_value: 'test@example.com',
+      source_key_value: 'new@example.com',
+      delete_source: true,
       merge_rules: { push_open_clicks: 'overwrite' }
     }).shouldPostToEndpoint('/contact/merge', {
       key_id: 3,
-      target_contact_id: 'test@example.com',
-      source_contact_id: 'new@example.com',
+      target_key_value: 'test@example.com',
+      source_key_value: 'new@example.com',
+      delete_source: true,
       merge_rules: { push_open_clicks: 'overwrite' }
     });
 

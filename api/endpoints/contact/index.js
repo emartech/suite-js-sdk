@@ -51,7 +51,7 @@ _.extend(Contact.prototype, {
   },
 
   merge: function(payload, options) {
-    return this._requireParameters(payload, ['key_id', 'target_contact_id', 'source_contact_id', 'merge_rules']).then(function() {
+    return this._requireParameters(payload, ['key_id', 'target_key_value', 'source_key_value', 'merge_rules', 'delete_source']).then(function() {
       logger.log('contact_merge');
 
       return this._request.post(
