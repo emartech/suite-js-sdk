@@ -221,6 +221,10 @@ necessary data on the invitation form.
 
     suiteAPI.contact.create(payload);
 
+##### Merge
+
+    suiteAPI.contact.merge(payload);
+    
 ##### [Update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
 
     suiteAPI.contact.update(payload);

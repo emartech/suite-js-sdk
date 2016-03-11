@@ -48,6 +48,19 @@ _.extend(Contact.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  merge: function(payload, options) {
+    return this._requireParameters(payload, ['key_id', 'target_key_value', 'source_key_value', 'delete_source', 'merge_rules']).then(function() {
+      logger.log('contact_merge');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/contact/merge',
+        payload,
+        options
+      );
+    }.bind(this));
   }
 
 
