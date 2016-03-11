@@ -200,6 +200,10 @@ necessary data on the invitation form.
 ##### create
 
     suiteAPI.campaign.create(payload);
+    
+##### update
+    
+    suiteAPI.campaign.update(payload);
 
 #### Condition
 

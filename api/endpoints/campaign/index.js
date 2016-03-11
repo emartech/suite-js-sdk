@@ -26,6 +26,21 @@ _.extend(Campaign.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  update: function(payload, options) {
+    return this._requireParameters(payload, ['id', 'name', 'provider', 'campaign_type', 'channel', 'external_id']).then(function() {
+      logger.log('campaign_update');
+
+      var customerId = this._getCustomerId(options);
+
+      return this._request.post(
+        customerId,
+        util.format('/campaigns/%s', payload.id),
+        payload,
+        options
+      );
+    }.bind(this));
   }
 
 });
