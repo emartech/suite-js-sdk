@@ -51,16 +51,14 @@ _.extend(Contact.prototype, {
   },
 
   merge: function(payload, options) {
-    return this._requireParameters(payload, ['key_id', 'target_key_value', 'source_key_value', 'merge_rules', 'delete_source']).then(function() {
-      logger.log('contact_merge');
+    logger.log('contact_merge');
 
-      return this._request.post(
-        this._getCustomerId(options),
-        '/contact/merge',
-        payload,
-        options
-      );
-    }.bind(this));
+    return this._request.post(
+      this._getCustomerId(options),
+      '/contact/merge',
+      payload,
+      options
+    );
   }
 
 

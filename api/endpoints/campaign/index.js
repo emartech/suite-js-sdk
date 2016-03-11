@@ -16,20 +16,18 @@ util.inherits(Campaign, Base);
 _.extend(Campaign.prototype, {
 
   create: function(payload, options) {
-    return this._requireParameters(payload, ['name', 'provider', 'campaign_type', 'channel', 'external_id']).then(function() {
-      logger.log('campaign_create');
+    logger.log('campaign_create');
 
-      return this._request.post(
-        this._getCustomerId(options),
-        '/campaigns',
-        payload,
-        options
-      );
-    }.bind(this));
+    return this._request.post(
+      this._getCustomerId(options),
+      '/campaigns',
+      payload,
+      options
+    );
   },
 
   update: function(payload, options) {
-    return this._requireParameters(payload, ['id', 'name', 'provider', 'campaign_type', 'channel', 'external_id']).then(function() {
+    return this._requireParameters(payload, ['id']).then(function() {
       logger.log('campaign_update');
 
       var customerId = this._getCustomerId(options);
