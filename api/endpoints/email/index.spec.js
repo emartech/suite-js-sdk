@@ -258,6 +258,13 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'deleteTrackedLinks').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#deleteTrackedLinksBySource', function() {
+    testApiMethod(EmailAPI, 'deleteTrackedLinksBySource').withArgs({ email_id: 12, source: 'text' })
+      .shouldPostToEndpoint('/email/12/deletetrackedlinks/text', {});
+
+    testApiMethod(EmailAPI, 'deleteTrackedLinksBySource').withArgs({ email_id: 12 }).shouldThrowMissingParameterError('source');
+  });
+
   describe('#launchList', function() {
     testApiMethod(EmailAPI, 'launchList').withArgs({
       emailId: 32

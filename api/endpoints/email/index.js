@@ -244,6 +244,12 @@ _.extend(Email.prototype, {
     }.bind(this));
   },
 
+  deleteTrackedLinksBySource: function(payload, options) {
+    return this._requireParameters(payload, ['email_id', 'source']).then(function() {
+      return this.deleteTrackedLinks({ email_id: payload.email_id, link_id: payload.source }, options);
+    }.bind(this));
+  },
+
   launchList: function(payload, options) {
     return this._requireParameters(payload, ['emailId']).then(function() {
       logger.log('email_getlaunchesofemail');
