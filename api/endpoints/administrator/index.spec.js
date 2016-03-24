@@ -179,7 +179,6 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#inviteExistingAdministrator', function() {
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
         this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
@@ -189,22 +188,8 @@ describe('SuiteAPI Administrator endpoint', function() {
           first_name: 'FirstName'
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
-          disabled: 1,
-          password: 'test!!!Password',
           last_invitation_action_date: '1999-01-01 01:01',
           first_name: 'FirstName'
-        }));
-
-      testApiMethod(AdministratorAPI, 'inviteExistingAdministrator')
-        .withArgs({
-          administrator_id: 21,
-          password: 'otherpassword',
-          last_invitation_action_date: '1979-09-09 09:09'
-        })
-        .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
-          disabled: 1,
-          password: 'test!!!Password',
-          last_invitation_action_date: '1999-01-01 01:01'
         }));
     });
 
@@ -278,7 +263,6 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#promoteToSuperadmin', function() {
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
         this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
@@ -288,8 +272,6 @@ describe('SuiteAPI Administrator endpoint', function() {
           first_name: 'FirstName'
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
-          disabled: 1,
-          password: 'test!!!Password',
           last_invitation_action_date: '1999-01-01 01:01',
           first_name: 'FirstName',
           superadmin: 1,
@@ -305,8 +287,7 @@ describe('SuiteAPI Administrator endpoint', function() {
           access_level: 1
         })
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
-          disabled: 1,
-          password: 'test!!!Password',
+          password: 'otherpassword',
           last_invitation_action_date: '1999-01-01 01:01',
           superadmin: 1,
           access_level: 0
