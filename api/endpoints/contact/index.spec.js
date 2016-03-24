@@ -25,6 +25,16 @@ describe('SuiteAPI Contact endpoint', function() {
 
   });
 
+  describe('#createOrUpdate', function() {
+
+    testApiMethod(ContactAPI, 'createOrUpdate').withArgs({
+      name: 'contactName'
+    }).shouldPutToEndpoint('/contact/create_if_not_exists=1', {
+      name: 'contactName'
+    });
+
+  });
+
   describe('#getData', function() {
 
     testApiMethod(ContactAPI, 'getData').withArgs({}).shouldThrowMissingParameterError('keyValues');
