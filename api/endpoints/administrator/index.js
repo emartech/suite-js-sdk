@@ -175,9 +175,7 @@ _.extend(Administrator.prototype, {
     logger.log('admin_invite_existing_administrator');
 
     payload = _.extend({}, payload, {
-      disabled: 1,
-      last_invitation_action_date: dateHelper.getCurrentDate(),
-      password: passwordGenerator.generate()
+      last_invitation_action_date: dateHelper.getCurrentDate()
     });
 
     return this.patchAdministrator(payload, options);
