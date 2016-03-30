@@ -42,6 +42,18 @@ util.inherits(Email, Base);
 
 _.extend(Email.prototype, {
 
+  create: function(payload, options) {
+    return this._requireParameters(payload, ['name', 'language'])
+      .then(function() {
+        return this._request.post(
+          this._getCustomerId(options),
+          '/email',
+          payload,
+          options
+        );
+      }.bind(this));
+  },
+
   copy: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
       createFactory(payload, options, '/email/%s/copy', 'email_copy').bind(this)

@@ -9,6 +9,25 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'list').shouldGetResultFromEndpoint('/email');
   });
 
+  describe('#create', function() {
+
+    testApiMethod(EmailAPI, 'create').withArgs({
+      name: 'emailCampaign01',
+      language: 'en'
+    }).shouldPostToEndpoint('/email', {
+      name: 'emailCampaign01',
+      language: 'en'
+    });
+
+    testApiMethod(EmailAPI, 'create').withArgs({
+      language: 'en'
+    }).shouldThrowMissingParameterError('name');
+
+    testApiMethod(EmailAPI, 'create').withArgs({
+      name: 'emailCampaign01'
+    }).shouldThrowMissingParameterError('language');
+
+  });
 
   describe('#copy', function() {
     testApiMethod(EmailAPI, 'copy').withArgs({

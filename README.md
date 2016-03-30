@@ -200,9 +200,9 @@ necessary data on the invitation form.
 ##### create
 
     suiteAPI.campaign.create(payload);
-    
+
 ##### update
-    
+
     suiteAPI.campaign.update(payload);
 
 #### Condition
@@ -224,7 +224,7 @@ necessary data on the invitation form.
 ##### Merge
 
     suiteAPI.contact.merge(payload);
-    
+
 ##### [Update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
 
     suiteAPI.contact.update(payload);
@@ -318,6 +318,10 @@ Set security settings (IP whitelisting enabled option)
     suiteAPI.settings.setDeliverabilitySenderDomain(payload);
 
 #### Email
+
+##### [Create](http://documentation.emarsys.com/resource/developers/api/email/)
+
+    suiteAPI.email.create(payload);
 
 ##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)
 
