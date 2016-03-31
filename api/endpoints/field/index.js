@@ -26,6 +26,23 @@ _.extend(Field.prototype, {
         options
       );
     }.bind(this));
+  },
+
+
+  getChoices: function(payload, options) {
+    return this._requireParameters(payload, ['field_id']).then(function() {
+      const url = payload.translate_id ?
+        util.format('/field/%d/choice/translate/%s', payload.field_id, payload.translate_id) :
+        util.format('/field/%d/choice', payload.field_id);
+
+      logger.log('field_get_choices');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        url,
+        options
+      );
+    }.bind(this));
   }
 
 });
