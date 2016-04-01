@@ -288,4 +288,20 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'responses').withArgs({}).shouldThrowMissingParameterError('emailId');
   });
 
+  describe('#getContacts', function() {
+    testApiMethod(EmailAPI, 'getContacts').withArgs({
+      distribution_method: 'local',
+      contactlist: 1,
+      contact_fields: ['3'],
+      add_field_names_header: 0,
+      notification_url: 'localhost:1111/api/test'
+    }).shouldPostToEndpoint('/email/getContacts', {
+      distribution_method: 'local',
+      contactlist: 1,
+      contact_fields: ['3'],
+      add_field_names_header: 0,
+      notification_url: 'localhost:1111/api/test'
+    });
+  });
+
 });
