@@ -11,4 +11,13 @@ describe('SuiteAPI Field endpoint', function() {
     testApiMethod(FieldAPI, 'get').withArgs({}).shouldThrowMissingParameterError('translate_id');
   });
 
+
+  describe('#getChoices', function() {
+    testApiMethod(FieldAPI, 'getChoices').withArgs({}).shouldThrowMissingParameterError('field_id');
+
+    testApiMethod(FieldAPI, 'getChoices').withArgs({ field_id: 123 }).shouldGetResultFromEndpoint('/field/123/choice');
+
+    testApiMethod(FieldAPI, 'getChoices').withArgs({ field_id: 123, translate_id: 'fr' }).shouldGetResultFromEndpoint('/field/123/choice/translate/fr');
+  });
+
 });
