@@ -288,7 +288,7 @@ _.extend(Email.prototype, {
 
     return this._request.post(
       this._getCustomerId(options),
-      '/email/getContacts',
+      '/email/getcontacts',
       this._cleanPayload(payload),
       options
     );
