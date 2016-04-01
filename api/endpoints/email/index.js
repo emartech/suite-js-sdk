@@ -299,6 +299,17 @@ _.extend(Email.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  getContacts: function(payload, options) {
+    logger.log('email_getcontacts');
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/email/getcontacts',
+      this._cleanPayload(payload),
+      options
+    );
   }
 });
 

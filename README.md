@@ -391,6 +391,10 @@ Updates alternate texts.
 ##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
 
     suiteAPI.email.deleteTrackedLinks(payload);
+    
+##### [Export contact list](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/export-list/)
+
+    suiteAPI.email.getContacts(payload);
 
 ##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
 
