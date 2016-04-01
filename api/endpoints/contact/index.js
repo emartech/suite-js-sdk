@@ -37,6 +37,17 @@ _.extend(Contact.prototype, {
     );
   },
 
+  createOrUpdate: function(payload, options) {
+    logger.log('contact_update');
+
+    return this._request.put(
+      this._getCustomerId(options),
+      '/contact/create_if_not_exists=1',
+      payload,
+      options
+    );
+  },
+
   getData: function(payload, options) {
     return this._requireParameters(payload, ['keyValues']).then(function() {
       logger.log('contact_getdata');

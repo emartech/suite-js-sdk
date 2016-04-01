@@ -200,9 +200,9 @@ necessary data on the invitation form.
 ##### create
 
     suiteAPI.campaign.create(payload);
-    
+
 ##### update
-    
+
     suiteAPI.campaign.update(payload);
 
 #### Condition
@@ -224,10 +224,14 @@ necessary data on the invitation form.
 ##### Merge
 
     suiteAPI.contact.merge(payload);
-    
+
 ##### [Update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
 
     suiteAPI.contact.update(payload);
+
+##### [Create or update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
+
+    suiteAPI.contact.createOrUpdate(payload);
 
 #### Contact List
 
@@ -315,6 +319,10 @@ Set security settings (IP whitelisting enabled option)
 
 #### Email
 
+##### [Create](http://documentation.emarsys.com/resource/developers/api/email/)
+
+    suiteAPI.email.create(payload);
+
 ##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)
 
     suiteAPI.email.copy(payload);
@@ -388,6 +396,10 @@ Updates alternate texts.
 
     suiteAPI.email.getContacts(payload);
 
+##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
+
+    suiteAPI.email.deleteTrackedLinksBySource(payload);
+
 #### Segment
 
 ##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contacts-in-segment/)
@@ -411,3 +423,7 @@ Lists the purchases of customers per day.
 ##### [Listing Available Fields](http://documentation.emarsys.com/resource/developers/api/contacts/list-fields/)
 
     suiteAPI.field.get(payload);
+
+##### [Listing Available Fields Choices](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-field-choices/)
+
+    suiteAPI.field.getChoices(payload);

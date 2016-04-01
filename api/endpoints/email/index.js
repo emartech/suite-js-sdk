@@ -42,6 +42,18 @@ util.inherits(Email, Base);
 
 _.extend(Email.prototype, {
 
+  create: function(payload, options) {
+    return this._requireParameters(payload, ['name', 'language'])
+      .then(function() {
+        return this._request.post(
+          this._getCustomerId(options),
+          '/email',
+          payload,
+          options
+        );
+      }.bind(this));
+  },
+
   copy: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
       createFactory(payload, options, '/email/%s/copy', 'email_copy').bind(this)
@@ -241,6 +253,12 @@ _.extend(Email.prototype, {
         this._cleanPayload(payload, ['email_id', 'link_id']),
         options
       );
+    }.bind(this));
+  },
+
+  deleteTrackedLinksBySource: function(payload, options) {
+    return this._requireParameters(payload, ['email_id', 'source']).then(function() {
+      return this.deleteTrackedLinks({ email_id: payload.email_id, link_id: payload.source }, options);
     }.bind(this));
   },
 

@@ -35,7 +35,7 @@
     "flat": "1.6.0",
     "lodash": "3.10.1",
     "logentries-logformat": "0.1.4",
-    "moment": "2.11.2",
+    "moment-timezone": "0.5.2",
     "node-cache": "2.1.1",
     "sprintf-js": "1.0.3"
   },
