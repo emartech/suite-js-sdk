@@ -20,7 +20,7 @@ _.extend(Export.prototype, {
       logger.log('get_export_data');
       return this._request.get(
         this._getCustomerId(options),
-        util.format('/export/%s/data', payload.export_id),
+        util.format('/export/%s/data/offset=%s&limit=%s', payload.export_id, payload.offset || '', payload.limit || ''),
         options
       );
     }.bind(this));
