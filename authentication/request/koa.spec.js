@@ -77,7 +77,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
       /*eslint-enable*/
     });
 
-    it(`should have been called with original Node request object decorated with the stringified body from the koa's request object`, function* () {
+    it('should have been called with original Node request object decorated with the stringified body from the koa\'s request object', function* () {
       var context = createContext({ testData: 'testValue' });
       yield callMiddleware(context);
 
@@ -88,7 +88,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
 
-    it(`should have been called with original Node request object if the query body is empty`, function* () {
+    it('should have been called with original Node request object if the query body is empty', function* () {
       var context = createContextWithEmptyBody();
       yield callMiddleware(context);
 
@@ -98,7 +98,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
       expect(escherStub.authenticate).to.have.been.calledWithExactly(expectedRequest, sinon.match.any);
     });
 
-    it(`should have been called with the proper keys using keypool from configuration`, function* () {
+    it('should have been called with the proper keys using keypool from configuration', function* () {
       this.sandbox.stub(KeyPool, 'create').returns({
         getKeyDb: this.sandbox.stub().returns('testKey')
       });
@@ -109,7 +109,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
       expect(escherStub.authenticate).to.have.been.calledWithExactly(sinon.match.any, 'testKey');
     });
 
-    it(`should throw an unauthorized error in the context if error happened`, function* () {
+    it('should throw an unauthorized error in the context if error happened', function* () {
       escherStub.authenticate.throws(new Error('test message'));
       var context = createContextWithEmptyBody();
 
@@ -119,7 +119,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
 
-    it(`should yield the "next" if there were no problem on authentication`, function* () {
+    it('should yield the "next" if there were no problem on authentication', function* () {
       var yieldCalled = false;
 
       /*eslint-disable*/
