@@ -9,6 +9,7 @@ var ConditionAPI = require('./endpoints/condition');
 var ContactAPI = require('./endpoints/contact');
 var ContactListAPI = require('./endpoints/contactlist');
 var EmailAPI = require('./endpoints/email');
+var ExportAPI = require('./endpoints/export');
 var ExternalEventAPI = require('./endpoints/externalevent');
 var FieldAPI = require('./endpoints/field');
 var FormAPI = require('./endpoints/form');
@@ -186,6 +187,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
       this.sandbox.stub(ContactListAPI, 'create').returns('FromContactListEndpointStub');
       this.sandbox.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
+      this.sandbox.stub(ExportAPI, 'create').returns('FromExportEndpointStub');
       this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
       this.sandbox.stub(FieldAPI, 'create').returns('FromFieldEndpointStub');
       this.sandbox.stub(FormAPI, 'create').returns('FromFormEndpointStub');
@@ -239,6 +241,12 @@ describe('SuiteApi', function() {
         sdkKey: 'email',
         api: EmailAPI,
         stub: 'FromEmailEndpointStub'
+      },
+      {
+        endpoint: 'Export',
+        sdkKey: 'export',
+        api: ExportAPI,
+        stub: 'FromExportEndpointStub'
       },
       {
         endpoint: 'ExternalEvent',

@@ -427,3 +427,9 @@ Lists the purchases of customers per day.
 ##### [Listing Available Fields Choices](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-field-choices/)
 
     suiteAPI.field.getChoices(payload);
+    
+#### Export
+
+##### [Downloading export data](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/download-data/)
+
+    suiteAPI.export.getData(payload);
