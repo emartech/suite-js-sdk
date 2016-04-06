@@ -26,4 +26,16 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'listContacts').withArgs({ segment_id: 10 }).shouldThrowMissingParameterError('limit');
   });
 
+  describe('#countContacts', function() {
+    testApiMethod(SegmentAPI, 'countContacts').withArgs({
+      segment_id: 10
+    }).shouldGetResultFromEndpoint('/filter/10/contacts/count');
+
+    testApiMethod(SegmentAPI, 'countContacts').withArgs({
+      segment_id: 10
+    }).shouldGetResultFromEndpoint('/filter/10/contacts/count');
+
+    testApiMethod(SegmentAPI, 'countContacts').shouldThrowMissingParameterError('segment_id');
+  });
+
 });
