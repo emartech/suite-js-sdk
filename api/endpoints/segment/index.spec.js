@@ -31,10 +31,6 @@ describe('SuiteAPI Segment endpoint', function() {
       segment_id: 10
     }).shouldGetResultFromEndpoint('/filter/10/contacts/count');
 
-    testApiMethod(SegmentAPI, 'countContacts').withArgs({
-      segment_id: 10
-    }).shouldGetResultFromEndpoint('/filter/10/contacts/count');
-
     testApiMethod(SegmentAPI, 'countContacts').shouldThrowMissingParameterError('segment_id');
   });
 
