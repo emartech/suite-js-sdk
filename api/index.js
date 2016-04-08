@@ -17,6 +17,7 @@ var LanguageAPI = require('./endpoints/language');
 var PurchaseAPI = require('./endpoints/purchase');
 var SegmentAPI = require('./endpoints/segment');
 var SettingsAPI = require('./endpoints/settings');
+var KeyringAPI = require('./endpoints/keyring');
 
 var KeyPool = require('escher-keypool');
 var _ = require('lodash');
@@ -41,6 +42,7 @@ var SuiteAPI = function(options) {
   this.purchase = PurchaseAPI.create(this._apiRequest, options);
   this.segment = SegmentAPI.create(this._apiRequest, options);
   this.settings = SettingsAPI.create(this._apiRequest, options);
+  this.keyring = KeyringAPI.create(this._apiRequest, options);
 
   this.environment = options.environment;
 };
@@ -120,5 +122,6 @@ module.exports.Language = LanguageAPI;
 module.exports.Purchase = PurchaseAPI;
 module.exports.Segment = SegmentAPI;
 module.exports.Settings = SettingsAPI;
+module.exports.Keyring = KeyringAPI;
 
 module.exports.SuiteRequestError = SuiteRequest.Error;
