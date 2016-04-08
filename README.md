@@ -437,3 +437,23 @@ Lists the purchases of customers per day.
 ##### [Downloading export data](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/download-data/)
 
     suiteAPI.export.getData(payload);
+
+#### Keyring
+
+Manage customer PKI options
+
+##### list
+
+    suiteAPI.keyring.list(payload);
+
+##### get
+
+    suiteAPI.keyring.get(payload);
+
+##### create
+
+    suiteAPI.keyring.create(payload);
+
+##### delete
+
+    suiteAPI.keyring.delete(payload);
