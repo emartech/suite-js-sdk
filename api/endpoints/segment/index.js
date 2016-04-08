@@ -28,6 +28,19 @@ _.extend(Segment.prototype, {
     }.bind(this));
   },
 
+  countContacts: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      var url = util.format('/filter/%s/contacts/count', payload.segment_id);
+      logger.log('segment_count_contacts');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrlForSegmentation(url, payload, ['segment_id']),
+        options
+      );
+    }.bind(this));
+  },
+
   listSegments: function(payload, options) {
     logger.log('segment_list');
 

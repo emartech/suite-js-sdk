@@ -406,6 +406,10 @@ Updates alternate texts.
 
     suiteAPI.segment.listContacts(payload);
 
+##### [Count contacts](http://documentation.emarsys.com/resource/developers/api/contacts/counting-contacts-in-a-segment/)
+
+    suiteAPI.segment.countContacts(payload);
+
 ##### [List segments](http://documentation.emarsys.com/resource/developers/api/contacts/list-segments/)
 
     suiteAPI.segment.listSegments(payload);
