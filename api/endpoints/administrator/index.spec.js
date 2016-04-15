@@ -261,7 +261,7 @@ describe('SuiteAPI Administrator endpoint', function() {
 
 
   describe('#promoteToSuperadmin', function() {
-    describe('force data for invitation', function() {
+    describe('should not modify the access level', function() {
       beforeEach(function() {
         this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
@@ -274,8 +274,7 @@ describe('SuiteAPI Administrator endpoint', function() {
         .shouldPostToEndpoint('/administrator/21/patch', sinon.match({
           last_invitation_action_date: '1999-01-01 01:01',
           first_name: 'FirstName',
-          superadmin: 1,
-          access_level: 0
+          superadmin: 1
         }));
 
       testApiMethod(AdministratorAPI, 'promoteToSuperadmin')
@@ -290,7 +289,7 @@ describe('SuiteAPI Administrator endpoint', function() {
           password: 'otherpassword',
           last_invitation_action_date: '1999-01-01 01:01',
           superadmin: 1,
-          access_level: 0
+          access_level: 1
         }));
     });
 
