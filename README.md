@@ -400,6 +400,10 @@ Updates alternate texts.
 
     suiteAPI.email.deleteTrackedLinksBySource(payload);
 
+##### [Listing Programs Email is used in](https://documentation.emarsys.com/resource/developers/endpoints/email/programs/)
+
+    suiteAPI.email.listPrograms(payload);
+
 #### Segment
 
 ##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contacts-in-segment/)

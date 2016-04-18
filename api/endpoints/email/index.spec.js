@@ -330,4 +330,9 @@ describe('SuiteAPI Email endpoint', function() {
     });
   });
 
+  describe('#listPrograms', function() {
+    testApiMethod(EmailAPI, 'listPrograms').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12/programs');
+    testApiMethod(EmailAPI, 'listPrograms').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
 });

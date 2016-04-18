@@ -310,6 +310,12 @@ _.extend(Email.prototype, {
       this._cleanPayload(payload),
       options
     );
+  },
+
+  listPrograms: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s/programs', 'email_list_programs').bind(this)
+    );
   }
 });
 

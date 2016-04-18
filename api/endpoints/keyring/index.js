@@ -58,7 +58,7 @@ _.extend(Keyring.prototype, {
         {},
         options);
     }.bind(this));
-  },
+  }
 });
 
 
