@@ -198,8 +198,7 @@ _.extend(Administrator.prototype, {
     logger.log('admin_promote_superadmin');
 
     payload = _.extend({}, payload, {
-      superadmin: 1,
-      access_level: 0
+      superadmin: 1
     });
 
     return this.inviteExistingAdministrator(payload, options);
