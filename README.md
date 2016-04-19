@@ -217,6 +217,14 @@ necessary data on the invitation form.
 
 #### Contact
 
+##### [GetData](http://documentation.emarsys.com/resource/developers/endpoints/contacts/contact-data/)
+
+    suiteAPI.contact.getData(payload);
+
+To return the contacts with string field ids, specify `{ stringIds: true }` in the options.
+
+    suiteAPI.contact.getData(payload, { stringIds: true });
+
 ##### [Create](http://documentation.emarsys.com/resource/developers/api/contacts/create-contact/)
 
     suiteAPI.contact.create(payload);

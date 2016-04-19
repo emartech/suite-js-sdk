@@ -21,7 +21,7 @@ module.exports = {
       it('should properly call a POST request', function* () {
         yield apiEndpoint[self.method](self.payload, self.options);
         expect(request.post).to.have.been.callCount(1);
-        expect(request.post).to.have.been.calledWith(123, expectedUrl, expectedPayload, {});
+        expect(request.post).to.have.been.calledWith(123, expectedUrl, expectedPayload, sinon.match.any);
       });
 
 

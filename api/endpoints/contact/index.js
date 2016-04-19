@@ -15,6 +15,10 @@ util.inherits(Contact, Base);
 
 _.extend(Contact.prototype, {
 
+  _useStringIds: function(options) {
+    return _.get(options, 'stringIds', false);
+  },
+
   create: function(payload, options) {
     logger.log('contact_create');
 
@@ -52,9 +56,11 @@ _.extend(Contact.prototype, {
     return this._requireParameters(payload, ['keyValues']).then(function() {
       logger.log('contact_getdata');
 
+      var url = this._useStringIds(options) ? '/contact/getdata/stringids=1' : '/contact/getdata';
+
       return this._request.post(
         this._getCustomerId(options),
-        '/contact/getdata',
+        url,
         payload,
         options
       );
