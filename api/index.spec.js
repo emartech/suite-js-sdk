@@ -4,6 +4,7 @@ var SuiteRequest = require('escher-suiteapi-js');
 var SuiteAPI = require('./');
 
 var AdministratorAPI = require('./endpoints/administrator');
+var AutomationCenterAPI = require('./endpoints/automationcenter');
 var CampaignAPI = require('./endpoints/campaign');
 var ConditionAPI = require('./endpoints/condition');
 var ContactAPI = require('./endpoints/contact');
@@ -183,6 +184,7 @@ describe('SuiteApi', function() {
       };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
+      this.sandbox.stub(AutomationCenterAPI, 'create').returns('FromAutomationCenterEndpointStub');
       this.sandbox.stub(CampaignAPI, 'create').returns('FromCampaignEndpointStub');
       this.sandbox.stub(ConditionAPI, 'create').returns('FromConditionEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
@@ -213,6 +215,12 @@ describe('SuiteApi', function() {
         sdkKey: 'administrator',
         api: AdministratorAPI,
         stub: 'FromAdministratorEndpointStub'
+      },
+      {
+        endpoint: 'AutomationCenter',
+        sdkKey: 'automationcenter',
+        api: AutomationCenterAPI,
+        stub: 'FromAutomationCenterEndpointStub'
       },
       {
         endpoint: 'Campaign',
