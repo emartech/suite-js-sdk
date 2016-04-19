@@ -30,7 +30,7 @@ var SuiteAPI = function(options) {
   this._apiRequest = ApiRequest.create(options);
 
   this.administrator = AdministratorAPI.create(this._apiRequest, options);
-  this.automation_center = AutomationCenterAPI.create(this._apiRequest, options);
+  this.automationCenter = AutomationCenterAPI.create(this._apiRequest, options);
   this.campaign = CampaignAPI.create(this._apiRequest, options);
   this.condition = ConditionAPI.create(this._apiRequest, options);
   this.contact = ContactAPI.create(this._apiRequest, options);
