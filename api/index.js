@@ -30,7 +30,7 @@ var SuiteAPI = function(options) {
   this._apiRequest = ApiRequest.create(options);
 
   this.administrator = AdministratorAPI.create(this._apiRequest, options);
-  this.automationcenter = AutomationCenterAPI.create(this._apiRequest, options);
+  this.automation_center = AutomationCenterAPI.create(this._apiRequest, options);
   this.campaign = CampaignAPI.create(this._apiRequest, options);
   this.condition = ConditionAPI.create(this._apiRequest, options);
   this.contact = ContactAPI.create(this._apiRequest, options);
@@ -111,7 +111,7 @@ SuiteAPI.createWithCache = function(cacheId, options) {
 module.exports = SuiteAPI;
 
 module.exports.Administrator = AdministratorAPI;
-module.exports.AutomatioCenter = AutomationCenterAPI;
+module.exports.AutomationCenter = AutomationCenterAPI;
 module.exports.Campaign = CampaignAPI;
 module.exports.Condition = ConditionAPI;
 module.exports.Contact = ContactAPI;

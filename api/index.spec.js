@@ -218,7 +218,7 @@ describe('SuiteApi', function() {
       },
       {
         endpoint: 'AutomationCenter',
-        sdkKey: 'automationcenter',
+        sdkKey: 'automation_center',
         api: AutomationCenterAPI,
         stub: 'FromAutomationCenterEndpointStub'
       },

@@ -199,7 +199,7 @@ necessary data on the invitation form.
 
 ##### [ProgramResource](http://documentation.emarsys.com/resource/developers/endpoints/automation-center/program-resources/)
 
-    suiteAPI.automationcenter.programResource(payload);
+    suiteAPI.automation_center.programResource(payload);
 
 #### Campaign
 
