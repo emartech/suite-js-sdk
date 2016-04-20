@@ -54,6 +54,16 @@ describe('SuiteAPI Contact endpoint', function() {
     });
 
     testApiMethod(ContactAPI, 'getData').withArgs({
+      keyId: 'email',
+      keyValues: ['john@example.com', 'jane@example.com']
+    }, {
+      stringIds: true
+    }).shouldPostToEndpoint('/contact/getdata/stringids=1', {
+      keyId: 'email',
+      keyValues: ['john@example.com', 'jane@example.com']
+    }, { stringIds: true });
+
+    testApiMethod(ContactAPI, 'getData').withArgs({
       keyValues: [123, 456, 789],
       fields: [3]
     }).shouldPostToEndpoint('/contact/getdata', {
