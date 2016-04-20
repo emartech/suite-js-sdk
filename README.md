@@ -195,6 +195,12 @@ necessary data on the invitation form.
 
     suiteAPI.administrator.inviteExistingAdministrator(payload);
 
+#### AutomationCenter
+
+##### [ProgramResource](http://documentation.emarsys.com/resource/developers/endpoints/automation-center/program-resources/)
+
+    suiteAPI.automationCenter.programResource(payload);
+
 #### Campaign
 
 ##### create
