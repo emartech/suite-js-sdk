@@ -19,7 +19,7 @@ _.extend(Keyring.prototype, {
 
     return this._request.get(
         this._getCustomerId(options),
-        this._buildUrl('/keyring/keys', payload),
+        this._buildUrl('/settings/keyring/keys', payload),
         options
     );
   },
@@ -30,7 +30,7 @@ _.extend(Keyring.prototype, {
 
       return this._request.get(
         this._getCustomerId(options),
-        util.format('/keyring/keys/%d', payload.key_id),
+        util.format('/settings/keyring/keys/%d', payload.key_id),
         options
       );
     }.bind(this));
@@ -42,7 +42,7 @@ _.extend(Keyring.prototype, {
 
       return this._request.post(
         this._getCustomerId(options),
-        '/keyring/keys',
+        '/settings/keyring/keys',
         { comment: payload.comment },
         options);
     }.bind(this));
@@ -54,7 +54,7 @@ _.extend(Keyring.prototype, {
 
       return this._request.post(
         this._getCustomerId(options),
-        util.format('/keyring/keys/%d/delete', payload.key_id),
+        util.format('/settings/keyring/keys/%d/delete', payload.key_id),
         {},
         options);
     }.bind(this));

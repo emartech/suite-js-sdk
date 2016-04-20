@@ -6,7 +6,7 @@ const testApiMethod = require('../_test');
 describe('SuiteAPI Keyring endpoint', function() {
 
   describe('#list', function() {
-    testApiMethod(KeyringAPI, 'list').shouldGetResultFromEndpoint('/keyring/keys');
+    testApiMethod(KeyringAPI, 'list').shouldGetResultFromEndpoint('/settings/keyring/keys');
   });
 
   describe('#get', function() {
@@ -15,7 +15,7 @@ describe('SuiteAPI Keyring endpoint', function() {
 
       testApiMethod(KeyringAPI, 'get')
         .withArgs({ key_id: 123 })
-        .shouldGetResultFromEndpoint('/keyring/keys/123');
+        .shouldGetResultFromEndpoint('/settings/keyring/keys/123');
     });
 
     describe('with no key_id specified', function() {
@@ -32,7 +32,7 @@ describe('SuiteAPI Keyring endpoint', function() {
 
       testApiMethod(KeyringAPI, 'create')
         .withArgs({ comment: 'MyKeyComment' })
-        .shouldPostToEndpoint('/keyring/keys', {
+        .shouldPostToEndpoint('/settings/keyring/keys', {
           comment: 'MyKeyComment'
         });
     });
@@ -51,7 +51,7 @@ describe('SuiteAPI Keyring endpoint', function() {
 
       testApiMethod(KeyringAPI, 'delete')
         .withArgs({ key_id: 123 })
-        .shouldPostToEndpoint('/keyring/keys/123/delete', {});
+        .shouldPostToEndpoint('/settings/keyring/keys/123/delete', {});
     });
 
     describe('with no key_id specified', function() {
