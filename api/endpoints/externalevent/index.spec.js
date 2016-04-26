@@ -38,6 +38,10 @@ describe('SuiteAPI External Event endpoint', function() {
     });
   });
 
-
+  describe('#delete', function() {
+    testApiMethod(ExternalEventAPI, 'delete').withArgs({
+      event_id: 234
+    }).shouldPostToEndpoint('/event/234/delete', {});
+  });
 
 });
