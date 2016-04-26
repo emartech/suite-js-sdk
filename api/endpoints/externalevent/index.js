@@ -26,6 +26,16 @@ _.extend(ExternalEvent.prototype, {
     }.bind(this));
   },
 
+  get: function(payload, options) {
+    return this._requireParameters(payload, ['event_id']).then(function() {
+      return this._request.get(
+          this._getCustomerId(options),
+          util.format('/event/%s', payload.event_id),
+          options
+      );
+    }.bind(this));
+  },
+
   list: function(payload, options) {
     logger.log('externalevent_list');
     return this._request.get(
