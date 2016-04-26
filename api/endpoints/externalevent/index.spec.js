@@ -13,6 +13,13 @@ describe('SuiteAPI External Event endpoint', function() {
     });
   });
 
+  describe('#get', function() {
+    testApiMethod(ExternalEventAPI, 'get').withArgs({
+      event_id: 123
+    }).shouldGetResultFromEndpoint('/event/123');
+  });
+
+
   describe('#list', function() {
     testApiMethod(ExternalEventAPI, 'list')
         .withArgs({})
