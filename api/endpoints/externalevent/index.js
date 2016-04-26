@@ -14,6 +14,39 @@ var ExternalEvent = function(request, options) {
 util.inherits(ExternalEvent, Base);
 
 _.extend(ExternalEvent.prototype, {
+  create: function(payload, options) {
+    return this._requireParameters(payload, ['name']).then(function() {
+      logger.log('externalevent_create');
+      return this._request.post(
+        this._getCustomerId(options),
+        '/event',
+        this._cleanPayload(payload, ['event_id']),
+        options
+      );
+    }.bind(this));
+  },
+
+  list: function(payload, options) {
+    logger.log('externalevent_list');
+    return this._request.get(
+      this._getCustomerId(options),
+      '/event',
+      options
+    );
+  },
+
+  update: function(payload, options) {
+    return this._requireParameters(payload, ['event_id', 'name']).then(function() {
+      logger.log('externalevent_update');
+      return this._request.post(
+          this._getCustomerId(options),
+          util.format('/event/%s', payload.event_id),
+          this._cleanPayload(payload, ['event_id']),
+          options
+      );
+    }.bind(this));
+  },
+
 
   trigger: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
