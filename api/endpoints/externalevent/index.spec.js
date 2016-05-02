@@ -30,9 +30,9 @@ describe('SuiteAPI External Event endpoint', function() {
   describe('#trigger', function() {
     testApiMethod(ExternalEventAPI, 'trigger').withArgs({
       event_id: 543,
-      name: 'someName'
+      data: 'someData'
     }).shouldPostToEndpoint('/event/543/trigger', {
-      name: 'someName'
+      data: 'someData'
     });
   });
 
