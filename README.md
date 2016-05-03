@@ -267,6 +267,26 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
 #### ExternalEvent
 
+##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/external-events/create-external-event/)
+
+    suiteAPI.externalEvent.create(payload);
+    
+##### [List](https://documentation.emarsys.com/resource/developers/endpoints/external-events/list-events/)
+
+    suiteAPI.externalEvent.list(payload);
+    
+##### [Get Event Details](https://documentation.emarsys.com/resource/developers/endpoints/external-events/event-details/)
+
+    suiteAPI.externalEvent.get(payload);
+    
+##### [Update](https://documentation.emarsys.com/resource/developers/endpoints/external-events/update-event/)
+
+    suiteAPI.externalEvent.update(payload);
+    
+##### [Delete](https://documentation.emarsys.com/resource/developers/endpoints/external-events/delete-event/)
+
+    suiteAPI.externalEvent.delete(payload);
+
 ##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)
 
     suiteAPI.externalEvent.trigger(payload);
