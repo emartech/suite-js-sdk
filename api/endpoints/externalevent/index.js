@@ -20,7 +20,7 @@ _.extend(ExternalEvent.prototype, {
       return this._request.post(
         this._getCustomerId(options),
         '/event',
-        this._cleanPayload(payload, ['event_id']),
+        payload,
         options
       );
     }.bind(this));
