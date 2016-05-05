@@ -15,15 +15,13 @@ util.inherits(ExternalEvent, Base);
 
 _.extend(ExternalEvent.prototype, {
   create: function(payload, options) {
-    return this._requireParameters(payload, ['name']).then(function() {
-      logger.log('externalevent_create');
-      return this._request.post(
-        this._getCustomerId(options),
-        '/event',
-        payload,
-        options
-      );
-    }.bind(this));
+    logger.log('externalevent_create');
+    return this._request.post(
+      this._getCustomerId(options),
+      '/event',
+      payload,
+      options
+    );
   },
 
   get: function(payload, options) {
@@ -46,7 +44,7 @@ _.extend(ExternalEvent.prototype, {
   },
 
   update: function(payload, options) {
-    return this._requireParameters(payload, ['event_id', 'name']).then(function() {
+    return this._requireParameters(payload, ['event_id']).then(function() {
       logger.log('externalevent_update');
       return this._request.post(
           this._getCustomerId(options),
