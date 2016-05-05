@@ -17,6 +17,10 @@ describe('SuiteAPI External Event endpoint', function() {
     testApiMethod(ExternalEventAPI, 'get').withArgs({
       event_id: 123
     }).shouldGetResultFromEndpoint('/event/123');
+
+    testApiMethod(ExternalEventAPI, 'get')
+      .withArgs({})
+      .shouldThrowMissingParameterError('event_id');
   });
 
 
@@ -43,12 +47,20 @@ describe('SuiteAPI External Event endpoint', function() {
     }).shouldPostToEndpoint('/event/234', {
       name: 'someName'
     });
+
+    testApiMethod(ExternalEventAPI, 'update')
+      .withArgs({})
+      .shouldThrowMissingParameterError('event_id');
   });
 
   describe('#delete', function() {
     testApiMethod(ExternalEventAPI, 'delete').withArgs({
       event_id: 234
     }).shouldPostToEndpoint('/event/234/delete', {});
+
+    testApiMethod(ExternalEventAPI, 'delete')
+      .withArgs({})
+      .shouldThrowMissingParameterError('event_id');
   });
 
 });
