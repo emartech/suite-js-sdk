@@ -29,7 +29,7 @@
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "co-request": "1.0.0",
-    "escher-auth": "0.2.9",
+    "escher-auth": "0.2.10",
     "escher-keypool": "1.2.1",
     "escher-suiteapi-js": "8.0.0",
     "flat": "2.0.0",
