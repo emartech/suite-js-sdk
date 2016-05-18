@@ -85,6 +85,12 @@ describe('SuiteAPI Contact endpoint', function() {
       queryFieldId: 3,
       queryFieldValue: 'admin@example.com'
     }).shouldGetResultFromEndpoint('/contact/query/return=3&3=admin@example.com');
+
+    testApiMethod(ContactAPI, 'query').withArgs({
+      returnFieldId: 3,
+      limit: 10,
+      offset: 100
+    }).shouldGetResultFromEndpoint('/contact/query/return=3&limit=10&offset=100');
   });
 
 

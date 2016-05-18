@@ -75,6 +75,12 @@ _.extend(Contact.prototype, {
       if (payload.queryFieldId) {
         url += '&' + payload.queryFieldId + '=' + payload.queryFieldValue;
       }
+      if (payload.limit) {
+        url += '&limit=' + payload.limit;
+      }
+      if (payload.offset) {
+        url += '&offset=' + payload.offset;
+      }
 
       return this._request.get(
         this._getCustomerId(options),
