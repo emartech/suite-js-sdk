@@ -90,4 +90,16 @@ describe('SuiteAPI Contact endpoint', function() {
 
   });
 
+  describe('#delete', function() {
+
+    testApiMethod(ContactAPI, 'delete').withArgs({
+      key_id: 3,
+      '3': 'my_email@example.com'
+    }).shouldPostToEndpoint('/contact/delete', {
+      key_id: 3,
+      '3': 'my_email@example.com'
+    });
+
+  });
+
 });
