@@ -72,6 +72,28 @@ describe('SuiteAPI Contact endpoint', function() {
     });
   });
 
+  describe('#query', function() {
+    testApiMethod(ContactAPI, 'query').withArgs({})
+      .shouldThrowMissingParameterError('returnFieldId');
+
+    testApiMethod(ContactAPI, 'query').withArgs({
+      returnFieldId: 3
+    }).shouldGetResultFromEndpoint('/contact/query/return=3');
+
+    testApiMethod(ContactAPI, 'query').withArgs({
+      returnFieldId: 3,
+      queryFieldId: 3,
+      queryFieldValue: 'admin@example.com'
+    }).shouldGetResultFromEndpoint('/contact/query/return=3&3=admin@example.com');
+
+    testApiMethod(ContactAPI, 'query').withArgs({
+      returnFieldId: 3,
+      limit: 10,
+      offset: 100
+    }).shouldGetResultFromEndpoint('/contact/query/return=3&limit=10&offset=100');
+  });
+
+
   describe('#merge', function() {
 
     testApiMethod(ContactAPI, 'merge').withArgs({

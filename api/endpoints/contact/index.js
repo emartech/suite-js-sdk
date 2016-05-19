@@ -67,6 +67,29 @@ _.extend(Contact.prototype, {
     }.bind(this));
   },
 
+  query: function(payload, options) {
+    return this._requireParameters(payload, ['returnFieldId']).then(function() {
+      logger.log('contact_query');
+
+      var url = '/contact/query/return=' + payload.returnFieldId;
+      if (payload.queryFieldId) {
+        url += '&' + payload.queryFieldId + '=' + payload.queryFieldValue;
+      }
+      if (payload.limit) {
+        url += '&limit=' + payload.limit;
+      }
+      if (payload.offset) {
+        url += '&offset=' + payload.offset;
+      }
+
+      return this._request.get(
+        this._getCustomerId(options),
+        url,
+        options
+      );
+    }.bind(this));
+  },
+
   merge: function(payload, options) {
     logger.log('contact_merge');
 

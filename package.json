@@ -46,6 +46,8 @@
     "co-mocha": "1.1.2",
     "eslint": "2.6.0",
     "eslint-config-emarsys": "4.0.0",
+    "eslint-plugin-no-only-tests": "1.1.0",
+    "eslint-plugin-security": "1.2.0",
     "mocha": "2.4.5",
     "nock": "7.7.3",
     "pre-commit": "1.1.2",
