@@ -99,6 +99,17 @@ _.extend(Contact.prototype, {
       payload,
       options
     );
+  },
+
+  delete: function(payload, options) {
+    logger.log('contact_delete');
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/contact/delete',
+      payload,
+      options
+    );
   }
 
 
