@@ -4,9 +4,8 @@ var logger = require('logentries-logformat')('suite-sdk');
 var Authenticator = require('./');
 
 module.exports.getMiddleware = function(options) {
-  var authenticator = Authenticator.create(options);
-
   return function* (next) {
+    var authenticator = Authenticator.create(options);
     var request = this.request;
 
     logger.log('authentication_url', {
