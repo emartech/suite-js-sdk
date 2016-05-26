@@ -16,6 +16,13 @@ AdminList.prototype = {
   },
 
 
+  getSuperadministrators: function() {
+    return _.filter(this._admins, function(administrator) {
+      return parseInt(administrator.superadmin) === 1;
+    });
+  },
+
+
   getFirstById: function(adminId) {
     return _.find(this._admins, function(administrator) {
       return administrator.id === adminId;
