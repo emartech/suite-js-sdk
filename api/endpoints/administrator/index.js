@@ -50,6 +50,25 @@ _.extend(Administrator.prototype, {
   },
 
 
+  getSuperadmins: function(payload, options) {
+    logger.log('administrator_get_superadmins');
+
+    return this.getAdministrators(payload, options).then(function(response) {
+      var superadmins = new AdminList(response.body.data).getSuperadministrators();
+
+      if (superadmins) {
+        return Promise.resolve({
+          body: {
+            data: superadmins
+          }
+        });
+      }
+
+      return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
+    }.bind(this));
+  },
+
+
   getAdministrator: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id']).then(function() {
       logger.log('administrator_get_administrator');
