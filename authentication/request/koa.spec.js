@@ -32,9 +32,8 @@ describe('Koa Escher Request Authentication Middleware', function() {
       keyPool: JSON.stringify([{ 'keyId': 'suite_cuda_v1', 'secret': 'testSecret', 'acceptOnly': 0 }])
     };
 
-    /*eslint-disable*/
+    // eslint-disable-next-line require-yield
     next = function* () {};
-    /*eslint-enable*/
   });
 
 
@@ -72,9 +71,8 @@ describe('Koa Escher Request Authentication Middleware', function() {
     it('should have been called', function* () {
       yield callMiddleware(createContextWithEmptyBody());
 
-      /*eslint-disable*/
+      // eslint-disable-next-line no-unused-expressions
       expect(escherStub.authenticate).to.have.been.called;
-      /*eslint-enable*/
     });
 
     it('should have been called with original Node request object decorated with the stringified body from the koa\'s request object', function* () {
@@ -119,16 +117,37 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
 
-    it('should yield the "next" if there were no problem on authentication', function* () {
-      var yieldCalled = false;
+    describe('when there was no problem on authentication', function() {
 
-      /*eslint-disable*/
-      yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function* () {
-        yieldCalled = true;
+      it('should yield the "next"', function*() {
+        var yieldCalled = false;
+
+        // eslint-disable-next-line require-yield
+        yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
+          yieldCalled = true;
+        });
+
+        // eslint-disable-next-line no-unused-expressions
+        expect(yieldCalled).to.be.true;
       });
 
-      expect(yieldCalled).to.be.true;
-      /*eslint-enable*/
+
+      it('should reraise the error raised in the "next" unchanged', function*() {
+        var nextError = new Error('Error in next');
+
+        try {
+          // eslint-disable-next-line require-yield
+          yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
+            throw nextError;
+          });
+        } catch (e) {
+          expect(e).to.equal(nextError);
+          return;
+        }
+
+        throw new Error('should reraise the error thrown in the "next"');
+      });
+
     });
 
   });
