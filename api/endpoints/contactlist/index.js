@@ -74,37 +74,31 @@ _.extend(ContactList.prototype, {
   },
 
   count: function(payload, options) {
-    logger.log('contactlist_count');
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      logger.log('contactlist_count');
 
-    var url = util.format('/contactlist/%s/count', payload.contact_list_id);
+      var url = util.format('/contactlist/%s/count', payload.contact_list_id);
 
-    return this._request.get(
-      this._getCustomerId(options),
-      url,
-      options
-    );
+      return this._request.get(
+        this._getCustomerId(options),
+        url,
+        options
+      );
+    }.bind(this));
   },
 
   getContactsData: function(payload, options) {
-    logger.log('contactlist_getcontactsdata');
+    return this._requireParameters(payload, ['contact_list_id', 'fields']).then(function() {
+      logger.log('contactlist_getcontactsdata');
 
-    var url = util.format('/contactlist/%s/contacts/data?fields=%s', payload.contact_list_id, payload.fields);
+      var baseUrl = util.format('/contactlist/%s/contacts/data', payload.contact_list_id);
 
-    if (payload.limit) {
-      url += '&limit=' + payload.limit;
-    }
-    if (payload.offset) {
-      url += '&offset=' + payload.offset;
-    }
-    if (payload.stringids) {
-      url += '&stringids=1';
-    }
-
-    return this._request.get(
-      this._getCustomerId(options),
-      url,
-      options
-    );
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(baseUrl, payload, ['contact_list_id']),
+        options
+      );
+    }.bind(this));
   }
 
 });
