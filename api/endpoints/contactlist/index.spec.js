@@ -50,4 +50,33 @@ describe('SuiteAPI Contact List endpoint', function() {
   });
 
 
+  describe('#count', function() {
+
+    testApiMethod(ContactListApi, 'count').withArgs({
+      contact_list_id: 2
+    }).shouldGetResultFromEndpoint('/contactlist/2/count');
+
+    testApiMethod(ContactListApi, 'count').withArgs({}).shouldThrowMissingParameterError('contact_list_id');
+
+  });
+
+
+  describe('#getContactsData', function() {
+
+    testApiMethod(ContactListApi, 'getContactsData').withArgs({
+      contact_list_id: 2,
+      fields: 'email,first_name',
+      limit: 10,
+      offset: 1,
+      stringids: 1
+    }).shouldGetResultFromEndpoint('/contactlist/2/contacts/data/?fields=email%2Cfirst_name&limit=10&offset=1&stringids=1');
+
+    testApiMethod(ContactListApi, 'getContactsData').withArgs({}).shouldThrowMissingParameterError('contact_list_id');
+
+    testApiMethod(ContactListApi, 'getContactsData').withArgs({
+      contact_list_id: 2
+    }).shouldThrowMissingParameterError('fields');
+
+  });
+
 });

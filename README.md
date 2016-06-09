@@ -273,6 +273,14 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
     suiteAPI.contactList.listContactLists(payload);
 
+##### [Count](http://documentation.emarsys.com/?p=7722)
+
+    suiteAPI.contactList.count(payload);
+
+##### [GetContactsData](http://documentation.emarsys.com/?p=7723)
+
+    suiteAPI.contactList.getContactsData(payload);
+
 #### ExternalEvent
 
 ##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)

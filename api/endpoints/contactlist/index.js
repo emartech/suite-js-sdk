@@ -71,6 +71,34 @@ _.extend(ContactList.prototype, {
       this._buildUrl('/contactlist', payload),
       options
     );
+  },
+
+  count: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      logger.log('contactlist_count');
+
+      var url = util.format('/contactlist/%s/count', payload.contact_list_id);
+
+      return this._request.get(
+        this._getCustomerId(options),
+        url,
+        options
+      );
+    }.bind(this));
+  },
+
+  getContactsData: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id', 'fields']).then(function() {
+      logger.log('contactlist_getcontactsdata');
+
+      var baseUrl = util.format('/contactlist/%s/contacts/data', payload.contact_list_id);
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(baseUrl, payload, ['contact_list_id']),
+        options
+      );
+    }.bind(this));
   }
 
 });
