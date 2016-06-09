@@ -71,6 +71,18 @@ _.extend(ContactList.prototype, {
       this._buildUrl('/contactlist', payload),
       options
     );
+  },
+
+  count: function(payload, options) {
+    logger.log('contactlist_count');
+
+    var url = util.format('/contactlist/%s/count', payload.contact_list_id);
+
+    return this._request.get(
+      this._getCustomerId(options),
+      url,
+      options
+    );
   }
 
 });

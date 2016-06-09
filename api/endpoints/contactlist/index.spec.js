@@ -50,4 +50,12 @@ describe('SuiteAPI Contact List endpoint', function() {
   });
 
 
+  describe('#count', function() {
+
+    testApiMethod(ContactListApi, 'count').withArgs({
+      contact_list_id: 2
+    }).shouldGetResultFromEndpoint('/contactlist/2/count');
+
+  });
+
 });
