@@ -63,7 +63,7 @@ describe('SuiteAPI Contact List endpoint', function() {
 
     testApiMethod(ContactListApi, 'getContactsData').withArgs({
       contact_list_id: 2,
-      fields: "email,first_name",
+      fields: 'email,first_name',
       limit: 10,
       offset: 1,
       stringids: 1
