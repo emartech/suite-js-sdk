@@ -201,6 +201,10 @@ necessary data on the invitation form.
 
     suiteAPI.automationCenter.programResource(payload);
 
+##### [ProgramsEntrypoints](http://documentation.emarsys.com/resource/developers/endpoints/automation-center/start-programs/)
+
+    suiteAPI.automationCenter.programsEntrypoints(payload);
+
 #### Campaign
 
 ##### create
