@@ -83,6 +83,28 @@ _.extend(ContactList.prototype, {
       url,
       options
     );
+  },
+
+  getContactsData: function(payload, options) {
+    logger.log('contactlist_getcontactsdata');
+
+    var url = util.format('/contactlist/%s/contacts/data?fields=%s', payload.contact_list_id, payload.fields);
+
+    if (payload.limit) {
+      url += '&limit=' + payload.limit;
+    }
+    if (payload.offset) {
+      url += '&offset=' + payload.offset;
+    }
+    if (payload.stringids) {
+      url += '&stringids=1';
+    }
+
+    return this._request.get(
+      this._getCustomerId(options),
+      url,
+      options
+    );
   }
 
 });

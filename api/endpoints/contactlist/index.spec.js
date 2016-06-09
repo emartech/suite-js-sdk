@@ -58,4 +58,17 @@ describe('SuiteAPI Contact List endpoint', function() {
 
   });
 
+
+  describe('#getContactsData', function() {
+
+    testApiMethod(ContactListApi, 'getContactsData').withArgs({
+      contact_list_id: 2,
+      fields: "email,first_name",
+      limit: 10,
+      offset: 1,
+      stringids: 1
+    }).shouldGetResultFromEndpoint('/contactlist/2/contacts/data?fields=email,first_name&limit=10&offset=1&stringids=1');
+
+  });
+
 });
