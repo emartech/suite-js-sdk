@@ -73,10 +73,6 @@ describe('SuiteAPI Contact List endpoint', function() {
 
     testApiMethod(ContactListApi, 'getContactsData').withArgs({}).shouldThrowMissingParameterError('contact_list_id');
 
-    testApiMethod(ContactListApi, 'getContactsData').withArgs({
-      contact_list_id: 2
-    }).shouldThrowMissingParameterError('fields');
-
   });
 
 });

@@ -88,7 +88,7 @@ _.extend(ContactList.prototype, {
   },
 
   getContactsData: function(payload, options) {
-    return this._requireParameters(payload, ['contact_list_id', 'fields']).then(function() {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
       logger.log('contactlist_getcontactsdata');
 
       var baseUrl = util.format('/contactlist/%s/contacts/data', payload.contact_list_id);
