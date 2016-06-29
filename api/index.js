@@ -62,7 +62,8 @@ SuiteAPI.prototype = {
       environment: config.suiteApi.environment || config.API_PROXY_URL,
       rejectUnauthorized: config.suiteApi.rejectUnauthorized,
       secure: config.suiteApi.secure,
-      port: config.suiteApi.port
+      port: config.suiteApi.port,
+      timeout: config.suiteApi.timeout
     }, options);
   },
 
