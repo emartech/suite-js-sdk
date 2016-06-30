@@ -118,6 +118,7 @@ describe('SuiteApi', function() {
         this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
         this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
         this.sandbox.stub(config.suiteApi, 'secure', false);
+        this.sandbox.stub(config.suiteApi, 'timeout', 13500);
 
         stubRequestCreation();
 
@@ -130,7 +131,7 @@ describe('SuiteApi', function() {
           rejectUnauthorized: false,
           secure: false,
           port: 443,
-          timeout: 15000
+          timeout: 13500
         });
 
         /*eslint-disable*/
