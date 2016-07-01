@@ -50,7 +50,8 @@ describe('SuiteApi', function() {
         apiSecret: 'apiSecret',
         rejectUnauthorized: true,
         secure: true,
-        port: 443
+        port: 443,
+        timeout: 12345
       };
       SuiteAPI.create(options);
       expect(Request.create).to.have.been.calledWith(options);
@@ -76,7 +77,8 @@ describe('SuiteApi', function() {
             environment: 'environmentFromEnv',
             rejectUnauthorized: false,
             secure: true,
-            port: 443
+            port: 443,
+            timeout: 15000
           });
         });
 
@@ -100,12 +102,15 @@ describe('SuiteApi', function() {
             environment: 'environmentFromEnv',
             rejectUnauthorized: false,
             secure: true,
-            port: 443
+            port: 443,
+            timeout: 15000
           });
         });
 
       });
+    });
 
+    describe('environment and key data is provided', function() {
 
       it('should return a new instance with configuration from env variables', function() {
         this.sandbox.stub(config.suiteApi, 'environment', 'environmentFromEnv');
@@ -113,6 +118,7 @@ describe('SuiteApi', function() {
         this.sandbox.stub(config.suiteApi, 'apiKey', 'apiKeyFromEnv');
         this.sandbox.stub(config.suiteApi, 'apiSecret', 'apiSecretFromEnv');
         this.sandbox.stub(config.suiteApi, 'secure', false);
+        this.sandbox.stub(config.suiteApi, 'timeout', 13500);
 
         stubRequestCreation();
 
@@ -124,7 +130,8 @@ describe('SuiteApi', function() {
           environment: 'environmentFromEnv',
           rejectUnauthorized: false,
           secure: false,
-          port: 443
+          port: 443,
+          timeout: 13500
         });
 
         /*eslint-disable*/
@@ -150,7 +157,8 @@ describe('SuiteApi', function() {
           environment: 'api.emarsys.net',
           rejectUnauthorized: true,
           secure: true,
-          port: 443
+          port: 443,
+          timeout: 15000
         });
       });
 
@@ -180,7 +188,8 @@ describe('SuiteApi', function() {
         environment: environment,
         rejectUnauthorized: false,
         secure: true,
-        port: 443
+        port: 443,
+        timeout: 15000
       };
 
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
