@@ -16,7 +16,7 @@ var config = {
     port: typeof process.env.SUITE_API_PORT !== 'undefined' ?
       process.env.SUITE_API_PORT :
       (process.env.SUITE_API_SECURE === 'false' ? 80 : 443),
-    timeout: process.env.SUITE_API_TIMEOUT || 15000
+    timeout: Number(process.env.SUITE_API_TIMEOUT) || 15000
   }
 
 };
