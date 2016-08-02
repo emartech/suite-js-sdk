@@ -32,6 +32,10 @@ class RequestAuthenticator {
       request.body = JSON.stringify(this._context.request.body);
     }
 
+    if (this._context.request.rawBody) {
+      request.body = this._context.request.rawBody;
+    }
+
     return request;
   }
 
