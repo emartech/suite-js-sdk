@@ -281,6 +281,10 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
     suiteAPI.contactList.getContactsData(payload);
 
+##### [DeleteList](http://documentation.emarsys.com/resource/developers/endpoints/contacts/delete-list/)
+
+    suiteAPI.contactList.deleteList(payload);
+
 #### ExternalEvent
 
 ##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)

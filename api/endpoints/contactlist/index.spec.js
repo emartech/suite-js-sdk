@@ -75,4 +75,15 @@ describe('SuiteAPI Contact List endpoint', function() {
 
   });
 
+
+  describe('#deleteList', function() {
+
+    testApiMethod(ContactListApi, 'deleteList').withArgs({
+      contact_list_id: 4
+    }).shouldPostToEndpoint('/contactlist/4/deletelist', {});
+
+    testApiMethod(ContactListApi, 'deleteList').withArgs({}).shouldThrowMissingParameterError('contact_list_id');
+
+  });
+
 });

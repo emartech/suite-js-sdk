@@ -99,6 +99,20 @@ _.extend(ContactList.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  deleteList: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      var url = util.format('/contactlist/%s/deletelist', payload.contact_list_id);
+      logger.log('contactlist_deletelist');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        url,
+        this._cleanPayload(payload, ['contact_list_id']),
+        options
+      );
+    }.bind(this));
   }
 
 });
