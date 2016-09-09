@@ -3,7 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
+    "test": "NODE_ENV=test mocha --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "code-style": "eslint $(find . -name \"*.js\" -not -path \"./node_modules/*\")",
     "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
