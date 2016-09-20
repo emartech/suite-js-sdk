@@ -472,6 +472,10 @@ Updates alternate texts.
 
     suiteAPI.segment.listSegments(payload);
 
+##### [Querying contact criteria of a segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/querying-contact-criteria-in-a-segment/)
+
+    suiteAPI.segment.getContactCriteria(payload);
+
 #### Purchases
 
 ##### List

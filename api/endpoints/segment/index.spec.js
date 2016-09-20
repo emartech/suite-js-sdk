@@ -34,4 +34,12 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'countContacts').shouldThrowMissingParameterError('segment_id');
   });
 
+  describe('#getContactCriteria', function() {
+    testApiMethod(SegmentAPI, 'getContactCriteria').withArgs({
+      segment_id: 10
+    }).shouldGetResultFromEndpoint('/filter/10/contact_criteria');
+
+    testApiMethod(SegmentAPI, 'getContactCriteria').shouldThrowMissingParameterError('segment_id');
+  });
+
 });
