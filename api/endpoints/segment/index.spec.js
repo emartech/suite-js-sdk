@@ -34,6 +34,38 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'countContacts').shouldThrowMissingParameterError('segment_id');
   });
 
+  describe('#create', function() {
+
+    testApiMethod(SegmentAPI, 'create').withArgs({
+      name: 'new segment'
+    }).shouldPutToEndpoint('/filter', {
+      name: 'new segment'
+    });
+
+    testApiMethod(SegmentAPI, 'create').withArgs({
+      name: 'new segment with contact criteria',
+      description: 'segment description',
+      contactCriteria: {
+        type: 'criteria',
+        field: 'address',
+        operator: 'not_empty',
+        value: ''
+      }
+    }).shouldPutToEndpoint('/filter', {
+      name: 'new segment with contact criteria',
+      description: 'segment description',
+      contactCriteria: {
+        type: 'criteria',
+        field: 'address',
+        operator: 'not_empty',
+        value: ''
+      }
+    });
+
+    testApiMethod(SegmentAPI, 'create').shouldThrowMissingParameterError('name');
+
+  });
+
   describe('#getContactCriteria', function() {
     testApiMethod(SegmentAPI, 'getContactCriteria').withArgs({
       segment_id: 10

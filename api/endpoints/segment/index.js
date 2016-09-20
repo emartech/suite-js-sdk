@@ -51,6 +51,19 @@ _.extend(Segment.prototype, {
     );
   },
 
+  create: function(payload, options) {
+    logger.log('segment_create');
+
+    return this._requireParameters(payload, ['name']).then(function() {
+      return this._request.put(
+        this._getCustomerId(options),
+        '/filter',
+        payload,
+        options
+      );
+    }.bind(this));
+  },
+
   getContactCriteria: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/filter/%s/contact_criteria', payload.segment_id);
