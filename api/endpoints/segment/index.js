@@ -49,6 +49,19 @@ _.extend(Segment.prototype, {
       this._buildUrlForSegmentation('/filter', payload),
       options
     );
+  },
+
+  getContactCriteria: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      var url = util.format('/filter/%s/contact_criteria', payload.segment_id);
+      logger.log('segment_get_contact_criteria');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrlForSegmentation(url, payload, ['segment_id']),
+        options
+      );
+    }.bind(this));
   }
 
 });
