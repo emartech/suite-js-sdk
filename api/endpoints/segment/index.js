@@ -54,14 +54,12 @@ _.extend(Segment.prototype, {
   create: function(payload, options) {
     logger.log('segment_create');
 
-    return this._requireParameters(payload, ['name']).then(function() {
-      return this._request.put(
-        this._getCustomerId(options),
-        '/filter',
-        payload,
-        options
-      );
-    }.bind(this));
+    return this._request.put(
+      this._getCustomerId(options),
+      '/filter',
+      payload,
+      options
+    );
   },
 
   getContactCriteria: function(payload, options) {

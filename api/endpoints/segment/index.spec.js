@@ -62,8 +62,6 @@ describe('SuiteAPI Segment endpoint', function() {
       }
     });
 
-    testApiMethod(SegmentAPI, 'create').shouldThrowMissingParameterError('name');
-
   });
 
   describe('#getContactCriteria', function() {
