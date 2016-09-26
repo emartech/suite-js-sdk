@@ -73,6 +73,20 @@ _.extend(Segment.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  updateContactCriteria: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      var url = util.format('/filter/%s/contact_criteria', payload.segment_id);
+      logger.log('segment_update_contact_criteria');
+
+      return this._request.put(
+        this._getCustomerId(options),
+        url,
+        payload.contact_criteria,
+        options
+      );
+    }.bind(this));
   }
 
 });
