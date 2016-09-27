@@ -480,6 +480,10 @@ Updates alternate texts.
 
     suiteAPI.segment.getContactCriteria(payload);
 
+##### [Updating contact criteria of a segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/updating-contact-criteria-in-a-segment/)
+
+    suiteAPI.segment.updateContactCriteria(payload);
+
 #### Purchases
 
 ##### List
