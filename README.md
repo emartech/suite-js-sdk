@@ -484,6 +484,24 @@ Updates alternate texts.
 
     suiteAPI.segment.updateContactCriteria(payload);
 
+#### Combined Segment
+
+##### [List combined segments](https://documentation.emarsys.com/resource/developers/endpoints/contacts/list-combined-segments/)
+
+    suiteAPI.combinedSegment.list(payload);
+
+##### [Create new combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/create-combined-segment/)
+
+    suiteAPI.combinedSegment.create(payload);
+
+##### [Querying a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/combined-segment-data/)
+
+    suiteAPI.combinedSegment.get(payload);
+
+##### [Updating a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/update-combined-segment/)
+
+    suiteAPI.combinedSegment.update(payload);
+
 #### Purchases
 
 ##### List
