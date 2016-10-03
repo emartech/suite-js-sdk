@@ -6,6 +6,7 @@ var SuiteAPI = require('./');
 var AdministratorAPI = require('./endpoints/administrator');
 var AutomationCenterAPI = require('./endpoints/automationcenter');
 var CampaignAPI = require('./endpoints/campaign');
+var CombinedSegmentAPI = require('./endpoints/combinedsegment');
 var ConditionAPI = require('./endpoints/condition');
 var ContactAPI = require('./endpoints/contact');
 var ContactListAPI = require('./endpoints/contactlist');
@@ -195,6 +196,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
       this.sandbox.stub(AutomationCenterAPI, 'create').returns('FromAutomationCenterEndpointStub');
       this.sandbox.stub(CampaignAPI, 'create').returns('FromCampaignEndpointStub');
+      this.sandbox.stub(CombinedSegmentAPI, 'create').returns('FromCombinedSegmentEndpointStub');
       this.sandbox.stub(ConditionAPI, 'create').returns('FromConditionEndpointStub');
       this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
       this.sandbox.stub(ContactListAPI, 'create').returns('FromContactListEndpointStub');
@@ -236,6 +238,12 @@ describe('SuiteApi', function() {
         sdkKey: 'campaign',
         api: CampaignAPI,
         stub: 'FromCampaignEndpointStub'
+      },
+      {
+        endpoint: 'CombinedSegment',
+        sdkKey: 'combinedSegment',
+        api: CombinedSegmentAPI,
+        stub: 'FromCombinedSegmentEndpointStub'
       },
       {
         endpoint: 'Condition',
