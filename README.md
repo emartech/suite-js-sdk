@@ -512,6 +512,10 @@ Lists the purchases of customers per day.
 
 #### Contact Fields
 
+##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/contacts/create-field/)
+
+    suiteAPI.field.create(payload);
+
 ##### [Listing Available Fields](http://documentation.emarsys.com/resource/developers/api/contacts/list-fields/)
 
     suiteAPI.field.get(payload);
