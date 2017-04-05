@@ -319,6 +319,12 @@ Lists available languages for a customer in the customer's own language.
 
     suiteAPI.language.translate(payload);
 
+#### MediaDB
+
+##### [Create Folder](http://documentation.emarsys.com/resource/developers/endpoints/email/create-media-folder/)
+
+    suiteAPI.mediaDb.createFolder(payload);
+
 #### Settings
 
 ##### [Get](http://documentation.emarsys.com/resource/developers/api/customers/customer-settings/)

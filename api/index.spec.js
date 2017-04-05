@@ -16,6 +16,7 @@ var ExternalEventAPI = require('./endpoints/externalevent');
 var FieldAPI = require('./endpoints/field');
 var FormAPI = require('./endpoints/form');
 var LanguageAPI = require('./endpoints/language');
+var MediaDBAPI = require('./endpoints/mediadb');
 var PurchaseAPI = require('./endpoints/purchase');
 var SegmentAPI = require('./endpoints/segment');
 var SettingsAPI = require('./endpoints/settings');
@@ -206,6 +207,7 @@ describe('SuiteApi', function() {
       this.sandbox.stub(FieldAPI, 'create').returns('FromFieldEndpointStub');
       this.sandbox.stub(FormAPI, 'create').returns('FromFormEndpointStub');
       this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
+      this.sandbox.stub(MediaDBAPI, 'create').returns('FromMediaDBEndpointStub');
       this.sandbox.stub(PurchaseAPI, 'create').returns('FromPurchaseEndpointStub');
       this.sandbox.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
       this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
@@ -298,6 +300,12 @@ describe('SuiteApi', function() {
         sdkKey: 'language',
         api: LanguageAPI,
         stub: 'FromLanguageEndpointStub'
+      },
+      {
+        endpoint: 'MediaDB',
+        sdkKey: 'mediaDb',
+        api: MediaDBAPI,
+        stub: 'FromMediaDBEndpointStub'
       },
       {
         endpoint: 'Purchase',
