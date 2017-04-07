@@ -14,16 +14,16 @@ describe('Koa Escher Request Authentication Middleware', function() {
     return getMiddleware(escherConfig).call(context, next);
   };
 
-  var createContext = function(body) {
+  var createContext = function(koaRequest) {
     return {
       req: { body: {} },
-      request: { body: body },
+      request: koaRequest,
       throw: sinon.stub()
     };
   };
 
   var createContextWithEmptyBody = function() {
-    return createContext({});
+    return createContext({ body: {} });
   };
 
   beforeEach(function() {
@@ -76,11 +76,22 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
     it('should have been called with original Node request object decorated with the stringified body from the koa\'s request object', function* () {
-      var context = createContext({ testData: 'testValue' });
+      var context = createContext({ body: { testData: 'testValue' } });
       yield callMiddleware(context);
 
       var expectedRequest = Object.create(context.req);
       expectedRequest.body = JSON.stringify(context.request.body);
+
+      expect(escherStub.authenticate).to.have.been.calledWithExactly(expectedRequest, sinon.match.any);
+    });
+
+
+    it('should have been called with original Node request object decorated with the raw body from the koa\'s request object if available', function*() {
+      var context = createContext({ body: { raw: 'body//' }, rawBody: '{"raw":"body\\/\\/"}' });
+      yield callMiddleware(context);
+
+      var expectedRequest = Object.create(context.req);
+      expectedRequest.body = '{"raw":"body\\/\\/"}';
 
       expect(escherStub.authenticate).to.have.been.calledWithExactly(expectedRequest, sinon.match.any);
     });
