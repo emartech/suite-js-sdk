@@ -290,19 +290,19 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 ##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/external-events/create-external-event/)
 
     suiteAPI.externalEvent.create(payload);
-    
+
 ##### [List](https://documentation.emarsys.com/resource/developers/endpoints/external-events/list-events/)
 
     suiteAPI.externalEvent.list(payload);
-    
+
 ##### [Get Event Details](https://documentation.emarsys.com/resource/developers/endpoints/external-events/event-details/)
 
     suiteAPI.externalEvent.get(payload);
-    
+
 ##### [Update](https://documentation.emarsys.com/resource/developers/endpoints/external-events/update-event/)
 
     suiteAPI.externalEvent.update(payload);
-    
+
 ##### [Delete](https://documentation.emarsys.com/resource/developers/endpoints/external-events/delete-event/)
 
     suiteAPI.externalEvent.delete(payload);
@@ -445,7 +445,7 @@ Updates alternate texts.
 ##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
 
     suiteAPI.email.deleteTrackedLinks(payload);
-    
+
 ##### [Export contact list](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/export-list/)
 
     suiteAPI.email.getContacts(payload);
@@ -484,6 +484,24 @@ Updates alternate texts.
 
     suiteAPI.segment.updateContactCriteria(payload);
 
+#### Combined Segment
+
+##### [List combined segments](https://documentation.emarsys.com/resource/developers/endpoints/contacts/list-combined-segments/)
+
+    suiteAPI.combinedSegment.list(payload);
+
+##### [Create new combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/create-combined-segment/)
+
+    suiteAPI.combinedSegment.create(payload);
+
+##### [Querying a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/combined-segment-data/)
+
+    suiteAPI.combinedSegment.get(payload);
+
+##### [Updating a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/update-combined-segment/)
+
+    suiteAPI.combinedSegment.update(payload);
+
 #### Purchases
 
 ##### List
@@ -494,6 +512,10 @@ Lists the purchases of customers per day.
 
 #### Contact Fields
 
+##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/contacts/create-field/)
+
+    suiteAPI.field.create(payload);
+
 ##### [Listing Available Fields](http://documentation.emarsys.com/resource/developers/api/contacts/list-fields/)
 
     suiteAPI.field.get(payload);
@@ -501,7 +523,7 @@ Lists the purchases of customers per day.
 ##### [Listing Available Fields Choices](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-field-choices/)
 
     suiteAPI.field.getChoices(payload);
-    
+
 #### Export
 
 ##### [Downloading export data](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/download-data/)
@@ -527,3 +549,13 @@ Manage customer PKI options
 ##### delete
 
     suiteAPI.keyring.delete(payload);
+
+#### Contact Sources
+
+##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/contacts/create-new-contact-source/)
+
+  suiteAPI.source.create(payload);
+
+##### [Listing Sources](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-contact-sources/)
+
+  suiteAPI.source.listSources(payload);

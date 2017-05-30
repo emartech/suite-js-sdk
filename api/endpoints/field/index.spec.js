@@ -5,6 +5,18 @@ var testApiMethod = require('../_test');
 
 describe('SuiteAPI Field endpoint', function() {
 
+  describe('#create', function() {
+
+    testApiMethod(FieldAPI, 'create').withArgs({
+      name: 'The name of the new field',
+      application_type: 'shorttext'
+    }).shouldPostToEndpoint('/field', {
+      name: 'The name of the new field',
+      application_type: 'shorttext'
+    });
+
+  });
+
   describe('#get', function() {
     testApiMethod(FieldAPI, 'get').withArgs({ translate_id: 'en' }).shouldGetResultFromEndpoint('/field/translate/en');
 

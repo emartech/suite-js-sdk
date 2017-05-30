@@ -15,6 +15,18 @@ util.inherits(Field, Base);
 
 _.extend(Field.prototype, {
 
+  create: function(payload, options) {
+    logger.log('field_create');
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/field',
+      payload,
+      options
+    );
+  },
+
+
   get: function(payload, options) {
     return this._requireParameters(payload, ['translate_id']).then(function() {
       var url = util.format('/field/translate/%s', payload.translate_id);
