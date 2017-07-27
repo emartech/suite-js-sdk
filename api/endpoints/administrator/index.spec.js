@@ -19,6 +19,11 @@ describe('SuiteAPI Administrator endpoint', function() {
   });
 
 
+  describe('#getStartPages', function() {
+    testApiMethod(AdministratorAPI, 'getStartPages').shouldGetResultFromEndpoint('/administrator/getstartpages');
+  });
+
+
   describe('#getAccessLevels', function() {
     testApiMethod(AdministratorAPI, 'getAccessLevels').shouldGetResultFromEndpoint('/administrator/getaccesslevels');
   });
