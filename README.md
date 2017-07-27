@@ -171,6 +171,10 @@ Changes the status of the disabled admin back to enabled so logging in becomes p
 ##### [Get Interface Languages](http://documentation.emarsys.com/resource/developers/api/customers/administrator-ui-languages/)
 
     suiteAPI.administrator.getInterfaceLanguages(payload);
+    
+##### Get Start Pages
+
+    suiteAPI.administrator.getStartPages(payload);
 
 ##### [Get Access Levels](http://documentation.emarsys.com/resource/developers/api/customers/access-levels/)
 

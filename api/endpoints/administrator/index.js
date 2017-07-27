@@ -128,6 +128,17 @@ _.extend(Administrator.prototype, {
   },
 
 
+  getStartPages: function(payload, options) {
+    logger.log('administrator_get_start_pages');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/administrator/getstartpages', payload),
+      options
+    );
+  },
+
+
   getLanguages: function(customerId, language, options) {
     logger.log('administrator_getLanguages');
     if (!language) {
