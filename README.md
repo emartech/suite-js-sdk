@@ -172,7 +172,7 @@ Changes the status of the disabled admin back to enabled so logging in becomes p
 
     suiteAPI.administrator.getInterfaceLanguages(payload);
     
-##### Get Start Pages
+##### [Get Start Pages](http://documentation.emarsys.com/resource/querying-start-pages/)
 
     suiteAPI.administrator.getStartPages(payload);
 
