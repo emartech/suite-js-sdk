@@ -122,6 +122,14 @@ _.extend(Email.prototype, {
     );
   },
 
+
+  getResponseSummary: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s/responsesummary', 'email_get_response_summary').bind(this)
+    );
+  },
+
+
   get: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
       fetchFactory(payload, options, '/email/%s', 'email_get').bind(this)

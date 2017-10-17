@@ -115,6 +115,11 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'listVersions').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#getResponseSummary', function() {
+    testApiMethod(EmailAPI, 'getResponseSummary').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12/responsesummary');
+    testApiMethod(EmailAPI, 'getResponseSummary').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
   describe('#patch', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({
       email_id: 12,
