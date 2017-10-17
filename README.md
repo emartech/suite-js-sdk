@@ -421,6 +421,12 @@ Set security settings (IP whitelisting enabled option)
 
     suiteAPI.email.responses(payload);
 
+##### [getResponseSummary](http://documentation.emarsys.com/resource/developers/endpoints/email/response-summary/)
+
+Returns the summary of the responses of a launched, paused, activated or deactivated email campaign.
+
+    suiteAPI.email.getResponseSummary(payload);
+
 ##### Querying Email Personalizations
 
 Lists all possible alternate texts with their email campaigns. Alternate texts are defined for a specific field, and
