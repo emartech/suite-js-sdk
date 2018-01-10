@@ -31,25 +31,6 @@ _.extend(Administrator.prototype, {
   },
 
 
-  getSuperadmin: function(payload, options) {
-    logger.log('administrator_get_superadmin');
-
-    return this.getAdministrators(payload, options).then(function(response) {
-      var firstAdmin = new AdminList(response.body.data).getFirstSuperadministrator();
-
-      if (firstAdmin) {
-        return Promise.resolve({
-          body: {
-            data: firstAdmin
-          }
-        });
-      }
-
-      return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
-    }.bind(this));
-  },
-
-
   getSuperadmins: function(payload, options) {
     logger.log('administrator_get_superadmins');
 
