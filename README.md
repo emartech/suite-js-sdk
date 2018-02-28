@@ -540,6 +540,10 @@ Lists the purchases of customers per day.
 
     suiteAPI.export.getData(payload);
 
+##### [Get Changes](https://help.emarsys.com/hc/en-us/articles/115004497073)
+
+    suiteAPI.export.getChanges(payload);
+
 #### Keyring
 
 Manage customer PKI options
