@@ -5,6 +5,8 @@
 
 Simple Javascript wrapper for the Emarsys API.
 
+> Important: This library does not support WSSE authentication. It is intended only to be used by Emarsys add-ons and internal services.
+
 ## Installation
 
     npm install --save suite-js-sdk
