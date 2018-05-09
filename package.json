@@ -31,11 +31,11 @@
     "co-request": "1.0.0",
     "escher-auth": "0.3.0",
     "escher-keypool": "2.0.0",
-    "escher-suiteapi-js": "10.0.1",
+    "escher-suiteapi-js": "12.1.0",
     "flat": "2.0.1",
     "lodash": "4.17.10",
     "logentries-logformat": "0.2.0",
-    "moment-timezone": "0.5.5",
+    "moment-timezone": "0.5.16",
     "node-cache": "3.2.1",
     "sprintf-js": "1.0.3"
   },
