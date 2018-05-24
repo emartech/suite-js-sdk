@@ -128,7 +128,7 @@ instance from the API client, like:
        customerId: 1083232
     });
 
-    suiteAPI.administrator.getAdministrators({
+    suiteAPI.administrator.getAdministrators({}, {
         customerId: 20234245
     });
 
@@ -138,104 +138,104 @@ In the example above, the API will be called with `customerId = 20234245`.
 
 ##### [List](http://documentation.emarsys.com/resource/developers/api/customers/list-administrators/)
 
-    suiteAPI.administrator.getAdministrators(payload);
+    suiteAPI.administrator.getAdministrators(payload, options);
 
 ##### Get By Name
 
 Data of an admin can be queried by providing its name.
 
-    suiteAPI.administrator.getAdministratorByName(payload);
+    suiteAPI.administrator.getAdministratorByName(payload, options);
 
 ##### [Patch](http://documentation.emarsys.com/resource/developers/api/customers/update-administrator/)
 
-    suiteAPI.administrator.patchAdministrator(payload);
+    suiteAPI.administrator.patchAdministrator(payload, options);
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/api/customers/create-administrator/)
 
-    suiteAPI.administrator.createAdministrator(payload);
+    suiteAPI.administrator.createAdministrator(payload, options);
 
 ##### [Delete](http://documentation.emarsys.com/resource/developers/api/customers/delete-administrator/)
 
-    suiteAPI.administrator.deleteAdministrator(payload);
+    suiteAPI.administrator.deleteAdministrator(payload, options);
 
 ##### Disable
 
 Changes the status of the admin to disabled so logging in will not be possible.
 
-    suiteAPI.administrator.disableAdministrator(payload);
+    suiteAPI.administrator.disableAdministrator(payload, options);
 
 ##### Enable
 
 Changes the status of the disabled admin back to enabled so logging in becomes possible.
 
-    suiteAPI.administrator.enableAdministrator(payload);
+    suiteAPI.administrator.enableAdministrator(payload, options);
 
 ##### [Get Interface Languages](http://documentation.emarsys.com/resource/developers/api/customers/administrator-ui-languages/)
 
-    suiteAPI.administrator.getInterfaceLanguages(payload);
+    suiteAPI.administrator.getInterfaceLanguages(payload, options);
     
 ##### [Get Start Pages](http://documentation.emarsys.com/resource/querying-start-pages/)
 
-    suiteAPI.administrator.getStartPages(payload);
+    suiteAPI.administrator.getStartPages(payload, options);
 
 ##### [Get Access Levels](http://documentation.emarsys.com/resource/developers/api/customers/access-levels/)
 
-    suiteAPI.administrator.getAccessLevels(payload);
+    suiteAPI.administrator.getAccessLevels(payload, options);
 
 ##### Promote to Superadmin
 
 Levels up an admin to a superadmin.
 
-    suiteAPI.administrator.promoteToSuperadmin(payload);
+    suiteAPI.administrator.promoteToSuperadmin(payload, options);
 
 ##### Create Superadmin
 
 Creates a superadmin.
 
-    suiteAPI.administrator.createSuperadmin(payload);
+    suiteAPI.administrator.createSuperadmin(payload, options);
 
 ##### Invite Existing Administrator
 
 Sets the status of the admin to disabled and invites the admin again. The admin can log in only after completing the
 necessary data on the invitation form.
 
-    suiteAPI.administrator.inviteExistingAdministrator(payload);
+    suiteAPI.administrator.inviteExistingAdministrator(payload, options);
 
 #### AutomationCenter
 
 ##### [ProgramResource](http://documentation.emarsys.com/resource/developers/endpoints/automation-center/program-resources/)
 
-    suiteAPI.automationCenter.programResource(payload);
+    suiteAPI.automationCenter.programResource(payload, options);
 
 ##### [ProgramsEntrypoints](http://documentation.emarsys.com/resource/developers/endpoints/automation-center/start-programs/)
 
-    suiteAPI.automationCenter.programsEntrypoints(payload);
+    suiteAPI.automationCenter.programsEntrypoints(payload, options);
 
 #### Campaign
 
 ##### create
 
-    suiteAPI.campaign.create(payload);
+    suiteAPI.campaign.create(payload, options);
 
 ##### update
 
-    suiteAPI.campaign.update(payload);
+    suiteAPI.campaign.update(payload, options);
 
 #### Condition
 
 ##### List
 
-    suiteAPI.condition.list(payload);
+    suiteAPI.condition.list(payload, options);
 
 ##### List with contact fields
 
-    suiteAPI.condition.listWithContactFields(payload);
+    suiteAPI.condition.listWithContactFields(payload, options);
 
 #### Contact
 
 ##### [GetData](http://documentation.emarsys.com/resource/developers/endpoints/contacts/contact-data/)
 
-    suiteAPI.contact.getData(payload);
+    suiteAPI.contact.getData(payload, options);
 
 To return the contacts with string field ids, specify `{ stringIds: true }` in the options.
 
@@ -243,79 +243,79 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/api/contacts/create-contact/)
 
-    suiteAPI.contact.create(payload);
+    suiteAPI.contact.create(payload, options);
 
 ##### Merge
 
-    suiteAPI.contact.merge(payload);
+    suiteAPI.contact.merge(payload, options);
 
 ##### [Update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
 
-    suiteAPI.contact.update(payload);
+    suiteAPI.contact.update(payload, options);
 
 ##### [Create or update](http://documentation.emarsys.com/resource/developers/api/contacts/update-contact/)
 
-    suiteAPI.contact.createOrUpdate(payload);
+    suiteAPI.contact.createOrUpdate(payload, options);
 
 ##### [Delete](http://documentation.emarsys.com/resource/developers/api/contacts/delete-contact/)
 
-    suiteAPI.contact.delete(payload);
+    suiteAPI.contact.delete(payload, options);
 
 #### Contact List
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/api/contacts/create-list/)
 
-    suiteAPI.contactList.create(payload);
+    suiteAPI.contactList.create(payload, options);
 
 ##### [List](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-data/)
 
-    suiteAPI.contactList.list(payload);
+    suiteAPI.contactList.list(payload, options);
 
 ##### [Add](http://documentation.emarsys.com/resource/developers/api/contacts/add-contacts-to-list/)
 
-    suiteAPI.contactList.add(payload);
+    suiteAPI.contactList.add(payload, options);
 
 ##### [ListContactLists](http://documentation.emarsys.com/resource/developers/api/contacts/list-contact-lists/)
 
-    suiteAPI.contactList.listContactLists(payload);
+    suiteAPI.contactList.listContactLists(payload, options);
 
 ##### [Count](http://documentation.emarsys.com/?p=7722)
 
-    suiteAPI.contactList.count(payload);
+    suiteAPI.contactList.count(payload, options);
 
 ##### [GetContactsData](http://documentation.emarsys.com/?p=7723)
 
-    suiteAPI.contactList.getContactsData(payload);
+    suiteAPI.contactList.getContactsData(payload, options);
 
 ##### [DeleteList](http://documentation.emarsys.com/resource/developers/endpoints/contacts/delete-list/)
 
-    suiteAPI.contactList.deleteList(payload);
+    suiteAPI.contactList.deleteList(payload, options);
 
 #### ExternalEvent
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/external-events/create-external-event/)
 
-    suiteAPI.externalEvent.create(payload);
+    suiteAPI.externalEvent.create(payload, options);
 
 ##### [List](https://documentation.emarsys.com/resource/developers/endpoints/external-events/list-events/)
 
-    suiteAPI.externalEvent.list(payload);
+    suiteAPI.externalEvent.list(payload, options);
 
 ##### [Get Event Details](https://documentation.emarsys.com/resource/developers/endpoints/external-events/event-details/)
 
-    suiteAPI.externalEvent.get(payload);
+    suiteAPI.externalEvent.get(payload, options);
 
 ##### [Update](https://documentation.emarsys.com/resource/developers/endpoints/external-events/update-event/)
 
-    suiteAPI.externalEvent.update(payload);
+    suiteAPI.externalEvent.update(payload, options);
 
 ##### [Delete](https://documentation.emarsys.com/resource/developers/endpoints/external-events/delete-event/)
 
-    suiteAPI.externalEvent.delete(payload);
+    suiteAPI.externalEvent.delete(payload, options);
 
 ##### [Trigger](http://documentation.emarsys.com/resource/developers/api/external-events/trigger-event/)
 
-    suiteAPI.externalEvent.trigger(payload);
+    suiteAPI.externalEvent.trigger(payload, options);
 
 #### Language
 
@@ -323,196 +323,196 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
 Lists available languages for a customer in the customer's own language.
 
-    suiteAPI.language.translate(payload);
+    suiteAPI.language.translate(payload, options);
 
 #### Settings
 
 ##### [Get](http://documentation.emarsys.com/resource/developers/api/customers/customer-settings/)
 
-    suiteAPI.settings.getSettings(payload);
+    suiteAPI.settings.getSettings(payload, options);
 
 ##### Get Corporate Domains
 
 Lists the permitted corporate domains of the customer. If corporate domains are set, registration is possible only with
 those email addresses which meet these requirements.
 
-    suiteAPI.settings.getCorporateDomains(payload);
+    suiteAPI.settings.getCorporateDomains(payload, options);
 
 ##### Set Corporate Domains
 
 Accepted corporate domains can be defined.
 
-    suiteAPI.settings.setCorporateDomains(payload);
+    suiteAPI.settings.setCorporateDomains(payload, options);
 
 ##### Get IP Restrictions
 
 Lists the permitted IP address rules (e.g. 192.168.* allows IP addresses which start with these two numbers and can end
 in any numbers).
 
-    suiteAPI.settings.getIpRestrictions(payload);
+    suiteAPI.settings.getIpRestrictions(payload, options);
 
 ##### Set IP Restrictions
 
 Possible IP address rules can be defined.
 
-    suiteAPI.settings.setIpRestrictions(payload);
+    suiteAPI.settings.setIpRestrictions(payload, options);
 
 ##### Get security settings
 
 Get security settings (IP whitelisting enabled option)
 
-    suiteAPI.settings.getSecuritySettings(payload);
+    suiteAPI.settings.getSecuritySettings(payload, options);
 
 ##### Set security settings
 
 Set security settings (IP whitelisting enabled option)
 
-    suiteAPI.settings.setSecuritySettings(payload);
+    suiteAPI.settings.setSecuritySettings(payload, options);
 
 ##### Get sender domains
 
-    suiteAPI.settings.getDeliverabilitySenderDomains(payload);
+    suiteAPI.settings.getDeliverabilitySenderDomains(payload, options);
 
 ##### Set sender domain
 
-    suiteAPI.settings.setDeliverabilitySenderDomain(payload);
+    suiteAPI.settings.setDeliverabilitySenderDomain(payload, options);
 
 #### Email
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/api/email/)
 
-    suiteAPI.email.create(payload);
+    suiteAPI.email.create(payload, options);
 
 ##### [Copy](http://documentation.emarsys.com/resource/developers/api/email/copy-campaign/)
 
-    suiteAPI.email.copy(payload);
+    suiteAPI.email.copy(payload, options);
 
 ##### [Update source](http://documentation.emarsys.com/resource/developers/api/email/update-source/)
 
-    suiteAPI.email.updateSource(payload);
+    suiteAPI.email.updateSource(payload, options);
 
 ##### [Launch](http://documentation.emarsys.com/resource/developers/api/email/launch-campaign/)
 
-    suiteAPI.email.launch(payload);
+    suiteAPI.email.launch(payload, options);
 
 ##### [Launch list](http://documentation.emarsys.com/resource/developers/api/email/list-launches/)
 
-    suiteAPI.email.launchList(payload);
+    suiteAPI.email.launchList(payload, options);
 
 ##### [List](http://documentation.emarsys.com/resource/developers/api/email/list-campaigns/)
 
-    suiteAPI.email.list(payload);
+    suiteAPI.email.list(payload, options);
 
 ##### [Get](http://documentation.emarsys.com/resource/developers/api/email/campaign-data/)
 
-    suiteAPI.email.get(payload);
+    suiteAPI.email.get(payload, options);
 
 ##### [Patch](http://documentation.emarsys.com/resource/developers/api/email/update-campaign/)
 
-    suiteAPI.email.patch(payload);
+    suiteAPI.email.patch(payload, options);
 
 ##### [Sending a Test Email](http://documentation.emarsys.com/resource/developers/api/email/send-testmail/)
 
-    suiteAPI.email.sendTestMail(payload);
+    suiteAPI.email.sendTestMail(payload, options);
 
 ##### [Delivery Status](https://documentation.emarsys.com/resource/developers/endpoints/email/delivery-status/)
 
-    suiteAPI.email.getDeliveryStatus(payload);
+    suiteAPI.email.getDeliveryStatus(payload, options);
 
 ##### [Response](https://documentation.emarsys.com/resource/developers/endpoints/email/query-responses/)
 
-    suiteAPI.email.responses(payload);
+    suiteAPI.email.responses(payload, options);
 
 ##### [getResponseSummary](http://documentation.emarsys.com/resource/developers/endpoints/email/response-summary/)
 
 Returns the summary of the responses of a launched, paused, activated or deactivated email campaign.
 
-    suiteAPI.email.getResponseSummary(payload);
+    suiteAPI.email.getResponseSummary(payload, options);
 
 ##### Querying Email Personalizations
 
 Lists all possible alternate texts with their email campaigns. Alternate texts are defined for a specific field, and
 displayed in the email campaign if this field has no value.
 
-    suiteAPI.email.getPersonalizations(payload);
+    suiteAPI.email.getPersonalizations(payload, options);
 
 ##### Updating Email Personalizations
 
 Updates alternate texts.
 
-    suiteAPI.email.setPersonalizations(payload);
+    suiteAPI.email.setPersonalizations(payload, options);
 
 ##### [Creating a Tracked Link](https://documentation.emarsys.com/resource/developers/endpoints/email/creating-tracked-links/)
 
-    suiteAPI.email.createTrackedLink(payload);
+    suiteAPI.email.createTrackedLink(payload, options);
 
 ##### [Querying Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/list-links/)
 
-    suiteAPI.email.getTrackedLinks(payload);
+    suiteAPI.email.getTrackedLinks(payload, options);
 
 ##### [Updating a Tracked Link](https://documentation.emarsys.com/resource/developers/endpoints/email/update-link/)
 
-    suiteAPI.email.updateTrackedLink(payload);
+    suiteAPI.email.updateTrackedLink(payload, options);
 
 ##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
 
-    suiteAPI.email.deleteTrackedLinks(payload);
+    suiteAPI.email.deleteTrackedLinks(payload, options);
 
 ##### [Export contact list](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/export-list/)
 
-    suiteAPI.email.getContacts(payload);
+    suiteAPI.email.getContacts(payload, options);
 
 ##### [Deleting Tracked Links](https://documentation.emarsys.com/resource/developers/endpoints/email/delete-all-links/)
 
-    suiteAPI.email.deleteTrackedLinksBySource(payload);
+    suiteAPI.email.deleteTrackedLinksBySource(payload, options);
 
 ##### [Listing Programs Email is used in](https://documentation.emarsys.com/resource/developers/endpoints/email/programs/)
 
-    suiteAPI.email.listPrograms(payload);
+    suiteAPI.email.listPrograms(payload, options);
 
 #### Segment
 
 ##### [List contacts](http://documentation.emarsys.com/resource/developers/api/contacts/list-contacts-in-segment/)
 
-    suiteAPI.segment.listContacts(payload);
+    suiteAPI.segment.listContacts(payload, options);
 
 ##### [Count contacts](http://documentation.emarsys.com/resource/developers/api/contacts/counting-contacts-in-a-segment/)
 
-    suiteAPI.segment.countContacts(payload);
+    suiteAPI.segment.countContacts(payload, options);
 
 ##### [List segments](http://documentation.emarsys.com/resource/developers/api/contacts/list-segments/)
 
-    suiteAPI.segment.listSegments(payload);
+    suiteAPI.segment.listSegments(payload, options);
 
 ##### [Create new segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/creating-a-segment/)
 
-    suiteAPI.segment.create(payload);
+    suiteAPI.segment.create(payload, options);
 
 ##### [Querying contact criteria of a segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/querying-contact-criteria-in-a-segment/)
 
-    suiteAPI.segment.getContactCriteria(payload);
+    suiteAPI.segment.getContactCriteria(payload, options);
 
 ##### [Updating contact criteria of a segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/updating-contact-criteria-in-a-segment/)
 
-    suiteAPI.segment.updateContactCriteria(payload);
+    suiteAPI.segment.updateContactCriteria(payload, options);
 
 #### Combined Segment
 
 ##### [List combined segments](https://documentation.emarsys.com/resource/developers/endpoints/contacts/list-combined-segments/)
 
-    suiteAPI.combinedSegment.list(payload);
+    suiteAPI.combinedSegment.list(payload, options);
 
 ##### [Create new combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/create-combined-segment/)
 
-    suiteAPI.combinedSegment.create(payload);
+    suiteAPI.combinedSegment.create(payload, options);
 
 ##### [Querying a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/combined-segment-data/)
 
-    suiteAPI.combinedSegment.get(payload);
+    suiteAPI.combinedSegment.get(payload, options);
 
 ##### [Updating a combined segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/update-combined-segment/)
 
-    suiteAPI.combinedSegment.update(payload);
+    suiteAPI.combinedSegment.update(payload, options);
 
 #### Purchases
 
@@ -520,35 +520,35 @@ Updates alternate texts.
 
 Lists the purchases of customers per day.
 
-    suiteAPI.purchase.list(payload);
+    suiteAPI.purchase.list(payload, options);
 
 #### Contact Fields
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/contacts/create-field/)
 
-    suiteAPI.field.create(payload);
+    suiteAPI.field.create(payload, options);
 
 ##### [Listing Available Fields](http://documentation.emarsys.com/resource/developers/api/contacts/list-fields/)
 
-    suiteAPI.field.get(payload);
+    suiteAPI.field.get(payload, options);
 
 ##### [Listing Available Fields Choices](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-field-choices/)
 
-    suiteAPI.field.getChoices(payload);
+    suiteAPI.field.getChoices(payload, options);
     
 ##### Listing Available Fields Choices for multiple fields
 
-    suiteAPI.field.getMultipleChoices(payload);    
+    suiteAPI.field.getMultipleChoices(payload, options);
 
 #### Export
 
 ##### [Downloading export data](http://documentation.emarsys.com/resource/developers/endpoints/exporting-data/download-data/)
 
-    suiteAPI.export.getData(payload);
+    suiteAPI.export.getData(payload, options);
 
 ##### [Get Changes](https://help.emarsys.com/hc/en-us/articles/115004497073)
 
-    suiteAPI.export.getChanges(payload);
+    suiteAPI.export.getChanges(payload, options);
 
 #### Keyring
 
@@ -556,26 +556,26 @@ Manage customer PKI options
 
 ##### list
 
-    suiteAPI.keyring.list(payload);
+    suiteAPI.keyring.list(payload, options);
 
 ##### get
 
-    suiteAPI.keyring.get(payload);
+    suiteAPI.keyring.get(payload, options);
 
 ##### create
 
-    suiteAPI.keyring.create(payload);
+    suiteAPI.keyring.create(payload, options);
 
 ##### delete
 
-    suiteAPI.keyring.delete(payload);
+    suiteAPI.keyring.delete(payload, options);
 
 #### Contact Sources
 
 ##### [Create](http://documentation.emarsys.com/resource/developers/endpoints/contacts/create-new-contact-source/)
 
-  suiteAPI.source.create(payload);
+  suiteAPI.source.create(payload, options);
 
 ##### [Listing Sources](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-contact-sources/)
 
-  suiteAPI.source.listSources(payload);
+  suiteAPI.source.listSources(payload, options);
