@@ -173,8 +173,10 @@ Changes the status of the disabled admin back to enabled so logging in becomes p
 ##### [Get Interface Languages](http://documentation.emarsys.com/resource/developers/api/customers/administrator-ui-languages/)
 
     suiteAPI.administrator.getInterfaceLanguages(payload, options);
-    
+
 ##### [Get Start Pages](http://documentation.emarsys.com/resource/querying-start-pages/)
+
+Returns the start pages of an administrator.
 
     suiteAPI.administrator.getStartPages(payload, options);
 
@@ -535,7 +537,7 @@ Lists the purchases of customers per day.
 ##### [Listing Available Fields Choices](http://documentation.emarsys.com/resource/developers/endpoints/contacts/list-field-choices/)
 
     suiteAPI.field.getChoices(payload, options);
-    
+
 ##### Listing Available Fields Choices for multiple fields
 
     suiteAPI.field.getMultipleChoices(payload, options);

@@ -8,6 +8,7 @@ var testApiMethod = require('../_test');
 var SuiteRequestError = require('escher-suiteapi-js').Error;
 
 describe('SuiteAPI Administrator endpoint', function() {
+  const ADMINISTRATOR_ID = 12;
 
   describe('#getAdministrators', function() {
     testApiMethod(AdministratorAPI, 'getAdministrators').shouldGetResultFromEndpoint('/administrator');
@@ -20,7 +21,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
 
   describe('#getStartPages', function() {
-    testApiMethod(AdministratorAPI, 'getStartPages').shouldGetResultFromEndpoint('/administrator/getstartpages');
+    testApiMethod(AdministratorAPI, 'getStartPages').withArgs({
+      administrator_id: ADMINISTRATOR_ID
+    }).shouldGetResultFromEndpoint(`/administrator/${ADMINISTRATOR_ID}/getstartpages`);
   });
 
 
@@ -31,9 +34,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#patchAdministrator', function() {
     testApiMethod(AdministratorAPI, 'patchAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', {
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, {
       data: 'someData'
     });
 
@@ -321,9 +324,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#enableAdministrator', function() {
     testApiMethod(AdministratorAPI, 'enableAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', sinon.match({
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, sinon.match({
       data: 'someData'
     }));
 
@@ -362,9 +365,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#disableAdministrator', function() {
     testApiMethod(AdministratorAPI, 'disableAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', sinon.match({
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, sinon.match({
       data: 'someData'
     }));
 
@@ -400,10 +403,10 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#deleteAdministrator', function() {
     testApiMethod(AdministratorAPI, 'deleteAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       successor_administrator_id: 55,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/delete', {
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/delete`, {
       data: 'someData',
       successor_administrator_id: 55
     });
