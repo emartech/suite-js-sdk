@@ -21,7 +21,13 @@ describe('SuiteAPI Administrator endpoint', function() {
 
 
   describe('#getStartPages', function() {
-    testApiMethod(AdministratorAPI, 'getStartPages').withArgs({
+    testApiMethod(AdministratorAPI, 'getStartPages')
+      .shouldGetResultFromEndpoint('/administrator/getstartpages');
+  });
+
+
+  describe('#getRestrictedStartPages', function() {
+    testApiMethod(AdministratorAPI, 'getRestrictedStartPages').withArgs({
       administrator_id: ADMINISTRATOR_ID
     }).shouldGetResultFromEndpoint(`/administrator/${ADMINISTRATOR_ID}/getstartpages`);
   });

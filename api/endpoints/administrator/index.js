@@ -110,8 +110,19 @@ _.extend(Administrator.prototype, {
 
 
   getStartPages: function(payload, options) {
+    logger.log('administrator_get_start_pages');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      util.format('/administrator/getstartpages'),
+      options
+    );
+  },
+
+
+  getRestrictedStartPages: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id']).then(() => {
-      logger.log('administrator_get_start_pages');
+      logger.log('administrator_get_restricted_start_pages');
 
       return this._request.get(
         this._getCustomerId(options),
