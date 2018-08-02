@@ -57,19 +57,11 @@ _.extend(Administrator.prototype, {
       var administratorId = payload.administrator_id;
       payload = this._cleanPayload(payload, ['administrator_id']);
 
-      return this.getAdministrators(payload, options).then(function(response) {
-        var firstAdmin = new AdminList(response.body.data).getFirstById(administratorId);
-
-        if (firstAdmin) {
-          return Promise.resolve({
-            body: {
-              data: firstAdmin
-            }
-          });
-        }
-
-        return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
-      }.bind(this));
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(`/administrator/${administratorId}`, payload),
+        options
+      );
     }.bind(this));
   },
 
