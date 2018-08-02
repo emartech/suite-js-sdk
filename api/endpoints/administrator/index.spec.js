@@ -51,32 +51,20 @@ describe('SuiteAPI Administrator endpoint', function() {
 
 
   describe('#getAdministrator', function() {
+    const administratorId = '3';
+
     testApiMethod(AdministratorAPI, 'getAdministrator').withArgs({
-      administrator_id: '3'
+      administrator_id: administratorId
     })
     .requestResponseWith({
       body: {
-        data: [
-          { id: '1', superadmin: '0' },
-          { id: '2', superadmin: '1' },
-          { id: '3', superadmin: '0' }
-        ]
+        data: { id: administratorId, superadmin: '0' }
       }
-    }).shouldGetResultFromEndpoint('/administrator', {
-      body: { data: { id: '3', superadmin: '0' } }
+    }).shouldGetResultFromEndpoint(`/administrator/${administratorId}`, {
+      body: { data: { id: administratorId, superadmin: '0' } }
     });
 
     testApiMethod(AdministratorAPI, 'getAdministrator').shouldThrowMissingParameterError('administrator_id');
-
-
-    describe('requesting admin who not exists', function() {
-      testApiMethod(AdministratorAPI, 'getAdministrator').withArgs({
-        administrator_id: '12345'
-      })
-      .requestResponseWith({
-        body: { data: [{ id: '1', superadmin: '0' }] }
-      }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
-    });
   });
 
 
