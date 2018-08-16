@@ -18,7 +18,7 @@
     "url": "git+https://github.com/emartech/suite-js-sdk.git"
   },
   "author": "Viktor Somodi <viktor.somodi@emarsys.com>",
-  "license": "isc",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
