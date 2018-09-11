@@ -359,6 +359,10 @@ Possible IP address rules can be defined.
 
     suiteAPI.settings.setIpRestrictions(payload, options);
 
+##### Get available languages
+
+    suiteAPI.settings.getLanguages(payload, options);
+
 ##### Get security settings
 
 Get security settings (IP whitelisting enabled option)
