@@ -51,6 +51,19 @@ _.extend(Segment.prototype, {
     );
   },
 
+  getSegment: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      var url = util.format('/filter/%s', payload.segment_id);
+      logger.log('get_segment');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrlForSegmentation(url, payload, ['segment_id']),
+        options
+      );
+    }.bind(this));
+  },
+
   create: function(payload, options) {
     logger.log('segment_create');
 
