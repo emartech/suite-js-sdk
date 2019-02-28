@@ -490,6 +490,10 @@ Updates alternate texts.
 
     suiteAPI.segment.listSegments(payload, options);
 
+##### [Get Segment](http://documentation.emarsys.com/resource/developers/api/contacts/list-segments/)
+
+    suiteAPI.segment.getSegment(payload, options);
+
 ##### [Create new segment](https://documentation.emarsys.com/resource/developers/endpoints/contacts/creating-a-segment/)
 
     suiteAPI.segment.create(payload, options);
