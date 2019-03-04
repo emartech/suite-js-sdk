@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\") && npm run audit",
-    "code-style": "eslint $(find . -name \"*.js\" -not -path \"./node_modules/*\")",
+    "code-style": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release",
     "audit": "npm audit --json | audit-filter"
@@ -46,10 +46,10 @@
     "chai-as-promised": "5.3.0",
     "chai-subset": "1.3.0",
     "co-mocha": "1.1.3",
-    "eslint": "3.4.0",
-    "eslint-config-emarsys": "4.0.0",
-    "eslint-plugin-no-only-tests": "1.1.0",
-    "eslint-plugin-security": "1.2.0",
+    "eslint": "5.15.0",
+    "eslint-config-emarsys": "5.1.0",
+    "eslint-plugin-no-only-tests": "2.1.0",
+    "eslint-plugin-security": "1.4.0",
     "mocha": "3.0.2",
     "nock": "10.0.6",
     "pre-commit": "1.2.2",
