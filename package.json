@@ -6,7 +6,7 @@
     "test": "NODE_ENV=test mocha --require co-mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\") && npm run audit",
     "code-style": "eslint $(find . -name \"*.js\" -not -path \"./node_modules/*\")",
     "validate-commit-msg": "validate-commit-msg",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "audit": "npm audit --json | audit-filter"
   },
   "release": {
@@ -33,15 +33,15 @@
     "escher-auth": "0.3.0",
     "escher-keypool": "2.0.2",
     "escher-suiteapi-js": "13.0.0",
-    "flat": "2.0.1",
-    "lodash": "4.17.10",
+    "flat": "4.1.0",
+    "lodash": "4.17.11",
     "logentries-logformat": "0.2.0",
-    "moment-timezone": "0.5.16",
-    "node-cache": "3.2.1",
-    "sprintf-js": "1.0.3"
+    "moment-timezone": "0.5.23",
+    "node-cache": "4.2.0",
+    "sprintf-js": "1.1.2"
   },
   "devDependencies": {
-    "audit-filter": "0.3.0",
+    "audit-filter": "0.4.3",
     "chai": "3.5.0",
     "chai-as-promised": "5.3.0",
     "chai-subset": "1.3.0",
@@ -51,9 +51,9 @@
     "eslint-plugin-no-only-tests": "1.1.0",
     "eslint-plugin-security": "1.2.0",
     "mocha": "3.0.2",
-    "nock": "8.0.0",
-    "pre-commit": "1.1.3",
-    "semantic-release": "4.3.5",
+    "nock": "10.0.6",
+    "pre-commit": "1.2.2",
+    "semantic-release": "15.13.3",
     "sinon": "1.17.5",
     "sinon-chai": "2.8.0",
     "validate-commit-message": "3.0.1"
