@@ -30,9 +30,9 @@
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "co-request": "1.0.0",
-    "escher-auth": "0.3.0",
+    "escher-auth": "3.1.0",
     "escher-keypool": "2.0.2",
-    "escher-suiteapi-js": "13.0.0",
+    "escher-suiteapi-js": "14.0.0",
     "flat": "4.1.0",
     "lodash": "4.17.11",
     "logentries-logformat": "0.2.0",
