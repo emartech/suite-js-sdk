@@ -94,9 +94,9 @@ describe('Suite translation middleware', function() {
         .decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
 
       expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
-          { administrator_id: '21' },
-          testApiOptions
-        );
+        { administrator_id: '21' },
+        testApiOptions
+      );
     });
 
     it('should pass the correct translation file name', function*() {

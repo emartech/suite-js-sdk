@@ -7,8 +7,8 @@ describe('SuiteAPI Combined Segment endpoint', function() {
 
   describe('#list', function() {
     testApiMethod(CombinedSegmentAPI, 'list')
-        .withArgs({})
-        .shouldGetResultFromEndpoint('/combinedsegments');
+      .withArgs({})
+      .shouldGetResultFromEndpoint('/combinedsegments');
   });
 
 

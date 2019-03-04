@@ -56,13 +56,13 @@ describe('SuiteAPI Administrator endpoint', function() {
     testApiMethod(AdministratorAPI, 'getAdministrator').withArgs({
       administrator_id: administratorId
     })
-    .requestResponseWith({
-      body: {
-        data: { id: administratorId, superadmin: '0' }
-      }
-    }).shouldGetResultFromEndpoint(`/administrator/${administratorId}`, {
-      body: { data: { id: administratorId, superadmin: '0' } }
-    });
+      .requestResponseWith({
+        body: {
+          data: { id: administratorId, superadmin: '0' }
+        }
+      }).shouldGetResultFromEndpoint(`/administrator/${administratorId}`, {
+        body: { data: { id: administratorId, superadmin: '0' } }
+      });
 
     testApiMethod(AdministratorAPI, 'getAdministrator').shouldThrowMissingParameterError('administrator_id');
   });
@@ -72,16 +72,16 @@ describe('SuiteAPI Administrator endpoint', function() {
     testApiMethod(AdministratorAPI, 'getAdministratorByName').withArgs({
       admin_name: 'adminName'
     })
-    .requestResponseWith({
-      body: {
-        data: [
-          { id: '1', username: 'adminName', email: 'kalman@email.com' },
-          { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
-        ]
-      }
-    }).shouldGetResultFromEndpoint('/administrator', {
-      body: { data: { id: '1', username: 'adminName', email: 'kalman@email.com' } }
-    });
+      .requestResponseWith({
+        body: {
+          data: [
+            { id: '1', username: 'adminName', email: 'kalman@email.com' },
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
+          ]
+        }
+      }).shouldGetResultFromEndpoint('/administrator', {
+        body: { data: { id: '1', username: 'adminName', email: 'kalman@email.com' } }
+      });
 
     testApiMethod(AdministratorAPI, 'getAdministratorByName').shouldThrowMissingParameterError('admin_name');
 
@@ -90,48 +90,48 @@ describe('SuiteAPI Administrator endpoint', function() {
       testApiMethod(AdministratorAPI, 'getAdministratorByName').withArgs({
         admin_name: 'notExists'
       })
-      .requestResponseWith({
-        body: {
-          data: [
-            { id: '1', username: 'adminName', email: 'kalman@email.com' },
-            { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
-          ]
-        }
-      }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
+        .requestResponseWith({
+          body: {
+            data: [
+              { id: '1', username: 'adminName', email: 'kalman@email.com' },
+              { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
+            ]
+          }
+        }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
     });
   });
 
 
   describe('#getSuperadmins', function() {
     testApiMethod(AdministratorAPI, 'getSuperadmins')
-        .requestResponseWith({
-          body: {
-            data: [
-              { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
-              { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
-            ]
-          }
-        }).shouldGetResultFromEndpoint('/administrator', {
-          body: {
-            data: [
-              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
-              { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
-            ]
-          }
-        });
+      .requestResponseWith({
+        body: {
+          data: [
+            { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
+            { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
+          ]
+        }
+      }).shouldGetResultFromEndpoint('/administrator', {
+        body: {
+          data: [
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
+            { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
+          ]
+        }
+      });
 
 
     describe('requesting admin who not exists', function() {
       testApiMethod(AdministratorAPI, 'getSuperadmins')
-          .requestResponseWith({
-            body: {
-              data: [
-                { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-                { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
-              ]
-            }
-          }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
+        .requestResponseWith({
+          body: {
+            data: [
+              { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
+              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
+            ]
+          }
+        }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
     });
   });
 

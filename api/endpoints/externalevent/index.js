@@ -27,9 +27,9 @@ _.extend(ExternalEvent.prototype, {
   get: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
       return this._request.get(
-          this._getCustomerId(options),
-          util.format('/event/%s', payload.event_id),
-          options
+        this._getCustomerId(options),
+        util.format('/event/%s', payload.event_id),
+        options
       );
     }.bind(this));
   },
@@ -47,10 +47,10 @@ _.extend(ExternalEvent.prototype, {
     return this._requireParameters(payload, ['event_id']).then(function() {
       logger.log('externalevent_update');
       return this._request.post(
-          this._getCustomerId(options),
-          util.format('/event/%s', payload.event_id),
-          this._cleanPayload(payload, ['event_id']),
-          options
+        this._getCustomerId(options),
+        util.format('/event/%s', payload.event_id),
+        this._cleanPayload(payload, ['event_id']),
+        options
       );
     }.bind(this));
   },
@@ -59,10 +59,10 @@ _.extend(ExternalEvent.prototype, {
     return this._requireParameters(payload, ['event_id']).then(function() {
       logger.log('externalevent_update');
       return this._request.post(
-          this._getCustomerId(options),
-          util.format('/event/%s/delete', payload.event_id),
-          this._cleanPayload(payload, ['event_id']),
-          options
+        this._getCustomerId(options),
+        util.format('/event/%s/delete', payload.event_id),
+        this._cleanPayload(payload, ['event_id']),
+        options
       );
     }.bind(this));
 
