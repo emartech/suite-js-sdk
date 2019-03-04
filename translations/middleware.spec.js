@@ -49,7 +49,7 @@ describe('Suite translation middleware', function() {
 
       fakeApi.administrator.getAdministrator
         .withArgs({ administrator_id: validValidatedData.admin_id })
-        .returnsWithResolve({ body: { data: { interface_language: 'mx' } } });
+        .resolves({ body: { data: { interface_language: 'mx' } } });
     });
 
     afterEach(function() {
@@ -157,15 +157,13 @@ describe('Suite translation middleware', function() {
 
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
-      var renderData = { someData: 1 };
+      var renderData = { someData: 2 };
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
-      expect(context.getLastRenderData()).to.containSubset({
-        _: fakeTranslator.translate
-      });
+      expect(context.getLastRenderData()).to.have.property('_').that.eql(fakeTranslator.translate);
       expect(Translator.create).to.have.been.calledWith(fakeResponseForTranslations);
     });
 

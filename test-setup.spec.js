@@ -11,20 +11,11 @@ before(function() {
   chai.use(chaiAsPromised);
   chai.use(chaiSubset);
   chai.use(sinonChai);
-
-  sinon.stub.returnsWithResolve = function(data) {
-    return this.returns(Promise.resolve(data));
-  };
-
-  sinon.stub.returnsWithReject = function(error) {
-    return this.returns(Promise.reject(error));
-  };
-
 });
 
 
 beforeEach(function() {
-  this.sandbox = sinon.sandbox.create();
+  this.sandbox = sinon.createSandbox();
 });
 
 
