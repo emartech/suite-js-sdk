@@ -9,11 +9,6 @@
     "semantic-release": "semantic-release",
     "audit": "npm audit --json | audit-filter"
   },
-  "release": {
-    "verifyConditions": {
-      "path": "./node_modules/semantic-release/dist/lib/plugin-noop.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/emartech/suite-js-sdk.git"
