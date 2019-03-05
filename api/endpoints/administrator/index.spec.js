@@ -167,8 +167,8 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('adding default values', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(PasswordGenerator, 'generate').returns('test!!!Password');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'createAdministrator')
@@ -187,7 +187,7 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#inviteExistingAdministrator', function() {
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'inviteExistingAdministrator')
@@ -251,8 +251,8 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('adding default values', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(PasswordGenerator, 'generate').returns('test!!!Password');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'createSuperadmin')
@@ -271,7 +271,7 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#promoteToSuperadmin', function() {
     describe('should not modify the access level', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'promoteToSuperadmin')
@@ -329,7 +329,7 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'enableAdministrator')
@@ -370,7 +370,7 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'disableAdministrator')

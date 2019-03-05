@@ -22,7 +22,6 @@ var SettingsAPI = require('./endpoints/settings');
 var KeyringAPI = require('./endpoints/keyring');
 
 var Request = require('./../lib/api-request');
-var expect = require('chai').expect;
 var SuiteRequestOptions = SuiteRequest.Options;
 
 var config = require('../config');
@@ -35,10 +34,10 @@ describe('SuiteApi', function() {
 
     beforeEach(function() {
       stubRequestCreation = (function() {
-        this.sandbox.stub(SuiteRequest, 'create');
-        this.sandbox.stub(Request, 'create');
-        this.sandbox.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
-        this.sandbox.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
+        sinon.stub(SuiteRequest, 'create');
+        sinon.stub(Request, 'create');
+        sinon.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
+        sinon.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
     });
 
@@ -64,9 +63,9 @@ describe('SuiteApi', function() {
       describe('keypool provided but api key and api secret not', function() {
 
         it('should return a new instance with configuration from key pool', function() {
-          this.sandbox.stub(config.suiteApi, 'environment').value('environmentFromEnv');
-          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized').value(false);
-          this.sandbox.stub(config.suiteApi, 'keyPool').value(JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]));
+          sinon.stub(config.suiteApi, 'environment').value('environmentFromEnv');
+          sinon.stub(config.suiteApi, 'rejectUnauthorized').value(false);
+          sinon.stub(config.suiteApi, 'keyPool').value(JSON.stringify([{ keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 }]));
 
           stubRequestCreation();
 
@@ -85,13 +84,13 @@ describe('SuiteApi', function() {
 
 
         it('should return a new instance with configuration from key pool for the given scope if scope environment variable exists', function() {
-          this.sandbox.stub(config.suiteApi, 'environment').value('environmentFromEnv');
-          this.sandbox.stub(config.suiteApi, 'rejectUnauthorized').value(false);
-          this.sandbox.stub(config.suiteApi, 'keyPool').value(JSON.stringify([
+          sinon.stub(config.suiteApi, 'environment').value('environmentFromEnv');
+          sinon.stub(config.suiteApi, 'rejectUnauthorized').value(false);
+          sinon.stub(config.suiteApi, 'keyPool').value(JSON.stringify([
             { keyId: 'suite_ums_v1', secret: '<Y>', acceptOnly: 0 },
             { keyId: 'suite_noc_v1', secret: '<Y>', acceptOnly: 0 }
           ]));
-          this.sandbox.stub(config.suiteApi, 'keyId').value('suite_noc');
+          sinon.stub(config.suiteApi, 'keyId').value('suite_noc');
 
           stubRequestCreation();
 
@@ -114,12 +113,12 @@ describe('SuiteApi', function() {
     describe('environment and key data is provided', function() {
 
       it('should return a new instance with configuration from env variables', function() {
-        this.sandbox.stub(config.suiteApi, 'environment').value('environmentFromEnv');
-        this.sandbox.stub(config.suiteApi, 'rejectUnauthorized').value(false);
-        this.sandbox.stub(config.suiteApi, 'apiKey').value('apiKeyFromEnv');
-        this.sandbox.stub(config.suiteApi, 'apiSecret').value('apiSecretFromEnv');
-        this.sandbox.stub(config.suiteApi, 'secure').value(false);
-        this.sandbox.stub(config.suiteApi, 'timeout').value(13500);
+        sinon.stub(config.suiteApi, 'environment').value('environmentFromEnv');
+        sinon.stub(config.suiteApi, 'rejectUnauthorized').value(false);
+        sinon.stub(config.suiteApi, 'apiKey').value('apiKeyFromEnv');
+        sinon.stub(config.suiteApi, 'apiSecret').value('apiSecretFromEnv');
+        sinon.stub(config.suiteApi, 'secure').value(false);
+        sinon.stub(config.suiteApi, 'timeout').value(13500);
 
         stubRequestCreation();
 
@@ -145,8 +144,8 @@ describe('SuiteApi', function() {
     describe('environment is not provided from any source', function() {
 
       it('should return a new instance with API proxy', function() {
-        this.sandbox.stub(config.suiteApi, 'apiKey').value('apiKeyFromEnv');
-        this.sandbox.stub(config.suiteApi, 'apiSecret').value('apiSecretFromEnv');
+        sinon.stub(config.suiteApi, 'apiKey').value('apiKeyFromEnv');
+        sinon.stub(config.suiteApi, 'apiSecret').value('apiSecretFromEnv');
 
         stubRequestCreation();
 
@@ -193,29 +192,29 @@ describe('SuiteApi', function() {
         timeout: 15000
       };
 
-      this.sandbox.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
-      this.sandbox.stub(AutomationCenterAPI, 'create').returns('FromAutomationCenterEndpointStub');
-      this.sandbox.stub(CampaignAPI, 'create').returns('FromCampaignEndpointStub');
-      this.sandbox.stub(CombinedSegmentAPI, 'create').returns('FromCombinedSegmentEndpointStub');
-      this.sandbox.stub(ConditionAPI, 'create').returns('FromConditionEndpointStub');
-      this.sandbox.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
-      this.sandbox.stub(ContactListAPI, 'create').returns('FromContactListEndpointStub');
-      this.sandbox.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
-      this.sandbox.stub(ExportAPI, 'create').returns('FromExportEndpointStub');
-      this.sandbox.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
-      this.sandbox.stub(FieldAPI, 'create').returns('FromFieldEndpointStub');
-      this.sandbox.stub(FormAPI, 'create').returns('FromFormEndpointStub');
-      this.sandbox.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
-      this.sandbox.stub(PurchaseAPI, 'create').returns('FromPurchaseEndpointStub');
-      this.sandbox.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
-      this.sandbox.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
-      this.sandbox.stub(KeyringAPI, 'create').returns('FromKeyringEndpointStub');
+      sinon.stub(AdministratorAPI, 'create').returns('FromAdministratorEndpointStub');
+      sinon.stub(AutomationCenterAPI, 'create').returns('FromAutomationCenterEndpointStub');
+      sinon.stub(CampaignAPI, 'create').returns('FromCampaignEndpointStub');
+      sinon.stub(CombinedSegmentAPI, 'create').returns('FromCombinedSegmentEndpointStub');
+      sinon.stub(ConditionAPI, 'create').returns('FromConditionEndpointStub');
+      sinon.stub(ContactAPI, 'create').returns('FromContactEndpointStub');
+      sinon.stub(ContactListAPI, 'create').returns('FromContactListEndpointStub');
+      sinon.stub(EmailAPI, 'create').returns('FromEmailEndpointStub');
+      sinon.stub(ExportAPI, 'create').returns('FromExportEndpointStub');
+      sinon.stub(ExternalEventAPI, 'create').returns('FromExternalEventEndpointStub');
+      sinon.stub(FieldAPI, 'create').returns('FromFieldEndpointStub');
+      sinon.stub(FormAPI, 'create').returns('FromFormEndpointStub');
+      sinon.stub(LanguageAPI, 'create').returns('FromLanguageEndpointStub');
+      sinon.stub(PurchaseAPI, 'create').returns('FromPurchaseEndpointStub');
+      sinon.stub(SegmentAPI, 'create').returns('FromSegmentEndpointStub');
+      sinon.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
+      sinon.stub(KeyringAPI, 'create').returns('FromKeyringEndpointStub');
 
-      var suiteRequestStub = this.sandbox.stub(SuiteRequest, 'create');
+      var suiteRequestStub = sinon.stub(SuiteRequest, 'create');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
       suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom' };
-      this.sandbox.stub(Request, 'create').withArgs(options).returns(fakeRequest);
+      sinon.stub(Request, 'create').withArgs(options).returns(fakeRequest);
       sdk = SuiteAPI.create(options);
     });
 

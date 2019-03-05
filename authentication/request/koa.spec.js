@@ -1,10 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect;
 var Escher = require('escher-auth');
-var getMiddleware = require('./koa').getMiddleware;
 var KeyPool = require('escher-keypool');
-var sinon = require('sinon');
+var getMiddleware = require('./koa').getMiddleware;
 
 describe('Koa Escher Request Authentication Middleware', function() {
   var escherConfig;
@@ -48,7 +46,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
         credentialScope: 'testScope'
       };
 
-      this.sandbox.stub(Escher, 'create');
+      sinon.stub(Escher, 'create');
 
       yield callMiddleware(createContextWithEmptyBody());
 
@@ -62,10 +60,10 @@ describe('Koa Escher Request Authentication Middleware', function() {
 
     beforeEach(function() {
       escherStub = {
-        authenticate: this.sandbox.stub()
+        authenticate: sinon.stub()
       };
 
-      this.sandbox.stub(Escher, 'create').returns(escherStub);
+      sinon.stub(Escher, 'create').returns(escherStub);
     });
 
     it('should have been called', function* () {
@@ -97,8 +95,8 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
     it('should have been called with the proper keys using keypool from configuration', function* () {
-      this.sandbox.stub(KeyPool, 'create').returns({
-        getKeyDb: this.sandbox.stub().returns('testKey')
+      sinon.stub(KeyPool, 'create').returns({
+        getKeyDb: sinon.stub().returns('testKey')
       });
 
       yield callMiddleware(createContextWithEmptyBody());

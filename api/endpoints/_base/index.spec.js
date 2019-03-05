@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var BaseApi = require('./');
 
 describe('Suite Base Api Endpoint', function() {

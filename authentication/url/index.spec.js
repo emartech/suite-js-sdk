@@ -1,7 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
-var sinon = require('sinon');
 var Escher = require('escher-auth');
 var SuiteSignedUrlAuthenticator = require('./');
 var KeyPool = require('escher-keypool');
@@ -13,7 +11,7 @@ describe('Suite API authentication', function() {
 
   beforeEach(function() {
     fakeEscher = { authenticate: sinon.stub() };
-    this.sandbox.stub(Escher, 'create').returns(fakeEscher);
+    sinon.stub(Escher, 'create').returns(fakeEscher);
   });
 
 

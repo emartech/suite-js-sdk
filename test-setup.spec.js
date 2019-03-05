@@ -1,24 +1,13 @@
 'use strict';
 
-var sinon = require('sinon');
+const chai = require('chai');
+chai.use(require('chai-as-promised'));
+chai.use(require('chai-subset'));
+chai.use(require('sinon-chai'));
 
-before(function() {
-  var chai = require('chai');
-  var sinonChai = require('sinon-chai');
-  var chaiSubset = require('chai-subset');
-  var chaiAsPromised = require('chai-as-promised');
-
-  chai.use(chaiAsPromised);
-  chai.use(chaiSubset);
-  chai.use(sinonChai);
-});
-
-
-beforeEach(function() {
-  this.sandbox = sinon.createSandbox();
-});
-
+global.expect = chai.expect;
+global.sinon = require('sinon');
 
 afterEach(function() {
-  this.sandbox.restore();
+  global.sinon.restore();
 });

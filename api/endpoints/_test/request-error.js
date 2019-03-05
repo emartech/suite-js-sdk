@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var SuiteRequestError = require('escher-suiteapi-js').Error;
 
 module.exports = {

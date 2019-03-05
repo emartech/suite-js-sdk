@@ -1,7 +1,6 @@
 /*eslint no-unused-expressions: 0*/
 'use strict';
 
-var expect = require('chai').expect;
 var FakeContext = require('../test-mocks').FakeContext;
 var FakeDecorator = require('../test-mocks').FakeTranslationRenderDecorator;
 var translationsDecoratorMiddleware = require('./middleware');
@@ -33,7 +32,7 @@ describe('Suite translation middleware', function() {
 
       fakeApi = {
         administrator: {
-          getAdministrator: this.sandbox.stub()
+          getAdministrator: sinon.stub()
         }
       };
 
@@ -45,7 +44,7 @@ describe('Suite translation middleware', function() {
 
       fakeResponseForTranslations = { messages: 'from mock' };
 
-      this.sandbox.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
+      sinon.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
 
       fakeApi.administrator.getAdministrator
         .withArgs({ administrator_id: validValidatedData.admin_id })
@@ -101,7 +100,7 @@ describe('Suite translation middleware', function() {
 
     it('should pass the correct translation file name', function*() {
       var testTranslationId = 'anotherTest';
-      this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
+      sinon.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslationId).call(context, next);
       expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslationId);
@@ -152,8 +151,8 @@ describe('Suite translation middleware', function() {
 
 
     it('should add translation method with admin\'s dictionary', function*() {
-      var fakeTranslator = { translate: this.sandbox.spy() };
-      this.sandbox.stub(Translator, 'create').returns(fakeTranslator);
+      var fakeTranslator = { translate: sinon.spy() };
+      sinon.stub(Translator, 'create').returns(fakeTranslator);
 
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
