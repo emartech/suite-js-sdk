@@ -1,7 +1,6 @@
 /*eslint no-unused-expressions: 0*/
 'use strict';
 
-var expect = require('chai').expect;
 var FakeContext = require('../test-mocks').FakeContext;
 var FakeDecorator = require('../test-mocks').FakeTranslationRenderDecorator;
 var translationsDecoratorMiddleware = require('./middleware');
@@ -33,7 +32,7 @@ describe('Suite translation middleware', function() {
 
       fakeApi = {
         administrator: {
-          getAdministrator: this.sandbox.stub()
+          getAdministrator: sinon.stub()
         }
       };
 
@@ -45,11 +44,11 @@ describe('Suite translation middleware', function() {
 
       fakeResponseForTranslations = { messages: 'from mock' };
 
-      this.sandbox.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
+      sinon.stub(SuiteAPI, 'createWithCache').returns(fakeApi);
 
       fakeApi.administrator.getAdministrator
         .withArgs({ administrator_id: validValidatedData.admin_id })
-        .returnsWithResolve({ body: { data: { interface_language: 'mx' } } });
+        .resolves({ body: { data: { interface_language: 'mx' } } });
     });
 
     afterEach(function() {
@@ -94,14 +93,14 @@ describe('Suite translation middleware', function() {
         .decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
 
       expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
-          { administrator_id: '21' },
-          testApiOptions
-        );
+        { administrator_id: '21' },
+        testApiOptions
+      );
     });
 
     it('should pass the correct translation file name', function*() {
       var testTranslationId = 'anotherTest';
-      this.sandbox.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
+      sinon.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslationId).call(context, next);
       expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslationId);
@@ -152,20 +151,18 @@ describe('Suite translation middleware', function() {
 
 
     it('should add translation method with admin\'s dictionary', function*() {
-      var fakeTranslator = { translate: this.sandbox.spy() };
-      this.sandbox.stub(Translator, 'create').returns(fakeTranslator);
+      var fakeTranslator = { translate: sinon.spy() };
+      sinon.stub(Translator, 'create').returns(fakeTranslator);
 
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
-      var renderData = { someData: 1 };
+      var renderData = { someData: 2 };
       context.setValidatedData(validValidatedData);
 
       yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
-      expect(context.getLastRenderData()).to.containSubset({
-        _: fakeTranslator.translate
-      });
+      expect(context.getLastRenderData()).to.have.property('_').that.eql(fakeTranslator.translate);
       expect(Translator.create).to.have.been.calledWith(fakeResponseForTranslations);
     });
 

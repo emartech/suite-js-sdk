@@ -18,9 +18,9 @@ _.extend(Condition.prototype, {
     logger.log('condition_list');
 
     return this._request.get(
-        this._getCustomerId(options),
-        this._buildUrl('/condition', payload),
-        options
+      this._getCustomerId(options),
+      this._buildUrl('/condition', payload),
+      options
     );
   },
 
@@ -28,9 +28,9 @@ _.extend(Condition.prototype, {
     logger.log('condition_list_with_contact_fields');
 
     return this._request.get(
-        this._getCustomerId(options),
-        this._buildUrl('/condition/contact_fields', payload),
-        options
+      this._getCustomerId(options),
+      this._buildUrl('/condition/contact_fields', payload),
+      options
     );
   }
 });

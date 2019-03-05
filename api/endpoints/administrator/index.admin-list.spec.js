@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var AdminList = require('./index.admin-list.js');
 
 describe('AdminList', function() {

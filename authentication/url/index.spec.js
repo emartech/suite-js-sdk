@@ -1,7 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
-var sinon = require('sinon');
 var Escher = require('escher-auth');
 var SuiteSignedUrlAuthenticator = require('./');
 var KeyPool = require('escher-keypool');
@@ -13,7 +11,7 @@ describe('Suite API authentication', function() {
 
   beforeEach(function() {
     fakeEscher = { authenticate: sinon.stub() };
-    this.sandbox.stub(Escher, 'create').returns(fakeEscher);
+    sinon.stub(Escher, 'create').returns(fakeEscher);
   });
 
 
@@ -53,7 +51,7 @@ describe('Suite API authentication', function() {
   });
 
 
-  it('should thrown an error if escher auth fails', function(done) {
+  it('should thrown an error if escher auth fails', function() {
     fakeEscher.authenticate.throws(new Error('The credential scope is invalid'));
 
     var suiteSignedUrlAuthenticator = new SuiteSignedUrlAuthenticator({
@@ -61,15 +59,12 @@ describe('Suite API authentication', function() {
       escherSecret: 'testEscherSecret'
     });
 
-    var err = new Error('Escher authentication');
-    err.reason = 'The credential scope is invalid';
-
-    try {
+    expect(function() {
       suiteSignedUrlAuthenticator.authenticate('testUrl', 'testHost');
-    } catch (ex) {
-      expect(ex).to.eql(err);
-      done();
-    }
+    })
+      .to.throw(Error, 'Escher authentication')
+      .that.has.property('reason')
+      .that.eql('The credential scope is invalid');
   });
 
 

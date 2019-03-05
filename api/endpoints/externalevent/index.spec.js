@@ -26,8 +26,8 @@ describe('SuiteAPI External Event endpoint', function() {
 
   describe('#list', function() {
     testApiMethod(ExternalEventAPI, 'list')
-        .withArgs({})
-        .shouldGetResultFromEndpoint('/event');
+      .withArgs({})
+      .shouldGetResultFromEndpoint('/event');
   });
 
 
