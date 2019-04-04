@@ -102,6 +102,31 @@ _.extend(Segment.prototype, {
     }.bind(this));
   },
 
+  runForSingleContact: function(payload, options) {
+    return this._requireParameters(payload, ['segment_id']).then(function() {
+      logger.log('segment_run_for_single_contact');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/filter/%s/single_runs', payload.segment_id),
+        {},
+        options
+      );
+    }.bind(this));
+  },
+
+  singleContactRunStatus: function(payload, options) {
+    return this._requireParameters(payload, ['run_id']).then(function() {
+      logger.log('segment_single_contact_run_status');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/filter/single_runs/%s', payload.run_id),
+        options
+      );
+    }.bind(this));
+  },
+
   runForMultipleContacts: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       logger.log('segment_run_for_multiple_contacts');
