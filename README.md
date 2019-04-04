@@ -506,6 +506,14 @@ Updates alternate texts.
 
     suiteAPI.segment.updateContactCriteria(payload, options);
 
+##### [Run Segment for Multiple Contacts](https://dev.emarsys.com/v2/segments/run-a-contact-segment-batch)
+
+    suiteAPI.segment.runForMultipleContacts(payload, options);
+
+##### [Get Segment Run Status for Multiple Contacts](https://dev.emarsys.com/v2/segments/poll-the-status-of-a-segment-run-for-multiple-contacts)
+
+    suiteAPI.segment.multipleContactsRunStatus(payload, options);
+
 #### Combined Segment
 
 ##### [List combined segments](https://dev.emarsys.com/v2/segments/list-combined-segments)
