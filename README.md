@@ -512,7 +512,7 @@ Updates alternate texts.
 
 ##### [Get Segment Run Status for Single Contact](https://dev.emarsys.com/v2/segments/poll-the-status-of-contact-segment-single)
 
-    suiteAPI.segment.multipleContactsRunStatus(payload, options);
+    suiteAPI.segment.singleContactRunStatus(payload, options);
 
 ##### [Run Segment for Multiple Contacts](https://dev.emarsys.com/v2/segments/run-a-contact-segment-batch)
 
