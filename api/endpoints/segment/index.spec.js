@@ -99,6 +99,24 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'updateContactCriteria').shouldThrowMissingParameterError('segment_id');
   });
 
+  describe('#runForSingleContact', function() {
+    const segmentId = 11223344;
+    testApiMethod(SegmentAPI, 'runForSingleContact').withArgs({
+      segment_id: segmentId
+    }).shouldPostToEndpoint(`/filter/${segmentId}/single_runs`, {});
+
+    testApiMethod(SegmentAPI, 'runForSingleContact').shouldThrowMissingParameterError('segment_id');
+  });
+
+  describe('#singleContactRunStatus', function() {
+    const runId = 'affe-dead';
+    testApiMethod(SegmentAPI, 'singleContactRunStatus').withArgs({
+      run_id: runId
+    }).shouldGetResultFromEndpoint(`/filter/single_runs/${runId}`);
+
+    testApiMethod(SegmentAPI, 'singleContactRunStatus').shouldThrowMissingParameterError('run_id');
+  });
+
   describe('#runForMultipleContacts', function() {
     testApiMethod(SegmentAPI, 'runForMultipleContacts').withArgs({
       segment_id: 8362723
