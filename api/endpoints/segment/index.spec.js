@@ -99,4 +99,20 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'updateContactCriteria').shouldThrowMissingParameterError('segment_id');
   });
 
+  describe('#runForMultipleContacts', function() {
+    testApiMethod(SegmentAPI, 'runForMultipleContacts').withArgs({
+      segment_id: 8362723
+    }).shouldPostToEndpoint('/filter/8362723/runs', {});
+
+    testApiMethod(SegmentAPI, 'runForMultipleContacts').shouldThrowMissingParameterError('segment_id');
+  });
+
+  describe('#multipleContactsRunStatus', function() {
+    const runId = 'abc-efg-63636';
+    testApiMethod(SegmentAPI, 'multipleContactsRunStatus').withArgs({
+      run_id: runId
+    }).shouldGetResultFromEndpoint(`/filter/runs/${runId}`);
+
+    testApiMethod(SegmentAPI, 'multipleContactsRunStatus').shouldThrowMissingParameterError('run_id');
+  });
 });
