@@ -23,6 +23,16 @@ _.extend(Purchase.prototype, {
       this._buildUrl('/purchases', payload),
       options
     );
+  },
+
+  stats: function(payload, options) {
+    logger.log('purchases_stats');
+
+    return this._request.get(
+      this._getCustomerId(options),
+      this._buildUrl('/purchases/stats', payload),
+      options
+    );
   }
 
 });
