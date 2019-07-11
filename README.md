@@ -544,9 +544,15 @@ Updates alternate texts.
 
 ##### List
 
-Lists the purchases of customers per day.
+Lists the purchases of customer for a date range.
 
     suiteAPI.purchase.list(payload, options);
+    
+##### Stats
+    
+Statistics about the purchases of customer.
+
+    suiteAPI.purchase.stats(payload, options);
 
 #### Contact Fields
 
