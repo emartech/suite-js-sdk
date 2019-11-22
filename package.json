@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:unit && npm run audit",
-    "test:unit": "NODE_ENV=test mocha $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
+    "test:unit": "NODE_ENV=test mocha --opts ./mocha.opts $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "code-style": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release",
