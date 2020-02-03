@@ -110,20 +110,9 @@ _.extend(Contact.prototype, {
       payload,
       options
     );
-  },
-
-  checkIds: function(payload, options) {
-    return this._requireParameters(payload, ['key_id', 'external_ids']).then(function() {
-      logger.log('contact_checkids');
-
-      return this._request.post(
-        this._getCustomerId(options),
-        '/contact/checkids',
-        payload,
-        options
-      );
-    }.bind(this));
   }
+
+
 
 });
 

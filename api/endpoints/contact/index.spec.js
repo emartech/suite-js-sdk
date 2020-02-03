@@ -124,20 +124,4 @@ describe('SuiteAPI Contact endpoint', function() {
 
   });
 
-  describe('#checkIds', function() {
-
-    testApiMethod(ContactAPI, 'checkIds').withArgs({}).shouldThrowMissingParameterError('key_id', 'external_ids');
-
-    testApiMethod(ContactAPI, 'checkIds').withArgs({
-      key_id: 3,
-      external_ids: ['some@email.hu', 'another@email.hu'],
-      get_multiple_ids: 1
-    }).shouldPostToEndpoint('/contact/checkids', {
-      key_id: 3,
-      external_ids: ['some@email.hu', 'another@email.hu'],
-      get_multiple_ids: 1
-    });
-
-  });
-
 });

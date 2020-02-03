@@ -263,10 +263,6 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
     suiteAPI.contact.delete(payload, options);
 
-##### [Check IDs](https://dev.emarsys.com/v2/contacts/verify-contact-internal-identifiers)
-
-    suiteAPI.contact.checkIds(payload, options);
-
 #### Contact List
 
 ##### [Create](https://dev.emarsys.com/v2/contact-lists/create-a-contact-list)
@@ -551,9 +547,9 @@ Updates alternate texts.
 Lists the purchases of customer for a date range.
 
     suiteAPI.purchase.list(payload, options);
-
+    
 ##### Stats
-
+    
 Statistics about the purchases of customer.
 
     suiteAPI.purchase.stats(payload, options);
