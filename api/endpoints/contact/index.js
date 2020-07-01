@@ -123,6 +123,19 @@ _.extend(Contact.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  lastChange: function(payload, options) {
+    return this._requireParameters(payload, ['keyId', 'keyValues', 'fieldId']).then(function() {
+      logger.log('contact_lastchange');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/contact/last_change',
+        payload,
+        options
+      );
+    }.bind(this));
   }
 
 });

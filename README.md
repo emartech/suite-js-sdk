@@ -267,6 +267,10 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
     suiteAPI.contact.checkIds(payload, options);
 
+##### [Query Field Changes](https://dev.emarsys.com/v2/fields/query-field-changes)
+
+    suiteAPI.contact.lastChange(payload, options);
+
 #### Contact List
 
 ##### [Create](https://dev.emarsys.com/v2/contact-lists/create-a-contact-list)
