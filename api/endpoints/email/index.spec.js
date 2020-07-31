@@ -131,6 +131,16 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#broadcast', function() {
+    testApiMethod(EmailAPI, 'broadcast').withArgs({
+      email_id: 12,
+      data: 'something'
+    }).shouldPostToEndpoint('/email/12/broadcast', {
+      data: 'something'
+    });
+
+    testApiMethod(EmailAPI, 'broadcast').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
 
   describe('#sendTestMail', function() {
     testApiMethod(EmailAPI, 'sendTestMail').withArgs({
