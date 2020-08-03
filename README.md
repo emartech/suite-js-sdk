@@ -428,6 +428,12 @@ Set security settings (IP whitelisting enabled option)
 ##### [Sending a Test Email](https://dev.emarsys.com/v2/email-campaign-life-cycle/send-a-test-email)
 
     suiteAPI.email.sendTestMail(payload, options);
+    
+##### [Broadcast an email to virtual contact](https://dev.emarsys.com/v2/email-campaign-life-cycle/launch-an-email-campaign-to-virtual-contacts)
+
+The payload must contain an `email_id`, which is the broadcast campaign id
+
+    suiteAPI.email.broadcast(payload, options);
 
 ##### [Delivery Status](https://dev.emarsys.com/v2/email-campaign-life-cycle/query-delivery-status)
 
