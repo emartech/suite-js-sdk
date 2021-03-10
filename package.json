@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:unit && npm run audit",
-    "test:unit": "NODE_ENV=test mocha --opts ./mocha.opts $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
+    "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "code-style": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release",
@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
+  "engines": {
+    "node": ">=10.18"
+  },
   "pre-commit": [
     "code-style",
     "validate-commit-msg"
@@ -26,9 +29,9 @@
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "co-request": "1.0.0",
-    "escher-auth": "3.2.0",
+    "escher-auth": "3.2.4",
     "escher-keypool": "2.0.2",
-    "escher-suiteapi-js": "14.0.1",
+    "escher-suiteapi-js": "15.0.0",
     "flat": "4.1.0",
     "lodash": "4.17.19",
     "logentries-logformat": "0.2.0",
@@ -41,20 +44,16 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-subset": "1.6.0",
-    "co-mocha": "1.2.2",
     "eslint": "6.8.0",
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "2.3.1",
     "eslint-plugin-security": "1.4.0",
-    "mocha": "6.1.4",
+    "mocha": "8.3.1",
     "nock": "10.0.6",
     "pre-commit": "1.2.2",
-    "semantic-release": "15.13.31",
+    "semantic-release": "17.4.1",
     "sinon": "7.3.2",
     "sinon-chai": "3.3.0",
     "validate-commit-message": "3.0.1"
-  },
-  "engines": {
-    "node": ">=8"
   }
 }
