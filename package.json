@@ -34,7 +34,6 @@
     "logentries-logformat": "0.2.0",
     "moment-timezone": "0.5.26",
     "node-cache": "4.2.0",
-    "semantic-release": "15.13.31",
     "sprintf-js": "1.1.2"
   },
   "devDependencies": {
@@ -50,6 +49,7 @@
     "mocha": "6.1.4",
     "nock": "10.0.6",
     "pre-commit": "1.2.2",
+    "semantic-release": "15.13.31",
     "sinon": "7.3.2",
     "sinon-chai": "3.3.0",
     "validate-commit-message": "3.0.1"
