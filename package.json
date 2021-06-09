@@ -33,10 +33,10 @@
     "escher-keypool": "2.0.2",
     "escher-suiteapi-js": "15.0.0",
     "flat": "4.1.0",
-    "lodash": "4.17.19",
+    "lodash": "4.17.21",
     "logentries-logformat": "0.2.0",
     "moment-timezone": "0.5.26",
-    "node-cache": "4.2.0",
+    "node-cache": "5.1.2",
     "sprintf-js": "1.1.2"
   },
   "devDependencies": {
@@ -44,7 +44,7 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-subset": "1.6.0",
-    "eslint": "6.8.0",
+    "eslint": "7.28.0",
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "2.3.1",
     "eslint-plugin-security": "1.4.0",
