@@ -51,7 +51,7 @@
     "mocha": "8.3.1",
     "nock": "10.0.6",
     "pre-commit": "1.2.2",
-    "semantic-release": "17.4.3",
+    "semantic-release": "17.4.1",
     "sinon": "7.3.2",
     "sinon-chai": "3.3.0",
     "validate-commit-message": "3.0.1"
