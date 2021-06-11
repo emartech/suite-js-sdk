@@ -1,14 +1,4 @@
 {
-  "exceptions": [
-    "https://npmjs.com/advisories/664",
-    "https://npmjs.com/advisories/720",
-    "https://npmjs.com/advisories/803",
-    "https://npmjs.com/advisories/813",
-    "https://npmjs.com/advisories/1084",
-    "https://npmjs.com/advisories/1464",
-    "https://npmjs.com/advisories/1179",
-    "https://npmjs.com/advisories/1500",
-    "https://npmjs.com/advisories/1523",
-    "https://npmjs.com/advisories/1213"
-   ]
+  "720": "Ignored since co-request is outdated and not updated",
+  "1464": "Ignored since co-request is outdated and not updated"
 }
