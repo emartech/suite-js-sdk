@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
+  "engines": {
+    "node": ">=10.18"
+  },
   "pre-commit": [
     "code-style",
     "validate-commit-msg"
