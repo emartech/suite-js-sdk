@@ -31,7 +31,7 @@
     "co-request": "1.0.0",
     "escher-auth": "3.2.4",
     "escher-keypool": "2.0.2",
-    "escher-suiteapi-js": "15.0.0",
+    "escher-suiteapi-js": "15.0.1",
     "flat": "4.1.0",
     "lodash": "4.17.21",
     "logentries-logformat": "0.2.0",
