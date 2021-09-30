@@ -58,7 +58,7 @@ RenderDecorator.prototype = {
       _: Translator.getTranslationFunction(this._translations)
     });
 
-    this._originalRender.call(this._context, path, data);
+    return this._originalRender.call(this._context, path, data);
   } };
 
 
