@@ -41,9 +41,9 @@ CollectTranslations.prototype = {
 
   _collectTranslationFromSuite: function* (language) {
     const response = yield axios.get(this._getTranslationUrl(language));
-    const data = (response && response.data) ? JSON.parse(response.data) : {};
+    const translation = (response && response.data) ? response.data : {};
 
-    translationCache[language] = data;
+    translationCache[language] = translation;
     logger.log('collected', language);
   },
 
