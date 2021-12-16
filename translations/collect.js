@@ -1,7 +1,7 @@
 'use strict';
 
 var SuiteAPI = require('../api');
-var request = require('co-request');
+var axios = require('axios');
 var logger = require('logentries-logformat')('collect-translations');
 var TranslationRequiredParameterMissingError = require('./required-parameter-missing-error');
 
@@ -40,10 +40,10 @@ CollectTranslations.prototype = {
 
 
   _collectTranslationFromSuite: function* (language) {
-    var data = yield request(this._getTranslationUrl(language));
-    data = (data && data.body) ? JSON.parse(data.body) : {};
+    const response = yield axios.get(this._getTranslationUrl(language));
+    const translation = (response && response.data) ? response.data : {};
 
-    translationCache[language] = data;
+    translationCache[language] = translation;
     logger.log('collected', language);
   },
 
