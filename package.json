@@ -20,7 +20,7 @@
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
   "engines": {
-    "node": "16.13.2"
+    "node": " >=16.13.2"
   },
   "pre-commit": [
     "code-style",
