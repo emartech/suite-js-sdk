@@ -3,7 +3,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:unit && npm run audit",
+    "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "code-style": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
@@ -20,7 +20,7 @@
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
   "engines": {
-    "node": " >=16.13.2"
+    "node": ">=12.0.0"
   },
   "pre-commit": [
     "code-style",
@@ -31,7 +31,7 @@
     "axios": "0.25.0",
     "escher-auth": "3.2.4",
     "escher-keypool": "2.0.2",
-    "escher-suiteapi-js": "15.0.5",
+    "escher-suiteapi-js": "16.0.0",
     "flat": "4.1.0",
     "lodash": "4.17.21",
     "logentries-logformat": "0.2.0",
@@ -48,10 +48,10 @@
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "2.3.1",
     "eslint-plugin-security": "1.4.0",
-    "mocha": "9.2.0",
+    "mocha": "8.4.0",
     "nock": "10.0.6",
     "pre-commit": "1.2.2",
-    "semantic-release": "19.0.2",
+    "semantic-release": "17.4.7",
     "sinon": "7.3.2",
     "sinon-chai": "3.3.0",
     "validate-commit-message": "3.0.1"
