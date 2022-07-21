@@ -43,6 +43,17 @@ _.extend(ExternalEvent.prototype, {
     );
   },
 
+  usages: function(payload, options) {
+    logger.log('externalevent_usages');
+    return this._requireParameters(payload, ['event_id']).then(function() {
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/event/%s/usages', payload.event_id),
+        options
+      );
+    }.bind(this));
+  },
+
   update: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
       logger.log('externalevent_update');
