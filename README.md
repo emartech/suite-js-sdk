@@ -75,7 +75,7 @@ If you want to load a specific language then 'validatedData' must contains a 'la
 
 ### Usage
 
-Middleware decorates the render method. It will add 'translations' object as render data. It also adds a '\_' method as render data. So you can use it for transations.
+Middleware decorates the render method. It will add 'translations' object as render data. It also adds a '_' method as render data. So you can use it for transations.
 
     translations = {
         dialogs: {
@@ -86,6 +86,7 @@ Middleware decorates the render method. It will add 'translations' object as ren
             }
         }
     }
+
 
 in your jade file
 
@@ -102,6 +103,7 @@ Set your environment variables
     SUITE_API_KEY=yourApiKey
     SUITE_API_SECRET=yourSecretKey
 
+
 After in your Codebase
 
     var SuiteAPI = require('suite-js-sdk').api;
@@ -109,16 +111,17 @@ After in your Codebase
 
 #### Options
 
-- `{String} customerId`: the id of the customer
-- `{String} apiKey`: API key
-- `{String} apiSecret`: API secret
-- `{String} environment`: API environment
+* `{String} customerId`: the id of the customer
+* `{String} apiKey`: API key
+* `{String} apiSecret`: API secret
+* `{String} environment`: API environment
 
 ### SDK methods
 
 Each of the following methods take a last `options` parameter as a last argument. With
 this options set you can override the `customerId`, `escherOptions`, etc. that you had defined when created an
 instance from the API client, like:
+
 
     var SuiteAPI = require('suite-js-sdk').api;
     var suiteAPI = SuiteAPI.create({
@@ -308,10 +311,6 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 
     suiteAPI.externalEvent.list(payload, options);
 
-##### [Usages](https://dev.emarsys.com/docs/emarsys-api/ce09ba0671d41-list-uses-of-an-external-event)
-
-    suiteAPI.externalEvent.usages(payload, options);
-
 ##### [Get Event Details](https://dev.emarsys.com/v2/events/list-external-events)
 
     suiteAPI.externalEvent.get(payload, options);
@@ -357,7 +356,7 @@ Accepted corporate domains can be defined.
 
 ##### Get IP Restrictions
 
-Lists the permitted IP address rules (e.g. 192.168.\* allows IP addresses which start with these two numbers and can end
+Lists the permitted IP address rules (e.g. 192.168.* allows IP addresses which start with these two numbers and can end
 in any numbers).
 
     suiteAPI.settings.getIpRestrictions(payload, options);
@@ -429,7 +428,7 @@ Set security settings (IP whitelisting enabled option)
 ##### [Sending a Test Email](https://dev.emarsys.com/v2/email-campaign-life-cycle/send-a-test-email)
 
     suiteAPI.email.sendTestMail(payload, options);
-
+    
 ##### [Broadcast an email to virtual contact](https://dev.emarsys.com/v2/email-campaign-life-cycle/launch-an-email-campaign-to-virtual-contacts)
 
 The payload must contain an `email_id`, which is the broadcast campaign id
@@ -621,8 +620,8 @@ Manage customer PKI options
 
 ##### [Create](https://dev.emarsys.com/v2/contact-sources/create-a-contact-source)
 
-suiteAPI.source.create(payload, options);
+  suiteAPI.source.create(payload, options);
 
 ##### [Listing Sources](https://dev.emarsys.com/v2/contact-sources/list-contact-sources)
 
-suiteAPI.source.listSources(payload, options);
+  suiteAPI.source.listSources(payload, options);
