@@ -17,15 +17,18 @@ describe('Suite translation middleware', function() {
   describe('#decorateRenderWithTranslations', function() {
     var context;
     var next;
+    var generatorNext;
     var fakeApi;
     var fakeResponseForTranslations;
     var validValidatedData;
 
     beforeEach(function() {
       /*eslint-disable*/
-      next = function*() { next.called = true; };
+      next = async function() { next.called = true; };
+      generatorNext = function*() { generatorNext.called = true; };
       /*eslint-enable*/
       next.called = false;
+      generatorNext.called = false;
 
       context = FakeContext.create();
       context.id = 5;
@@ -81,6 +84,21 @@ describe('Suite translation middleware', function() {
         someData: 1
       });
       expect(next.called).to.be.true;
+    });
+
+    it('should handle generator functions as well', function*() {
+      httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
+
+      var renderData = { someData: 1 };
+      context.setValidatedData(validValidatedData);
+
+      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, generatorNext);
+      context.render('local.view.render', renderData);
+
+      expect(context.getLastRenderData()).to.containSubset({
+        someData: 1
+      });
+      expect(generatorNext.called).to.be.true;
     });
 
     it('should pass api options', function*() {

@@ -130,12 +130,41 @@ describe('Koa Escher Request Authentication Middleware', function() {
       });
 
 
-      it('should reraise the error raised in the "next" unchanged', function*() {
+      it('should reraise the error raised in the generator-based "next" unchanged', function*() {
         var nextError = new Error('Error in next');
 
         try {
           // eslint-disable-next-line require-yield
           yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
+            throw nextError;
+          });
+        } catch (e) {
+          expect(e).to.equal(nextError);
+          return;
+        }
+
+        throw new Error('should reraise the error thrown in the "next"');
+      });
+
+      it('should await the "next"', function*() {
+        var nextAwaited = false;
+
+        // eslint-disable-next-line require-yield
+        yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
+          nextAwaited = true;
+        });
+
+        // eslint-disable-next-line no-unused-expressions
+        expect(nextAwaited).to.be.true;
+      });
+
+
+      it('should reraise the error raised in the async "next" unchanged', function*() {
+        var nextError = new Error('Error in next');
+
+        try {
+          // eslint-disable-next-line require-yield
+          yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
             throw nextError;
           });
         } catch (e) {

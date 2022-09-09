@@ -4,7 +4,7 @@ var logger = require('logentries-logformat')('suite-sdk');
 var RequestAuthenticator = require('./request-authenticator');
 
 module.exports.getMiddleware = function(escherConfig) {
-  return function* (next) {
+  return async function(next) {
     try {
       RequestAuthenticator.create(escherConfig, this).authenticate();
     } catch (ex) {
@@ -12,7 +12,11 @@ module.exports.getMiddleware = function(escherConfig) {
       this.throw(401, ex.message);
     }
     if (next) {
-      yield next;
+      const result = await next();
+
+      if (next.constructor.name === 'GeneratorFunction') {
+        result.next();
+      }
     }
   };
 };

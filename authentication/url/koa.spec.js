@@ -10,12 +10,18 @@ describe('Suite API authentication middleware', function() {
 
   var context;
   var next;
+  var generatorNext;
 
   beforeEach(function() {
     /*eslint-disable*/
-    next = function*() { next.called = true; };
+    next = async function() { next.called = true; };
+
+    /*eslint-disable*/
+    generatorNext = function*() { generatorNext.called = true; };
+
     /*eslint-enable*/
     next.called = false;
+    generatorNext.called = false;
 
     context = FakeContext.create();
 
@@ -88,6 +94,16 @@ describe('Suite API authentication middleware', function() {
       'bodyPar2': '2'
     });
     expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option3: 3 });
+  });
+
+  it('should be able to work with generator functions', function* () {
+    var middleware = middlewareFactory.getMiddleware({ option2: 2 });
+    sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
+    context.request.method = 'GET';
+
+    yield middleware.call(context, generatorNext);
+
+    expect(generatorNext.called).to.be.true; // eslint-disable-line
   });
 
 });

@@ -4,7 +4,7 @@ var logger = require('logentries-logformat')('suite-sdk');
 var Authenticator = require('./');
 
 module.exports.getMiddleware = function(options) {
-  return function* (next) {
+  return async function(next) {
     var authenticator = Authenticator.create(options);
     var request = this.request;
 
@@ -22,7 +22,11 @@ module.exports.getMiddleware = function(options) {
     }
 
     if (next) {
-      yield next;
+      const result = await next();
+
+      if (next.constructor.name === 'GeneratorFunction') {
+        result.next();
+      }
     }
   };
 };
