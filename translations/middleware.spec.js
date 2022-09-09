@@ -58,11 +58,11 @@ describe('Suite translation middleware', function() {
       nock.cleanAll();
     });
 
-    it('should throw error if it does not get testTranslation', function*() {
+    it('should throw error if it does not get testTranslation', async function() {
       context.setValidatedData(validValidatedData);
 
       try {
-        yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+        await translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
       } catch (ex) {
         expect(next.called).to.be.false;
         return expect(ex).to.be.an.instanceOf(TranslationRequiredParameterMissingError);
@@ -71,13 +71,13 @@ describe('Suite translation middleware', function() {
       throw new Error('Missed exception');
     });
 
-    it('should keep the original render data', function*() {
+    it('should keep the original render data', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -86,13 +86,13 @@ describe('Suite translation middleware', function() {
       expect(next.called).to.be.true;
     });
 
-    it('should handle generator functions as well', function*() {
+    it('should handle generator functions as well', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, generatorNext);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, generatorNext);
       context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -101,13 +101,13 @@ describe('Suite translation middleware', function() {
       expect(generatorNext.called).to.be.true;
     });
 
-    it('should pass api options', function*() {
+    it('should pass api options', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var testApiOptions = { customerId: 5, host: 'tempuri.org' };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware
+      await translationsDecoratorMiddleware
         .decorateRenderWithTranslations(testTranslation, testApiOptions).call(context, next);
 
       expect(fakeApi.administrator.getAdministrator).to.have.been.calledWith(
@@ -116,21 +116,21 @@ describe('Suite translation middleware', function() {
       );
     });
 
-    it('should pass the correct translation file name', function*() {
+    it('should pass the correct translation file name', async function() {
       var testTranslationId = 'anotherTest';
       sinon.stub(TranslateRenderDecorator, 'create').returns(FakeDecorator);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslationId).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslationId).call(context, next);
       expect(TranslateRenderDecorator.create).to.have.been.calledWith(context, testTranslationId);
     });
 
-    it('should add admin\'s language translations to the render data', function*() {
+    it('should add admin\'s language translations to the render data', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
       expect(SuiteAPI.createWithCache).to.have.been.calledWith(context.id);
@@ -140,12 +140,12 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add language translations with the provided language\'s dictionary if the validated data has language', function*() {
+    it('should add language translations with the provided language\'s dictionary if the validated data has language', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       context.setValidatedData({ environment: validValidatedData.environment, language: 'mx' });
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -154,12 +154,12 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add language translations with the default language\'s dictionary if environment and language is missing from validation data', function*() {
+    it('should add language translations with the default language\'s dictionary if environment and language is missing from validation data', async function() {
       httpBackendRespondWith(200, 'en', fakeResponseForTranslations);
 
       context.setValidatedData({ environment: validValidatedData.environment });
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', {});
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -168,7 +168,7 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add translation method with admin\'s dictionary', function*() {
+    it('should add translation method with admin\'s dictionary', async function() {
       var fakeTranslator = { translate: sinon.spy() };
       sinon.stub(Translator, 'create').returns(fakeTranslator);
 
@@ -177,7 +177,7 @@ describe('Suite translation middleware', function() {
       var renderData = { someData: 2 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.have.property('_').that.eql(fakeTranslator.translate);
@@ -185,13 +185,13 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add empty admin\'s language translations to the render data if the request fails', function*() {
+    it('should add empty admin\'s language translations to the render data if the request fails', async function() {
       httpBackendRespondWith(200, 'mx', null);
 
       var renderData = { someData: 1 };
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -200,16 +200,16 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should add admin\'s language translations from cache after the first request', function*() {
+    it('should add admin\'s language translations from cache after the first request', async function() {
       httpBackendRespondWith(200, 'mx', fakeResponseForTranslations);
 
       context.setValidatedData(validValidatedData);
 
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', { anotherData: 2 });
 
       var renderData = { someData: 1 };
-      yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+      await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       context.render('local.view.render', renderData);
 
       expect(context.getLastRenderData()).to.containSubset({
@@ -218,11 +218,11 @@ describe('Suite translation middleware', function() {
     });
 
 
-    it('should thrown an error if the context do not have validated data', function*() {
+    it('should thrown an error if the context do not have validated data', async function() {
       try {
         context.setValidatedData(null);
         context.validatedData = null;
-        yield translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
+        await translationsDecoratorMiddleware.decorateRenderWithTranslations(testTranslation).call(context, next);
       } catch (ex) {
         expect(next.called).to.be.false;
         expect(ex).to.be.an.instanceOf(Error);
@@ -242,10 +242,10 @@ describe('Suite translation middleware', function() {
     }];
 
     invalidValidatedCases.forEach(function(testCase) {
-      it('should thrown an error ' + testCase.message, function*() {
+      it('should thrown an error ' + testCase.message, async function() {
         try {
           context.setValidatedData(testCase.validatedData);
-          yield translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
+          await translationsDecoratorMiddleware.decorateRenderWithTranslations().call(context, next);
         } catch (ex) {
           expect(next.called).to.be.false;
           expect(ex).to.be.an.instanceOf(Error);

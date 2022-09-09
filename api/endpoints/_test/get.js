@@ -19,30 +19,30 @@ module.exports = {
         apiEndpoint = self.ApiEndpoint.create(request, { customerId: 123 });
       });
 
-      it('should properly call a GET request', function* () {
-        yield apiEndpoint[self.method](self.payload, self.options);
+      it('should properly call a GET request', async function() {
+        await apiEndpoint[self.method](self.payload, self.options);
         expect(request.get).to.have.been.callCount(1);
         expect(request.get).to.have.been.calledWith(123, expectedUrl, {});
       });
 
 
-      it('should return the result', function* () {
-        var result = yield apiEndpoint[self.method](self.payload, self.options);
+      it('should return the result', async function() {
+        var result = await apiEndpoint[self.method](self.payload, self.options);
         expect(request.get).to.have.been.callCount(1);
         expect(result).to.eql(expectedData);
       });
 
 
-      it('should pass the options to the suite request', function* () {
+      it('should pass the options to the suite request', async function() {
         var options = _.merge({ customerId: 999, environment: 'otherEnv' }, self.options);
-        yield apiEndpoint[self.method](self.payload, options);
+        await apiEndpoint[self.method](self.payload, options);
         expect(request.get).to.have.been.callCount(1);
         expect(request.get).to.have.been.calledWithExactly(sinon.match.any, sinon.match.any, options);
       });
 
 
-      it('should override customerId from the options', function* () {
-        yield apiEndpoint[self.method](self.payload, { customerId: 999 });
+      it('should override customerId from the options', async function() {
+        await apiEndpoint[self.method](self.payload, { customerId: 999 });
         expect(request.get).to.have.been.callCount(1);
         expect(request.get).to.have.been.calledWithExactly(999, sinon.match.any, { customerId: 999 });
       });

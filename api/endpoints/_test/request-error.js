@@ -7,11 +7,11 @@ module.exports = {
 
     var self = this;
 
-    it('should throw the following error: "' + error.message + ' (' + error.code + ')"', function* () {
+    it('should throw the following error: "' + error.message + ' (' + error.code + ')"', async function() {
       var apiEndpoint = self.ApiEndpoint.create(self._getRequestStub(), { customerId: 123 });
 
       try {
-        yield apiEndpoint[self.method](self.payload, self.options);
+        await apiEndpoint[self.method](self.payload, self.options);
       } catch (ex) {
         expect(ex).to.be.an.instanceof(SuiteRequestError);
         expect(ex.message).to.eql(error.message);

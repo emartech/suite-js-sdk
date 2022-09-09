@@ -44,11 +44,11 @@ describe('Suite API authentication middleware', function() {
   });
 
 
-  it('should thrown an 401 error if the authentication fails', function* () {
+  it('should thrown an 401 error if the authentication fails', async function() {
     var middleware = middlewareFactory.getMiddleware({ option1: 1 });
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate').throws(new Error('errorMessage'));
 
-    yield middleware.call(context, next);
+    await middleware.call(context, next);
 
     expect(context.throw).to.have.been.calledWith(401, 'errorMessage');
     /*eslint-disable*/
@@ -59,12 +59,12 @@ describe('Suite API authentication middleware', function() {
   });
 
 
-  it('should decorate the request with validatedData from query parameters if the request is a GET', function* () {
+  it('should decorate the request with validatedData from query parameters if the request is a GET', async function() {
     var middleware = middlewareFactory.getMiddleware({ option2: 2 });
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
     context.request.method = 'GET';
 
-    yield middleware.call(context, next);
+    await middleware.call(context, next);
 
     /*eslint-disable*/
     expect(next.called).to.be.true;
@@ -78,12 +78,12 @@ describe('Suite API authentication middleware', function() {
   });
 
 
-  it('should decorate the request with validatedData from body parameters if the request is a POST', function* () {
+  it('should decorate the request with validatedData from body parameters if the request is a POST', async function() {
     var middleware = middlewareFactory.getMiddleware({ option3: 3 });
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
     context.request.method = 'POST';
 
-    yield middleware.call(context, next);
+    await middleware.call(context, next);
 
     /*eslint-disable*/
     expect(next.called).to.be.true;
@@ -96,12 +96,12 @@ describe('Suite API authentication middleware', function() {
     expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option3: 3 });
   });
 
-  it('should be able to work with generator functions', function* () {
+  it('should be able to work with generator functions', async function() {
     var middleware = middlewareFactory.getMiddleware({ option2: 2 });
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
     context.request.method = 'GET';
 
-    yield middleware.call(context, generatorNext);
+    await middleware.call(context, generatorNext);
 
     expect(generatorNext.called).to.be.true; // eslint-disable-line
   });
