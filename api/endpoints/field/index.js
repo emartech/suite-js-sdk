@@ -72,6 +72,15 @@ _.extend(Field.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  delete: function(payload, options) {
+    return this._requireParameters(payload, ['field_id']).then(function() {
+      var url = util.format('/field/%s', payload.field_id);
+      logger.log('field_delete');
+
+      return this._request.delete(this._getCustomerId(options), url, options);
+    }.bind(this));
   }
 
 });

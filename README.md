@@ -586,6 +586,10 @@ Statistics about the purchases of customer.
 
     suiteAPI.field.getMultipleChoices(payload, options);
 
+##### [Delete Field](https://dev.emarsys.com/docs/emarsys-api/9b5653c65052b-delete-a-field)
+
+    suiteAPI.field.delete(payload, options);
+
 #### Export
 
 ##### [Downloading export data](https://dev.emarsys.com/v2/contact-and-email-data/download-export-data)

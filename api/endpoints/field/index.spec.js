@@ -41,4 +41,10 @@ describe('SuiteAPI Field endpoint', function() {
     testApiMethod(FieldAPI, 'getMultipleChoices').withArgs({ field_ids: [123, 456], translate_id: 'fr' }).shouldGetResultFromEndpoint('/field/choices?fields=123,456&language=fr');
   });
 
+  describe('#delete', function() {
+    testApiMethod(FieldAPI, 'delete').withArgs({ field_id: 123 }).shouldDeleteResourceOnEndpoint('/field/123');
+
+    testApiMethod(FieldAPI, 'delete').withArgs({}).shouldThrowMissingParameterError('field_id');
+  });
+
 });
