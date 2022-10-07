@@ -10,18 +10,13 @@ describe('Suite API authentication middleware', function() {
 
   var context;
   var next;
-  var generatorNext;
 
   beforeEach(function() {
     /*eslint-disable*/
     next = async function() { next.called = true; };
 
-    /*eslint-disable*/
-    generatorNext = function*() { generatorNext.called = true; };
-
     /*eslint-enable*/
     next.called = false;
-    generatorNext.called = false;
 
     context = FakeContext.create();
 
@@ -48,7 +43,7 @@ describe('Suite API authentication middleware', function() {
     var middleware = middlewareFactory.getMiddleware({ option1: 1 });
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate').throws(new Error('errorMessage'));
 
-    await middleware.call(context, next);
+    await middleware(context, next);
 
     expect(context.throw).to.have.been.calledWith(401, 'errorMessage');
     /*eslint-disable*/
@@ -64,7 +59,7 @@ describe('Suite API authentication middleware', function() {
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
     context.request.method = 'GET';
 
-    await middleware.call(context, next);
+    await middleware(context, next);
 
     /*eslint-disable*/
     expect(next.called).to.be.true;
@@ -83,7 +78,7 @@ describe('Suite API authentication middleware', function() {
     sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
     context.request.method = 'POST';
 
-    await middleware.call(context, next);
+    await middleware(context, next);
 
     /*eslint-disable*/
     expect(next.called).to.be.true;
@@ -95,15 +90,4 @@ describe('Suite API authentication middleware', function() {
     });
     expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option3: 3 });
   });
-
-  it('should be able to work with generator functions', async function() {
-    var middleware = middlewareFactory.getMiddleware({ option2: 2 });
-    sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
-    context.request.method = 'GET';
-
-    await middleware.call(context, generatorNext);
-
-    expect(generatorNext.called).to.be.true; // eslint-disable-line
-  });
-
 });

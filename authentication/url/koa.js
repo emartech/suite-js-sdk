@@ -4,9 +4,9 @@ var logger = require('logentries-logformat')('suite-sdk');
 var Authenticator = require('./');
 
 module.exports.getMiddleware = function(options) {
-  return async function(next) {
+  return async function(ctx, next) {
     var authenticator = Authenticator.create(options);
-    var request = this.request;
+    var request = ctx.request;
 
     logger.log('authentication_url', {
       url: request.url,
@@ -18,15 +18,9 @@ module.exports.getMiddleware = function(options) {
       request.validatedData = (request.method === 'GET') ? request.query : request.body;
     } catch (ex) {
       logger.error('authentication_url_error', ex.message, ex);
-      this.throw(401, ex.message);
+      ctx.throw(401, ex.message);
     }
 
-    if (next) {
-      const result = await next();
-
-      if (next.constructor.name === 'GeneratorFunction') {
-        result.next();
-      }
-    }
+    return next();
   };
 };

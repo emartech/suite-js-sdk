@@ -9,7 +9,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
   var next;
 
   var callMiddleware = function(context) {
-    return getMiddleware(escherConfig).call(context, next);
+    return getMiddleware(escherConfig)(context, next);
   };
 
   var createContext = function(body) {
@@ -121,7 +121,7 @@ describe('Koa Escher Request Authentication Middleware', function() {
         var awaitCalled = false;
 
         // eslint-disable-next-line require-await
-        await getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
+        await getMiddleware(escherConfig)(createContextWithEmptyBody(), async function() {
           awaitCalled = true;
         });
 
@@ -129,26 +129,12 @@ describe('Koa Escher Request Authentication Middleware', function() {
         expect(awaitCalled).to.be.true;
       });
 
-
-      it('should yield the "next" if it is a generator function', async function() {
-        var nextYielded = false;
-
-        // eslint-disable-next-line require-await
-        await getMiddleware(escherConfig).call(createContextWithEmptyBody(), function* () {
-          nextYielded = true;
-        });
-
-        // eslint-disable-next-line no-unused-expressions
-        expect(nextYielded).to.be.true;
-      });
-
-
       it('should reraise the error raised in the async "next" unchanged', async function() {
         var nextError = new Error('Error in next');
 
         try {
           // eslint-disable-next-line require-await
-          await getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
+          await getMiddleware(escherConfig)(createContextWithEmptyBody(), async function() {
             throw nextError;
           });
         } catch (e) {
@@ -158,24 +144,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
 
         throw new Error('should reraise the error thrown in the "next"');
       });
-
-
-      it('should reraise the error raised in the generator-based "next" unchanged', async function() {
-        var nextError = new Error('Error in next');
-
-        try {
-          // eslint-disable-next-line require-await
-          await getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
-            throw nextError;
-          });
-        } catch (e) {
-          expect(e).to.equal(nextError);
-          return;
-        }
-
-        throw new Error('should reraise the error thrown in the "next"');
-      });
-
     });
 
   });
