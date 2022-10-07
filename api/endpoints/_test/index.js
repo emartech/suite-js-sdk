@@ -6,6 +6,7 @@ var _ = require('lodash');
 var testGet = require('./get');
 var testPost = require('./post');
 var testPut = require('./put');
+var testDelete = require('./delete');
 var testMissingParameter = require('./missing-parameter');
 var testRequestError = require('./request-error');
 
@@ -24,7 +25,7 @@ var ApiMethodTest = function(ApiEndpoint, method) {
     }
   };
 
-  _.extend(this, testGet, testPost, testPut, testMissingParameter, testRequestError);
+  _.extend(this, testGet, testPost, testPut, testDelete, testMissingParameter, testRequestError);
 };
 
 ApiMethodTest.prototype = {
@@ -46,7 +47,8 @@ ApiMethodTest.prototype = {
     return {
       get: sinon.stub().returns(Promise.resolve(this._requestRespondWith)),
       post: sinon.stub().returns(Promise.resolve(this._requestRespondWith)),
-      put: sinon.stub().returns(Promise.resolve(this._requestRespondWith))
+      put: sinon.stub().returns(Promise.resolve(this._requestRespondWith)),
+      delete: sinon.stub().returns(Promise.resolve(this._requestRespondWith))
     };
   }
 
