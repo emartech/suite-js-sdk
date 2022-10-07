@@ -2,16 +2,20 @@
 
 var TranslateRenderDecorator = require('./render-decorator');
 
-
 module.exports = {
-
   decorateRenderWithTranslations: function(translationId, apiOptions) {
+    return async function DecorateRenderWithTranslationsMiddleware(next) {
+      await TranslateRenderDecorator.create(
+        this,
+        translationId,
+        apiOptions
+      ).decorate();
 
-    return function* DecorateRenderWithTranslationsMiddleware(next) {
-      yield TranslateRenderDecorator.create(this, translationId, apiOptions).decorate();
-      yield next;
+      const result = await next();
+
+      if (next.constructor.name === 'GeneratorFunction') {
+        result.next();
+      }
     };
-
   }
-
 };

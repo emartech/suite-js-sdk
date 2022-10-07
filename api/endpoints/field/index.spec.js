@@ -32,4 +32,13 @@ describe('SuiteAPI Field endpoint', function() {
     testApiMethod(FieldAPI, 'getChoices').withArgs({ field_id: 123, translate_id: 'fr' }).shouldGetResultFromEndpoint('/field/123/choice/translate/fr');
   });
 
+
+  describe('#getMultipleChoices', function() {
+    testApiMethod(FieldAPI, 'getMultipleChoices').withArgs({}).shouldThrowMissingParameterError('field_id');
+
+    testApiMethod(FieldAPI, 'getMultipleChoices').withArgs({ field_ids: [123, 456] }).shouldGetResultFromEndpoint('/field/choices?fields=123,456');
+
+    testApiMethod(FieldAPI, 'getMultipleChoices').withArgs({ field_ids: [123, 456], translate_id: 'fr' }).shouldGetResultFromEndpoint('/field/choices?fields=123,456&language=fr');
+  });
+
 });

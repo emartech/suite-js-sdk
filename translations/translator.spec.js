@@ -1,8 +1,6 @@
 'use strict';
 
-var expect = require('chai').expect;
 var Translator = require('./translator');
-
 
 describe('Translations translator', function() {
 

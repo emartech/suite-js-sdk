@@ -1,6 +1,5 @@
 'use strict';
 
-var expect = require('chai').expect;
 var _ = require('lodash');
 
 var APIRequiredParameterMissingError = require('./../_base/error');
@@ -12,11 +11,11 @@ module.exports = {
 
       var self = this;
 
-      it('should throw a MissingParameterError', function* () {
+      it('should throw a MissingParameterError', async function() {
         var apiEndpoint = self.ApiEndpoint.create(self._getRequestStub(), { customerId: 123 });
 
         try {
-          yield apiEndpoint[self.method](self.payload, self.options);
+          await apiEndpoint[self.method](self.payload, self.options);
         } catch (ex) {
           expect(ex).to.be.an.instanceof(APIRequiredParameterMissingError);
           return;

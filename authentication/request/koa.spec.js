@@ -1,10 +1,8 @@
 'use strict';
 
-var expect = require('chai').expect;
 var Escher = require('escher-auth');
-var getMiddleware = require('./koa').getMiddleware;
 var KeyPool = require('escher-keypool');
-var sinon = require('sinon');
+var getMiddleware = require('./koa').getMiddleware;
 
 describe('Koa Escher Request Authentication Middleware', function() {
   var escherConfig;
@@ -32,14 +30,14 @@ describe('Koa Escher Request Authentication Middleware', function() {
       keyPool: JSON.stringify([{ 'keyId': 'suite_cuda_v1', 'secret': 'testSecret', 'acceptOnly': 0 }])
     };
 
-    // eslint-disable-next-line require-yield
-    next = function* () {};
+    // eslint-disable-next-line require-await
+    next = async function() { };
   });
 
 
   describe('Escher library', function() {
 
-    it('should be initialized with the proper Escher config', function* () {
+    it('should be initialized with the proper Escher config', async function() {
       var fullConfig = {
         algoPrefix: 'EMS',
         vendorKey: 'EMS',
@@ -48,9 +46,9 @@ describe('Koa Escher Request Authentication Middleware', function() {
         credentialScope: 'testScope'
       };
 
-      this.sandbox.stub(Escher, 'create');
+      sinon.stub(Escher, 'create');
 
-      yield callMiddleware(createContextWithEmptyBody());
+      await callMiddleware(createContextWithEmptyBody());
 
       expect(Escher.create).to.have.been.calledWith(fullConfig);
     });
@@ -62,22 +60,22 @@ describe('Koa Escher Request Authentication Middleware', function() {
 
     beforeEach(function() {
       escherStub = {
-        authenticate: this.sandbox.stub()
+        authenticate: sinon.stub()
       };
 
-      this.sandbox.stub(Escher, 'create').returns(escherStub);
+      sinon.stub(Escher, 'create').returns(escherStub);
     });
 
-    it('should have been called', function* () {
-      yield callMiddleware(createContextWithEmptyBody());
+    it('should have been called', async function() {
+      await callMiddleware(createContextWithEmptyBody());
 
       // eslint-disable-next-line no-unused-expressions
       expect(escherStub.authenticate).to.have.been.called;
     });
 
-    it('should have been called with original Node request object decorated with the stringified body from the koa\'s request object', function* () {
+    it('should have been called with original Node request object decorated with the stringified body from the koa\'s request object', async function() {
       var context = createContext({ testData: 'testValue' });
-      yield callMiddleware(context);
+      await callMiddleware(context);
 
       var expectedRequest = Object.create(context.req);
       expectedRequest.body = JSON.stringify(context.request.body);
@@ -86,9 +84,9 @@ describe('Koa Escher Request Authentication Middleware', function() {
     });
 
 
-    it('should have been called with original Node request object if the query body is empty', function* () {
+    it('should have been called with original Node request object if the query body is empty', async function() {
       var context = createContextWithEmptyBody();
-      yield callMiddleware(context);
+      await callMiddleware(context);
 
       var expectedRequest = Object.create(context.req);
       expectedRequest.body = context.request.body;
@@ -96,22 +94,22 @@ describe('Koa Escher Request Authentication Middleware', function() {
       expect(escherStub.authenticate).to.have.been.calledWithExactly(expectedRequest, sinon.match.any);
     });
 
-    it('should have been called with the proper keys using keypool from configuration', function* () {
-      this.sandbox.stub(KeyPool, 'create').returns({
-        getKeyDb: this.sandbox.stub().returns('testKey')
+    it('should have been called with the proper keys using keypool from configuration', async function() {
+      sinon.stub(KeyPool, 'create').returns({
+        getKeyDb: sinon.stub().returns('testKey')
       });
 
-      yield callMiddleware(createContextWithEmptyBody());
+      await callMiddleware(createContextWithEmptyBody());
 
       expect(KeyPool.create).to.have.been.calledWith(escherConfig.keyPool);
       expect(escherStub.authenticate).to.have.been.calledWithExactly(sinon.match.any, 'testKey');
     });
 
-    it('should throw an unauthorized error in the context if error happened', function* () {
+    it('should throw an unauthorized error in the context if error happened', async function() {
       escherStub.authenticate.throws(new Error('test message'));
       var context = createContextWithEmptyBody();
 
-      yield callMiddleware(context);
+      await callMiddleware(context);
 
       expect(context.throw).to.have.been.calledWith(401, 'test message');
     });
@@ -119,25 +117,55 @@ describe('Koa Escher Request Authentication Middleware', function() {
 
     describe('when there was no problem on authentication', function() {
 
-      it('should yield the "next"', function*() {
-        var yieldCalled = false;
+      it('should await the "next"', async function() {
+        var awaitCalled = false;
 
-        // eslint-disable-next-line require-yield
-        yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
-          yieldCalled = true;
+        // eslint-disable-next-line require-await
+        await getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
+          awaitCalled = true;
         });
 
         // eslint-disable-next-line no-unused-expressions
-        expect(yieldCalled).to.be.true;
+        expect(awaitCalled).to.be.true;
       });
 
 
-      it('should reraise the error raised in the "next" unchanged', function*() {
+      it('should yield the "next" if it is a generator function', async function() {
+        var nextYielded = false;
+
+        // eslint-disable-next-line require-await
+        await getMiddleware(escherConfig).call(createContextWithEmptyBody(), function* () {
+          nextYielded = true;
+        });
+
+        // eslint-disable-next-line no-unused-expressions
+        expect(nextYielded).to.be.true;
+      });
+
+
+      it('should reraise the error raised in the async "next" unchanged', async function() {
         var nextError = new Error('Error in next');
 
         try {
-          // eslint-disable-next-line require-yield
-          yield getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
+          // eslint-disable-next-line require-await
+          await getMiddleware(escherConfig).call(createContextWithEmptyBody(), async function() {
+            throw nextError;
+          });
+        } catch (e) {
+          expect(e).to.equal(nextError);
+          return;
+        }
+
+        throw new Error('should reraise the error thrown in the "next"');
+      });
+
+
+      it('should reraise the error raised in the generator-based "next" unchanged', async function() {
+        var nextError = new Error('Error in next');
+
+        try {
+          // eslint-disable-next-line require-await
+          await getMiddleware(escherConfig).call(createContextWithEmptyBody(), function*() {
             throw nextError;
           });
         } catch (e) {

@@ -2,13 +2,21 @@
   "extends": [
     "emarsys"
   ],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
   "rules": {
     "max-len": [2, 200, 2],
-    "security/detect-object-injection": 0
+    "security/detect-object-injection": 0,
+    "require-yield": 0
   },
   "env": {
     "es6": true,
     "node": true,
     "mocha": true
+  },
+  "globals": {
+    "expect": true,
+    "sinon": true
   }
 }

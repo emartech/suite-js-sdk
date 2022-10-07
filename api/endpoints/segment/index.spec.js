@@ -26,6 +26,14 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'listContacts').withArgs({ segment_id: 10 }).shouldThrowMissingParameterError('limit');
   });
 
+  describe('#getSegment', function() {
+    testApiMethod(SegmentAPI, 'getSegment').withArgs({
+      segment_id: 10
+    }).shouldGetResultFromEndpoint('/filter/10');
+
+    testApiMethod(SegmentAPI, 'getSegment').shouldThrowMissingParameterError('segment_id');
+  });
+
   describe('#countContacts', function() {
     testApiMethod(SegmentAPI, 'countContacts').withArgs({
       segment_id: 10
@@ -91,4 +99,38 @@ describe('SuiteAPI Segment endpoint', function() {
     testApiMethod(SegmentAPI, 'updateContactCriteria').shouldThrowMissingParameterError('segment_id');
   });
 
+  describe('#runForSingleContact', function() {
+    const segmentId = 11223344;
+    testApiMethod(SegmentAPI, 'runForSingleContact').withArgs({
+      segment_id: segmentId
+    }).shouldPostToEndpoint(`/filter/${segmentId}/single_runs`, {});
+
+    testApiMethod(SegmentAPI, 'runForSingleContact').shouldThrowMissingParameterError('segment_id');
+  });
+
+  describe('#singleContactRunStatus', function() {
+    const runId = 'affe-dead';
+    testApiMethod(SegmentAPI, 'singleContactRunStatus').withArgs({
+      run_id: runId
+    }).shouldGetResultFromEndpoint(`/filter/single_runs/${runId}`);
+
+    testApiMethod(SegmentAPI, 'singleContactRunStatus').shouldThrowMissingParameterError('run_id');
+  });
+
+  describe('#runForMultipleContacts', function() {
+    testApiMethod(SegmentAPI, 'runForMultipleContacts').withArgs({
+      segment_id: 8362723
+    }).shouldPostToEndpoint('/filter/8362723/runs', {});
+
+    testApiMethod(SegmentAPI, 'runForMultipleContacts').shouldThrowMissingParameterError('segment_id');
+  });
+
+  describe('#multipleContactsRunStatus', function() {
+    const runId = 'abc-efg-63636';
+    testApiMethod(SegmentAPI, 'multipleContactsRunStatus').withArgs({
+      run_id: runId
+    }).shouldGetResultFromEndpoint(`/filter/runs/${runId}`);
+
+    testApiMethod(SegmentAPI, 'multipleContactsRunStatus').shouldThrowMissingParameterError('run_id');
+  });
 });

@@ -24,6 +24,17 @@ _.extend(Export.prototype, {
         options
       );
     }.bind(this));
+  },
+
+  getChanges: function(payload, options) {
+    logger.log('contact_getchanges');
+
+    return this._request.post(
+      this._getCustomerId(options),
+      '/contact/getchanges',
+      payload,
+      options
+    );
   }
 
 });

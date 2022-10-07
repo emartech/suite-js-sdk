@@ -13,29 +13,29 @@ var RenderDecorator = function(context, translationId, apiOptions) {
   this._translationId = translationId;
 };
 
-
 RenderDecorator.prototype = {
-
-  decorate: function* () {
+  decorate: async function() {
     this._checkValidatedData();
-    yield this._loadTranslations();
+    await this._loadTranslations();
 
     this._context.render = this._render.bind(this);
   },
 
-
   _checkValidatedData: function() {
     if (!this._validatedData) {
-      throw new Error('decorateRenderWithTranslations middleware need validatedData from request\'s');
+      throw new Error(
+        "decorateRenderWithTranslations middleware need validatedData from request's"
+      );
     }
 
     if (!this._validatedData.environment) {
-      throw new Error('decorateRenderWithTranslations middleware need environment from request\'s validatedData');
+      throw new Error(
+        "decorateRenderWithTranslations middleware need environment from request's validatedData"
+      );
     }
   },
 
-
-  _loadTranslations: function* () {
+  _loadTranslations: async function() {
     var collectTranslations = CollectTranslations.getFor(
       this._validatedData.environment,
       this._translationId,
@@ -43,14 +43,23 @@ RenderDecorator.prototype = {
     );
 
     if (this._validatedData.admin_id) {
-      let options = _.extend({ customerId: this._validatedData.customer_id }, this._apiOptions);
-      this._translations = yield collectTranslations.execute(this._validatedData.admin_id, options);
+      let options = _.extend(
+        { customerId: this._validatedData.customer_id },
+        this._apiOptions
+      );
+      this._translations = await collectTranslations.execute(
+        this._validatedData.admin_id,
+        options
+      );
     } else {
-      let language = (this._validatedData.language) ? this._validatedData.language : 'en';
-      this._translations = yield collectTranslations.getSuiteTranslations(language);
+      let language = this._validatedData.language ?
+        this._validatedData.language :
+        'en';
+      this._translations = await collectTranslations.getSuiteTranslations(
+        language
+      );
     }
   },
-
 
   _render: function renderWithTranslations(path, data) {
     data = _.extend({}, data, {
@@ -58,13 +67,12 @@ RenderDecorator.prototype = {
       _: Translator.getTranslationFunction(this._translations)
     });
 
-    this._originalRender.call(this._context, path, data);
-  } };
-
+    return this._originalRender.call(this._context, path, data);
+  }
+};
 
 RenderDecorator.create = function(context, translationId, apiOptions) {
   return new RenderDecorator(context, translationId, apiOptions);
 };
-
 
 module.exports = RenderDecorator;

@@ -18,9 +18,9 @@ _.extend(Keyring.prototype, {
     logger.log('keyring_keys');
 
     return this._request.get(
-        this._getCustomerId(options),
-        this._buildUrl('/settings/keyring/keys', payload),
-        options
+      this._getCustomerId(options),
+      this._buildUrl('/settings/keyring/keys', payload),
+      options
     );
   },
 

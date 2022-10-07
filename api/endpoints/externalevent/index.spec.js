@@ -26,8 +26,19 @@ describe('SuiteAPI External Event endpoint', function() {
 
   describe('#list', function() {
     testApiMethod(ExternalEventAPI, 'list')
-        .withArgs({})
-        .shouldGetResultFromEndpoint('/event');
+      .withArgs({})
+      .shouldGetResultFromEndpoint('/event');
+  });
+
+
+  describe('#usages', function() {
+    testApiMethod(ExternalEventAPI, 'usages').withArgs({
+      event_id: 123
+    }).shouldGetResultFromEndpoint('/event/123/usages');
+
+    testApiMethod(ExternalEventAPI, 'usages')
+      .withArgs({})
+      .shouldThrowMissingParameterError('event_id');
   });
 
 

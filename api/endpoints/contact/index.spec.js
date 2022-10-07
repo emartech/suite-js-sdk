@@ -124,4 +124,36 @@ describe('SuiteAPI Contact endpoint', function() {
 
   });
 
+  describe('#checkIds', function() {
+
+    testApiMethod(ContactAPI, 'checkIds').withArgs({}).shouldThrowMissingParameterError('key_id', 'external_ids');
+
+    testApiMethod(ContactAPI, 'checkIds').withArgs({
+      key_id: 3,
+      external_ids: ['some@email.hu', 'another@email.hu'],
+      get_multiple_ids: 1
+    }).shouldPostToEndpoint('/contact/checkids', {
+      key_id: 3,
+      external_ids: ['some@email.hu', 'another@email.hu'],
+      get_multiple_ids: 1
+    });
+
+  });
+
+  describe('#lastChange', function() {
+
+    testApiMethod(ContactAPI, 'lastChange').withArgs({}).shouldThrowMissingParameterError('keyId', 'keyValues', 'fieldId');
+
+    testApiMethod(ContactAPI, 'lastChange').withArgs({
+      keyId: 3,
+      keyValues: ['some@email.hu', 'another@email.hu'],
+      fieldId: 31
+    }).shouldPostToEndpoint('/contact/last_change', {
+      keyId: 3,
+      keyValues: ['some@email.hu', 'another@email.hu'],
+      fieldId: 31
+    });
+
+  });
+
 });

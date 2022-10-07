@@ -122,6 +122,14 @@ _.extend(Email.prototype, {
     );
   },
 
+
+  getResponseSummary: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(
+      fetchFactory(payload, options, '/email/%s/responsesummary', 'email_get_response_summary').bind(this)
+    );
+  },
+
+
   get: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(
       fetchFactory(payload, options, '/email/%s', 'email_get').bind(this)
@@ -170,6 +178,18 @@ _.extend(Email.prototype, {
     }.bind(this));
   },
 
+  broadcast: function(payload, options) {
+    return this._requireParameters(payload, ['email_id']).then(function() {
+      logger.log('email_broadcast');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        util.format('/email/%s/broadcast', payload.email_id),
+        this._cleanPayload(payload, ['email_id']),
+        options
+      );
+    }.bind(this));
+  },
 
   getPersonalizations: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {

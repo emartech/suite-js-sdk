@@ -8,6 +8,7 @@ var testApiMethod = require('../_test');
 var SuiteRequestError = require('escher-suiteapi-js').Error;
 
 describe('SuiteAPI Administrator endpoint', function() {
+  const ADMINISTRATOR_ID = 12;
 
   describe('#getAdministrators', function() {
     testApiMethod(AdministratorAPI, 'getAdministrators').shouldGetResultFromEndpoint('/administrator');
@@ -19,6 +20,19 @@ describe('SuiteAPI Administrator endpoint', function() {
   });
 
 
+  describe('#getStartPages', function() {
+    testApiMethod(AdministratorAPI, 'getStartPages')
+      .shouldGetResultFromEndpoint('/administrator/getstartpages');
+  });
+
+
+  describe('#getRestrictedStartPages', function() {
+    testApiMethod(AdministratorAPI, 'getRestrictedStartPages').withArgs({
+      administrator_id: ADMINISTRATOR_ID
+    }).shouldGetResultFromEndpoint(`/administrator/${ADMINISTRATOR_ID}/getstartpages`);
+  });
+
+
   describe('#getAccessLevels', function() {
     testApiMethod(AdministratorAPI, 'getAccessLevels').shouldGetResultFromEndpoint('/administrator/getaccesslevels');
   });
@@ -26,9 +40,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#patchAdministrator', function() {
     testApiMethod(AdministratorAPI, 'patchAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', {
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, {
       data: 'someData'
     });
 
@@ -37,32 +51,20 @@ describe('SuiteAPI Administrator endpoint', function() {
 
 
   describe('#getAdministrator', function() {
+    const administratorId = '3';
+
     testApiMethod(AdministratorAPI, 'getAdministrator').withArgs({
-      administrator_id: '3'
+      administrator_id: administratorId
     })
-    .requestResponseWith({
-      body: {
-        data: [
-          { id: '1', superadmin: '0' },
-          { id: '2', superadmin: '1' },
-          { id: '3', superadmin: '0' }
-        ]
-      }
-    }).shouldGetResultFromEndpoint('/administrator', {
-      body: { data: { id: '3', superadmin: '0' } }
-    });
+      .requestResponseWith({
+        body: {
+          data: { id: administratorId, superadmin: '0' }
+        }
+      }).shouldGetResultFromEndpoint(`/administrator/${administratorId}`, {
+        body: { data: { id: administratorId, superadmin: '0' } }
+      });
 
     testApiMethod(AdministratorAPI, 'getAdministrator').shouldThrowMissingParameterError('administrator_id');
-
-
-    describe('requesting admin who not exists', function() {
-      testApiMethod(AdministratorAPI, 'getAdministrator').withArgs({
-        administrator_id: '12345'
-      })
-      .requestResponseWith({
-        body: { data: [{ id: '1', superadmin: '0' }] }
-      }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
-    });
   });
 
 
@@ -70,16 +72,16 @@ describe('SuiteAPI Administrator endpoint', function() {
     testApiMethod(AdministratorAPI, 'getAdministratorByName').withArgs({
       admin_name: 'adminName'
     })
-    .requestResponseWith({
-      body: {
-        data: [
-          { id: '1', username: 'adminName', email: 'kalman@email.com' },
-          { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
-        ]
-      }
-    }).shouldGetResultFromEndpoint('/administrator', {
-      body: { data: { id: '1', username: 'adminName', email: 'kalman@email.com' } }
-    });
+      .requestResponseWith({
+        body: {
+          data: [
+            { id: '1', username: 'adminName', email: 'kalman@email.com' },
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
+          ]
+        }
+      }).shouldGetResultFromEndpoint('/administrator', {
+        body: { data: { id: '1', username: 'adminName', email: 'kalman@email.com' } }
+      });
 
     testApiMethod(AdministratorAPI, 'getAdministratorByName').shouldThrowMissingParameterError('admin_name');
 
@@ -88,39 +90,11 @@ describe('SuiteAPI Administrator endpoint', function() {
       testApiMethod(AdministratorAPI, 'getAdministratorByName').withArgs({
         admin_name: 'notExists'
       })
-      .requestResponseWith({
-        body: {
-          data: [
-            { id: '1', username: 'adminName', email: 'kalman@email.com' },
-            { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
-          ]
-        }
-      }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
-    });
-  });
-
-
-  describe('#getSuperadmin', function() {
-    testApiMethod(AdministratorAPI, 'getSuperadmin')
-      .requestResponseWith({
-        body: {
-          data: [
-            { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-            { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' }
-          ]
-        }
-      }).shouldGetResultFromEndpoint('/administrator', {
-        body: { data: { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' } }
-      });
-
-
-    describe('requesting admin who not exists', function() {
-      testApiMethod(AdministratorAPI, 'getSuperadmin')
         .requestResponseWith({
           body: {
             data: [
-              { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
+              { id: '1', username: 'adminName', email: 'kalman@email.com' },
+              { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
             ]
           }
         }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
@@ -130,34 +104,34 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#getSuperadmins', function() {
     testApiMethod(AdministratorAPI, 'getSuperadmins')
-        .requestResponseWith({
-          body: {
-            data: [
-              { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
-              { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
-            ]
-          }
-        }).shouldGetResultFromEndpoint('/administrator', {
-          body: {
-            data: [
-              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
-              { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
-            ]
-          }
-        });
+      .requestResponseWith({
+        body: {
+          data: [
+            { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
+            { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
+          ]
+        }
+      }).shouldGetResultFromEndpoint('/administrator', {
+        body: {
+          data: [
+            { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '1' },
+            { id: '3', username: 'adminName3', email: 'kalman3@email.com', superadmin: '1' }
+          ]
+        }
+      });
 
 
     describe('requesting admin who not exists', function() {
       testApiMethod(AdministratorAPI, 'getSuperadmins')
-          .requestResponseWith({
-            body: {
-              data: [
-                { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
-                { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
-              ]
-            }
-          }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
+        .requestResponseWith({
+          body: {
+            data: [
+              { id: '1', username: 'adminName', email: 'kalman@email.com', superadmin: '0' },
+              { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
+            ]
+          }
+        }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
     });
   });
 
@@ -193,8 +167,8 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('adding default values', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(PasswordGenerator, 'generate').returns('test!!!Password');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'createAdministrator')
@@ -213,7 +187,7 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#inviteExistingAdministrator', function() {
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'inviteExistingAdministrator')
@@ -277,8 +251,8 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('adding default values', function() {
       beforeEach(function() {
-        this.sandbox.stub(PasswordGenerator, 'generate').returns('test!!!Password');
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(PasswordGenerator, 'generate').returns('test!!!Password');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'createSuperadmin')
@@ -297,7 +271,7 @@ describe('SuiteAPI Administrator endpoint', function() {
   describe('#promoteToSuperadmin', function() {
     describe('should not modify the access level', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'promoteToSuperadmin')
@@ -344,9 +318,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#enableAdministrator', function() {
     testApiMethod(AdministratorAPI, 'enableAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', sinon.match({
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, sinon.match({
       data: 'someData'
     }));
 
@@ -355,7 +329,7 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'enableAdministrator')
@@ -385,9 +359,9 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#disableAdministrator', function() {
     testApiMethod(AdministratorAPI, 'disableAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/patch', sinon.match({
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/patch`, sinon.match({
       data: 'someData'
     }));
 
@@ -396,7 +370,7 @@ describe('SuiteAPI Administrator endpoint', function() {
 
     describe('force data for invitation', function() {
       beforeEach(function() {
-        this.sandbox.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
+        sinon.stub(DateHelper, 'getCurrentDate').returns('1999-01-01 01:01');
       });
 
       testApiMethod(AdministratorAPI, 'disableAdministrator')
@@ -423,10 +397,10 @@ describe('SuiteAPI Administrator endpoint', function() {
 
   describe('#deleteAdministrator', function() {
     testApiMethod(AdministratorAPI, 'deleteAdministrator').withArgs({
-      administrator_id: 12,
+      administrator_id: ADMINISTRATOR_ID,
       successor_administrator_id: 55,
       data: 'someData'
-    }).shouldPostToEndpoint('/administrator/12/delete', {
+    }).shouldPostToEndpoint(`/administrator/${ADMINISTRATOR_ID}/delete`, {
       data: 'someData',
       successor_administrator_id: 55
     });

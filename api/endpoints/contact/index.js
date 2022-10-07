@@ -110,9 +110,33 @@ _.extend(Contact.prototype, {
       payload,
       options
     );
+  },
+
+  checkIds: function(payload, options) {
+    return this._requireParameters(payload, ['key_id', 'external_ids']).then(function() {
+      logger.log('contact_checkids');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/contact/checkids',
+        payload,
+        options
+      );
+    }.bind(this));
+  },
+
+  lastChange: function(payload, options) {
+    return this._requireParameters(payload, ['keyId', 'keyValues', 'fieldId']).then(function() {
+      logger.log('contact_lastchange');
+
+      return this._request.post(
+        this._getCustomerId(options),
+        '/contact/last_change',
+        payload,
+        options
+      );
+    }.bind(this));
   }
-
-
 
 });
 

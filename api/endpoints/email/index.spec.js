@@ -115,6 +115,11 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'listVersions').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#getResponseSummary', function() {
+    testApiMethod(EmailAPI, 'getResponseSummary').withArgs({ email_id: 12 }).shouldGetResultFromEndpoint('/email/12/responsesummary');
+    testApiMethod(EmailAPI, 'getResponseSummary').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
+
   describe('#patch', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({
       email_id: 12,
@@ -126,6 +131,16 @@ describe('SuiteAPI Email endpoint', function() {
     testApiMethod(EmailAPI, 'patch').withArgs({}).shouldThrowMissingParameterError('email_id');
   });
 
+  describe('#broadcast', function() {
+    testApiMethod(EmailAPI, 'broadcast').withArgs({
+      email_id: 12,
+      data: 'something'
+    }).shouldPostToEndpoint('/email/12/broadcast', {
+      data: 'something'
+    });
+
+    testApiMethod(EmailAPI, 'broadcast').withArgs({}).shouldThrowMissingParameterError('email_id');
+  });
 
   describe('#sendTestMail', function() {
     testApiMethod(EmailAPI, 'sendTestMail').withArgs({

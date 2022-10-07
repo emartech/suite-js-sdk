@@ -79,6 +79,18 @@ _.extend(Settings.prototype, {
     );
   },
 
+  getLanguages: function(payload, options) {
+    return this._requireParameters(payload, ['translate']).then(function() {
+      logger.log('settings_get_languages');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        util.format('/settings/languages/translation/%s', payload.translate),
+        options
+      );
+    }.bind(this));
+  },
+
   getLinkCategories: function(payload, options) {
     logger.log('settings_get_linkcategories');
 

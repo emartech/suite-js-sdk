@@ -55,6 +55,23 @@ _.extend(Field.prototype, {
         options
       );
     }.bind(this));
+  },
+
+
+  getMultipleChoices: function(payload, options) {
+    return this._requireParameters(payload, ['field_ids']).then(function() {
+      const url = payload.translate_id ?
+        util.format('/field/choices?fields=%s&language=%s', payload.field_ids.join(','), payload.translate_id) :
+        util.format('/field/choices?fields=%s', payload.field_ids.join(','));
+
+      logger.log('field_get_multiple_choices');
+
+      return this._request.get(
+        this._getCustomerId(options),
+        url,
+        options
+      );
+    }.bind(this));
   }
 
 });

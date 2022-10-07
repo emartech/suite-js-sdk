@@ -47,6 +47,12 @@ describe('SuiteAPI Settings endpoint', function() {
     ]);
   });
 
+  describe('#getLanguages', function() {
+    testApiMethod(SettingsAPI, 'getLanguages').withArgs({
+      translate: 'en'
+    }).shouldGetResultFromEndpoint('/settings/languages/translation/en');
+  });
+
   describe('#getSecuritySettings', function() {
     testApiMethod(SettingsAPI, 'getSecuritySettings').shouldGetResultFromEndpoint('/settings/security');
   });
