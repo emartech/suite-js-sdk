@@ -32,7 +32,7 @@
     "escher-auth": "3.2.4",
     "escher-keypool": "2.0.2",
     "escher-suiteapi-js": "16.2.0",
-    "flat": "4.1.0",
+    "flat": "5.0.2",
     "lodash": "4.17.21",
     "logentries-logformat": "0.2.0",
     "moment-timezone": "0.5.39",
