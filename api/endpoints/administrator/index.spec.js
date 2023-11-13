@@ -5,7 +5,7 @@ var AdministratorAPI = require('./');
 var PasswordGenerator = require('../../../lib/password-generator');
 var DateHelper = require('../../../lib/date-helper');
 var testApiMethod = require('../_test');
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+const { EscherRequestError } = require('@emartech/escher-request');
 
 describe('SuiteAPI Administrator endpoint', function() {
   const ADMINISTRATOR_ID = 12;
@@ -97,7 +97,7 @@ describe('SuiteAPI Administrator endpoint', function() {
               { id: '2', username: 'adminName2', email: 'kalman2@email.com' }
             ]
           }
-        }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
+        }).shouldThrowError(new EscherRequestError('There is no admin for this customer', 400));
     });
   });
 
@@ -131,7 +131,7 @@ describe('SuiteAPI Administrator endpoint', function() {
               { id: '2', username: 'adminName2', email: 'kalman2@email.com', superadmin: '0' }
             ]
           }
-        }).shouldThrowError(new SuiteRequestError('There is no admin for this customer', 400));
+        }).shouldThrowError(new EscherRequestError('There is no admin for this customer', 400));
     });
   });
 

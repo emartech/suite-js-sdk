@@ -20,7 +20,7 @@
     "url": "https://github.com/emartech/suite-js-sdk/issues"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   },
   "pre-commit": [
     "code-style",
@@ -28,10 +28,10 @@
   ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
-    "axios": "0.27.2",
+    "@emartech/escher-request": "20.2.1",
+    "axios": "1.6.1",
     "escher-auth": "3.2.4",
     "escher-keypool": "2.0.2",
-    "escher-suiteapi-js": "16.2.0",
     "flat": "5.0.2",
     "lodash": "4.17.21",
     "logentries-logformat": "0.2.0",

@@ -5,7 +5,7 @@ var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
 
 var AdminList = require('./index.admin-list.js');
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+const { EscherRequestError } = require('@emartech/escher-request');
 var passwordGenerator = require('../../../lib/password-generator');
 var dateHelper = require('../../../lib/date-helper');
 
@@ -45,7 +45,7 @@ _.extend(Administrator.prototype, {
         });
       }
 
-      return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
+      return Promise.reject(new EscherRequestError('There is no admin for this customer', 400));
     }.bind(this));
   },
 
@@ -84,7 +84,7 @@ _.extend(Administrator.prototype, {
           });
         }
 
-        return Promise.reject(new SuiteRequestError('There is no admin for this customer', 400));
+        return Promise.reject(new EscherRequestError('There is no admin for this customer', 400));
       }.bind(this));
     }.bind(this));
   },
