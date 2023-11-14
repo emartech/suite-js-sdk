@@ -1,6 +1,6 @@
 'use strict';
 
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+var SuiteRequestError = require('../../../lib/api-request/error');
 
 module.exports = {
   shouldThrowError: function(error) {

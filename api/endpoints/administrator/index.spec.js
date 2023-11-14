@@ -5,7 +5,7 @@ var AdministratorAPI = require('./');
 var PasswordGenerator = require('../../../lib/password-generator');
 var DateHelper = require('../../../lib/date-helper');
 var testApiMethod = require('../_test');
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+var SuiteRequestError = require('../../../lib/api-request/error');
 
 describe('SuiteAPI Administrator endpoint', function() {
   const ADMINISTRATOR_ID = 12;

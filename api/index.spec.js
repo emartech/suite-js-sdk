@@ -1,6 +1,6 @@
 'use strict';
 
-var SuiteRequest = require('escher-suiteapi-js');
+const { EscherRequest, EscherRequestOption } = require('@emartech/escher-request');
 var SuiteAPI = require('./');
 
 var AdministratorAPI = require('./endpoints/administrator');
@@ -22,7 +22,6 @@ var SettingsAPI = require('./endpoints/settings');
 var KeyringAPI = require('./endpoints/keyring');
 
 var Request = require('./../lib/api-request');
-var SuiteRequestOptions = SuiteRequest.Options;
 
 var config = require('../config');
 
@@ -34,10 +33,10 @@ describe('SuiteApi', function() {
 
     beforeEach(function() {
       stubRequestCreation = (function() {
-        sinon.stub(SuiteRequest, 'create');
+        sinon.stub(EscherRequest, 'create');
         sinon.stub(Request, 'create');
-        sinon.stub(SuiteRequestOptions, 'createForInternalApi').returns('SuiteRequestOptionsStub');
-        sinon.stub(SuiteRequestOptions, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
+        sinon.stub(EscherRequestOption, 'createForInternalApi').returns('SuiteRequestOptionsStub');
+        sinon.stub(EscherRequestOption, 'createForServiceApi').returns('SuiteServiceRequestOptionsStub');
       }).bind(this);
     });
 
@@ -210,9 +209,9 @@ describe('SuiteApi', function() {
       sinon.stub(SettingsAPI, 'create').returns('FromSettingsEndpointStub');
       sinon.stub(KeyringAPI, 'create').returns('FromKeyringEndpointStub');
 
-      var suiteRequestStub = sinon.stub(SuiteRequest, 'create');
-      suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
-      suiteRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
+      var escherRequestStub = sinon.stub(EscherRequest, 'create');
+      escherRequestStub.withArgs(apiKey, apiSecret, 'SuiteRequestOptionsStub').returns('SuiteRequestStub');
+      escherRequestStub.withArgs(apiKey, apiSecret, 'SuiteServiceRequestOptionsStub').returns('SuiteServiceRequestStub');
       fakeRequest = { id: 'fakeRequestFrom' };
       sinon.stub(Request, 'create').withArgs(options).returns(fakeRequest);
       sdk = SuiteAPI.create(options);
