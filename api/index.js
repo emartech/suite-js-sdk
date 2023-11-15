@@ -1,7 +1,7 @@
 'use strict';
 
-var SuiteRequest = require('escher-suiteapi-js');
 var ApiRequest = require('./../lib/api-request');
+var SuiteRequestError = require('./../lib/api-request/error');
 
 var AdministratorAPI = require('./endpoints/administrator');
 var AutomationCenterAPI = require('./endpoints/automationcenter');
@@ -131,4 +131,4 @@ module.exports.Segment = SegmentAPI;
 module.exports.Settings = SettingsAPI;
 module.exports.Keyring = KeyringAPI;
 
-module.exports.SuiteRequestError = SuiteRequest.Error;
+module.exports.SuiteRequestError = SuiteRequestError;

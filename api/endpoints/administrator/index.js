@@ -5,7 +5,7 @@ var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
 
 var AdminList = require('./index.admin-list.js');
-var SuiteRequestError = require('escher-suiteapi-js').Error;
+var SuiteRequestError = require('../../../lib/api-request/error');
 var passwordGenerator = require('../../../lib/password-generator');
 var dateHelper = require('../../../lib/date-helper');
 
