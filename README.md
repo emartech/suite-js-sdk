@@ -22,7 +22,7 @@ node fashion, exposing a **Promise-only interface**.
 
 However, the Emarsys API lacks a decent amount of methods that you expect an API to provide.
 Thus, if methods are missing or a certain implementation
-style was choosen it is most likely due to the inconsistency of the API itself.
+style was chosen it is most likely due to the inconsistency of the API itself.
 Feel free to get in touch or submit a pull request if you encounter any problems.
 
 ## Configuration and Setup
@@ -69,13 +69,13 @@ If the authentication success it decorates the request with a validatedData prop
 
     var middleware = require('suite-js-sdk').translations.koaMiddleware.decorateRenderWithTranslations();
 
-The middleware use 'validatedData' from the request. 'validatedData' must contains an 'environment' property.
-If you want to load an admins language then 'validatedData' must contains a 'customer_id' and an 'admin_id' properties.
-If you want to load a specific language then 'validatedData' must contains a 'language' property.
+The middleware use 'validatedData' from the request. 'validatedData' must contain an 'environment' property.
+If you want to load an admins language then 'validatedData' must contain a 'customer_id' and an 'admin_id' properties.
+If you want to load a specific language then 'validatedData' must contain a 'language' property.
 
 ### Usage
 
-Middleware decorates the render method. It will add 'translations' object as render data. It also adds a '_' method as render data. So you can use it for transations.
+Middleware decorates the render method. It will add 'translations' object as render data. It also adds a '_' method as render data. So you can use it for translations.
 
     translations = {
         dialogs: {
@@ -280,6 +280,10 @@ To return the contacts with string field ids, specify `{ stringIds: true }` in t
 ##### [List](https://dev.emarsys.com/v2/contact-lists/list-contact-lists)
 
     suiteAPI.contactList.list(payload, options);
+
+##### [Fetch](https://dev.emarsys.com/docs/core-api-reference/20nck8oujcus8-fetch-contacts-in-a-contact-list)
+
+    suiteAPI.contactList.fetch(payload, options);
 
 ##### [Add](https://dev.emarsys.com/v2/contact-lists/add-contacts-to-a-contact-list)
 

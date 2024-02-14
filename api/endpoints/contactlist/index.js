@@ -40,6 +40,23 @@ _.extend(ContactList.prototype, {
     }.bind(this));
   },
 
+  fetch: function(payload, options) {
+    return this._requireParameters(payload, ['contact_list_id']).then(function() {
+      logger.log('contactlist_fetch');
+
+      var url = util.format('/v2/contactlist/%s/contactIds', payload.contact_list_id);
+
+      if (payload.next) {
+        url = util.format('/v2%s', payload.next);
+      }
+
+      return this._request.get(
+        this._getCustomerId(options),
+        this._buildUrl(url, { $top: payload.top, $skiptoken: payload.skiptoken }, ['contact_list_id']),
+        options
+      );
+    }.bind(this));
+  },
 
   add: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
