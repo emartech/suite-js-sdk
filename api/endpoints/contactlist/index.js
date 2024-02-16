@@ -44,10 +44,8 @@ _.extend(ContactList.prototype, {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
       logger.log('contactlist_fetch');
 
-
-      var url = util.format('/v2/contactlist/%s/contactIds', payload.contact_list_id);
       if (payload.next) {
-        url = util.format('/v2%s', payload.next);
+        var url = util.format('/v2%s', payload.next);
         return this._request.get(
           this._getCustomerId(options),
           url,
@@ -55,6 +53,7 @@ _.extend(ContactList.prototype, {
         );
       }
 
+      var url = util.format('/v2/contactlist/%s/contactIds', payload.contact_list_id);
       return this._request.get(
         this._getCustomerId(options),
         this._buildUrl(url, payload, ['contact_list_id']),
