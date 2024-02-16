@@ -28,6 +28,28 @@ describe('SuiteAPI Contact List endpoint', function() {
 
   });
 
+  describe('#fetch', function() {
+
+    testApiMethod(ContactListApi, 'fetch').withArgs({
+      contact_list_id: 2
+    }).shouldGetResultFromEndpoint('/contactlist/2/contacts');
+
+    testApiMethod(ContactListApi, 'fetch').withArgs({
+      contact_list_id: 2,
+      next: '/contactlist/2/contactIds?$skiptoken=750&$top=1000'
+    }).shouldGetResultFromEndpoint('v2/contactlist/2/contactIds?$skiptoken=750&$top=1000');
+
+    testApiMethod(ContactListApi, 'fetch').withArgs({
+      contact_list_id: 2,
+      next: null
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds');
+
+    testApiMethod(ContactListApi, 'fetch').withArgs({
+      contact_list_id: 2,
+      $skiptoken: 4
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds?$skiptoken=4');
+  });
+
 
   describe('#add', function() {
 
