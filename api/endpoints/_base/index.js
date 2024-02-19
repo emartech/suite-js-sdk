@@ -36,13 +36,16 @@ _.extend(Base.prototype, {
   },
 
 
-  _buildUrl: function(base, payload, blackList) {
+  _buildUrl: function(base, payload, blackList, shouldSlash = true) {
     payload = this._cleanPayload(payload, blackList);
 
     var qs = querystring.stringify(payload);
 
     if (qs.length) {
-      return base + '/?' + qs;
+      if (shouldSlash) {
+        return base + '/?' + qs;
+      }
+      return base + '?' + qs.replaceAll('%24', '$');
     }
 
     return base;
