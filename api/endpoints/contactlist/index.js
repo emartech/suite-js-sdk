@@ -56,7 +56,7 @@ _.extend(ContactList.prototype, {
       var url = util.format('/v2/contactlist/%s/contactIds', payload.contact_list_id);
       return this._request.get(
         this._getCustomerId(options),
-        this._buildUrl(url, payload, ['contact_list_id']),
+        this._buildUrl(url, payload, ['contact_list_id'], false),
         options
       );
     }.bind(this));
