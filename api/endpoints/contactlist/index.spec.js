@@ -32,27 +32,27 @@ describe('SuiteAPI Contact List endpoint', function() {
 
     testApiMethod(ContactListApi, 'fetch').withArgs({
       contact_list_id: 2
-    }).shouldGetResultFromEndpoint('/v2/contactlist/2/contactIds');
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds');
 
     testApiMethod(ContactListApi, 'fetch').withArgs({
       contact_list_id: 2,
       next: '/contactlist/2/contactIds?$skiptoken=750&$top=1000'
-    }).shouldGetResultFromEndpoint('/v2/contactlist/2/contactIds?$skiptoken=750&$top=1000');
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds?$skiptoken=750&$top=1000');
 
     testApiMethod(ContactListApi, 'fetch').withArgs({
       contact_list_id: 2
-    }).shouldGetResultFromEndpoint('/v2/contactlist/2/contactIds');
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds');
 
     testApiMethod(ContactListApi, 'fetch').withArgs({
       contact_list_id: 2,
       $skiptoken: 4
-    }).shouldGetResultFromEndpoint('/v2/contactlist/2/contactIds?$skiptoken=4');
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds?$skiptoken=4');
 
     testApiMethod(ContactListApi, 'fetch').withArgs({
       contact_list_id: 2,
       $skiptoken: 4,
       $top: 10000
-    }).shouldGetResultFromEndpoint('/v2/contactlist/2/contactIds?$skiptoken=4&$top=10000');
+    }).shouldGetResultFromEndpoint('/contactlist/2/contactIds?$skiptoken=4&$top=10000');
   });
 
 
