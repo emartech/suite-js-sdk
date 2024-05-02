@@ -44,15 +44,6 @@ _.extend(ContactList.prototype, {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
       logger.log('contactlist_fetch');
 
-      if (payload.next) {
-        var url = payload.next;
-        return this._request.get(
-          this._getCustomerId(options),
-          url,
-          options
-        );
-      }
-
       var url = util.format('/contactlist/%s/contactIds', payload.contact_list_id);
       return this._request.get(
         this._getCustomerId(options),
