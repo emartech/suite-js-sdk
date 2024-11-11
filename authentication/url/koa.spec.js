@@ -90,4 +90,23 @@ describe('Suite API authentication middleware', function() {
     });
     expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option3: 3 });
   });
+
+
+  it('should decorate the request with validatedData from query parameters if the request is a HEAD', async function() {
+    var middleware = middlewareFactory.getMiddleware({ option4: 4 });
+    sinon.stub(SuiteSignedUrlAuthenticator.prototype, 'authenticate');
+    context.request.method = 'HEAD';
+
+    await middleware(context, next);
+
+    /*eslint-disable*/
+    expect(next.called).to.be.true;
+    /*eslint-enable*/
+    expect(SuiteSignedUrlAuthenticator.prototype.authenticate).to.have.been.calledWith('testUrl', 'testHost');
+    expect(context.request.validatedData).to.eql({
+      'queryPar1': '1',
+      'queryPar2': '2'
+    });
+    expect(SuiteSignedUrlAuthenticator.create).to.have.been.calledWith({ option4: 4 });
+  });
 });
