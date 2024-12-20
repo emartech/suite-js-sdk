@@ -15,6 +15,10 @@ Simple Javascript wrapper for the Emarsys API.
 
     npm test
 
+## Release
+
+Releases are automatized with semantic-release. Whether a release is triggered, and whether it is major, minor, or patch increase, is based the on commit message, follow the [conventions](https://github.com/semantic-release/semantic-release#commit-message-format).
+
 ## Emarsys API Hint
 
 This wrapper tries to implement all available methods of the Emarsys API in a
