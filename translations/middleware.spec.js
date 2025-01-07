@@ -261,7 +261,7 @@ describe('Suite translation middleware', function() {
 
 
   var httpBackendRespondWith = function(errorCode, language, data) {
-    nock('http://testEnvironment')
+    nock('https://testEnvironment')
       .get('/js/translate/translate_' + testTranslation + '.js.php?lang=' + language)
       .times(1)
       .reply(errorCode, data);

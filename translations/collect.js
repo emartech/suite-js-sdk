@@ -52,7 +52,7 @@ CollectTranslations.prototype = {
         'translate_' + this._translationId + '.js.php';
 
     return (
-      'http://' +
+      'https://' +
       this._environment +
       '/js/translate/' +
       filename +
