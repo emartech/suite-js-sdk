@@ -1,6 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
-  ]
+    "config:best-practices",
+    ":enableVulnerabilityAlerts",
+    ":pinOnlyDevDependencies",
+    ":semanticCommits",
+    ":separateMultipleMajorReleases",
+    "group:allNonMajor"
+  ],
+  "dependencyDashboardLabels": ["dependencies"],
+  "labels": ["dependencies"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["on the 1-7 day on Sunday"]
+  },
+  "schedule": ["on the 1-7 day on Sunday"]
 }
