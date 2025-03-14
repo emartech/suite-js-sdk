@@ -14,5 +14,16 @@
     "enabled": true,
     "schedule": ["on the 1-7 day on Sunday"]
   },
+  "packageRules": [
+    {
+      "groupName": "typescript",
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["minor"]
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "separateMultipleMinor": true
+    }
+  ],
   "schedule": ["on the 1-7 day on Sunday"]
 }
