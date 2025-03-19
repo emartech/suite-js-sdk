@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":enableVulnerabilityAlerts",
+    ":pinOnlyDevDependencies",
+    ":semanticCommits",
+    ":separateMultipleMajorReleases",
+    "group:allNonMajor"
+  ],
+  "dependencyDashboardLabels": ["dependencies"],
+  "labels": ["dependencies"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["on the 1-7 day on Sunday"]
+  },
+  "packageRules": [
+    {
+      "groupName": "axios",
+      "matchPackageNames": ["axios"],
+      "matchUpdateTypes": ["minor"]
+    },
+    {
+      "matchPackageNames": ["axios"],
+      "separateMultipleMinor": true
+    }
+  ],
+  "schedule": ["on the 1-7 day on Sunday"]
+}
