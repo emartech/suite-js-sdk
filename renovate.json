@@ -16,12 +16,12 @@
   },
   "packageRules": [
     {
-      "groupName": "typescript",
-      "matchPackageNames": ["typescript"],
+      "groupName": "axios",
+      "matchPackageNames": ["axios"],
       "matchUpdateTypes": ["minor"]
     },
     {
-      "matchPackageNames": ["typescript"],
+      "matchPackageNames": ["axios"],
       "separateMultipleMinor": true
     }
   ],
