@@ -2,6 +2,13 @@
   "name": "suite-js-sdk",
   "description": "",
   "main": "index.js",
+  "files": [
+    "api/",
+    "authentication/",
+    "lib/",
+    "translations/",
+    "config.js"
+  ],
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
