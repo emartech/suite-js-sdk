@@ -2,6 +2,13 @@
   "name": "suite-js-sdk",
   "description": "",
   "main": "index.js",
+  "files": [
+    "api/",
+    "authentication/",
+    "lib/",
+    "translations/",
+    "config.js"
+  ],
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
@@ -28,7 +35,7 @@
   ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
-    "@emartech/escher-request": "^21.1.5",
+    "@emartech/escher-request": "^21.1.6",
     "axios": "~1.8.4",
     "escher-auth": "^3.2.4",
     "escher-keypool": "^2.0.3",
