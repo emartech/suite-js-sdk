@@ -35,16 +35,16 @@
   ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
-    "@emartech/escher-request": "21.1.6",
-    "axios": "1.8.4",
-    "escher-auth": "3.2.4",
-    "escher-keypool": "2.0.3",
-    "flat": "5.0.2",
-    "lodash": "4.17.21",
-    "logentries-logformat": "0.2.0",
+    "@emartech/escher-request": "^21.1.6",
+    "axios": "~1.8.4",
+    "escher-auth": "^3.2.4",
+    "escher-keypool": "^2.0.3",
+    "flat": "^5.0.2",
+    "lodash": "^4.17.21",
+    "logentries-logformat": "^0.2.0",
     "moment-timezone": "^0.5.40",
-    "node-cache": "5.1.2",
-    "sprintf-js": "1.1.3"
+    "node-cache": "^5.1.2",
+    "sprintf-js": "^1.1.3"
   },
   "devDependencies": {
     "better-npm-audit": "1.12.1",
