@@ -47,7 +47,7 @@
     "sprintf-js": "^1.1.3"
   },
   "devDependencies": {
-    "better-npm-audit": "1.12.1",
+    "better-npm-audit": "2.1.0",
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
     "chai-subset": "1.6.0",
