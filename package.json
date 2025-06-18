@@ -55,7 +55,7 @@
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "2.6.0",
     "eslint-plugin-security": "1.7.1",
-    "mocha": "10.8.2",
+    "mocha": "11.7.0",
     "nock": "13.5.6",
     "pre-commit": "1.2.2",
     "semantic-release": "19.0.5",
