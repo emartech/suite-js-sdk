@@ -54,7 +54,7 @@
     "eslint": "8.57.1",
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "2.6.0",
-    "eslint-plugin-security": "1.7.1",
+    "eslint-plugin-security": "2.1.1",
     "mocha": "10.8.2",
     "nock": "13.5.6",
     "pre-commit": "1.2.2",
