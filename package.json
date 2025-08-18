@@ -36,7 +36,7 @@
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "@emartech/escher-request": "^21.1.6",
-    "axios": "~1.10.0",
+    "axios": "~1.11.0",
     "escher-auth": "^3.2.4",
     "escher-keypool": "^2.0.3",
     "flat": "^5.0.2",
