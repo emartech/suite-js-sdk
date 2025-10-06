@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    branches: [master, main]
+
+jobs:
+  init:
+    name: Init
+    uses: ./.github/workflows/_init.yml
+
+  test:
+    name: Test
+    uses: ./.github/workflows/_test.yml
+    needs: [init]
+    with:
+      NODE_VERSION: ${{ needs.init.outputs.NODE_VERSION }}
+      NODE_CACHE_KEY: ${{ needs.init.outputs.NODE_CACHE_KEY }}
+
+  release:
+    name: Release
+    uses: ./.github/workflows/_release.yml
+    needs: [init, test]
+    with:
+      NODE_VERSION: ${{ needs.init.outputs.NODE_VERSION }}
+      NODE_CACHE_KEY: ${{ needs.init.outputs.NODE_CACHE_KEY }}
+    secrets:
+      SEMANTIC_RELEASE_NPM_TOKEN: ${{ secrets.NPM_PUBLISHER_TOKEN }}
+      SEMANTIC_RELEASE_GH_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}

@@ -1,0 +1,20 @@
+name: Development
+
+on:
+  push:
+    branches: [ '*', '*/*', '**', '!master', '!main' ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  init:
+    name: Init
+    uses: ./.github/workflows/_init.yml
+
+  test:
+    name: Test
+    uses: ./.github/workflows/_test.yml
+    needs: [ init ]
+    with:
+      NODE_VERSION: ${{ needs.init.outputs.NODE_VERSION }}
+      NODE_CACHE_KEY: ${{ needs.init.outputs.NODE_CACHE_KEY }}
