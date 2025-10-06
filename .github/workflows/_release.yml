@@ -10,12 +10,6 @@ on:
         type: string
         required: true
 
-    secrets:
-      SEMANTIC_RELEASE_NPM_TOKEN:
-        required: true
-      SEMANTIC_RELEASE_GH_TOKEN:
-        required: true
-
 jobs:
   test:
     name: Release package
@@ -42,5 +36,5 @@ jobs:
       - name: Run release
         run: npm run release
         env:
-          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_NPM_TOKEN }}
-          GH_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISHER_TOKEN }}
