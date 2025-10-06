@@ -12,7 +12,7 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
-    "code-style": "eslint --fix .",
+    "lint": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
     "semantic-release": "semantic-release",
     "audit": "better-npm-audit audit"
@@ -30,7 +30,7 @@
     "node": ">=20"
   },
   "pre-commit": [
-    "code-style",
+    "lint",
     "validate-commit-msg"
   ],
   "homepage": "https://github.com/emartech/suite-js-sdk",
