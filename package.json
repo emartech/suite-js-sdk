@@ -59,7 +59,7 @@
     "nock": "13.5.6",
     "pre-commit": "1.2.2",
     "semantic-release": "24.2.9",
-    "sinon": "7.5.0",
+    "sinon": "21.0.0",
     "sinon-chai": "3.7.0",
     "validate-commit-message": "3.2.0"
   }
