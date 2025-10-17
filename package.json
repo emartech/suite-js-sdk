@@ -55,11 +55,11 @@
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-security": "3.0.1",
-    "mocha": "10.8.2",
-    "nock": "13.5.6",
+    "mocha": "11.7.4",
+    "nock": "14.0.10",
     "pre-commit": "1.2.2",
-    "semantic-release": "20.1.3",
-    "sinon": "7.5.0",
+    "semantic-release": "24.2.9",
+    "sinon": "21.0.0",
     "sinon-chai": "3.7.0",
     "validate-commit-message": "3.2.0"
   }
