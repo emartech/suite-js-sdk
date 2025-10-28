@@ -7,14 +7,15 @@
     "authentication/",
     "lib/",
     "translations/",
-    "config.js"
+    "config.js",
+    "!*.spec.js"
   ],
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "lint": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
-    "semantic-release": "semantic-release",
+    "release": "semantic-release",
     "audit": "better-npm-audit audit"
   },
   "repository": {

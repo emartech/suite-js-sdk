@@ -30,9 +30,6 @@ jobs:
         with:
           node-version: ${{ inputs.NODE_VERSION }}
 
-      - name: Run build
-        run: npm run build
-
       - name: Run release
         run: npm run release
         env:
