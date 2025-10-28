@@ -14,16 +14,5 @@
     "enabled": true,
     "schedule": ["on the 1-7 day on Sunday"]
   },
-  "packageRules": [
-    {
-      "groupName": "axios",
-      "matchPackageNames": ["axios"],
-      "matchUpdateTypes": ["minor"]
-    },
-    {
-      "matchPackageNames": ["axios"],
-      "separateMultipleMinor": true
-    }
-  ],
   "schedule": ["on the 1-7 day on Sunday"]
 }
