@@ -1,0 +1,54 @@
+name: Initialize build
+
+on:
+  workflow_call:
+    outputs:
+      NODE_VERSION:
+        value: ${{ jobs.init.outputs.NODE_VERSION }}
+      NODE_CACHE_KEY:
+        value: ${{ jobs.init.outputs.NODE_CACHE_KEY }}
+
+jobs:
+  init:
+    name: Initialize build
+    runs-on: ubuntu-latest
+
+    outputs:
+      NODE_VERSION: ${{ steps.node-version.outputs.NODE_VERSION }}
+      NODE_CACHE_KEY: ${{ steps.node-cache-key.outputs.NODE_CACHE_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        with:
+          fetch-depth: 0
+
+      - name: Get node version
+        id: node-version
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+
+      - name: Get node cache key
+        id: node-cache-key
+        run: echo ::set-output name=NODE_CACHE_KEY::npm-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/package.json') }}
+
+      - name: Cache dependencies
+        id: cache-node-modules
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: node_modules
+          key: ${{ steps.node-cache-key.outputs.NODE_CACHE_KEY }}
+
+      - name: Setup node
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: ${{ steps.node-version.outputs.NODE_VERSION }}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Log results
+        run: |
+          echo "NODE_VERSION:      ${{ steps.node-version.outputs.NODE_VERSION }}"
+          echo "NODE_CACHE_KEY:    ${{ steps.node-cache-key.outputs.NODE_CACHE_KEY }}"

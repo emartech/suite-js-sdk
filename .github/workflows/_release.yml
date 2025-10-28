@@ -1,0 +1,40 @@
+name: Release package
+
+on:
+  workflow_call:
+    inputs:
+      NODE_VERSION:
+        type: string
+        required: true
+      NODE_CACHE_KEY:
+        type: string
+        required: true
+
+jobs:
+  test:
+    name: Release package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+
+      - name: Load dependencies from cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: node_modules
+          key: ${{ inputs.NODE_CACHE_KEY }}
+
+      - name: Setup node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: ${{ inputs.NODE_VERSION }}
+
+      - name: Run build
+        run: npm run build
+
+      - name: Run release
+        run: npm run release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISHER_TOKEN }}
