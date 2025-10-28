@@ -15,8 +15,7 @@
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
     "lint": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
-    "semantic-release": "semantic-release",
-    "audit": "better-npm-audit audit"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -48,7 +47,6 @@
     "sprintf-js": "^1.1.3"
   },
   "devDependencies": {
-    "better-npm-audit": "3.11.0",
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
     "chai-subset": "1.6.0",
