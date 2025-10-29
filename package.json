@@ -13,7 +13,8 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
-    "lint": "eslint --fix .",
+    "lint": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "lint:fix": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
     "release": "semantic-release",
     "audit": "better-npm-audit audit"
@@ -52,7 +53,8 @@
     "chai": "4.5.0",
     "chai-as-promised": "7.1.2",
     "chai-subset": "1.6.0",
-    "eslint": "8.57.1",
+    "cross-env": "10.1.0",
+    "eslint": "9.38.0",
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-security": "3.0.1",
