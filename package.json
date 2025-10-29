@@ -39,7 +39,7 @@
   "dependencies": {
     "@emartech/escher-request": "^22.2.0",
     "axios": "^1.12.0",
-    "escher-auth": "^3.2.4",
+    "escher-auth": "^4.0.0",
     "escher-keypool": "^2.0.3",
     "flat": "^5.0.2",
     "lodash": "^4.17.21",
