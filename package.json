@@ -54,7 +54,7 @@
     "chai-as-promised": "7.1.2",
     "chai-subset": "1.6.0",
     "cross-env": "10.1.0",
-    "eslint": "9.38.0",
+    "eslint": "9.39.1",
     "eslint-config-emarsys": "5.1.0",
     "eslint-plugin-no-only-tests": "3.3.0",
     "eslint-plugin-security": "3.0.1",
