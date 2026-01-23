@@ -1,7 +1,7 @@
 'use strict';
 
 const chai = require('chai');
-chai.use(require('chai-as-promised'));
+chai.use(require('chai-as-promised').default);
 chai.use(require('chai-subset'));
 chai.use(require('sinon-chai'));
 
