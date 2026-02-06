@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "isolatedModules": true,
+    "module": "commonjs",
+    "noUncheckedSideEffectImports": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "strict": false
+  }
+}
