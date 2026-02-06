@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "module": "commonjs",
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "strict": false,
+    "target": "es2023"
+  }
+}
