@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -17,7 +19,7 @@ _.extend(Export.prototype, {
 
   getData: function(payload, options) {
     return this._requireParameters(payload, ['export_id']).then(function() {
-      logger.log('get_export_data');
+      logger.info('get_export_data');
       return this._request.get(
         this._getCustomerId(options),
         util.format('/export/%s/data/offset=%s&limit=%s', payload.export_id, payload.offset || '', payload.limit || ''),
@@ -27,7 +29,7 @@ _.extend(Export.prototype, {
   },
 
   getChanges: function(payload, options) {
-    logger.log('contact_getchanges');
+    logger.info('contact_getchanges');
 
     return this._request.post(
       this._getCustomerId(options),

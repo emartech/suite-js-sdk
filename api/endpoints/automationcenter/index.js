@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -17,7 +19,7 @@ _.extend(AutomationCenter.prototype, {
 
   programResource: function(payload, options) {
     return this._requireParameters(payload, ['service_id']).then(function() {
-      logger.log('automationcenter_programresource');
+      logger.info('automationcenter_programresource');
 
       if (payload.resource_id) {
         var url = util.format('/programresource/service_id=%s&resource_id=%d', payload.service_id, payload.resource_id);
@@ -35,7 +37,7 @@ _.extend(AutomationCenter.prototype, {
 
   programsEntrypoints: function(payload, options) {
     return this._requireParameters(payload, ['node_type', 'resource_id']).then(function() {
-      logger.log('automationcenter_programsentrypoints');
+      logger.info('automationcenter_programsentrypoints');
 
       var url = util.format('/ac/programs/entrypoints/%s/resources/%s/runs', payload.node_type, payload.resource_id);
 

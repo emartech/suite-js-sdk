@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -20,7 +22,7 @@ _.extend(Contact.prototype, {
   },
 
   create: function(payload, options) {
-    logger.log('contact_create');
+    logger.info('contact_create');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -31,7 +33,7 @@ _.extend(Contact.prototype, {
   },
 
   update: function(payload, options) {
-    logger.log('contact_update');
+    logger.info('contact_update');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -42,7 +44,7 @@ _.extend(Contact.prototype, {
   },
 
   createOrUpdate: function(payload, options) {
-    logger.log('contact_update');
+    logger.info('contact_update');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -54,7 +56,7 @@ _.extend(Contact.prototype, {
 
   getData: function(payload, options) {
     return this._requireParameters(payload, ['keyValues']).then(function() {
-      logger.log('contact_getdata');
+      logger.info('contact_getdata');
 
       var url = this._useStringIds(options) ? '/contact/getdata/stringids=1' : '/contact/getdata';
 
@@ -69,7 +71,7 @@ _.extend(Contact.prototype, {
 
   query: function(payload, options) {
     return this._requireParameters(payload, ['returnFieldId']).then(function() {
-      logger.log('contact_query');
+      logger.info('contact_query');
 
       var url = '/contact/query/return=' + payload.returnFieldId;
       if (payload.queryFieldId) {
@@ -91,7 +93,7 @@ _.extend(Contact.prototype, {
   },
 
   merge: function(payload, options) {
-    logger.log('contact_merge');
+    logger.info('contact_merge');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -102,7 +104,7 @@ _.extend(Contact.prototype, {
   },
 
   delete: function(payload, options) {
-    logger.log('contact_delete');
+    logger.info('contact_delete');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -114,7 +116,7 @@ _.extend(Contact.prototype, {
 
   checkIds: function(payload, options) {
     return this._requireParameters(payload, ['key_id', 'external_ids']).then(function() {
-      logger.log('contact_checkids');
+      logger.info('contact_checkids');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -127,7 +129,7 @@ _.extend(Contact.prototype, {
 
   lastChange: function(payload, options) {
     return this._requireParameters(payload, ['keyId', 'keyValues', 'fieldId']).then(function() {
-      logger.log('contact_lastchange');
+      logger.info('contact_lastchange');
 
       return this._request.post(
         this._getCustomerId(options),

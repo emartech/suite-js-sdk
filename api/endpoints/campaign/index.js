@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Campaign, Base);
 _.extend(Campaign.prototype, {
 
   create: function(payload, options) {
-    logger.log('campaign_create');
+    logger.info('campaign_create');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -28,7 +30,7 @@ _.extend(Campaign.prototype, {
 
   update: function(payload, options) {
     return this._requireParameters(payload, ['campaign_id']).then(function() {
-      logger.log('campaign_update');
+      logger.info('campaign_update');
 
       return this._request.post(
         this._getCustomerId(options),

@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -15,7 +17,7 @@ util.inherits(Condition, Base);
 
 _.extend(Condition.prototype, {
   list: function(payload, options) {
-    logger.log('condition_list');
+    logger.info('condition_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -25,7 +27,7 @@ _.extend(Condition.prototype, {
   },
 
   listWithContactFields: function(payload, options) {
-    logger.log('condition_list_with_contact_fields');
+    logger.info('condition_list_with_contact_fields');
 
     return this._request.get(
       this._getCustomerId(options),

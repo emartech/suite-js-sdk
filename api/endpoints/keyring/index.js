@@ -2,7 +2,9 @@
 
 const util = require('util');
 const _ = require('lodash');
-const logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 const Base = require('../_base');
 
@@ -15,7 +17,7 @@ util.inherits(Keyring, Base);
 
 _.extend(Keyring.prototype, {
   list: function(payload, options) {
-    logger.log('keyring_keys');
+    logger.info('keyring_keys');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -26,7 +28,7 @@ _.extend(Keyring.prototype, {
 
   get: function(payload, options) {
     return this._requireParameters(payload, ['key_id']).then(function() {
-      logger.log('keyring_get_key');
+      logger.info('keyring_get_key');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -38,7 +40,7 @@ _.extend(Keyring.prototype, {
 
   create: function(payload, options) {
     return this._requireParameters(payload, ['comment']).then(function() {
-      logger.log('keyring_create_key');
+      logger.info('keyring_create_key');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -50,7 +52,7 @@ _.extend(Keyring.prototype, {
 
   delete: function(payload, options) {
     return this._requireParameters(payload, ['key_id']).then(function() {
-      logger.log('keyring_delete_key');
+      logger.info('keyring_delete_key');
 
       return this._request.post(
         this._getCustomerId(options),
