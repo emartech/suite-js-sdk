@@ -1,8 +1,10 @@
 'use strict';
 
 var util = require('util');
-var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(CombinedSegment, Base);
 _.extend(CombinedSegment.prototype, {
 
   list: function(payload, options) {
-    logger.log('combined_segment_list');
+    logger.info('combined_segment_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -26,7 +28,7 @@ _.extend(CombinedSegment.prototype, {
   },
 
   create: function(payload, options) {
-    logger.log('combined_segment_create');
+    logger.info('combined_segment_create');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -39,7 +41,7 @@ _.extend(CombinedSegment.prototype, {
   get: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/combinedsegments/%s', payload.segment_id);
-      logger.log('combined_segment_get_definition');
+      logger.info('combined_segment_get_definition');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -52,7 +54,7 @@ _.extend(CombinedSegment.prototype, {
   update: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/combinedsegments/%s', payload.segment_id);
-      logger.log('segment_update_contact_criteria');
+      logger.info('segment_update_contact_criteria');
 
       return this._request.post(
         this._getCustomerId(options),

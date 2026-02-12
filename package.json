@@ -37,12 +37,12 @@
   "homepage": "https://github.com/emartech/suite-js-sdk",
   "dependencies": {
     "@emartech/escher-request": "^22.2.0",
+    "@emartech/json-logger": "^9.2.1",
     "axios": "^1.12.0",
     "escher-auth": "^4.0.0",
     "escher-keypool": "^3.0.0",
     "flat": "^5.0.2",
     "lodash": "^4.17.23",
-    "logentries-logformat": "^0.2.0",
     "moment-timezone": "^0.6.0",
     "node-cache": "^5.1.2",
     "sprintf-js": "^1.1.3"

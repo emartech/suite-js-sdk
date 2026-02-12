@@ -1,8 +1,10 @@
 'use strict';
 
 var util = require('util');
-var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Source, Base);
 _.extend(Source.prototype, {
 
   listSources: function(payload, options) {
-    logger.log('source_list');
+    logger.info('source_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -26,7 +28,7 @@ _.extend(Source.prototype, {
   },
 
   create: function(payload, options) {
-    logger.log('source_create');
+    logger.info('source_create');
 
     return this._request.post(
       this._getCustomerId(options),
