@@ -16,7 +16,7 @@ export default defineConfig({
     globals: {
       ...globals.node,
       ...globals.mocha,
-      expect: "readonly",
+      ...globals.chai,
       sinon: "readonly",
     },
   },
