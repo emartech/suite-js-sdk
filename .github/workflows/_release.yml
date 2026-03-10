@@ -10,6 +10,11 @@ on:
         type: string
         required: true
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   test:
     name: Release package
