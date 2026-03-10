@@ -30,7 +30,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
       keyPool: JSON.stringify([{ 'keyId': 'suite_cuda_v1', 'secret': 'testSecret', 'acceptOnly': 0 }])
     };
 
-    // eslint-disable-next-line require-await
     next = async function() { };
   });
 
@@ -69,7 +68,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
     it('should have been called', async function() {
       await callMiddleware(createContextWithEmptyBody());
 
-      // eslint-disable-next-line no-unused-expressions
       expect(escherStub.authenticate).to.have.been.called;
     });
 
@@ -120,12 +118,10 @@ describe('Koa Escher Request Authentication Middleware', function() {
       it('should await the "next"', async function() {
         var awaitCalled = false;
 
-        // eslint-disable-next-line require-await
         await getMiddleware(escherConfig)(createContextWithEmptyBody(), async function() {
           awaitCalled = true;
         });
 
-        // eslint-disable-next-line no-unused-expressions
         expect(awaitCalled).to.be.true;
       });
 
@@ -133,7 +129,6 @@ describe('Koa Escher Request Authentication Middleware', function() {
         var nextError = new Error('Error in next');
 
         try {
-          // eslint-disable-next-line require-await
           await getMiddleware(escherConfig)(createContextWithEmptyBody(), async function() {
             throw nextError;
           });
