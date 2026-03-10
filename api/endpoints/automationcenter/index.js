@@ -19,10 +19,11 @@ _.extend(AutomationCenter.prototype, {
     return this._requireParameters(payload, ['service_id']).then(function() {
       logger.log('automationcenter_programresource');
 
+      var url;
       if (payload.resource_id) {
-        var url = util.format('/programresource/service_id=%s&resource_id=%d', payload.service_id, payload.resource_id);
+        url = util.format('/programresource/service_id=%s&resource_id=%d', payload.service_id, payload.resource_id);
       } else {
-        var url = util.format('/programresource/service_id=%s', payload.service_id);
+        url = util.format('/programresource/service_id=%s', payload.service_id);
       }
 
       return this._request.get(
