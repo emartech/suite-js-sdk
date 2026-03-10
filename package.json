@@ -16,7 +16,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "verify": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
