@@ -8,6 +8,9 @@ on:
       NODE_CACHE_KEY:
         value: ${{ jobs.init.outputs.NODE_CACHE_KEY }}
 
+permissions:
+  contents: read
+
 jobs:
   init:
     name: Initialize build
