@@ -1,8 +1,10 @@
 'use strict';
 
 var util = require('util');
-var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var AdminList = require('./index.admin-list.js');
 var SuiteRequestError = require('../../../lib/api-request/error');
@@ -21,7 +23,7 @@ util.inherits(Administrator, Base);
 _.extend(Administrator.prototype, {
 
   getAdministrators: function(payload, options) {
-    logger.log('administrator_get_administrators');
+    logger.info('administrator_get_administrators');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -32,7 +34,7 @@ _.extend(Administrator.prototype, {
 
 
   getSuperadmins: function(payload, options) {
-    logger.log('administrator_get_superadmins');
+    logger.info('administrator_get_superadmins');
 
     return this.getAdministrators(payload, options).then(function(response) {
       var superadmins = new AdminList(response.body.data).getSuperadministrators();
@@ -52,7 +54,7 @@ _.extend(Administrator.prototype, {
 
   getAdministrator: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id']).then(function() {
-      logger.log('administrator_get_administrator');
+      logger.info('administrator_get_administrator');
 
       var administratorId = payload.administrator_id;
       payload = this._cleanPayload(payload, ['administrator_id']);
@@ -68,7 +70,7 @@ _.extend(Administrator.prototype, {
 
   getAdministratorByName: function(payload, options) {
     return this._requireParameters(payload, ['admin_name']).then(function() {
-      logger.log('administrator_get_administrator_by_name');
+      logger.info('administrator_get_administrator_by_name');
 
       var adminName = payload.admin_name;
       payload = this._cleanPayload(payload, ['admin_name']);
@@ -91,7 +93,7 @@ _.extend(Administrator.prototype, {
 
 
   getInterfaceLanguages: function(payload, options) {
-    logger.log('administrator_get_interface_languages');
+    logger.info('administrator_get_interface_languages');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -102,7 +104,7 @@ _.extend(Administrator.prototype, {
 
 
   getStartPages: function(payload, options) {
-    logger.log('administrator_get_start_pages');
+    logger.info('administrator_get_start_pages');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -114,7 +116,7 @@ _.extend(Administrator.prototype, {
 
   getRestrictedStartPages: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id']).then(() => {
-      logger.log('administrator_get_restricted_start_pages');
+      logger.info('administrator_get_restricted_start_pages');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -126,7 +128,7 @@ _.extend(Administrator.prototype, {
 
 
   getLanguages: function(customerId, language, options) {
-    logger.log('administrator_getLanguages');
+    logger.info('administrator_getLanguages');
     if (!language) {
       language = 'en';
     }
@@ -135,7 +137,7 @@ _.extend(Administrator.prototype, {
 
 
   getAccessLevels: function(payload, options) {
-    logger.log('administrator_get_access_levels');
+    logger.info('administrator_get_access_levels');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -147,7 +149,7 @@ _.extend(Administrator.prototype, {
 
   patchAdministrator: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id']).then(function() {
-      logger.log('administrator_patch_administrator');
+      logger.info('administrator_patch_administrator');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -161,7 +163,7 @@ _.extend(Administrator.prototype, {
 
 
   createAdministrator: function(payload, options) {
-    logger.log('admin_create_administrator');
+    logger.info('admin_create_administrator');
     if (!payload) {
       payload = {};
     }
@@ -188,7 +190,7 @@ _.extend(Administrator.prototype, {
 
 
   inviteExistingAdministrator: function(payload, options) {
-    logger.log('admin_invite_existing_administrator');
+    logger.info('admin_invite_existing_administrator');
 
     payload = _.extend({}, payload, {
       last_invitation_action_date: dateHelper.getCurrentDate()
@@ -199,7 +201,7 @@ _.extend(Administrator.prototype, {
 
 
   createSuperadmin: function(payload, options) {
-    logger.log('admin_create_superadmin');
+    logger.info('admin_create_superadmin');
 
     return this.createAdministrator(
       _.extend({}, payload, {
@@ -211,7 +213,7 @@ _.extend(Administrator.prototype, {
 
 
   promoteToSuperadmin: function(payload, options) {
-    logger.log('admin_promote_superadmin');
+    logger.info('admin_promote_superadmin');
 
     payload = _.extend({}, payload, {
       superadmin: 1
@@ -222,7 +224,7 @@ _.extend(Administrator.prototype, {
 
 
   enableAdministrator: function(payload, options) {
-    logger.log('admin_enable');
+    logger.info('admin_enable');
 
     if (!payload) {
       payload = {};
@@ -238,7 +240,7 @@ _.extend(Administrator.prototype, {
 
 
   disableAdministrator: function(payload, options) {
-    logger.log('admin_disable');
+    logger.info('admin_disable');
 
     if (!payload) {
       payload = {};
@@ -254,7 +256,7 @@ _.extend(Administrator.prototype, {
 
   deleteAdministrator: function(payload, options) {
     return this._requireParameters(payload, ['administrator_id', 'successor_administrator_id']).then(function() {
-      logger.log('admin_delete');
+      logger.info('admin_delete');
 
       return this._request.post(
         this._getCustomerId(options),

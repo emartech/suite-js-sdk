@@ -2,7 +2,10 @@
 
 var SuiteAPI = require('../api');
 var axios = require('axios');
-var logger = require('logentries-logformat')('collect-translations');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
+
 var TranslationRequiredParameterMissingError = require('./required-parameter-missing-error');
 
 var translationCache = {};
@@ -25,7 +28,7 @@ CollectTranslations.prototype = {
     );
     var admin = response.body.data;
 
-    logger.log('admin fetched', adminId);
+    logger.info('admin fetched', adminId);
     return await this.getSuiteTranslations(admin.interface_language);
   },
 
@@ -42,7 +45,7 @@ CollectTranslations.prototype = {
     const translation = response && response.data ? response.data : {};
 
     translationCache[language] = translation;
-    logger.log('collected', language);
+    logger.info('collected', language);
   },
 
   _getTranslationUrl: function(language) {

@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Settings, Base);
 _.extend(Settings.prototype, {
 
   getSettings: function(payload, options) {
-    logger.log('settings_get_settings');
+    logger.info('settings_get_settings');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -27,7 +29,7 @@ _.extend(Settings.prototype, {
 
 
   getCorporateDomains: function(payload, options) {
-    logger.log('settings_get_corporate_domains');
+    logger.info('settings_get_corporate_domains');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -38,7 +40,7 @@ _.extend(Settings.prototype, {
 
 
   setCorporateDomains: function(payload, options) {
-    logger.log('settings_set_corporate_domains');
+    logger.info('settings_set_corporate_domains');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -49,7 +51,7 @@ _.extend(Settings.prototype, {
   },
 
   getDeliverability: function(payload, options) {
-    logger.log('settings_get_deliverability');
+    logger.info('settings_get_deliverability');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -59,7 +61,7 @@ _.extend(Settings.prototype, {
   },
 
   getIpRestrictions: function(payload, options) {
-    logger.log('settings_get-ip-restrictions');
+    logger.info('settings_get-ip-restrictions');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -69,7 +71,7 @@ _.extend(Settings.prototype, {
   },
 
   setIpRestrictions: function(payload, options) {
-    logger.log('settings_set-ip-restrictions');
+    logger.info('settings_set-ip-restrictions');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -81,7 +83,7 @@ _.extend(Settings.prototype, {
 
   getLanguages: function(payload, options) {
     return this._requireParameters(payload, ['translate']).then(function() {
-      logger.log('settings_get_languages');
+      logger.info('settings_get_languages');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -92,7 +94,7 @@ _.extend(Settings.prototype, {
   },
 
   getLinkCategories: function(payload, options) {
-    logger.log('settings_get_linkcategories');
+    logger.info('settings_get_linkcategories');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -102,7 +104,7 @@ _.extend(Settings.prototype, {
   },
 
   getSecuritySettings: function(payload, options) {
-    logger.log('settings_get_security-settings');
+    logger.info('settings_get_security-settings');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -112,7 +114,7 @@ _.extend(Settings.prototype, {
   },
 
   setSecuritySettings: function(payload, options) {
-    logger.log('settings_set-security-settings');
+    logger.info('settings_set-security-settings');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -123,7 +125,7 @@ _.extend(Settings.prototype, {
   },
 
   getDeliverabilitySenderDomains: function(payload, options) {
-    logger.log('settings_get-senderdomains');
+    logger.info('settings_get-senderdomains');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -133,7 +135,7 @@ _.extend(Settings.prototype, {
   },
 
   setDeliverabilitySenderDomain: function(payload, options) {
-    logger.log('settings_set-senderdomain');
+    logger.info('settings_set-senderdomain');
 
     return this._request.put(
       this._getCustomerId(options),

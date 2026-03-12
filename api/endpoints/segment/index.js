@@ -1,8 +1,10 @@
 'use strict';
 
 var util = require('util');
-var logger = require('logentries-logformat')('suite-sdk');
 var _ = require('lodash');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -18,7 +20,7 @@ _.extend(Segment.prototype, {
   listContacts: function(payload, options) {
     return this._requireParameters(payload, ['segment_id', 'limit']).then(function() {
       var url = util.format('/filter/%s/contacts', payload.segment_id);
-      logger.log('segment_list_contacts');
+      logger.info('segment_list_contacts');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -31,7 +33,7 @@ _.extend(Segment.prototype, {
   countContacts: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/filter/%s/contacts/count', payload.segment_id);
-      logger.log('segment_count_contacts');
+      logger.info('segment_count_contacts');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -42,7 +44,7 @@ _.extend(Segment.prototype, {
   },
 
   listSegments: function(payload, options) {
-    logger.log('segment_list');
+    logger.info('segment_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -54,7 +56,7 @@ _.extend(Segment.prototype, {
   getSegment: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/filter/%s', payload.segment_id);
-      logger.log('get_segment');
+      logger.info('get_segment');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -65,7 +67,7 @@ _.extend(Segment.prototype, {
   },
 
   create: function(payload, options) {
-    logger.log('segment_create');
+    logger.info('segment_create');
 
     return this._request.put(
       this._getCustomerId(options),
@@ -78,7 +80,7 @@ _.extend(Segment.prototype, {
   getContactCriteria: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/filter/%s/contact_criteria', payload.segment_id);
-      logger.log('segment_get_contact_criteria');
+      logger.info('segment_get_contact_criteria');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -91,7 +93,7 @@ _.extend(Segment.prototype, {
   updateContactCriteria: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
       var url = util.format('/filter/%s/contact_criteria', payload.segment_id);
-      logger.log('segment_update_contact_criteria');
+      logger.info('segment_update_contact_criteria');
 
       return this._request.put(
         this._getCustomerId(options),
@@ -104,7 +106,7 @@ _.extend(Segment.prototype, {
 
   runForSingleContact: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
-      logger.log('segment_run_for_single_contact');
+      logger.info('segment_run_for_single_contact');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -117,7 +119,7 @@ _.extend(Segment.prototype, {
 
   singleContactRunStatus: function(payload, options) {
     return this._requireParameters(payload, ['run_id']).then(function() {
-      logger.log('segment_single_contact_run_status');
+      logger.info('segment_single_contact_run_status');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -129,7 +131,7 @@ _.extend(Segment.prototype, {
 
   runForMultipleContacts: function(payload, options) {
     return this._requireParameters(payload, ['segment_id']).then(function() {
-      logger.log('segment_run_for_multiple_contacts');
+      logger.info('segment_run_for_multiple_contacts');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -142,7 +144,7 @@ _.extend(Segment.prototype, {
 
   multipleContactsRunStatus: function(payload, options) {
     return this._requireParameters(payload, ['run_id']).then(function() {
-      logger.log('segment_multiple_contacts_run_status');
+      logger.info('segment_multiple_contacts_run_status');
 
       return this._request.get(
         this._getCustomerId(options),

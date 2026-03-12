@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -15,7 +17,7 @@ util.inherits(ExternalEvent, Base);
 
 _.extend(ExternalEvent.prototype, {
   create: function(payload, options) {
-    logger.log('externalevent_create');
+    logger.info('externalevent_create');
     return this._request.post(
       this._getCustomerId(options),
       '/event',
@@ -35,7 +37,7 @@ _.extend(ExternalEvent.prototype, {
   },
 
   list: function(payload, options) {
-    logger.log('externalevent_list');
+    logger.info('externalevent_list');
     return this._request.get(
       this._getCustomerId(options),
       '/event',
@@ -44,7 +46,7 @@ _.extend(ExternalEvent.prototype, {
   },
 
   usages: function(payload, options) {
-    logger.log('externalevent_usages');
+    logger.info('externalevent_usages');
     return this._requireParameters(payload, ['event_id']).then(function() {
       return this._request.get(
         this._getCustomerId(options),
@@ -56,7 +58,7 @@ _.extend(ExternalEvent.prototype, {
 
   update: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
-      logger.log('externalevent_update');
+      logger.info('externalevent_update');
       return this._request.post(
         this._getCustomerId(options),
         util.format('/event/%s', payload.event_id),
@@ -68,7 +70,7 @@ _.extend(ExternalEvent.prototype, {
 
   delete: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
-      logger.log('externalevent_update');
+      logger.info('externalevent_update');
       return this._request.post(
         this._getCustomerId(options),
         util.format('/event/%s/delete', payload.event_id),
@@ -82,7 +84,7 @@ _.extend(ExternalEvent.prototype, {
 
   trigger: function(payload, options) {
     return this._requireParameters(payload, ['event_id']).then(function() {
-      logger.log('externalevent_trigger');
+      logger.info('externalevent_trigger');
 
       return this._request.post(
         this._getCustomerId(options),
