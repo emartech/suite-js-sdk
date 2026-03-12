@@ -133,9 +133,7 @@ describe('SuiteApi', function() {
           timeout: 13500
         });
 
-        /*eslint-disable*/
         expect(api).to.be.ok;
-        /*eslint-enable*/
       });
 
     });

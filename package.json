@@ -13,10 +13,11 @@
   "scripts": {
     "test": "npm run test:unit",
     "test:unit": "NODE_ENV=test mocha --reporter spec --ui bdd $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
-    "lint": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint .",
-    "lint:fix": "cross-env ESLINT_USE_FLAT_CONFIG=false eslint --fix .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "validate-commit-msg": "validate-commit-msg",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "verify": "npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,7 @@
   "dependencies": {
     "@emartech/escher-request": "^22.2.0",
     "@emartech/json-logger": "^9.2.1",
-    "axios": "^1.12.0",
+    "axios": "^1.13.5",
     "escher-auth": "^4.0.0",
     "escher-keypool": "^3.0.0",
     "flat": "^5.0.2",
@@ -48,17 +49,18 @@
     "sprintf-js": "^1.1.3"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
     "chai": "6.2.2",
     "chai-as-promised": "8.0.2",
-    "cross-env": "10.1.0",
-    "eslint": "9.39.2",
-    "eslint-config-emarsys": "5.1.0",
+    "eslint": "10.0.3",
+    "eslint-plugin-chai-friendly": "1.1.0",
     "eslint-plugin-no-only-tests": "3.3.0",
-    "eslint-plugin-security": "3.0.1",
+    "eslint-plugin-security": "4.0.0",
+    "globals": "17.4.0",
     "mocha": "11.7.5",
-    "nock": "14.0.10",
+    "nock": "14.0.11",
     "pre-commit": "1.2.2",
-    "semantic-release": "25.0.2",
+    "semantic-release": "25.0.3",
     "sinon": "21.0.1",
     "sinon-chai": "4.0.1",
     "validate-commit-message": "3.2.0"
