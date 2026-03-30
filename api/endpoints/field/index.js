@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Field, Base);
 _.extend(Field.prototype, {
 
   create: function(payload, options) {
-    logger.log('field_create');
+    logger.info('field_create');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -30,7 +32,7 @@ _.extend(Field.prototype, {
   get: function(payload, options) {
     return this._requireParameters(payload, ['translate_id']).then(function() {
       var url = util.format('/field/translate/%s', payload.translate_id);
-      logger.log('field_get');
+      logger.info('field_get');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -47,7 +49,7 @@ _.extend(Field.prototype, {
         util.format('/field/%d/choice/translate/%s', payload.field_id, payload.translate_id) :
         util.format('/field/%d/choice', payload.field_id);
 
-      logger.log('field_get_choices');
+      logger.info('field_get_choices');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -64,7 +66,7 @@ _.extend(Field.prototype, {
         util.format('/field/choices?fields=%s&language=%s', payload.field_ids.join(','), payload.translate_id) :
         util.format('/field/choices?fields=%s', payload.field_ids.join(','));
 
-      logger.log('field_get_multiple_choices');
+      logger.info('field_get_multiple_choices');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -77,7 +79,7 @@ _.extend(Field.prototype, {
   delete: function(payload, options) {
     return this._requireParameters(payload, ['field_id']).then(function() {
       var url = util.format('/field/%s', payload.field_id);
-      logger.log('field_delete');
+      logger.info('field_delete');
 
       return this._request.delete(this._getCustomerId(options), url, options);
     }.bind(this));

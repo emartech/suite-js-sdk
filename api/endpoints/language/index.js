@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Language, Base);
 _.extend(Language.prototype, {
 
   translate: function(payload, options) {
-    logger.log('language_translate');
+    logger.info('language_translate');
 
     var languagePostfix = payload.language ? '/' + payload.language : '';
 
