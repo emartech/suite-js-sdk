@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -14,7 +16,7 @@ var Email = function(request, options) {
 var fetchFactory = function(payload, options, urlPattern, operationName) {
   return function() {
     var url = util.format(urlPattern, payload.email_id);
-    logger.log(operationName);
+    logger.info(operationName);
 
     return this._request.get(
       this._getCustomerId(options),
@@ -27,7 +29,7 @@ var fetchFactory = function(payload, options, urlPattern, operationName) {
 var createFactory = function(payload, options, urlPattern, operationName) {
   return function() {
     var url = util.format(urlPattern, payload.email_id);
-    logger.log(operationName);
+    logger.info(operationName);
 
     return this._request.post(
       this._getCustomerId(options),
@@ -62,7 +64,7 @@ _.extend(Email.prototype, {
 
   delete: function(payload, options) {
     return this._requireParameters(payload, ['emailId']).then(function() {
-      logger.log('email_delete');
+      logger.info('email_delete');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -81,7 +83,7 @@ _.extend(Email.prototype, {
 
   renameVersion: function(payload, options) {
     return this._requireParameters(payload, ['email_id', 'version_id']).then(function() {
-      logger.log('rename_email_version');
+      logger.info('rename_email_version');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -94,7 +96,7 @@ _.extend(Email.prototype, {
 
   updateSource: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_update_source');
+      logger.info('email_update_source');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -107,7 +109,7 @@ _.extend(Email.prototype, {
 
 
   list: function(payload, options) {
-    logger.log('email_list');
+    logger.info('email_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -139,7 +141,7 @@ _.extend(Email.prototype, {
 
   patch: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_patch');
+      logger.info('email_patch');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -153,7 +155,7 @@ _.extend(Email.prototype, {
 
   sendTestMail: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_send_test_mail');
+      logger.info('email_send_test_mail');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -167,7 +169,7 @@ _.extend(Email.prototype, {
 
   launch: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_launch');
+      logger.info('email_launch');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -180,7 +182,7 @@ _.extend(Email.prototype, {
 
   broadcast: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_broadcast');
+      logger.info('email_broadcast');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -193,7 +195,7 @@ _.extend(Email.prototype, {
 
   getPersonalizations: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_get_personalizations');
+      logger.info('email_get_personalizations');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -206,7 +208,7 @@ _.extend(Email.prototype, {
 
   setPersonalizations: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_post_personalizations');
+      logger.info('email_post_personalizations');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -219,7 +221,7 @@ _.extend(Email.prototype, {
 
   createTrackedLink: function(payload, options) {
     return this._requireParameters(payload, ['email_id', 'section_id', 'url']).then(function() {
-      logger.log('email_post_createTrackedLinks');
+      logger.info('email_post_createTrackedLinks');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -232,7 +234,7 @@ _.extend(Email.prototype, {
 
   getTrackedLinks: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_get_getTrackedLinks');
+      logger.info('email_get_getTrackedLinks');
 
       var url = payload.link_id ?
         util.format('/email/%s/trackedlinks/%s', payload.email_id, payload.link_id) :
@@ -248,7 +250,7 @@ _.extend(Email.prototype, {
 
   updateTrackedLink: function(payload, options) {
     return this._requireParameters(payload, ['email_id', 'link_id', 'url']).then(function() {
-      logger.log('email_post_updateTrackedLinks');
+      logger.info('email_post_updateTrackedLinks');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -261,7 +263,7 @@ _.extend(Email.prototype, {
 
   deleteTrackedLinks: function(payload, options) {
     return this._requireParameters(payload, ['email_id']).then(function() {
-      logger.log('email_post_deleteTrackedLinks');
+      logger.info('email_post_deleteTrackedLinks');
 
       var url = payload.link_id ?
         util.format('/email/%s/deletetrackedlinks/%s', payload.email_id, payload.link_id) :
@@ -284,7 +286,7 @@ _.extend(Email.prototype, {
 
   launchList: function(payload, options) {
     return this._requireParameters(payload, ['emailId']).then(function() {
-      logger.log('email_getlaunchesofemail');
+      logger.info('email_getlaunchesofemail');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -297,7 +299,7 @@ _.extend(Email.prototype, {
 
   getDeliveryStatus: function(payload, options) {
     return this._requireParameters(payload, ['emailId']).then(function() {
-      logger.log('email_getdeliverystatus');
+      logger.info('email_getdeliverystatus');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -310,7 +312,7 @@ _.extend(Email.prototype, {
 
   responses: function(payload, options) {
     return this._requireParameters(payload, ['type']).then(function() {
-      logger.log('email_responses');
+      logger.info('email_responses');
 
       return this._request.post(
         this._getCustomerId(options),
@@ -322,7 +324,7 @@ _.extend(Email.prototype, {
   },
 
   getContacts: function(payload, options) {
-    logger.log('email_getcontacts');
+    logger.info('email_getcontacts');
 
     return this._request.post(
       this._getCustomerId(options),

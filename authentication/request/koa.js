@@ -1,6 +1,9 @@
 'use strict';
 
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
+
 var RequestAuthenticator = require('./request-authenticator');
 
 module.exports.getMiddleware = function(escherConfig) {
