@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(ContactList, Base);
 _.extend(ContactList.prototype, {
 
   create: function(payload, options) {
-    logger.log('contactlist_create');
+    logger.info('contactlist_create');
 
     return this._request.post(
       this._getCustomerId(options),
@@ -30,7 +32,7 @@ _.extend(ContactList.prototype, {
   list: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
       var url = util.format('/contactlist/%s/contacts', payload.contact_list_id);
-      logger.log('contactlist_list');
+      logger.info('contactlist_list');
 
       return this._request.get(
         this._getCustomerId(options),
@@ -42,7 +44,7 @@ _.extend(ContactList.prototype, {
 
   fetch: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
-      logger.log('contactlist_fetch');
+      logger.info('contactlist_fetch');
 
       var url = util.format('/contactlist/%s/contactIds', payload.contact_list_id);
       return this._request.get(
@@ -56,7 +58,7 @@ _.extend(ContactList.prototype, {
   add: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
       var url = util.format('/contactlist/%s/add', payload.contact_list_id);
-      logger.log('contactlist_add');
+      logger.info('contactlist_add');
 
       // filter out url params from payload
       payload.contact_list_id = undefined;
@@ -76,7 +78,7 @@ _.extend(ContactList.prototype, {
   },
 
   listContactLists: function(payload, options) {
-    logger.log('contactlist_list');
+    logger.info('contactlist_list');
 
     return this._request.get(
       this._getCustomerId(options),
@@ -87,7 +89,7 @@ _.extend(ContactList.prototype, {
 
   count: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
-      logger.log('contactlist_count');
+      logger.info('contactlist_count');
 
       var url = util.format('/contactlist/%s/count', payload.contact_list_id);
 
@@ -101,7 +103,7 @@ _.extend(ContactList.prototype, {
 
   getContactsData: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
-      logger.log('contactlist_getcontactsdata');
+      logger.info('contactlist_getcontactsdata');
 
       var baseUrl = util.format('/contactlist/%s/contacts/data', payload.contact_list_id);
 
@@ -116,7 +118,7 @@ _.extend(ContactList.prototype, {
   deleteList: function(payload, options) {
     return this._requireParameters(payload, ['contact_list_id']).then(function() {
       var url = util.format('/contactlist/%s/deletelist', payload.contact_list_id);
-      logger.log('contactlist_deletelist');
+      logger.info('contactlist_deletelist');
 
       return this._request.post(
         this._getCustomerId(options),

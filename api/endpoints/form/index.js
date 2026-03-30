@@ -2,7 +2,9 @@
 
 var util = require('util');
 var _ = require('lodash');
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
 
 var Base = require('../_base');
 
@@ -16,7 +18,7 @@ util.inherits(Form, Base);
 _.extend(Form.prototype, {
 
   list: function(payload, options) {
-    logger.log('form_list');
+    logger.info('form_list');
 
     return this._request.get(
       this._getCustomerId(options),

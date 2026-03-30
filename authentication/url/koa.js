@@ -1,6 +1,9 @@
 'use strict';
 
-var logger = require('logentries-logformat')('suite-sdk');
+
+const { createLogger } = require('@emartech/json-logger');
+const logger = createLogger('suite-sdk');
+
 var Authenticator = require('./');
 
 module.exports.getMiddleware = function(options) {
@@ -8,7 +11,7 @@ module.exports.getMiddleware = function(options) {
     var authenticator = Authenticator.create(options);
     var request = ctx.request;
 
-    logger.log('authentication_url', {
+    logger.info('authentication_url', {
       url: request.url,
       host: request.header.host
     });
