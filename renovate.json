@@ -18,7 +18,7 @@
   "packageRules": [
     {
       "description": "Disable minimum release age for internal packages",
-      "matchPackageNames": ["/@emartech/"],
+      "matchPackageNames": ["/@emartech/", "escher-auth", "escher-keypool"],
       "minimumReleaseAge": null
     }
   ]
