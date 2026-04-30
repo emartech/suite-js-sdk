@@ -11,7 +11,7 @@ module.exports.getMiddleware = function(escherConfig) {
     try {
       RequestAuthenticator.create(escherConfig, ctx).authenticate();
     } catch (ex) {
-      logger.error('authentication_request_error', ex.message, ex);
+      logger.fromError('authentication_request_error', ex);
       ctx.throw(401, ex.message);
     }
 
