@@ -15,6 +15,9 @@
     "schedule": ["on the 1-7 day on Sunday"]
   },
   "schedule": ["on the 1-7 day on Sunday"],
+  "vulnerabilityAlerts": {
+    "rangeStrategy": "bump"
+  },
   "packageRules": [
     {
       "description": "Disable minimum release age for internal packages",
