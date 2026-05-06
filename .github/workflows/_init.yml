@@ -32,7 +32,7 @@ jobs:
 
       - name: Get node cache key
         id: node-cache-key
-        run: echo ::set-output name=NODE_CACHE_KEY::npm-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/package.json') }}
+        run: echo ::set-output name=NODE_CACHE_KEY::npm-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/.npmrc', '**/package*.json') }}
 
       - name: Cache dependencies
         id: cache-node-modules
