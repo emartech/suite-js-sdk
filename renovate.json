@@ -8,7 +8,9 @@
     ":separateMultipleMajorReleases",
     "group:allNonMajor"
   ],
-  "dependencyDashboardLabels": ["dependencies"],
+  "dependencyDashboard": {
+    "labels": ["dependencies"]
+  },
   "labels": ["dependencies"],
   "lockFileMaintenance": {
     "enabled": true,
